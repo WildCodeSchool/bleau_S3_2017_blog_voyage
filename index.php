@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <title>Bootstrap Case</title>
+  <title>Blog Voyage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -9,33 +9,74 @@
   <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-custom">
-	  <div class="container-fluid">
-		<div class="navbar-header">
-		  <a class="navbar-brand navbar-brand-custom" href="#">Le blog de Pierre & Raquel</a>
-		</div>
+<header>
+	<nav class="navbar navbar-inverse navbar-custom navbar-custom-1201">
+	  <div class="container-fluid container-fluid-custom">
+		
+		<a class="navbar-brand navbar-brand-custom" href="#"><img src="images/mandala.png" alt='logo'/></a>
+	
 		<ul class="nav navbar-nav">
-		  <li class="active"><a href="#">Home</a></li>
 		  <li><a href="#">Accueil</a></li>
 		  <li><a href="#">Présentation du projet</a></li>
 		  <li><a href="#">Remerciements</a></li>
 		  <li><a href="#">Catégories</a></li>
+		  <li><a href="#">Articles par date</a></li>
 		  <li><a href="#">Contact</a></li>
 		</ul>
 	  </div>
 	</nav>
+	
+	<nav class="navbar navbar-custom navbar-custom-1200">
+	  <div class="container-fluid container-fluid-custom">
+		
+		<a class="navbar-brand navbar-brand-custom" href="#"><img src="images/mandala.png" alt='logo'/></a>
+		
+		<div class="dropdown dropdown-custom">
+			<button class="btn btn-lg btn-hamburger-custom dropdown-toggle" type="button" data-toggle="dropdown">
+				<span class="glyphicon glyphicon-menu-hamburger"></span>
+			</button>
+			<ul class="dropdown-menu dropdown-menu-right" role="menu">
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Accueil</a></li>
+			  <li role="presentation" class="divider"></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Présentation du projet</a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Remerciements</a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Catégories</a></li>    
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Articles par date</a></li>    
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact</a></li>    
+			</ul>
+		</div>
+	  </div>
+	</nav>
+
+</header>
 <section>
 	<img src='images/lumia1.jpg'/>
 	<figcaption class="picture-caption">
 		<h1>Arrivés à bon port</h1>
-		<a href='#'><input type="submit" value="En savoir plus" class="btn btn-custom btn-danger" /></a>	
+		<a href='#'><input type="submit" value="En savoir plus" class="btn btn-custom btn-danger" /></a>
+		<i> Publié le 18/03/2017 </i>		
 	</figcaption>
-	
 </section>
 
 <div class='container container-custom'>
 	<div class='row'>
-		<article class="col-md-4 article-custom">
+		<article class="col-sm-6 col-md-4 article-custom">
+    		<figure class="col-xs-12">
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia1.jpg"></a>
+				<figcaption class="article-caption">
+					<h1 class="article-title"><a href="">Arrivés à bon port</a></h1>
+				</figcaption>
+			</figure>
+				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
+					<p>
+						Quam quidem partem accusationesse Atratino datam. Neque enim decebat neque aetas illa postulabat neque, id quod animadvertere poteratis, pudor patiebatur 
+					</p>
+					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
+				</div>		
+		</article>
+	
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-xs-12">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="http://farm1.staticflickr.com/258/18511405422_d7c67c0ff8_k.jpg"></a>
 				<figcaption class="article-caption">
@@ -47,12 +88,13 @@
 						Quam quidem partem accusationesse Atratino datam. Neque enim decebat neque aetas illa postulabat neque, id quod animadvertere poteratis, pudor patiebatur 
 					</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4 article-custom">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-xs-12">
-				<a href=""><img class="img img-responsive article-img" src="images/lumia.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Au revoir Paris ! </a></h1>
 				</figcaption>
@@ -60,10 +102,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>hunc male dicendi locum suscepisset; aliquanto liberius et fortius et magis more nostro refutaremus istam male dicendi licentiam. Tecum, Atratine, agam lenius, quod et p</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4 article-custom">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-xs-12  ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia1.jpg"></a>
 				<figcaption class="article-caption">
@@ -73,10 +116,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>as illa postulabat neque, id quod animadvertere poteratis, pudor patiebatur optimi adulescentis in tali illum oratione versari. Vellem aliquis ex vobis robustioribus hunc male dicendi locum susc</strong>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12 ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia4.jpg"></a>
 				<figcaption class="article-caption">
@@ -86,10 +130,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia6.jpg"></a>
 				<figcaption class="article-caption">
@@ -99,10 +144,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia3.jpg"></a>
 				<figcaption class="article-caption">
@@ -112,10 +158,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia6.jpg"></a>
 				<figcaption class="article-caption">
@@ -125,10 +172,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12 ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia7.jpg"></a>
 				<figcaption class="article-caption">
@@ -138,10 +186,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia7.jpg"></a>
 				<figcaption class="article-caption">
@@ -151,10 +200,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia3.jpg"></a>
 				<figcaption class="article-caption">
@@ -164,10 +214,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12 ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia3.jpg"></a>
 				<figcaption class="article-caption">
@@ -177,10 +228,11 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 		
-		<article class="col-md-4">
+		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12 ">
 				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia3.jpg"></a>
 				<figcaption class="article-caption">
@@ -190,6 +242,7 @@
 				<div class="article-intro synthesis col-lg-12" style="padding-top: 10px;">
 					<p>Lorem ipsum dolor Lorem sum dolor. Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor..</p>
 					<p><a href='#'><input type="submit" value="En savoir plus" class="btn btn-large btn-custom btn-danger" /></a></p>
+					<i> Publié le 18/03/2017 </i>
 				</div>		
 		</article>
 	</div>
@@ -203,10 +256,10 @@
            <p>Souscrivez à notre Newsletter.</p>
            <form action="" method="post">
 			   <div class="input-prepend"><span class="add-on"><i class="icon-envelope"></i></span>
-				 <input type="text" id="" name="" placeholder="votre email@.com">
+				 <input type="text" id="newsletter" name="" placeholder="votre email@.com">
 			   </div>
 			   <br />
-			   <input type="submit" value="Je souscris!" class="btn btn-large btn-primary" />
+			   <input type="submit" value="Je souscris!" class="btn btn-large btn-danger btn-custom" />
            </form>
         </div>    
       </div>
@@ -219,5 +272,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/style.js"></script>
 </body>
 </html>
