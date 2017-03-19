@@ -1,15 +1,27 @@
 /*
 
-1. NAVBAR
-2. IMAGE PRINCIPALE
-3. CONTAINER
-4. NEWSLETTER
-5. FOOTER
-
+1. BODY
+2. NAVBAR
+3. IMAGE PRINCIPALE
+4. CONTAINER
+5. NEWSLETTER
+6. FOOTER
 
 ********************
-1. NAVBAR
+1. BODY
 ********************/
+
+body{
+	font-family: 'Dancing Script', cursive;
+	padding: 0;
+	margin: 0;
+}
+
+/********************
+2. NAVBAR
+********************/
+
+/* Menu avec dropdown si width > 1200px */
 
 .navbar-custom{
 	position: fixed;
@@ -19,9 +31,81 @@
 	font-size: 2em;
 }
 
+.navbar-brand-custom{
+	margin: 0;
+	padding: 0;
+}
+
+.navbar-brand-custom img{
+	height: 100%;
+}
+
+.container-fluid-custom{
+	padding-left: 25px;
+}
+
+@media screen and (min-width: 1201px){
+
+	.navbar-custom-1200{
+		display: none;
+	}
+}
+
+/* Menu avec dropdown si width <= 1200px */
+
+@media screen and (max-width: 1200px){
+	
+	.navbar-custom-1201{
+		display: none;
+	}
+	
+	.navbar-custom-1200{
+		text-align: right;
+		background: black;
+	}
+	
+	.btn-hamburger-custom{
+		background: none;
+		border: none;
+	}
+	
+	.dropdown-menu li{
+		font-size: 1.5em;
+	}
+	
+	.glyphicon-menu-hamburger{
+		color: white;
+	}
+}
+
+@media screen and (max-width: 767px){
+	.container-fluid-custom{
+		padding-left: 10px;
+	}
+}
+
 /********************
-2. IMAGE PRINCIPALE
+3. IMAGE PRINCIPALE
 ********************/
+
+section{
+	height: 100vh;
+	overflow: hidden;
+	position: relative;
+	padding: 0;
+	margin: 0;
+}
+
+section img{
+	width: 100%;
+}
+
+section i{
+	color: white;
+	font-size: 2em;
+	margin: 0;
+	text-align: center;
+}
 
 .picture-caption{
 	position: absolute;
@@ -29,7 +113,7 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	background-color: rgba(0,0,0,0.5);
 	height: 200px;
@@ -44,26 +128,62 @@
 .picture-caption a{
 	color: white;
 	font-size: 2em;
+	text-decoration: none;
 }
 
+@media screen and (max-width: 800px){
+	section{
+		margin-top: 50px;
+	}
+}
+
+
+@media screen and (min-width: 601px) and (max-width: 800px){
+	
+	.picture-caption{
+		height: 150px;
+		bottom: 0;
+	}
+	
+	.picture-caption h1{
+		font-size: 3em;
+	}
+
+	.picture-caption a{
+		color: white;
+		font-size: 1.5em;
+		text-decoration: none;
+	}
+	
+	.picture-caption i{
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (min-width: 320px) and (max-width: 600px){
+	.picture-caption{
+		height: 100px;
+		bottom: 0;
+	}
+	
+	.picture-caption h1{
+		font-size: 2em;
+	}
+
+	.picture-caption a{
+		color: white;
+		font-size: 1em;
+		text-decoration: none;
+	}
+	
+	.picture-caption i{
+		font-size: 1em;
+	}
+}
 
 /********************
-3. CONTAINER
+4. CONTAINER
 ********************/
-
-body, 
-html{
-	font-family: 'Dancing Script', cursive;
-}
-
-section{
-	height: 100vh;
-	overflow: hidden;
-}
-
-section img{
-	max-width: 100%;
-}
 
 .container-custom{
 	margin-top: 50px;
@@ -71,7 +191,11 @@ section img{
 }
 
 .article-custom{
-	margin-bottom: 15px;
+	margin-bottom: 20px;
+}
+
+.article-custom a{
+	text-decoration: none;
 }
 
 .synthesis{
@@ -103,18 +227,35 @@ section img{
 
 .btn-custom{
 	font-size: 1em;
+	display: block;
+	margin: 0 auto;
+}
+
+i{
+	display: block;
+	font-size: .9em;
+	width: 100%;
+	margin-bottom: 10px;
+	text-align: right;
+	color: #b22222;
 }
 
 /********************
-4. NEWSLETTER
+5. NEWSLETTER
 ********************/
 
 .container_custom_newsletter{
 	font-size: 2em;
 }
 
+#newsletter{
+	text-align: center;
+}
+
+
+
 /********************
-5. FOOTER 
+6. FOOTER 
 ********************/
 
 .footer{
