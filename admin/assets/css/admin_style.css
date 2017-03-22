@@ -1,0 +1,35 @@
+/*Style des pages admin*/
+
+
+/*Style de la page pwd*/
+
+
+/*Style de la page menu*/
+
+.deco
+{
+	background-color: black !important;
+}
+	/*margin-top: 50px;
+}*/
+
+.btn-info
+{
+	background-color: grey !important;
+}
+.titre_menu
+{
+	text-align: center;
+}
+/*.container_admin_menu
+{
+	height: 100%;
+}*/
+.navbar-inverse
+{
+	background-color: white!important;
+}
+.navbar-toggle
+{
+	background-color: grey !important;
+}
