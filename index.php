@@ -1,56 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <title>Blog Voyage</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type='text/css' href="css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
-</head>
-<body>
-<header>
-	<nav class="navbar navbar-inverse navbar-custom navbar-custom-1201">
-	  <div class="container-fluid container-fluid-custom">
-		
-		<a class="navbar-brand navbar-brand-custom" href="#"><img src="images/mandala.png" alt='logo'/></a>
-	
-		<ul class="nav navbar-nav">
-		  <li><a href="#">Accueil</a></li>
-		  <li><a href="#">Présentation du projet</a></li>
-		  <li><a href="#">Remerciements</a></li>
-		  <li><a href="#">Catégories</a></li>
-		  <li><a href="#">Articles par date</a></li>
-		  <li><a href="#">Contact</a></li>
-		</ul>
-	  </div>
-	</nav>
-	
-	<nav class="navbar navbar-custom navbar-custom-1200">
-	  <div class="container-fluid container-fluid-custom">
-		
-		<a class="navbar-brand navbar-brand-custom" href="#"><img src="images/mandala.png" alt='logo'/></a>
-		
-		<div class="dropdown dropdown-custom">
-			<button class="btn btn-lg btn-hamburger-custom dropdown-toggle" type="button" data-toggle="dropdown">
-				<span class="glyphicon glyphicon-menu-hamburger"></span>
-			</button>
-			<ul class="dropdown-menu dropdown-menu-right" role="menu">
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Accueil</a></li>
-			  <li role="presentation" class="divider"></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Présentation du projet</a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Remerciements</a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Catégories</a></li>    
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Articles par date</a></li>    
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact</a></li>    
-			</ul>
-		</div>
-	  </div>
-	</nav>
+<?php include ('assets/includes/header.php'); ?>
 
-</header>
 <section>
-	<img src='images/lumia1.jpg'/>
+	<img src='assets/images/lumia1.jpg'/>
 	<figcaption class="picture-caption">
 		<h1>Arrivés à bon port</h1>
 		<a href='#'><input type="submit" value="En savoir plus" class="btn btn-custom btn-danger" /></a>
@@ -62,7 +13,7 @@
 	<div class='row'>
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-xs-12">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia1.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia1.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Arrivés à bon port</a></h1>
 				</figcaption>
@@ -94,7 +45,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-xs-12">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Au revoir Paris ! </a></h1>
 				</figcaption>
@@ -108,7 +59,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-xs-12  ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia1.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia1.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Destination Espagne</a></h1>
 				</figcaption>
@@ -122,7 +73,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12 ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia4.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia4.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Sur la route du soleil</a></h1>
 				</figcaption>
@@ -136,7 +87,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia6.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia6.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Grand voyage, te voilà ! </a></h1>
 				</figcaption>
@@ -150,7 +101,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia3.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia3.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Prêt, feu, partis !</a></h1>
 				</figcaption>
@@ -164,7 +115,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia6.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia6.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Au revoir....</a></h1>
 				</figcaption>
@@ -178,7 +129,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12 ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia7.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia7.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Derniers préparatifs</a></h1>
 				</figcaption>
@@ -192,7 +143,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia7.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia7.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Derniers préparatifs</a></h1>
 				</figcaption>
@@ -206,7 +157,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12  ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia3.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia3.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Derniers préparatifs</a></h1>
 				</figcaption>
@@ -220,7 +171,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12 ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia3.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia3.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Derniers préparatifs</a></h1>
 				</figcaption>
@@ -234,7 +185,7 @@
 		
 		<article class="col-sm-6 col-md-4 article-custom">
     		<figure class="col-lg-12 ">
-				<a href=""><img class="img img-responsive article-img img-thumbnail" src="images/lumia3.jpg"></a>
+				<a href=""><img class="img img-responsive article-img img-thumbnail" src="assets/images/lumia3.jpg"></a>
 				<figcaption class="article-caption">
 					<h1 class="article-title"><a href="">Derniers préparatifs</a></h1>
 				</figcaption>
@@ -248,30 +199,4 @@
 	</div>
 </div>
 
-<div class="container container_custom_newsletter">
-	<div class="row">
-      <div class="span12">
-		<div class="thumbnail center well well-small text-center">
-           <h2>Newsletter</h2>
-           <p>Souscrivez à notre Newsletter.</p>
-           <form action="" method="post">
-			   <div class="input-prepend"><span class="add-on"><i class="icon-envelope"></i></span>
-				 <input type="text" id="newsletter" name="" placeholder="votre email@.com">
-			   </div>
-			   <br />
-			   <input type="submit" value="Je souscris!" class="btn btn-large btn-danger btn-custom" />
-           </form>
-        </div>    
-      </div>
-	</div>
-</div>
-
-<footer class="footer">
-     Tous droits réservés 
-</footer>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="js/style.js"></script>
-</body>
-</html>
+<?php include('assets/includes/footer.php'); ?>
