@@ -10,16 +10,17 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type='text/css' href="assets/css/admin_style.css">
 </head>
-<body>
+<bodys>
 	
-		<div class="container container_admin_menu">
+		<div class="container-fluid container_admin_menu">
 			<h2 class="titre_menu">Menu d'administration</h2>
 
-			<button type="button" class="btn btn-info btn-block">Ajout d'un article</button>
-			<button type="button" class="btn btn-info btn-block">Edition & suppression</button>
-			<button type="button" class="btn btn-info btn-block">Validation des commentaires (nbre)</button>
-			<button type="button" class="btn btn-info btn-block">Liste des abonnés (newsletter)</button>
-			<button type="button" class="btn deco btn-info btn-block">Déconnexion</button>
+			<a href="#"><button type="button" class="btn btn-info btn-block">Ajout d'un article</button></a>
+			<a href="#"><button type="button" class="btn btn-info btn-block">Edition / suppression d'articles <br>et leurs commentaires</button></a>
+			<a href="#"><button type="button" class="btn btn-info btn-block">Validation des commentaires (nbre)</button></a>
+			<a href="#"><button type="button" class="btn btn-info btn-block">Liste des abonnés (newsletter)</button></a>
+			<a href="#"><button type="button" class="btn btn-deco btn-block">DECONNEXION</button></a>
+			<!-- La déconnexion du menu ADMIN redirigera vers la HOMEPAGE du site -->
 
 		</div>
 	</body>

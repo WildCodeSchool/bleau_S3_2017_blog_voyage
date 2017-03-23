@@ -1,30 +1,58 @@
 /*Style des pages admin*/
 
+body {
+	background-color: #d6d6c2;
+}
+
+h2 {
+	text-align: center;
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+/* a:hover {
+	background-color: #3f3f5e ;
+	}
+	*/
 
 /*Style de la page pwd*/
-
-
-/*Style de la page menu*/
-
-.deco
-{
-	background-color: black !important;
-}
-	/*margin-top: 50px;
-}*/
-
-.btn-info
-{
-	background-color: grey !important;
-}
 .titre_menu
 {
 	text-align: center;
 }
-/*.container_admin_menu
+
+/*Style de la page menu*/
+
+.container_admin_menu .btn
 {
-	height: 100%;
+	margin: auto;
+}
+
+.btn-deco
+{
+	max-width: 500px;
+	background-color: #b8b8d0 !important;
+	color: #1f1f14;
+	font-weight: bold;
+	margin: 0.5% !important;
+}
+
+	/*margin-top: 50px;
+}
 }*/
+
+.btn-info
+{
+	max-width: 500px;
+	color: #1f1f14;
+	font-weight: bold;
+	background-color: #999966 !important;
+	margin: 0.5% !important;
+}
+
 .navbar-inverse
 {
 	background-color: white!important;
