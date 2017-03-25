@@ -1,0 +1,300 @@
+/*
+1. BODY
+2. NAVBAR
+3. CONTAINER
+4. FOOTER
+*/
+
+/*
+1.BODY
+ */
+
+body{
+    color: darkslategrey;
+    font-family: 'Dancing Script', cursive;
+    padding: 0;
+    margin: 0;
+}
+
+/*
+2. NAVBAR
+*/
+
+.navbar-custom{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    font-size: 2em;
+}
+
+.navbar-brand-custom{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-brand-custom img{
+    height: 100%;
+}
+
+.container-fluid-custom{
+    padding-left: 25px;
+}
+
+@media screen and (min-width: 1201px){
+
+    .navbar-custom-1200{
+        display: none;
+    }
+}
+
+/* Menu avec dropdown si width <= 1200px */
+
+@media screen and (max-width: 1200px){
+
+    .navbar-custom-1201{
+        display: none;
+    }
+
+    .navbar-custom-1200{
+        text-align: right;
+        background: black;
+    }
+
+    .btn-hamburger-custom{
+        background: none;
+        border: none;
+    }
+
+    .dropdown-menu li{
+        font-size: 1.5em;
+    }
+
+    .glyphicon-menu-hamburger{
+        color: white;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .container-fluid-custom{
+        padding-left: 10px;
+    }
+}
+
+/*
+3. IMAGE PRINCIPALE
+*/
+
+section{
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+section img{
+    width: 100%;
+}
+
+section i{
+    color: white;
+    font-size: 2em;
+    margin: 0;
+    text-align: center;
+}
+
+.picture-caption{
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5);
+    height: 200px;
+}
+
+h2{
+    color: white;
+    font-size: 3em;
+    margin: 0;
+    padding: 0;
+}
+
+.picture-caption a {
+    color: white;
+    font-size: 2em;
+    text-decoration: none;
+}
+
+.btn-custom{
+    font-size: 1em;
+    display: block;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 800px){
+    section{
+        margin-top: 50px;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 800px){
+
+    .picture-caption{
+        height: 150px;
+        bottom: 0;
+    }
+
+    .picture-caption h1{
+        font-size: 3em;
+    }
+
+    .picture-caption a{
+        color: white;
+        font-size: 1.5em;
+        text-decoration: none;
+    }
+
+    .picture-caption i{
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 600px){
+    .picture-caption{
+        height: 100px;
+        bottom: 0;
+    }
+
+    .picture-caption h1{
+        font-size: 2em;
+    }
+
+    .picture-caption a{
+        color: white;
+        font-size: 1em;
+        text-decoration: none;
+    }
+
+    .picture-caption i{
+        font-size: 1em;
+    }
+}
+
+h1{
+    margin: 0;
+    height: 200px;
+    line-height:200px;
+    background: white;
+    font-size: 5em;
+    text-align: center;
+}
+
+/*
+3. CONTAINER
+*/
+
+.container-custom{
+    margin-bottom: 50px;
+}
+
+.container-custom{
+    background: url('../images/mandala_bgd.jpg') fixed no-repeat center;
+    background-size: cover;
+    width: 100%;
+}
+
+.article-custom{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.article-custom img{
+    display: block;
+    margin: 0 auto;
+    width: 95%;
+}
+
+.article-caption{
+    position: absolute;
+    top: 0;
+    left: 2.5%;
+    height: 100%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+}
+
+.article-caption h3{
+    font-size: 2.5em;
+}
+
+.article-caption p{
+    width: 75%;
+    font-size: 1.5em;
+    text-align: justify;
+}
+
+.article-caption button {
+    display: none;
+    font-size: 1.5em;
+}
+
+.article-caption i{
+    margin-top: 5px;
+    font-size: 1.5em;
+}
+
+/* classe ajoutée à article-caption lorsque la souris passe sur l'article (mouseover) */
+
+.article-caption-show{
+    background: royalblue;
+    color: white;
+}
+
+.article-caption-show a{
+    text-decoration: none;
+}
+
+.article-caption-show button{
+    display: block;
+    color: white;
+}
+
+.newsletter{
+    font-size: 2.5em;
+    width: 100%;
+    margin: 0;
+}
+
+.newsletter input[type='text']{
+    font-size: .5em;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.newsletter input[type='submit']{
+    font-size: .8em;
+}
+
+/*
+4. FOOTER
+ */
+
+footer{
+    background: black;
+    height: 50px;
+    line-height: 50px;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+}

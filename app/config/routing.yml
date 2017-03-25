@@ -1,0 +1,4 @@
+blog:
+    resource: "@BLOGBundle/Resources/config/routing.yml"
+    prefix:   /
+

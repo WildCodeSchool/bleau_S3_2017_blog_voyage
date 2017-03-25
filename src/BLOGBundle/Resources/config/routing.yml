@@ -1,0 +1,7 @@
+blog_admin:
+    resource: "@BLOGBundle/Resources/config/routing/article.yml"
+    prefix:   /admin
+
+blog_homepage:
+    path:     /
+    defaults: { _controller: BLOGBundle:Default:index }
