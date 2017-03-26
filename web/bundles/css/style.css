@@ -202,7 +202,7 @@ h1{
 }
 
 .container-custom{
-    background: url('../images/mandala_bgd.jpg') fixed no-repeat center;
+
     background-size: cover;
     width: 100%;
 }
@@ -213,6 +213,7 @@ h1{
     margin: 0;
     margin-bottom: 5px;
     margin-top: 5px;
+    clear: none;
 }
 
 .article-custom img{

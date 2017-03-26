@@ -1,0 +1,45 @@
+form[name='blogbundle_article']{
+    width: 30%;
+    margin: 0 auto;
+    background: #eee;
+    height: auto;
+    padding: 20px;
+    font-size: 1.5em;
+}
+
+form
+input[type='text'],
+textarea{
+    width: 100%;
+}
+
+input[type='text']{
+
+}
+
+textarea{
+    height: 100px;
+}
+
+label{
+    font-weight: 900;
+}
+
+ul{
+    list-style: none;
+    background: #b22222;
+    text-align: center;
+    padding: 20px;
+    width: 30%;
+    margin: 0 auto;
+}
+
+ul li{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+ul li a{
+    color: white;
+}

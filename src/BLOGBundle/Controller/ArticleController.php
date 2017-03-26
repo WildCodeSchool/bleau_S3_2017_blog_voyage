@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Article controller.
+ * Article controller
  *
  */
 class ArticleController extends Controller
@@ -18,10 +18,11 @@ class ArticleController extends Controller
      */
     public function indexAction()
     {
+        // On se connecte à la bdd
         $em = $this->getDoctrine()->getManager();
-
+        // On récupère tous les éléments de la table Article
         $articles = $em->getRepository('BLOGBundle:Article')->findAll();
-
+        // On envoit le résultat à la vue
         return $this->render('@BLOG/article/index.html.twig', array(
             'articles' => $articles,
         ));
