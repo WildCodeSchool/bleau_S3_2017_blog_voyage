@@ -1,0 +1,25 @@
+BLOGBundle\Entity\Comments:
+    type: entity
+    table: null
+    repositoryClass: BLOGBundle\Repository\CommentsRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        author:
+            type: string
+            length: 255
+        comment:
+            type: text
+        date:
+            type: datetime
+
+    manyToOne:
+        article:
+            targetEntity: BLOGBundle\Entity\Article
+            inversedBy: comment
+
+    lifecycleCallbacks: {  }

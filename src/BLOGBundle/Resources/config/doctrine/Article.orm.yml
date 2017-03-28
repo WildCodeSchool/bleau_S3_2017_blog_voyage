@@ -16,7 +16,22 @@ BLOGBundle\Entity\Article:
             type: text
         date:
             type: date
-        author:
-            type: string
-            length: 255
+
+    manyToMany:
+        category:
+            targetEntity: BLOGBundle\Entity\Category
+            mappedBy: article
+
+    oneToMany:
+        image:
+            targetEntity: BLOGBundle\Entity\Image
+            mappedBy: article
+
+    oneToMany:
+        comment:
+            target: BLOGBundle\Entity\Comments
+            mappedBy: article
+
     lifecycleCallbacks: {  }
+
+

@@ -1,0 +1,25 @@
+BLOGBundle\Entity\Image:
+    type: entity
+    table: null
+    repositoryClass: BLOGBundle\Repository\ImageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        src:
+            type: string
+            length: 255
+        alt:
+            type: string
+            length: 255
+
+    manyToOne:
+        article:
+            targetEntity: BLOGBundle\Entity\Article
+            inversedBy: image
+
+
+    lifecycleCallbacks: {  }

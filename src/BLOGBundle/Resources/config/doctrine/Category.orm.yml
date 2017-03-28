@@ -1,0 +1,21 @@
+BLOGBundle\Entity\Category:
+    type: entity
+    table: null
+    repositoryClass: BLOGBundle\Repository\CategoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        category:
+            type: string
+            length: '50'
+
+    manyToMany:
+        article:
+            targetEntity: BLOGBundle\Entity\Article
+            inversedBy: category
+
+    lifecycleCallbacks: {  }
