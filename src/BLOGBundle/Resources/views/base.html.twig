@@ -60,12 +60,11 @@
     </section>
 
     <h1>ROAD SHOW</h1>
-    <div class="container container-custom">
+
 
          {% block row %}
          {% endblock %}
 
-    </div>
     <div class="container newsletter">
         <div class="row">
             <div class="span12">
@@ -87,9 +86,11 @@
     <footer>
         Tous droit réservés
     </footer>
-
+    <script src="https://unpkg.com/masonry-layout@4.1.1/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
     <script src="{{ asset('assets/vendor/jquery/dist/jquery.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
     <script src="{{ asset('bundles/js/style.js') }}"></script>
+
 </body>
 </html>

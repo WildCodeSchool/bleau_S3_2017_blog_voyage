@@ -1,110 +1,214 @@
 {% extends '@BLOG/base.html.twig' %}
 
-{% block title %}Blog{% endblock %}
+    {% block title %}Blog{% endblock %}
 
-{% block image %} {{ asset('bundles/images/lumia6.jpg') }} {% endblock %}
-{% block h2 %} Arrivés à bon port {% endblock %}
-{% block i %}25/03/2013{% endblock %}
-{% block row %}
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia4.jpg') }}" class="img-thu"/>
-            <div class="article-caption">
-                <h3>Arrivés à bon port</h3>
-                <p>Aujourd'hui, Pierre et moi-même sommes heureux de vous indiquer,
-                    via ce nouveau post, que nous avons achevé notre long périple.
-                </p>
-                <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le 25/03/2017</i>
+    {% block image %} {{ asset('bundles/images/lumia6.jpg') }} {% endblock %}
+    {% block h2 %} Arrivés à bon port {% endblock %}
+    {% block i %}25/03/2013{% endblock %}
+    {% block row %}
+        <div class="wrapper ">GRIOD SYSTEM
+            <div class="title">
+
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia6.jpg') }}"/>
-            <div class="article-caption">
-                <h3>Saint-Jacques-de-Compostelle</h3>
-                <p>
-                    Un lieu unique que nous avons choisi de vous faire découvrir à travers
-                    un petit reportage photos.
-                </p>
-                <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le 23/03/2017</i>
+            <div class="masonry">
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia4.jpg') }}"/>
+                    <div class="article-caption">
+                        <h3>Arrivés à bon port</h3>
+                        <p>Aujourd'hui, Pierre et moi-même sommes heureux de vous indiquer,
+                            via ce nouveau post, que nous avons achevé notre long périple.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 25/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia6.jpg') }}"/>
+                    <div class="article-caption">
+                        <h3>Saint-Jacques-de-Compostelle</h3>
+                        <p>
+                            Un lieu unique que nous avons choisi de vous faire découvrir à travers
+                            un petit reportage photos.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia6.jpg') }}"/>
+                    <div class="article-caption">
+                        <h3>Le cap des 1800km franchi !</h3>
+                        <p>
+                            Whaou !! On a encore du mal à croire que nous avons été capables de parcourir
+                            une telle distance à pieds.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 21/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia4 - Copie.jpg') }}"/>
+                    <div class="article-caption">
+                        <h3>Pause bien méritée</h3>
+                        <p>
+                            Fatigués, quelques ampoules aux pieds. Il est temps de faire une pause.
+                            Et de reprendre des forces...
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>Les pyrénées</h3>
+                        <p>
+                            Petit aperçu du cirque de Gavarni. Vous connaissez ?
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>L'aquitaine, à couper le souffle</h3>
+                        <p>
+                            Et du bon vin rouge.
+                            Aujourd'hui, nous nous sommes fait plaisirs en visitant queques caves de la ville classée St-Emilion.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia6.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>Au revoir région parisienne</h3>
+                        <p>
+                            Certes, la vie parisienne, et plus précisement bellifontaine, aura marqué nos vies
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia6.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>Les derniers préparatifs</h3>
+                        <p>
+                            Avons-nous bien pensé à tout avant de quitter les lieux? C'est plus le moment de se poser cette question.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>1, 2, 3, c'est parti !</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia4.jpg') }}"/>
+                    <div class="article-caption">
+                        <h3>Arrivés à bon port</h3>
+                        <p>Aujourd'hui, Pierre et moi-même sommes heureux de vous indiquer,
+                            via ce nouveau post, que nous avons achevé notre long périple.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 25/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia6.jpg') }}"/>
+                    <div class="article-caption">
+                        <h3>Saint-Jacques-de-Compostelle</h3>
+                        <p>
+                            Un lieu unique que nous avons choisi de vous faire découvrir à travers
+                            un petit reportage photos.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia6.jpg') }}"/>
+                    <div class="article-caption">
+                        <h3>Le cap des 1800km franchi !</h3>
+                        <p>
+                            Whaou !! On a encore du mal à croire que nous avons été capables de parcourir
+                            une telle distance à pieds.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 21/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia4 - Copie.jpg') }}"/>
+                    <div class="article-caption">
+                        <h3>Pause bien méritée</h3>
+                        <p>
+                            Fatigués, quelques ampoules aux pieds. Il est temps de faire une pause.
+                            Et de reprendre des forces...
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>Les pyrénées</h3>
+                        <p>
+                            Petit aperçu du cirque de Gavarni. Vous connaissez ?
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>L'aquitaine, à couper le souffle</h3>
+                        <p>
+                            Et du bon vin rouge.
+                            Aujourd'hui, nous nous sommes fait plaisirs en visitant queques caves de la ville classée St-Emilion.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia6.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>Au revoir région parisienne</h3>
+                        <p>
+                            Certes, la vie parisienne, et plus précisement bellifontaine, aura marqué nos vies
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia6.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>Les derniers préparatifs</h3>
+                        <p>
+                            Avons-nous bien pensé à tout avant de quitter les lieux? C'est plus le moment de se poser cette question.
+                        </p>
+                        <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                        <i>Publié le 23/03/2017</i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
+                    <div class="article-caption">
+                        <h3>1, 2, 3, c'est parti !</h3>
+                    </div>
+                </div>
             </div>
+
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia6.jpg') }}"/>
-            <div class="article-caption">
-                <h3>Le cap des 1800km franchi !</h3>
-                <p>
-                    Whaou !! On a encore du mal à croire que nous avons été capables de parcourir
-                    une telle distance à pieds.
-                </p>
-                <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le 21/03/2017</i>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia4 - Copie.jpg') }}"/>
-            <div class="article-caption">
-                <h3>Pause bien méritée</h3>
-                <p>
-                    Fatigués, quelques ampoules aux pieds. Il est temps de faire une pause.
-                    Et de reprendre des forces...
-                </p>
-                <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le 23/03/2017</i>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
-            <div class="article-caption">
-                <h3>Les pyrénées</h3>
-                <p>
-                    Petit aperçu du cirque de Gavarni. Vous connaissez ?
-                </p>
-                <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le 23/03/2017</i>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
-            <div class="article-caption">
-                <h3>L'aquitaine, à couper le souffle</h3>
-                <p>
-                    Et du bon vin rouge.
-                    Aujourd'hui, nous nous sommes fait plaisirs en visitant queques caves de la ville classée St-Emilion.
-                </p>
-                <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le 23/03/2017</i>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia6.jpg') }}" />
-            <div class="article-caption">
-                <h3>Au revoir région parisienne</h3>
-                <p>
-                    Certes, la vie parisienne, et plus précisement bellifontaine, aura marqué nos vies
-                </p>
-                <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le 23/03/2017</i>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia6.jpg') }}" />
-            <div class="article-caption">
-                <h3>Les derniers préparatifs</h3>
-                <p>
-                    Avons-nous bien pensé à tout avant de quitter les lieux? C'est plus le moment de se poser cette question.
-                </p>
-                <a href="#"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le 23/03/2017</i>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-            <img src="{{ asset('bundles/images/lumia7.jpg') }}" />
-            <div class="article-caption">
-                <h3>1, 2, 3, c'est parti !</h3>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+    {% endblock %}
 

@@ -28,3 +28,4 @@ function resize(){
     console.log(window.innerWidth);
     sectionElt[0].style.height = window.innerWidth/2.08 + 'px';
 }
+// Javascript

@@ -43,3 +43,8 @@ ul li{
 ul li a{
     color: white;
 }
+img, iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
