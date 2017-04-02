@@ -6,7 +6,7 @@
 // Définition des variables
 
 var sectionElt = document.getElementsByTagName('section');
-var articleElt = document.getElementsByClassName('article-custom');
+var articleElt = document.getElementsByClassName('item');
 var articleDescriptionElt = document.getElementsByClassName('article-caption');
 
 console.log(articleDescriptionElt.length);
