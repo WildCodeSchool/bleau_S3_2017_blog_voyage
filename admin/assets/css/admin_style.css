@@ -13,11 +13,6 @@ a {
 	text-decoration: none !important;
 }
 
-/* a:hover {
-	background-color: #3f3f5e ;
-	}
-	*/
-
 /*Style de la page pwd*/
 .titre_menu
 {
@@ -40,10 +35,6 @@ a {
 	margin: 0.5% !important;
 }
 
-	/*margin-top: 50px;
-}
-}*/
-
 .btn-info
 {
 	max-width: 500px;
@@ -57,6 +48,7 @@ a {
 {
 	background-color: white!important;
 }
+
 .navbar-toggle
 {
 	background-color: grey !important;
