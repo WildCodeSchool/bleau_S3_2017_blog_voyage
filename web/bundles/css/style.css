@@ -209,16 +209,16 @@ img, iframe {
 
 
 .article-caption{
-    position: absolute;
-    top: 0;
-    left: 2.5%;
-    height: 100%;
-    width: 95%;
-    display: flex;
-    flex-direction: column;
+
+
+
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+
     align-items: center;
     justify-content: center;
-    color: transparent;
+
 }
 
 .article-caption h3{
@@ -244,8 +244,11 @@ img, iframe {
 /* classe ajoutée à article-caption lorsque la souris passe sur l'article (mouseover) */
 
 .article-caption-show{
+    text-indent: 100%;
+    white-space: normal;
     background: royalblue;
     color: white;
+    overflow: visible;
 }
 
 .article-caption-show a{
