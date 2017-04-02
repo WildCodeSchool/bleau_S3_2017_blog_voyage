@@ -67,7 +67,7 @@
 				</div>
 
 				<div class="col-xs-4">					
-					<button type="submit" class="btn btn-default">ajouter</button>
+					<button type="submit" class="btn btn-default">Ajouter</button>
 				</div>
 			</div>
 			<div class="form-group">
