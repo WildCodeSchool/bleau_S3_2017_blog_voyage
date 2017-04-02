@@ -1,0 +1,55 @@
+/*Style des pages admin*/
+
+body {
+	background-color: #d6d6c2;
+}
+
+h2 {
+	text-align: center;
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+/*Style de la page pwd*/
+.titre_menu
+{
+	text-align: center;
+}
+
+/*Style de la page menu*/
+
+.container_admin_menu .btn
+{
+	margin: auto;
+}
+
+.btn-deco
+{
+	max-width: 500px;
+	background-color: #b8b8d0 !important;
+	color: #1f1f14;
+	font-weight: bold;
+	margin: 0.5% !important;
+}
+
+.btn-info
+{
+	max-width: 500px;
+	color: #1f1f14;
+	font-weight: bold;
+	background-color: #999966 !important;
+	margin: 0.5% !important;
+}
+
+.navbar-inverse
+{
+	background-color: white!important;
+}
+
+.navbar-toggle
+{
+	background-color: grey !important;
+}
