@@ -21,6 +21,7 @@ BLOGBundle\Entity\Article:
         category:
             targetEntity: BLOGBundle\Entity\Category
             mappedBy: article
+            cascade: ["persist"]
 
     oneToMany:
         image:

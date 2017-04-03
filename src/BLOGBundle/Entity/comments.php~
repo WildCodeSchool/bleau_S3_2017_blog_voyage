@@ -109,4 +109,33 @@ class Comments
     {
         return $this->date;
     }
+    /**
+     * @var \BLOGBundle\Entity\Article
+     */
+    private $article;
+
+
+    /**
+     * Set article
+     *
+     * @param \BLOGBundle\Entity\Article $article
+     *
+     * @return Comments
+     */
+    public function setArticle(\BLOGBundle\Entity\Article $article = null)
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return \BLOGBundle\Entity\Article
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
 }

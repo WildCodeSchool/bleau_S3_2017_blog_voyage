@@ -3,6 +3,7 @@
 namespace BLOGBundle\Controller;
 
 use BLOGBundle\Entity\Article;
+use BLOGBundle\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -35,11 +36,17 @@ class ArticleController extends Controller
     public function newAction(Request $request)
     {
         $article = new Article();
+		$category = new Category();
+		$category->setCategory($request->request->get('category'));
+		
+		$article->addCategory($category);
+		
         $form = $this->createForm('BLOGBundle\Form\ArticleType', $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
+			$em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush($article);
 

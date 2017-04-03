@@ -2,9 +2,12 @@
 
 namespace BLOGBundle\Form;
 
+use BLOGBundle\Entity\Article; // Ajouté
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ArticleType extends AbstractType
 {
@@ -13,7 +16,12 @@ class ArticleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('content')->add('date')->add('author');
+        $builder->add('title')
+                ->add('content')
+                ->add('date')
+				->add('category', CollectionType::class, array(
+				      'entry_type' => CategoryType::class
+        ));
     }
     
     /**
