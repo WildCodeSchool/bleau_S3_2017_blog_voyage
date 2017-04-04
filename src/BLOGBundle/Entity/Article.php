@@ -7,8 +7,8 @@ namespace BLOGBundle\Entity;
  */
 class Article
 {
-    /**
-     * @var int
+   /**
+     * @var integer
      */
     private $id;
 
@@ -28,9 +28,28 @@ class Article
     private $date;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $image;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $category;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->image = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->category = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -109,58 +128,39 @@ class Article
         return $this->date;
     }
 
-
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $id_caterogy;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->id_caterogy = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add idCaterogy
+     * Add image
      *
-     * @param \BLOGBundle\Entity\Category $idCaterogy
+     * @param \BLOGBundle\Entity\Image $image
      *
      * @return Article
      */
-    public function addIdCaterogy(\BLOGBundle\Entity\Category $idCaterogy)
+    public function addImage(\BLOGBundle\Entity\Image $image)
     {
-        $this->id_caterogy[] = $idCaterogy;
+        $this->image[] = $image;
 
         return $this;
     }
 
     /**
-     * Remove idCaterogy
+     * Remove image
      *
-     * @param \BLOGBundle\Entity\Category $idCaterogy
+     * @param \BLOGBundle\Entity\Image $image
      */
-    public function removeIdCaterogy(\BLOGBundle\Entity\Category $idCaterogy)
+    public function removeImage(\BLOGBundle\Entity\Image $image)
     {
-        $this->id_caterogy->removeElement($idCaterogy);
+        $this->image->removeElement($image);
     }
 
     /**
-     * Get idCaterogy
+     * Get image
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getIdCaterogy()
+    public function getImage()
     {
-        return $this->id_caterogy;
+        return $this->image;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $category;
-
 
     /**
      * Add category
@@ -194,44 +194,5 @@ class Article
     public function getCategory()
     {
         return $this->category;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $image;
-
-
-    /**
-     * Add image
-     *
-     * @param \BLOGBundle\Entity\Image $image
-     *
-     * @return Article
-     */
-    public function addImage(\BLOGBundle\Entity\Image $image)
-    {
-        $this->image[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image
-     *
-     * @param \BLOGBundle\Entity\Image $image
-     */
-    public function removeImage(\BLOGBundle\Entity\Image $image)
-    {
-        $this->image->removeElement($image);
-    }
-
-    /**
-     * Get image
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 }

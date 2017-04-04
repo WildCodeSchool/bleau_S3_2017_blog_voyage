@@ -21,6 +21,8 @@ BLOGBundle\Entity\Article:
         category:
             targetEntity: BLOGBundle\Entity\Category
             mappedBy: article
+            cascade: ["persist"]
+            
 
     oneToMany:
         image:
@@ -32,6 +34,6 @@ BLOGBundle\Entity\Article:
             target: BLOGBundle\Entity\Comments
             mappedBy: article
 
-    lifecycleCallbacks: {  }
+  
 
 

@@ -17,8 +17,8 @@
                 <td><a href="{{ path('admin_show', { 'id': article.id }) }}">{{ article.id }}</a></td>
                 <td>{{ article.title }}</td>
                 <td>{{ article.content }}</td>
+               
                 <td>{% if article.date %}{{ article.date|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ article.author }}</td>
                 <td>
                     <ul>
                         <li>
