@@ -45,7 +45,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('category_show', array('id' => $category->getId()));
         }
 
-        return $this->render('category/new.html.twig', array(
+        return $this->render('category/add.html.twig', array(
             'category' => $category,
             'form' => $form->createView(),
         ));

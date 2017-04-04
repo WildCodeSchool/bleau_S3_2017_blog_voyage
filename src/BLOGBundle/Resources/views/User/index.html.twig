@@ -1,10 +1,20 @@
-{% extends '@BLOG/base.html.twig' %}
+{% extends 'BLOGBundle::layout.html.twig' %}
 
-{% block title %}Blog{% endblock %}
+{% block section %}
+    <section>
+        <img src="{{ asset('bundles/images/lumia6.jpg') }}"/>
+        <figcaption class="picture-caption">
+            <h2>{% block h2 %}{% endblock %}</h2>
+            <a href='#'><button class="btn btn-custom btn-danger">En savoir plus</button></a>
+            <i> Publié le {% block i %}{% endblock %}</i>
+        </figcaption>
+    </section>
+{% endblock %}
 
-{% block image %} {{ asset('bundles/images/lumia6.jpg') }} {% endblock %}
-{% block h2 %} Arrivés à bon port {% endblock %}
-{% block i %}25/03/2013{% endblock %}
+{% block h1 %}
+    <h1>ROAD SHOW</h1>
+{% endblock %}
+
 {% block row %}
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4 article-custom">

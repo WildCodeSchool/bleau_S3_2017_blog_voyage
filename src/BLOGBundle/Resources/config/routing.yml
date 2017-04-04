@@ -1,21 +1,7 @@
-blog_admin:
-    resource: "@BLOGBundle/Resources/config/routing/article.yml"
+user:
+    resource: "@BLOGBundle/Resources/config/routing/user.yml"
+    prefix:   /
+
+admin:
+    resource: "@BLOGBundle/Resources/config/routing/admin.yml"
     prefix:   /admin
-
-blog_homepage:
-    path:     /
-    defaults: { _controller: BLOGBundle:Default:index }
-
-blog_image:
-    resource: "@BLOGBundle/Resources/config/routing/image.yml"
-    prefix:   /image
-
-blog_comments:
-    resource: "@BLOGBundle/Resources/config/routing/comments.yml"
-    prefix:   /comments
-
-blog_category:
-    resource: "@BLOGBundle/Resources/config/routing/category.yml"
-    prefix:   /category
-
-

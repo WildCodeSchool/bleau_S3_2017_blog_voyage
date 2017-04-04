@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ArticleController extends Controller
 {
     /**
-     * Lists all article entities.
+     * Lists all Admin entities.
      *
      */
     public function indexAction()
@@ -32,17 +32,17 @@ class ArticleController extends Controller
 		// $articles = $articles->myFindByTitle('Hello', '2014');
         
 		
-	   // On récupère tous les éléments de la table Category associés à un article
+	   // On récupère tous les éléments de la table Category associés à un Admin
 		
        
 	   // On envoit le résultat à la vue
-        return $this->render('@BLOG/article/index.html.twig', array(
+        return $this->render('@BLOG/Admin/index.html.twig', array(
             'articles' => $articles,
         ));
     }
 
     /**
-     * Creates a new article entity.
+     * Creates a new Admin entity.
      *
      */
     public function newAction(Request $request)
@@ -51,13 +51,15 @@ class ArticleController extends Controller
 		$category = new Category(); // J'instancie un nouvel objet category 
 		$category->setCategory($request->request->get('category')); // Je récupère le texte saisi par l'utilisateur
 		
-		$article = new Article(); // J'instancie un nouvel objet article
+		$article = new Article(); // J'instancie un nouvel objet Admin
 		$article->addCategory($category); // J'appelle sa méthode pour ajouter les catégories
+		// Si suppression de la ligne juste au dessus -> Alors le champ n'apparaît plus dans le formulaire
 		
-		$category->addArticle($article); // J'appelle la méthode qui permet de lier la catégorie à l'article fraîchement créé
+		$category->addArticle($article); // J'appelle la méthode qui permet de lier la catégorie à l'Admin fraîchement créé
 
-        $form = $this->createForm('BLOGBundle\Form\ArticleType', $article); // Créer le formulaire selon ArticleType
-        $form->handleRequest($request); // Va peupler le formulaire qui contient les champs définis dans ArticleType
+        $form = $this->createForm('BLOGBundle\Form\ArticleType', $article); // Créer le formulaire selon modèle ArticleType
+																			// puis le prérempli avec les éléments de $Admin;
+        $form->handleRequest($request); // Traite le formulaire
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -68,28 +70,28 @@ class ArticleController extends Controller
             return $this->redirectToRoute('admin_show', array('id' => $article->getId()));
         }
 
-        return $this->render('@BLOG/article/new.html.twig', array(
-            'article' => $article,
+        return $this->render('@BLOG/Admin/add.html.twig', array(
+            'Admin' => $article,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a article entity.
+     * Finds and displays a Admin entity.
      *
      */
     public function showAction(Article $article)
     {
         $deleteForm = $this->createDeleteForm($article);
 
-        return $this->render('@BLOG/article/show.html.twig', array(
-            'article' => $article,
+        return $this->render('@BLOG/Admin/show.html.twig', array(
+            'Admin' => $article,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing article entity.
+     * Displays a form to edit an existing Admin entity.
      *
      */
     public function editAction(Request $request, Article $article)
@@ -104,15 +106,15 @@ class ArticleController extends Controller
             return $this->redirectToRoute('admin_edit', array('id' => $article->getId()));
         }
 
-        return $this->render('@BLOG/article/edit.html.twig', array(
-            'article' => $article,
+        return $this->render('@BLOG/Admin/edit.html.twig', array(
+            'Admin' => $article,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a article entity.
+     * Deletes a Admin entity.
      *
      */
     public function deleteAction(Request $request, Article $article)
@@ -130,9 +132,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * Creates a form to delete a article entity.
+     * Creates a form to delete a Admin entity.
      *
-     * @param Article $article The article entity
+     * @param Article $article The Admin entity
      *
      * @return \Symfony\Component\Form\Form The form
      */

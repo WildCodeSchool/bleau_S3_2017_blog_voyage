@@ -1,0 +1,24 @@
+admin_index:
+    path:     /
+    defaults: { _controller: "BLOGBundle:Admin:index" }
+    methods:  GET
+
+admin_menu:
+    path:     /menu
+    defaults: { _controller: "BLOGBundle:Admin:menu" }
+    methods:  GET
+
+admin_add:
+    path:     /add
+    defaults: { _controller: "BLOGBundle:Admin:add" }
+    methods:  [GET, POST]
+
+admin_edit:
+    path:     /edit/{id}
+    defaults: { _controller: "BLOGBundle:Admin:edit" }
+    methods:  [GET, POST]
+
+admin_delete:
+    path:     /delete/{id}
+    defaults: { _controller: "BLOGBundle:Admin:delete" }
+    methods:  DELETE

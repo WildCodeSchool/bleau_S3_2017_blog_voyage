@@ -178,7 +178,7 @@ jQuery.extend( {
 										}
 
 										// Process the value(s)
-										// Default process is resolve
+										// User process is resolve
 										( special || deferred.resolveWith )( that, args );
 									}
 								},

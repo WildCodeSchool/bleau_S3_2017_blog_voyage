@@ -45,7 +45,7 @@ class CommentsController extends Controller
             return $this->redirectToRoute('comments_show', array('id' => $comment->getId()));
         }
 
-        return $this->render('comments/new.html.twig', array(
+        return $this->render('comments/add.html.twig', array(
             'comment' => $comment,
             'form' => $form->createView(),
         ));

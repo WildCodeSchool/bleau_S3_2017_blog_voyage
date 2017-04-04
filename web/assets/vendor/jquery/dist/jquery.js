@@ -3638,7 +3638,7 @@ jQuery.extend( {
 										}
 
 										// Process the value(s)
-										// Default process is resolve
+										// User process is resolve
 										( special || deferred.resolveWith )( that, args );
 									}
 								},
@@ -7436,7 +7436,7 @@ jQuery.fx.speeds = {
 	slow: 600,
 	fast: 200,
 
-	// Default speed
+	// User speed
 	_default: 400
 };
 
@@ -7464,7 +7464,7 @@ jQuery.fn.delay = function( time, type ) {
 	input.type = "checkbox";
 
 	// Support: Android <=4.3 only
-	// Default value for a checkbox should be "on"
+	// User value for a checkbox should be "on"
 	support.checkOn = input.value !== "";
 
 	// Support: IE <=11 only
@@ -8922,7 +8922,7 @@ jQuery.extend( {
 			requestHeaders = {},
 			requestHeadersNames = {},
 
-			// Default abort message
+			// User abort message
 			strAbort = "canceled",
 
 			// Fake xhr
@@ -9659,7 +9659,7 @@ jQuery.ajaxTransport( "script", function( s ) {
 var oldCallbacks = [],
 	rjsonp = /(=)\?(?=&|$)|\?\?/;
 
-// Default jsonp settings
+// User jsonp settings
 jQuery.ajaxSetup( {
 	jsonp: "callback",
 	jsonpCallback: function() {

@@ -1,0 +1,33 @@
+blog_homepage:
+    path: /
+    defaults:
+        _controller: 'BLOGBundle:User:index'
+
+blog_article:
+    path: /article/{id}
+    defaults:
+        _controller: 'BLOGBundle:User:view'
+    requirements:
+        id: \d+
+
+blog_category:
+    path: /category
+    defaults:
+        _controller: 'BLOGBundle:User:category'
+
+blog_category:
+    path: /category/{category}
+    defaults:
+        _controller: 'BLOGBundle:User:viewCategory'
+    requirements:
+        category: \[a-zA-Z0-9]+
+
+blog_articles_by_date:
+    path: /article/dates
+    defaults:
+        _controller: 'BLOGBundle:User:dates'
+
+blog_contact:
+    path: /contact
+    defaults:
+        _controller: 'BLOGBundle:User:contact'

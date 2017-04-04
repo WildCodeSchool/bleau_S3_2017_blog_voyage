@@ -444,7 +444,7 @@ jQuery.extend( {
 			requestHeaders = {},
 			requestHeadersNames = {},
 
-			// Default abort message
+			// User abort message
 			strAbort = "canceled",
 
 			// Fake xhr

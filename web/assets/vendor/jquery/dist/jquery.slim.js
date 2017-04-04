@@ -3638,7 +3638,7 @@ jQuery.extend( {
 										}
 
 										// Process the value(s)
-										// Default process is resolve
+										// User process is resolve
 										( special || deferred.resolveWith )( that, args );
 									}
 								},
@@ -6672,7 +6672,7 @@ jQuery.fn.delay = function( time, type ) {
 	input.type = "checkbox";
 
 	// Support: Android <=4.3 only
-	// Default value for a checkbox should be "on"
+	// User value for a checkbox should be "on"
 	support.checkOn = input.value !== "";
 
 	// Support: IE <=11 only

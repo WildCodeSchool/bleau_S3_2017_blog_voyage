@@ -45,7 +45,7 @@ class ImageController extends Controller
             return $this->redirectToRoute('image_show', array('id' => $image->getId()));
         }
 
-        return $this->render('image/new.html.twig', array(
+        return $this->render('image/add.html.twig', array(
             'image' => $image,
             'form' => $form->createView(),
         ));

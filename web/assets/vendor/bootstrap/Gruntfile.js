@@ -480,7 +480,7 @@ module.exports = function (grunt) {
   // Full distribution task.
   grunt.registerTask('dist', ['clean:dist', 'dist-css', 'copy:fonts', 'dist-js']);
 
-  // Default task.
+  // User task.
   grunt.registerTask('default', ['clean:dist', 'copy:fonts', 'test']);
 
   grunt.registerTask('build-glyphicons-data', function () { generateGlyphiconsData.call(this, grunt); });
