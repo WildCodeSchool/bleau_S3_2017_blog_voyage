@@ -11,7 +11,32 @@
         {{ form_label(form.title, 'Titre') }}
         {{ form_errors(form.title) }}
         {{ form_widget(form.title) }}
+
+        {{ form_label(form.date, 'Date') }}
+        {{ form_errors(form.date) }}
+        {{ form_widget(form.date) }}
     </p>
+
+    {% for content in form.content %}
+        <p>
+            {{ form_label(content.content, 'Content') }}
+            {{ form_errors(content.content) }}
+            {{ form_widget(content.content) }}
+        </p>
+    {% endfor %}
+
+    {% for image in form.image %}
+        <p>
+            {{ form_label(image.src, 'Image') }}
+            {{ form_errors(image.src) }}
+            {{ form_widget(image.src) }}
+
+            {{ form_label(image.alt, 'Description') }}
+            {{ form_errors(image.alt) }}
+            {{ form_widget(image.alt) }}
+        </p>
+    {% endfor %}
+
     {% for category in form.category %}
     <p>
         {{ form_label(category.category, 'Categorie') }}
