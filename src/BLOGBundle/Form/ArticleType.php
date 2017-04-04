@@ -20,8 +20,8 @@ class ArticleType extends AbstractType
                 ->add('content')
                 ->add('date')
 				->add('category', CollectionType::class, array(
-				      'entry_type' => CategoryType::class
-        ));
+				      'entry_type' => CategoryType::class, 
+				));
     }
     
     /**

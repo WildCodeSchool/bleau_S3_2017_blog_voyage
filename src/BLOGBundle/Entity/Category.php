@@ -7,8 +7,9 @@ namespace BLOGBundle\Entity;
  */
 class Category
 {
+ 
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -17,11 +18,23 @@ class Category
      */
     private $category;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $article;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->article = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -51,71 +64,6 @@ class Category
     {
         return $this->category;
     }
-    /**
-     * @var \BLOGBundle\Entity\Article
-     */
-    private $id_article;
-
-
-    /**
-     * Set idArticle
-     *
-     * @param \BLOGBundle\Entity\Article $idArticle
-     *
-     * @return Category
-     */
-    public function setIdArticle(\BLOGBundle\Entity\Article $idArticle = null)
-    {
-        $this->id_article = $idArticle;
-
-        return $this;
-    }
-
-    /**
-     * Get idArticle
-     *
-     * @return \BLOGBundle\Entity\Article
-     */
-    public function getIdArticle()
-    {
-        return $this->id_article;
-    }
-    /**
-     * @var \BLOGBundle\Entity\Article
-     */
-    private $article;
-
-
-    /**
-     * Set article
-     *
-     * @param \BLOGBundle\Entity\Article $article
-     *
-     * @return Category
-     */
-    public function setArticle(\BLOGBundle\Entity\Article $article = null)
-    {
-        $this->article = $article;
-
-        return $this;
-    }
-
-    /**
-     * Get article
-     *
-     * @return \BLOGBundle\Entity\Article
-     */
-    public function getArticle()
-    {
-        return $this->article;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->article = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add article
@@ -139,5 +87,15 @@ class Category
     public function removeArticle(\BLOGBundle\Entity\Article $article)
     {
         $this->article->removeElement($article);
+    }
+
+    /**
+     * Get article
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 }

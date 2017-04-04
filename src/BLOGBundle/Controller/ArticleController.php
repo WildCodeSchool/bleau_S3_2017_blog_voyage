@@ -19,11 +19,23 @@ class ArticleController extends Controller
      */
     public function indexAction()
     {
+		
         // On se connecte à la bdd
         $em = $this->getDoctrine()->getManager();
-        // On récupère tous les éléments de la table Article
-        $articles = $em->getRepository('BLOGBundle:Article')->findAll();
-        // On envoit le résultat à la vue
+       
+	   // On récupère tous les éléments de la table Article
+        $articles = $em->getRepository('BLOGBundle:Article'); 
+
+		
+		// $articles = $articles->findAll();
+		$articles = $articles->myFindByDateRange('2014-01-01', '2015-12-31');
+		// $articles = $articles->myFindByTitle('Hello', '2014');
+        
+		
+	   // On récupère tous les éléments de la table Category associés à un article
+		
+       
+	   // On envoit le résultat à la vue
         return $this->render('@BLOG/article/index.html.twig', array(
             'articles' => $articles,
         ));
@@ -35,20 +47,23 @@ class ArticleController extends Controller
      */
     public function newAction(Request $request)
     {
-        $article = new Article();
-		$category = new Category();
-		$category->setCategory($request->request->get('category'));
+        
+		$category = new Category(); // J'instancie un nouvel objet category 
+		$category->setCategory($request->request->get('category')); // Je récupère le texte saisi par l'utilisateur
 		
-		$article->addCategory($category);
+		$article = new Article(); // J'instancie un nouvel objet article
+		$article->addCategory($category); // J'appelle sa méthode pour ajouter les catégories
 		
-        $form = $this->createForm('BLOGBundle\Form\ArticleType', $article);
-        $form->handleRequest($request);
+		$category->addArticle($article); // J'appelle la méthode qui permet de lier la catégorie à l'article fraîchement créé
+
+        $form = $this->createForm('BLOGBundle\Form\ArticleType', $article); // Créer le formulaire selon ArticleType
+        $form->handleRequest($request); // Va peupler le formulaire qui contient les champs définis dans ArticleType
 
         if ($form->isSubmitted() && $form->isValid()) {
 
 			$em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush($article);
+            $em->persist($article); // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+            $em->flush();
 
             return $this->redirectToRoute('admin_show', array('id' => $article->getId()));
         }
