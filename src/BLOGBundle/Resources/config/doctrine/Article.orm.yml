@@ -12,8 +12,6 @@ BLOGBundle\Entity\Article:
         title:
             type: string
             length: 255
-        content:
-            type: text
         date:
             type: date
 
@@ -21,18 +19,22 @@ BLOGBundle\Entity\Article:
         category:
             targetEntity: BLOGBundle\Entity\Category
             mappedBy: article
-            cascade: ["persist"]
-            
+            cascade: ["persist","remove"]
 
     oneToMany:
         image:
             targetEntity: BLOGBundle\Entity\Image
             mappedBy: article
-
-    oneToMany:
+            cascade: ["persist","remove"]
         comment:
-            target: BLOGBundle\Entity\Comments
+            targetEntity: BLOGBundle\Entity\Comments
             mappedBy: article
+            cascade: ["persist","remove"]
+        content:
+            targetEntity: BLOGBundle\Entity\Content
+            mappedBy: article
+            cascade: ["persist","remove"]
+
 
   
 

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Article controller
  *
  */
-class ArticleController extends Controller
+class AdminController extends Controller
 {
     /**
      * Lists all Admin entities.
@@ -27,8 +27,8 @@ class ArticleController extends Controller
         $articles = $em->getRepository('BLOGBundle:Article'); 
 
 		
-		// $articles = $articles->findAll();
-		$articles = $articles->myFindByDateRange('2014-01-01', '2015-12-31');
+		$articles = $articles->findAll();
+		// $articles = $articles->myFindByDateRange('2014-01-01', '2015-12-31');
 		// $articles = $articles->myFindByTitle('Hello', '2014');
         
 		
@@ -45,15 +45,19 @@ class ArticleController extends Controller
      * Creates a new Admin entity.
      *
      */
-    public function newAction(Request $request)
+    public function addAction(Request $request)
     {
-        
 		$category = new Category(); // J'instancie un nouvel objet category 
-		$category->setCategory($request->request->get('category')); // Je récupère le texte saisi par l'utilisateur
-		
+		$category->setCategory('bonjour'); // Je récupère le texte saisi par l'utilisateur
+
+        $category2 = new Category(); // J'instancie un nouvel objet category
+        $category2->setCategory('bonjour2'); // Je récupère le texte saisi par l'utilisateur
+
+
 		$article = new Article(); // J'instancie un nouvel objet Admin
 		$article->addCategory($category); // J'appelle sa méthode pour ajouter les catégories
-		// Si suppression de la ligne juste au dessus -> Alors le champ n'apparaît plus dans le formulaire
+        $article->addCategory($category2);
+        // Si suppression de la ligne juste au dessus -> Alors le champ n'apparaît plus dans le formulaire
 		
 		$category->addArticle($article); // J'appelle la méthode qui permet de lier la catégorie à l'Admin fraîchement créé
 
@@ -71,7 +75,7 @@ class ArticleController extends Controller
         }
 
         return $this->render('@BLOG/Admin/add.html.twig', array(
-            'Admin' => $article,
+            'admin' => $article,
             'form' => $form->createView(),
         ));
     }

@@ -2,33 +2,29 @@
 
 namespace BLOGBundle\Form;
 
-use BLOGBundle\Entity\Article; // Ajouté
-use Symfony\Component\Form\AbstractType;
+use BLOGBundle\Entity\Content; // Ajouté
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class ArticleType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')
-				->add('category', CollectionType::class, array(
-				      'entry_type' => CategoryType::class
-				));
+        $builder->add('content');
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BLOGBundle\Entity\Article'
+            'data_class' => 'BLOGBundle\Entity\Content'
         ));
     }
 
@@ -37,7 +33,7 @@ class ArticleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'blogbundle_article';
+        return 'blogbundle_content';
     }
 
 

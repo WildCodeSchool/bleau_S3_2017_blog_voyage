@@ -18,11 +18,6 @@ class Article
     private $title;
 
     /**
-     * @var string
-     */
-    private $content;
-
-    /**
      * @var \DateTime
      */
     private $date;
@@ -78,30 +73,6 @@ class Article
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Article
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
     }
 
     /**
@@ -194,5 +165,83 @@ class Article
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comment;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $content;
+
+
+    /**
+     * Add comment
+     *
+     * @param \BLOGBundle\Entity\Comments $comment
+     *
+     * @return Article
+     */
+    public function addComment(\BLOGBundle\Entity\Comments $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \BLOGBundle\Entity\Comments $comment
+     */
+    public function removeComment(\BLOGBundle\Entity\Comments $comment)
+    {
+        $this->comment->removeElement($comment);
+    }
+
+    /**
+     * Get comment
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Add content
+     *
+     * @param \BLOGBundle\Entity\Content $content
+     *
+     * @return Article
+     */
+    public function addContent(\BLOGBundle\Entity\Content $content)
+    {
+        $this->content[] = $content;
+
+        return $this;
+    }
+
+    /**
+     * Remove content
+     *
+     * @param \BLOGBundle\Entity\Content $content
+     */
+    public function removeContent(\BLOGBundle\Entity\Content $content)
+    {
+        $this->content->removeElement($content);
+    }
+
+    /**
+     * Get content
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }

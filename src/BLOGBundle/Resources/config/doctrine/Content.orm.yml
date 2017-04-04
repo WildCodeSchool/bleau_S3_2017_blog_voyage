@@ -1,0 +1,17 @@
+BLOGBundle\Entity\Content:
+    type: entity
+    table: null
+    repositoryClass: BLOGBundle\Repository\ContentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        content:
+            type: text
+    manyToOne:
+        article:
+            targetEntity: BLOGBundle\Entity\Article
+            inversedBy: content

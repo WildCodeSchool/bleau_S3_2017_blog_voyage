@@ -17,4 +17,4 @@ BLOGBundle\Entity\Category:
         article:
             targetEntity: BLOGBundle\Entity\Article
             inversedBy: category
-            cascade: ["persist"]
+            cascade: ["persist","remove"]

@@ -1,3 +1,26 @@
 {% extends 'layout.html.twig' %}
 
+{% block style %} {{ asset('bundles/css/form.css') }} {% endblock %}
+
 {% block title %}Administration{% endblock%}
+
+{% block form %}
+<div class="form">
+    {{ form_start(form) }}
+    <p>
+        {{ form_label(form.title, 'Titre') }}
+        {{ form_errors(form.title) }}
+        {{ form_widget(form.title) }}
+    </p>
+    {% for category in form.category %}
+    <p>
+        {{ form_label(category.category, 'Categorie') }}
+        {{ form_errors(category.category) }}
+        {{ form_widget(category.category) }}
+    </p>
+    {% endfor %}
+
+    <input class="waves-effect waves-light btn center-align" type="submit" value="poster" />
+    {{ form_end(form)  }}
+</div>
+{% endblock %}
