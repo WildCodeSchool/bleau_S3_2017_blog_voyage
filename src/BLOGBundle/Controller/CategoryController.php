@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
         $categories = $em->getRepository('BLOGBundle:Category')->findAll();
 
-        return $this->render('category/index.html.twig', array(
+        return $this->render('@BLOG/category/index.html.twig', array(
             'categories' => $categories,
         ));
     }
@@ -45,7 +45,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('category_show', array('id' => $category->getId()));
         }
 
-        return $this->render('category/new.html.twig', array(
+        return $this->render('@BLOG/category/new.html.twig', array(
             'category' => $category,
             'form' => $form->createView(),
         ));
@@ -81,7 +81,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('category_edit', array('id' => $category->getId()));
         }
 
-        return $this->render('category/edit.html.twig', array(
+        return $this->render('@BLOG/category/edit.html.twig', array(
             'category' => $category,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
