@@ -7,39 +7,39 @@
 {% block form %}
 <div class="form">
     {{ form_start(form) }}
+	<input type="submit" value="Valider la création"/>
     <p>
-        {{ form_label(form.title, 'Titre') }}
+        {{ form_label(form.title, "Titre de l'article") }}
         {{ form_errors(form.title) }}
         {{ form_widget(form.title) }}
 	</p>
 	<p>
-        {{ form_label(form.date, 'Date') }}
+        {{ form_label(form.date, "Date") }}
         {{ form_errors(form.date) }}
         {{ form_widget(form.date) }}
     </p>
 	
-	<h2> Catégories </h2>
-	 
 	{% if keyword !=null %} 
-		<select name='content[]'>
+	<div id='categoryList'>
+		<label for="content" > Catégories existantes </label>
+		<select name='category[]' id='content'>
+				<option value=''> Choisir une catégorie </option>
 			{% for key in keyword %}
 				<option value='{{ key.category }}'/>{{ key.category }}</option>
 			{% endfor %}
 		</select>
+	</div>
 	{% endif %}
 
 	<div id='buttonRange'>
-		<button class='text'>Nouveau texte</button>
 		<button class='picture'>Nouvelle image</button>
-		<button class='category'>Nouveau mot-clef</button>
-		<input type='submit'/>
+		<button class='text'>Nouveau texte</button>
+		<button class='category'>Nouvelle catégorie</button>
 	</div>
+	
+	{{ dump(keyword) }}
 
 	{{ form_end(form) }}
-	
-	{% for req in request %}
-	{{ req}}
-	{% endfor %}
 
 </div>
 {% endblock %}

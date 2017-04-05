@@ -65,19 +65,26 @@ class AdminController extends Controller
 		
 			foreach($request->request->get('category') as $category)
 			{
-				$categ = new Category();
-				$categ->setCategory($category);
-				$categ->addArticle($article);
-				$article->addCategory($categ); 
+				foreach($keyword as $key){
+					if($key->getCategory() != $category){
+						$categ = new Category();
+						$categ->setCategory($category);
+						$categ->addArticle($article);
+						$article->addCategory($categ);
+					}	 
+				}				
 			}
 			
 			foreach($request->request->get('src') as $src)
 			{				
-				$image = new Image();
-				$image->setSrc($src);
-				$image->setAlt($article->getTitle());
-				$image->setArticle($article);
-				$article->addImage($image); 
+				
+				if(!empty($src)){
+					$image = new Image();
+					$image->setSrc($src);
+					$image->setAlt($article->getTitle());
+					$image->setArticle($article);
+					$article->addImage($image);
+				} 
 			}
 			
 			foreach($request->request->get('content') as $content)
@@ -100,22 +107,7 @@ class AdminController extends Controller
         return $this->render('@BLOG/Admin/add.html.twig', array(
             'admin' => $article,
 			'keyword' => $keyword,
-            'form' => $form->createView(),
-			'request'=> $request
-        ));
-    }
-
-    /**
-     * Finds and displays a Admin entity.
-     *
-     */
-    public function showAction(Article $article)
-    {
-        $deleteForm = $this->createDeleteForm($article);
-
-        return $this->render('@BLOG/Admin/show.html.twig', array(
-            'Admin' => $article,
-            'delete_form' => $deleteForm->createView(),
+            'form' => $form->createView()
         ));
     }
 

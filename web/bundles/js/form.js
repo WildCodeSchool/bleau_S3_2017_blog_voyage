@@ -10,15 +10,18 @@ var buttonCategoryElt = document.getElementsByClassName('category');
 // Création bouton ajout de textes
 var buttonTextElt = document.getElementsByClassName('text');
 
-// Création du bouton de soumission du formulaire et ajout d'attributs
-var submitElt = document.createElement('input');
-submitElt.setAttribute('type', 'submit');
-submitElt.setAttribute('value', 'Valider');
+// Création de la div pour les mots-clefs/catégories
+var keywordRangeElt = document.createElement('div');
+keywordRangeElt.setAttribute('id', 'keywordRange');
 
-// Sélection de la dernière div
+// Sélection de la div comprenant les boutons d'ajout/soumission
 var buttonRangeElt = document.getElementById('buttonRange');
 
+// On insére la div contenant les mots-clefs avant la div contenant les boutons d'ajout/soumission
+buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
+
 // Ecoute du clic sur le bouton d'ajout d'images
+var k=1;
 buttonPictureElt[0].addEventListener('click', function(e){
 	// Evite la soumission automatique du formulaire.....
 	e.preventDefault();
@@ -28,12 +31,16 @@ buttonPictureElt[0].addEventListener('click', function(e){
     pElt.style.background = '#f8f8f8';
     pElt.style.paddingTop = '5px';
     pElt.style.paddingBottom = '5px';
+	
+	var labelElt = document.createElement('label');
+    labelElt.setAttribute('class', 'keyWordLabel');
+    labelElt.textContent = 'Image ' +k;
 
     // Création de la balise p qui contiendra le bouton de suppression
     var pElt2 = document.createElement('p');
     pElt2.style.margin = '5px 0 0 0';
     pElt2.style.textAlign = 'right';
-    pElt.style.background = '#f8f8f8';
+    pElt.style.background = 'white';
     var inputImgElt = document.createElement('input');
    
     var buttonRemoveElt = document.createElement('button');
@@ -54,16 +61,19 @@ buttonPictureElt[0].addEventListener('click', function(e){
 
     /*********************************************************************************************/
 
-    pElt.appendChild(inputImgElt);
+    pElt.appendChild(labelElt);
+	pElt.appendChild(inputImgElt);
     pElt2.appendChild(buttonRemoveElt);
     pElt.appendChild(pElt2);
-    formElt[0].insertBefore(pElt, buttonRangeElt);
-
-    // Création image
+    buttonRangeElt.parentNode.insertBefore(pElt, buttonRangeElt);
 
     // On retire l'input si clic sur bouton supprimer correspondant
     buttonRemoveElt.addEventListener('click', function(e){
-        formElt[0].removeChild(pElt);
+		e.preventDefault();
+		if((labelElt.textContent).includes(''+k-1+'')){
+			k--;
+		}
+        buttonRangeElt.parentNode.removeChild(pElt);
     });
 
     // On écoute si fichier upload vide ou non et change la classe en vert ou rouge selon les cas
@@ -75,6 +85,8 @@ buttonPictureElt[0].addEventListener('click', function(e){
             this.className = 'inputFileNoUpload';
         }
     });
+	
+	k++;
 });
 
 var j=1;
@@ -93,7 +105,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     // On appelle la fonction et on lui envoie un tableau en argument
     setAttributes(tab = ['type' , 'text' , 'id' , 'category' , 'name' , 'category[]']);
 
-    // Création du bouton
+    // Création du bouton de suppression
     var buttonRemoveElt = document.createElement('button');
     buttonRemoveElt.textContent = 'Supprimer';
 
@@ -113,13 +125,18 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     spanElt.style.display = 'none';
     spanElt.style.color = 'black';
     spanElt.style.fontWeight = 'bold';
+    spanElt.style.width = '95%';
+    spanElt.style.margin= '0 auto';
     spanElt.setAttribute('class', 'inputValidation');
 	
 	var divElt = document.createElement('div');
+	divElt.setAttribute('class', 'keywordDiv');
 	
     // Création de la balise p qui contiendra le bouton de suppression
     var pElt2 = document.createElement('p');
-    pElt2.style.width = '100%';
+    pElt2.style.width = '95%';
+    pElt2.style.margin = '0 auto';
+    pElt2.style.paddingTop = '5px';
     pElt2.style.textAlign = 'right';
 
     // On ajoute le label, l'input text, le bouton de suppression du mot-clef, la phrase de conseil
@@ -129,11 +146,13 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     pElt2.appendChild(buttonRemoveElt);
     divElt.appendChild(pElt);
     divElt.appendChild(pElt2);
-    formElt[0].insertBefore(divElt, buttonRangeElt);
+	keywordRangeElt.appendChild(divElt);
+   
 
     buttonRemoveElt.addEventListener('click', function(e){
 		e.preventDefault();
-        formElt[0].removeChild(divElt);
+        keywordRangeElt.removeChild(divElt);
+		j--;
     });
 
     var validation;
@@ -168,7 +187,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
             pElt.style.display = 'none';
             spanElt.style.display = 'none';
             this.parentNode.style.backgroundColor = '#f8f8f8';
-            labelElt.style.color = 'rgb(104,104,104)';
+            labelElt.style.color = 'black';
         }
     });
 
@@ -176,7 +195,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     inputElt.addEventListener('blur', function(e){
         if(this.parentNode.style.backgroundColor !== 'green'){
             this.parentNode.style.backgroundColor = '#f8f8f8';
-            labelElt.style.color = 'rgb(104,104,104)';
+            labelElt.style.color = 'black';
         }
         if(validation == true){
             if(e.target.value.length > 0){
@@ -199,13 +218,39 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     j++;
 });
 
+var l=1;
 buttonTextElt[0].addEventListener("click", function(e){
 	e.preventDefault();
 	var inputTextElt = document.createElement('textarea');
 	var pElt = document.createElement('p');
+	var pElt2 = document.createElement('p');
+	pElt2.style.textAlign = 'right';
+	pElt2.style.margin = '0 auto';
+	pElt2.style.width = '95%';
+	
+	var labelElt = document.createElement('label');
+	labelElt.setAttribute('class', 'keyWordLabel');
+	labelElt.textContent = 'Texte ' + l;
+	
+	 // Création du bouton de suppression
+    var buttonRemoveElt = document.createElement('button');
+    buttonRemoveElt.textContent = 'Supprimer';
 	
 	inputTextElt.setAttribute('name', 'content[]');
+	pElt.appendChild(labelElt);
+	pElt2.appendChild(buttonRemoveElt);
 	pElt.appendChild(inputTextElt);
-	formElt[0].insertBefore(pElt, buttonRangeElt);
+	pElt.appendChild(pElt2);
+	buttonRangeElt.parentNode.insertBefore(pElt, buttonRangeElt);
+	
+	buttonRemoveElt.addEventListener('click', function(e){
+		e.preventDefault();
+		if((labelElt.textContent).includes(''+l-1+'')){
+			l--;
+		}
+		buttonRangeElt.parentNode.removeChild(pElt);
+	});
+	
+	l++;
 });
 
