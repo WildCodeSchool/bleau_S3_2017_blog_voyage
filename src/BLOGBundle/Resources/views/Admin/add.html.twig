@@ -11,41 +11,37 @@
         {{ form_label(form.title, 'Titre') }}
         {{ form_errors(form.title) }}
         {{ form_widget(form.title) }}
-
+	</p>
+	<p>
         {{ form_label(form.date, 'Date') }}
         {{ form_errors(form.date) }}
         {{ form_widget(form.date) }}
     </p>
+	
+	<h2> Catégories </h2>
+	 
+	{% if keyword !=null %} 
+		<select name='content[]'>
+			{% for key in keyword %}
+				<option value='{{ key.category }}'/>{{ key.category }}</option>
+			{% endfor %}
+		</select>
+	{% endif %}
 
-    {% for content in form.content %}
-        <p>
-            {{ form_label(content.content, 'Content') }}
-            {{ form_errors(content.content) }}
-            {{ form_widget(content.content) }}
-        </p>
-    {% endfor %}
+	<div id='buttonRange'>
+		<button class='text'>Nouveau texte</button>
+		<button class='picture'>Nouvelle image</button>
+		<button class='category'>Nouveau mot-clef</button>
+		<input type='submit'/>
+	</div>
 
-    {% for image in form.image %}
-        <p>
-            {{ form_label(image.src, 'Image') }}
-            {{ form_errors(image.src) }}
-            {{ form_widget(image.src) }}
+	{{ form_end(form) }}
+	
+	{% for req in request %}
+	{{ req}}
+	{% endfor %}
 
-            {{ form_label(image.alt, 'Description') }}
-            {{ form_errors(image.alt) }}
-            {{ form_widget(image.alt) }}
-        </p>
-    {% endfor %}
-
-    {% for category in form.category %}
-    <p>
-        {{ form_label(category.category, 'Categorie') }}
-        {{ form_errors(category.category) }}
-        {{ form_widget(category.category) }}
-    </p>
-    {% endfor %}
-
-    <input class="waves-effect waves-light btn center-align" type="submit" value="poster" />
-    {{ form_end(form)  }}
 </div>
 {% endblock %}
+
+{% block javascript %}{{ asset('bundles/js/form.js') }}{% endblock %}

@@ -49,55 +49,59 @@ class AdminController extends Controller
      */
     public function addAction(Request $request)
     {
-        $article = new Article(); // J'instancie un nouvel objet Article
-
-        $category = new Category(); // J'instancie un nouvel objet category
-		$category->setCategory('bonjour'); // Je récupère le texte saisi par l'utilisateur
-
-        $category2 = new Category(); // J'instancie un nouvel objet category
-        $category2->setCategory('bonjour2'); // Je récupère le texte saisi par l'utilisateur
-
-        $content = new Content();
-        $content->setContent("Fuck me, I'm famous");
-        $content->setArticle($article);
-
-        $content2 = new Content();
-        $content2->setContent("Fuck me, I'm famous 2");
-        $content2->setArticle($article);
-
-        $image = new Image();
-        $image->setSrc('http://i.skyrock.net/3854/8943854/pics/476809285.gif');
-        $image->setAlt('Bienvenu');
-        $image->setArticle($article);
-
-        $article->addCategory($category); // J'appelle sa méthode pour ajouter les catégories
-        $article->addCategory($category2);
-
-        $article->addContent($content);
-        $article->addContent($content2);
-
-        $article->addImage($image);
-        // Si suppression de la ligne juste au dessus -> Alors le champ n'apparaît plus dans le formulaire
+		$em = $this->getDoctrine()->getManager();
 		
-		$category->addArticle($article); // J'appelle la méthode qui permet de lier la catégorie à l'Admin fraîchement créé
-        $category2->addArticle($article);
-
-        $form = $this->createForm('BLOGBundle\Form\ArticleType', $article); // Créer le formulaire selon modèle ArticleType
-																			// puis le prérempli avec les éléments de $Admin;
-        $form->handleRequest($request); // Traite le formulaire
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
+		// On récupère les mots-clefs 
+		$keyword = $em->getRepository('BLOGBundle:Category')->findAll();
+		
+        $article = new Article();
+			
+        $form = $this->createForm('BLOGBundle\Form\ArticleType', $article); 
+		$form->handleRequest($request);
+        
+		if ($form->isSubmitted() && $form->isValid()) {		
+		
 			$em = $this->getDoctrine()->getManager();
-            $em->persist($article); // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-            $em->flush();
+		
+			foreach($request->request->get('category') as $category)
+			{
+				$categ = new Category();
+				$categ->setCategory($category);
+				$categ->addArticle($article);
+				$article->addCategory($categ); 
+			}
+			
+			foreach($request->request->get('src') as $src)
+			{				
+				$image = new Image();
+				$image->setSrc($src);
+				$image->setAlt($article->getTitle());
+				$image->setArticle($article);
+				$article->addImage($image); 
+			}
+			
+			foreach($request->request->get('content') as $content)
+			{
+				$cont = new Content();
+				$cont->setContent($content);
+				$cont->setArticle($article);
+				$article->addContent($cont); 
+			}
+			
+			$em->persist($article);
+			$em->flush();
+			
+             // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+            
 
-            return $this->redirectToRoute('admin_show', array('id' => $article->getId()));
+            return $this->redirectToRoute('admin_add');
         }
 
         return $this->render('@BLOG/Admin/add.html.twig', array(
             'admin' => $article,
+			'keyword' => $keyword,
             'form' => $form->createView(),
+			'request'=> $request
         ));
     }
 

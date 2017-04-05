@@ -1,10 +1,14 @@
 form[name='blogbundle_article']{
-    width: 30%;
+    width: 100%;
     margin: 0 auto;
     background: #eee;
     height: auto;
-    padding: 20px;
+    /*padding: 20px;*/
     font-size: 1.5em;
+}
+
+select{
+	width: 100%;
 }
 
 form
@@ -42,4 +46,68 @@ ul li{
 
 ul li a{
     color: white;
+}
+
+/* CSS en lien avec les inputs générés par Javascript */
+
+.inputFileNoUpload{
+    background: #b22222;
+    color: white;
+    width: 100%;
+}
+
+.inputFileUpload{
+    background: green;
+    color: white;
+    width: 100%;
+}
+
+#categoryList{
+    border: 1px solid #d8d8d8;
+    display: none;
+    padding: 0;
+}
+
+#categoryList li{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 10px;
+    margin-bottom: 7px;
+}
+
+#categoryList li:last-child{
+    margin-bottom: 0px;
+}
+
+.keyWordLabel{
+    font-weight: bold;
+    color: rgb(104,104,104);
+}
+
+.keyWordInput{
+    width: 70%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.keyWordHelp{
+    width: 100%;
+}
+
+@media only screen and (max-width: 680px){
+    .keyWordLabel,
+    .keyWordInput,
+    .keyWordValidation,
+    .keyWordHelp{
+        width: 100%;
+        margin: 5px 0 5px 0;
+    }
+
+    .inputFileNoUpload,
+    .inputFileUpload{
+        width: 100%;
+    }
 }

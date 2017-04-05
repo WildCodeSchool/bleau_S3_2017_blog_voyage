@@ -1,4 +1,4 @@
-BLOGBundle\Entity\Category:
+BLOGBundle\Entity\Category:        
     type: entity
     table: null
     repositoryClass: BLOGBundle\Repository\CategoryRepository
@@ -12,6 +12,7 @@ BLOGBundle\Entity\Category:
         category:
             type: string
             length: '50'
+            unique: true
 
     manyToMany:
         article:
