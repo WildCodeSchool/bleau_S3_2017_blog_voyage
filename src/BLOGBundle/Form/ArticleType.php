@@ -16,8 +16,7 @@ class ArticleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')
-                ->add('date');
+        $builder->add('title');
 				/*
 				->add('image', CollectionType::class, array(
                     'entry_type' => CategoryType::class

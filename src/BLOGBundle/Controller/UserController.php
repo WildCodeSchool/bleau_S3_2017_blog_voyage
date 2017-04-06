@@ -2,13 +2,22 @@
 
 namespace BLOGBundle\Controller;
 
+use BLOGBundle\Entity\Article;
+use BLOGBundle\Entity\Category;
+use BLOGBundle\Entity\Content;
+use BLOGBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class UserController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BLOGBundle:User:index.html.twig');
+		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
+		$articles = $em->findAll();
+		
+        return $this->render('BLOGBundle:User:index.html.twig', array(
+			'articles'=> $articles,
+			));
     }
 
     public function viewAction($id)

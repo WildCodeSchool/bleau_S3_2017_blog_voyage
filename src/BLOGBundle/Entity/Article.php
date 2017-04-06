@@ -39,6 +39,7 @@ class Article
     {
         $this->image = new \Doctrine\Common\Collections\ArrayCollection();
         $this->category = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->date = new \ Datetime();
     }
 
     /**
@@ -73,20 +74,6 @@ class Article
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Article
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
     }
 
     /**

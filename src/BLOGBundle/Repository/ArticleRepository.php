@@ -15,7 +15,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 	
 		public function myFindAll()
 		{
-			$queryBuilder = $this->createQueryBuilder('a'); // Nom de l'entité (première lettre suffit)
+			$queryBuilder = $this->createQueryBuilder('a'); 
 			return $queryBuilder->getQuery()->getResult();
 		}
 		

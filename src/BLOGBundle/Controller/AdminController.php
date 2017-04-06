@@ -26,20 +26,13 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
        
 	   // On récupère tous les éléments de la table Article
-        $articles = $em->getRepository('BLOGBundle:Article'); 
+        $articles = $em;
 
-		
 		$articles = $articles->findAll();
-		// $articles = $articles->myFindByDateRange('2014-01-01', '2015-12-31');
-		// $articles = $articles->myFindByTitle('Hello', '2014');
-        
 		
-	   // On récupère tous les éléments de la table Category associés à un Admin
-		
-       
 	   // On envoit le résultat à la vue
         return $this->render('@BLOG/Admin/index.html.twig', array(
-            'articles' => $articles,
+            'articles' => $articles
         ));
     }
 
@@ -61,26 +54,24 @@ class AdminController extends Controller
         
 		if ($form->isSubmitted() && $form->isValid()) {		
 		
-			
-		
-			
 				foreach($request->request->get('category') as $category)
 				{
 					if($category !== "") // Si catégorie est vide (y compris si select est laissé sur 'choisir une catégorie')
 					{
-						if($keyword) // Utilse lors de la création du premier article...Si la base n'est pas vide
-						{			// En effet, on ne va pas faire des boucles sur un tableau d'objets sans objet
+						if($keyword) 
+						{			
 							$i=0; $j=0; $endLoop = false; $loopIndex=0; $loopLength=count($keyword);
 							foreach($keyword as $key){
 																
-								// Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
 								
+								// Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
 								if($category !== $key->getCategory()) 
-								// Si réception d'un tableau = [{bourgogne}, {fromage}] et que l'utilisateur envoie fromage
+								
 								{
 									$j++;
 								}
 								
+								// Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
 								if($category == $key->getCategory())
 								{					
 									$key->addArticle($article);
@@ -97,6 +88,7 @@ class AdminController extends Controller
 								}
 							}
 							
+							// Puisque j est supérieur à 0, alors on doit créer une catégorie.
 							if($j>0 AND $i==0 AND $endLoop == true){
 								$categ = new Category();
 								$categ->setCategory($category);
