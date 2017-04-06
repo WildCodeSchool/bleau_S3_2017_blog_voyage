@@ -27,16 +27,21 @@ class UserController extends Controller
         ));
     }
 
-    public function viewCategoryAction($category)
-    {
-        return $this->render('BLOGBundle:User:viewCategory.html.twig', array(
-            'category'=>$category
-        ));
-    }
+    public function presentationAction()
+	{
+		return $this->render('BLOGBundle:User:presentation.html.twig');
+	}
 
     public function categoryAction()
     {
         return $this->render('BLOGBundle:User:category.html.twig');
+    }
+	
+	public function viewCategoryAction($category)
+    {
+        return $this->render('BLOGBundle:User:viewCategory.html.twig', array(
+            'category'=>$category
+        ));
     }
 
     public function datesAction()

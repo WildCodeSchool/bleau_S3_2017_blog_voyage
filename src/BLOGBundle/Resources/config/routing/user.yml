@@ -9,6 +9,11 @@ blog_article:
         _controller: 'BLOGBundle:User:view'
     requirements:
         id: \d+
+        
+blog_presentation:
+    path: /presentation
+    defaults:
+        _controller: 'BLOGBundle:User:presentation'
 
 blog_category:
     path: /category

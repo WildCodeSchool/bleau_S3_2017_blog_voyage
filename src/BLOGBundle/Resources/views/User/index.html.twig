@@ -2,12 +2,20 @@
 
 {% block section %}
     <section>
-        <img src="{{ asset('bundles/images/lumia6.jpg') }}"/>
-        <figcaption class="picture-caption">
-            <h2>{% block h2 %}{% endblock %}</h2>
-            <a href='#'><button class="btn btn-custom btn-danger">En savoir plus</button></a>
-            <i> Publié le {% block i %}{% endblock %}</i>
-        </figcaption>
+		{% for article in articles %}
+			{% if loop.first %}
+				{% for image in article.image %}
+					{% if loop.first %}
+						<img src="{{ image.src }}"/>
+					{% endif %}
+				{% endfor %}
+				<figcaption class="picture-caption">
+					<h2> {{ article.title }} </h2>
+					<a href='{{ path('blog_article', {id : article.id}) }}'><button class="btn btn-custom btn-danger">En savoir plus</button></a>
+					<i> Publié le {{ article.date.date|date('d/m/Y') }}</i>
+				</figcaption>
+			{% endif %}
+		{% endfor %}
     </section>
 {% endblock %}
 
@@ -22,7 +30,6 @@
 		{% for image in article.image %}
 			{% if loop.first %}
 				<img src="{{ image.src }}"  class="img-thu"/>
-				{{ image.id }}
 			{% endif %}
 		{% endfor %}
             <div class="article-caption">

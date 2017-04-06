@@ -12,12 +12,11 @@
                 <a class="navbar-brand navbar-brand-custom" href="#"><img src="{{ asset('bundles/images/mandala.png') }}" alt='logo'/></a>
 
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Présentation du projet</a></li>
-                    <li><a href="#">Remerciements</a></li>
-                    <li><a href="#">Catégories</a></li>
-                    <li><a href="#">Articles par date</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{{ path('blog_homepage') }}">Accueil</a></li>
+                    <li><a href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
+                    <li><a href="{{ path('blog_category') }}">Catégories</a></li>
+                    <li><a href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
+                    <li><a href="{{ path('blog_contact') }}">Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -25,20 +24,19 @@
         <nav class="navbar navbar-custom navbar-custom-1200">
             <div class="container-fluid container-fluid-custom">
 
-                <a class="navbar-brand navbar-brand-custom" href="#"><img src="{{ asset('bundles/images/mandala.png') }}" alt='logo'/></a>
+                <a class="navbar-brand navbar-brand-custom" href="{{ path('blog_homepage') }}"><img src="{{ asset('bundles/images/mandala.png') }}" alt='logo'/></a>
 
                 <div class="dropdown dropdown-custom">
                     <button class="btn btn-lg btn-hamburger-custom dropdown-toggle" type="button" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Accueil</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_homepage') }}">Accueil</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Présentation du projet</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Remerciements</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Catégories</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Articles par date</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_category') }}">Catégories</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_contact') }}">Contact</a></li>
                     </ul>
                 </div>
             </div>
