@@ -61,38 +61,84 @@ class AdminController extends Controller
         
 		if ($form->isSubmitted() && $form->isValid()) {		
 		
-			$em = $this->getDoctrine()->getManager();
-		
-			foreach($request->request->get('category') as $category)
-			{
-				foreach($keyword as $key){
-					if($key->getCategory() != $category){
-						$categ = new Category();
-						$categ->setCategory($category);
-						$categ->addArticle($article);
-						$article->addCategory($categ);
-					}	 
-				}				
-			}
 			
-			foreach($request->request->get('src') as $src)
-			{				
-				
-				if(!empty($src)){
-					$image = new Image();
-					$image->setSrc($src);
-					$image->setAlt($article->getTitle());
-					$image->setArticle($article);
-					$article->addImage($image);
-				} 
-			}
+		
+			
+				foreach($request->request->get('category') as $category)
+				{
+					if($category !== "") // Si catégorie est vide (y compris si select est laissé sur 'choisir une catégorie')
+					{
+						if($keyword) // Utilse lors de la création du premier article...Si la base n'est pas vide
+						{			// En effet, on ne va pas faire des boucles sur un tableau d'objets sans objet
+							$i=0; $j=0; $endLoop = false; $loopIndex=0; $loopLength=count($keyword);
+							foreach($keyword as $key){
+																
+								// Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
+								
+								if($category !== $key->getCategory()) 
+								// Si réception d'un tableau = [{bourgogne}, {fromage}] et que l'utilisateur envoie fromage
+								{
+									$j++;
+								}
+								
+								if($category == $key->getCategory())
+								{					
+									$key->addArticle($article);
+									$article->addCategory($key);
+									$i++;
+								}
+															
+								// Si le mot-clef renseigné n'existe pas encore, alors on l'ajoute en bdd et on fait l'association
+
+								$loopIndex++; // On ajoute un tour de boucle
+								
+								if($loopLength == $loopIndex){
+									$endLoop = true; // Si on a parcouru, alors fin des boucles
+								}
+							}
+							
+							if($j>0 AND $i==0 AND $endLoop == true){
+								$categ = new Category();
+								$categ->setCategory($category);
+								$categ->addArticle($article);
+								$article->addCategory($categ);
+							}
+						}
+						else // Si la base est vide, je crée ma première catégorie
+						{
+							$categ = new Category();
+							$categ->setCategory($category);
+							$categ->addArticle($article);
+							$article->addCategory($categ);
+						}
+					}
+				}
+			
+			
+			// On vérifie qu'il y a au moins une image envoyée
+			if(!empty($request->request->get('src')))
+			{
+				foreach($request->request->get('src') as $src)
+				{				
+					
+					if(!empty($src)){ // On vérifie qu'aucun des formulaires envoyés n'est vide
+						$image = new Image();
+						$image->setSrc($src);
+						$image->setAlt($article->getTitle());
+						$image->setArticle($article);
+						$article->addImage($image);
+					} 
+				}
+			}		
 			
 			foreach($request->request->get('content') as $content)
 			{
-				$cont = new Content();
-				$cont->setContent($content);
-				$cont->setArticle($article);
-				$article->addContent($cont); 
+				if(!empty($content)){
+					$cont = new Content();
+					$cont->setContent($content);
+					$cont->setArticle($article);
+					$article->addContent($cont); 
+				}
 			}
 			
 			$em->persist($article);

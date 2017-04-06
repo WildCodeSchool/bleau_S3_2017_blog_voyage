@@ -22,8 +22,8 @@
 	{% if keyword !=null %} 
 	<div id='categoryList'>
 		<label for="content" > Catégories existantes </label>
-		<select name='category[]' id='content'>
-				<option value=''> Choisir une catégorie </option>
+		<select name='category[]' id='content' multiple="true">
+				<option value="" selected> Choisir une catégorie </option>
 			{% for key in keyword %}
 				<option value='{{ key.category }}'/>{{ key.category }}</option>
 			{% endfor %}
@@ -38,6 +38,8 @@
 	</div>
 	
 	{{ dump(keyword) }}
+	
+
 
 	{{ form_end(form) }}
 
