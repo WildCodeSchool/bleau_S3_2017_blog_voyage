@@ -197,14 +197,32 @@ h1{
 3. CONTAINER
 */
 
-.container-custom{
+.container-homepage{
     margin-bottom: 50px;
 }
 
-.container-custom{
+.container-homepage{
 
     background-size: cover;
     width: 100%;
+}
+
+/* 3.1 Container de la page /dates */
+
+.container-dates{
+    min-height: 100vh;
+}
+
+.row-dates{
+    background: yellow;
+    min-height: 100%;
+    margin-top: 200px;
+}
+
+/********/
+
+row_custom{
+    background: yellow;
 }
 
 .article-custom{
@@ -233,6 +251,7 @@ h1{
     align-items: center;
     justify-content: center;
     color: transparent;
+    overflow: hidden;
 }
 
 .article-caption h3{
@@ -241,6 +260,8 @@ h1{
 
 .article-caption p{
     width: 75%;
+    height: 30%;
+    overflow: hidden;
     font-size: 1.5em;
     text-align: justify;
 }

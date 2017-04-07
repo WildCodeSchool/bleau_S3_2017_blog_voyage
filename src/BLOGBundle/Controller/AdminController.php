@@ -8,6 +8,8 @@ use BLOGBundle\Entity\Content;
 use BLOGBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 /**
  * Article controller
@@ -48,12 +50,14 @@ class AdminController extends Controller
 		$keyword = $em->getRepository('BLOGBundle:Category')->findAll();
 		
         $article = new Article();
-			
-        $form = $this->createForm('BLOGBundle\Form\ArticleType', $article); 
+
+        $form = $this->createForm('BLOGBundle\Form\ArticleType', $article);
 		$form->handleRequest($request);
-        
+
+
+
 		if ($form->isSubmitted() && $form->isValid()) {		
-		
+
 				foreach($request->request->get('category') as $category)
 				{
 					if($category !== "") // Si catégorie est vide (y compris si select est laissé sur 'choisir une catégorie')
@@ -105,21 +109,23 @@ class AdminController extends Controller
 						}
 					}
 				}
-			
-			
+
 			// On vérifie qu'il y a au moins une image envoyée
-			if(!empty($request->request->get('src')))
+			if(!empty($request->files))
 			{
-				foreach($request->request->get('src') as $src)
-				{				
-					
-					if(!empty($src)){ // On vérifie qu'aucun des formulaires envoyés n'est vide
+                foreach($request->files->get('src') as $src)
+				{
+                    if(!empty($src))
+					{ // On vérifie qu'aucun des formulaires envoyés n'est vide	
+						$fileName = uniqid().'.'.$src->guessExtension();
+                        $src->move($this->getParameter('image_directory'), $fileName);
+
 						$image = new Image();
-						$image->setSrc($src);
+						$image->setSrc($fileName);
 						$image->setAlt($article->getTitle());
 						$image->setArticle($article);
 						$article->addImage($image);
-					} 
+					}
 				}
 			}		
 			

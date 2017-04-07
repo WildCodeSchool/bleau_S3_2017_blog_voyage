@@ -1,3 +1,14 @@
 {% extends '@BLOG/layout.html.twig' %}
 
 {% block title %} {{ parent() }} {% endblock %}
+
+{% block container %}
+    <div class="container container-dates">
+        {% block row %}
+            <div class="row row-dates">
+                <input type="date" name="start">
+                <input type="date" name="end">
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -6,7 +6,7 @@
 			{% if loop.first %}
 				{% for image in article.image %}
 					{% if loop.first %}
-						<img src="{{ image.src }}"/>
+						<img src="{{ asset('bundles/images/'~image.src)}}"/>
 					{% endif %}
 				{% endfor %}
 				<figcaption class="picture-caption">
@@ -23,28 +23,32 @@
     <h1>ROAD SHOW</h1>
 {% endblock %}
 
-{% block row %}
-    <div class="row">
-	{% for article in articles %}
-        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-		{% for image in article.image %}
-			{% if loop.first %}
-				<img src="{{ image.src }}"  class="img-thu"/>
-			{% endif %}
-		{% endfor %}
-            <div class="article-caption">
-                <h3>{{ article.title }}</h3>
-                <p>
-					{% for content in article.content %}
-						{{ content.content }}
-					{% endfor %}
-                </p>
-                <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                <i>Publié le {{ article.date.date|date('d/m/Y') }} </i>
+{% block container %}
+    <div class="container container-homepage">
+    {% block row %}
+        <div class="row">
+        {% for article in articles %}
+            <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
+            {% for image in article.image %}
+                {% if loop.first %}
+                    <img src="{{ asset('bundles/images/'~image.src)}}" class="img-thu"/>
+                {% endif %}
+            {% endfor %}
+                <div class="article-caption">
+                    <h3>{{ article.title }}</h3>
+                    <p>
+                        {% for content in article.content %}
+                            {{ content.content }}
+                        {% endfor %}
+                    </p>
+                    <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                    <i>Publié le {{ article.date.date|date('d/m/Y') }} </i>
+                </div>
             </div>
+        {% endfor %}
         </div>
-	{% endfor %}
-	</div>
+    {% endblock %}
+    </div>
 {% endblock %}
 
 {%block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}

@@ -1,6 +1,7 @@
 <?php
 
 namespace BLOGBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Article

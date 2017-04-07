@@ -2,10 +2,7 @@
 
 namespace BLOGBundle\Controller;
 
-use BLOGBundle\Entity\Article;
-use BLOGBundle\Entity\Category;
-use BLOGBundle\Entity\Content;
-use BLOGBundle\Entity\Image;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class UserController extends Controller
@@ -44,9 +41,19 @@ class UserController extends Controller
         ));
     }
 
-    public function datesAction()
+    public function datesAction($request)
     {
-        return $this->render('BLOGBundle:User:dates.html.twig');
+        $start = $request->request->get('start');
+        $start = $request->request->get('end');
+        $em = $this->getDoctrine()->getManager();
+        $date = $em->getRepository('BLOGBundle:Article');
+
+        $date = $date->myfindBYdatrange($start,$end);
+
+
+        return $this->render('BLOGBundle:User:dates.html.twig', array(
+            'date' => $date
+        ));
     }
 
     public function contactAction()
