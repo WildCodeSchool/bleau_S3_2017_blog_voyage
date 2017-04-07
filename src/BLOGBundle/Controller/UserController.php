@@ -4,13 +4,17 @@ namespace BLOGBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class UserController extends Controller
 {
     public function indexAction()
     {
 		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
-		$articles = $em->findAll();
+		$articles = $em->myFindAll();
 		
         return $this->render('BLOGBundle:User:index.html.twig', array(
 			'articles'=> $articles,
@@ -19,8 +23,11 @@ class UserController extends Controller
 
     public function viewAction($id)
     {
+        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
+        $article = $em->myFindOne($id);
+
         return $this->render('BLOGBundle:User:view.html.twig', array(
-            'id'=>$id
+            'articles'=>$article
         ));
     }
 
@@ -41,18 +48,25 @@ class UserController extends Controller
         ));
     }
 
-    public function datesAction($request)
+    public function datesAction(Request $request)
     {
+
         $start = $request->request->get('start');
-        $start = $request->request->get('end');
+        $end = $request->request->get('end');
+        $start = $start.' '.'00:00:00';
+        $end = $end.' '.'23:59:59';
+
         $em = $this->getDoctrine()->getManager();
         $date = $em->getRepository('BLOGBundle:Article');
 
-        $date = $date->myfindBYdatrange($start,$end);
+        $date = $date->myFindByDateRange($start,$end);
 
+        // http://symfony.com/doc/current/forms.html
+        $form = $this->createFormBuilder()->getForm();
 
         return $this->render('BLOGBundle:User:dates.html.twig', array(
-            'date' => $date
+            'dates' => $date,
+            'form' => $form->createView()
         ));
     }
 

@@ -207,16 +207,53 @@ h1{
     width: 100%;
 }
 
-/* 3.1 Container de la page /dates */
+/* 3.1 Container des pages /Articles/id et /dates */
 
-.container-dates{
+.container-dates,
+.container-article{
+
+    margin-top: 75px;
+    margin-bottom: 75px;
+}
+
+.article{
+    margin: 0 auto;
+    width: 80%;
+    padding: 10px;
+    background: #f7f7f7;
+    border: 1px solid #e8e8e8;
     min-height: 100vh;
 }
 
-.row-dates{
-    background: yellow;
-    min-height: 100%;
-    margin-top: 200px;
+.article h1{
+    background: #f8f8f8;
+    height: 80px;
+    line-height: 80px;
+    color: #333;
+}
+
+.article img{
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+article p{
+    width: 100%;
+    text-align: justify;
+    margin: 0 auto;
+    font-size: 2em;
+    line-height: 35px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    word-break: break-all;
+    background: white;
+    padding: 20px;
+}
+
+.article footer{
+    background: #ff5c5c;
 }
 
 /********/
@@ -279,7 +316,7 @@ row_custom{
 /* classe ajoutée à article-caption lorsque la souris passe sur l'article (mouseover) */
 
 .article-caption-show{
-    background: royalblue;
+    background: rgba(0,0,0,.8);
     color: white;
 }
 

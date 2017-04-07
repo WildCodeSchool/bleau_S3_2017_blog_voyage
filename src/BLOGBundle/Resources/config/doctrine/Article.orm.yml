@@ -13,7 +13,7 @@ BLOGBundle\Entity\Article:
             type: string
             length: 255
         date:
-            type: date
+            type: datetime
 
     manyToMany:
         category:

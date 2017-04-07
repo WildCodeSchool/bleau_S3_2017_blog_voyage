@@ -56,7 +56,7 @@ class AdminController extends Controller
 
 
 
-		if ($form->isSubmitted() && $form->isValid()) {		
+		if ($form->isSubmitted() && $form->isValid()) {
 
 				foreach($request->request->get('category') as $category)
 				{
@@ -115,17 +115,16 @@ class AdminController extends Controller
 			{
                 foreach($request->files->get('src') as $src)
 				{
-                    if(!empty($src))
-					{ // On vérifie qu'aucun des formulaires envoyés n'est vide	
-						$fileName = uniqid().'.'.$src->guessExtension();
+                    if(!empty($src)) { // On vérifie qu'aucun des formulaires envoyés n'est vide
+                        $fileName = uniqid() . '.' . $src->guessExtension();
                         $src->move($this->getParameter('image_directory'), $fileName);
 
-						$image = new Image();
-						$image->setSrc($fileName);
-						$image->setAlt($article->getTitle());
-						$image->setArticle($article);
-						$article->addImage($image);
-					}
+                        $image = new Image();
+                        $image->setSrc($fileName);
+                        $image->setAlt($article->getTitle());
+                        $image->setArticle($article);
+                        $article->addImage($image);
+                    }
 				}
 			}		
 			
@@ -138,6 +137,45 @@ class AdminController extends Controller
 					$article->addContent($cont); 
 				}
 			}
+
+			// On récupère le nombre d'images créées
+            // On rcupère le nombre de textes créées
+            // Est-ce cohérent ?
+            // Si texte en trop, alors images correspondantes doivent être vides
+            // Si images en trop, alors textes correspondants doivent être vides
+
+            $nbImages = count($request->files->get('src'));
+            $nbTexts = count($request->request->get('content'));
+
+            // Si leurs quantités n'est pas similaires, on rentre dans la condition
+            if($nbImages !== $nbTexts){
+                if($nbImages > $nbTexts){
+                    $deltaTexts = $nbImages - $nbTexts;
+                    echo "Le delta de texte(s) est de : " .$deltaTexts . " texte(s).
+                        <br /> Il faut donc créer " . $deltaTexts . " texte(s) vides";
+                    for($i=0; $i<$deltaTexts; $i++){
+                        $cont = new Content();
+                        $cont->setContent("");
+                        $cont->setArticle($article);
+                        $article->addContent($cont);
+                    }
+                }
+                if($nbTexts > $nbImages)
+                {
+                    $deltaImages = $nbTexts - $nbImages;
+                    echo "Le delta d'image(s) est de ". $deltaImages .
+                        "<br /> Il faut donc créer " . $deltaImages . " image(s) vides";
+
+                    for($i=0; $i<$deltaImages; $i++)
+                    {
+                        $image = new Image();
+                        $image->setSrc("");
+                        $image->setAlt("");
+                        $image->setArticle($article);
+                        $article->addImage($image);
+                    }
+                }
+            }
 			
 			$em->persist($article);
 			$em->flush();

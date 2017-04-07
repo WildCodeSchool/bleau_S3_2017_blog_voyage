@@ -6,8 +6,16 @@
     <div class="container container-dates">
         {% block row %}
             <div class="row row-dates">
-                <input type="date" name="start">
-                <input type="date" name="end">
+                {{ form_start(form) }}
+                    <input type="date" name="start">
+                    <input type="date" name="end">
+                    <input type="submit"/>
+                {{ form_end(form) }}
+            </div>
+            <div class="row">
+                {% for articles in dates %}
+                    {{ articles.title }}
+                {% endfor %}
             </div>
         {% endblock %}
     </div>

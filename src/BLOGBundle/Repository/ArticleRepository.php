@@ -15,8 +15,9 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 	
 		public function myFindAll()
 		{
-			$queryBuilder = $this->createQueryBuilder('a'); 
-			return $queryBuilder->getQuery()->getResult();
+			$qb = $this->createQueryBuilder('a');
+			$qb->orderBy('a.date', 'DESC');
+			return $qb->getQuery()->getResult();
 		}
 		
 		public function myFindOne($id)

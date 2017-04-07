@@ -1,3 +1,30 @@
 {% extends '@BLOG/layout.html.twig' %}
 
 {% block title %} {{ parent() }} {% endblock %}
+
+{% block container %}
+    <div class="container container-article"
+        {% block row %}
+            <div class="row">
+                {% for article in articles %}
+                    <div class="article">
+                        <h1>{{ article.title }}</h1>
+                        {% for image in article.image %}
+                            {% for content in article.content %}
+                                {% if content.id == image.id %}
+                                    {% if image.src is not empty %}
+                                        <img src="{{ asset('bundles/images/'~image.src ) }}"/>
+                                    {% endif %}
+                                    <p> {{ content.content }} </p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        <footer>
+                             Publié le {{ article.date.date|date('d/m/Y') }}
+                        </footer>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
