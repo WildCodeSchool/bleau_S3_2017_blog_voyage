@@ -31,16 +31,17 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 		{
 			$qb = $this->createQueryBuilder('a');
 			$qb->where('a.title = :title')->setParameter('title', $title)
-			   ->andWhere('a.date > :date')->setParameter('date', $date);
+			   ->andWhere('a.date = :date')->setParameter('date', $date);
 			return $qb->getQuery()->getResult();
 		}
 		
-		public function myFindByDateRange($start, $end)
+		public function myFindByDateRange($start_conv, $end_conv)
 		{
 			$qb = $this->createQueryBuilder('a');
 			$qb->where('a.date BETWEEN :start AND :end')
-			   ->setParameter('start', $start)
-			   ->setParameter('end', $end);
+                   ->setParameter('start', $start_conv)
+                   ->setParameter('end', $end_conv)
+			    ->orderBy('a.date', 'DESC');
 			return $qb->getQuery()->getResult();
 		}
 }

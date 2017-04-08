@@ -50,23 +50,30 @@ class UserController extends Controller
 
     public function datesAction(Request $request)
     {
-
+        // On récupères les dates de début et de fin saisie par l'utilisateur
         $start = $request->request->get('start');
         $end = $request->request->get('end');
-        $start = $start.' '.'00:00:00';
-        $end = $end.' '.'23:59:59';
+
+        // On met des heures et minutes pour correspondre au format datetime...de la bdd
+        $start_conv = $start.' '.'00:00:00';
+        $end_conv = $end.' '.'23:59:59';
 
         $em = $this->getDoctrine()->getManager();
-        $date = $em->getRepository('BLOGBundle:Article');
+        $articles = $em->getRepository('BLOGBundle:Article');
 
-        $date = $date->myFindByDateRange($start,$end);
+        // On donne les arguments à la méthode de recherche par date du Repository
+        $articles = $articles->myFindByDateRange($start_conv, $end_conv);
 
         // http://symfony.com/doc/current/forms.html
         $form = $this->createFormBuilder()->getForm();
 
         return $this->render('BLOGBundle:User:dates.html.twig', array(
-            'dates' => $date,
-            'form' => $form->createView()
+            'articles' => $articles,
+            'form' => $form->createView(),
+            // On renvoi les dates saisies par l'utilisateur et on les remet dans le
+            // formulaire pour qu'il se rappelle des dates saisies
+            'start' => $start,
+            'end' => $end,
         ));
     }
 

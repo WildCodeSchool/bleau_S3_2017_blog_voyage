@@ -8,6 +8,23 @@
 var sectionElt = document.getElementsByTagName('section');
 var articleElt = document.getElementsByClassName('article-custom');
 var articleDescriptionElt = document.getElementsByClassName('article-caption');
+var imgElt = document.getElementsByClassName('image');
+
+if(window.innerWidth>768)
+{
+    for (i = 0; i < imgElt.length; i++) {
+        var imgHeight = parseFloat(getComputedStyle(imgElt[i]).height);
+        var imgWidth = parseFloat(getComputedStyle(imgElt[i]).width);
+        console.log("La hauteur de l'image est de " + imgHeight);
+        console.log("La largeur de l'image est de " + imgWidth);
+        if (imgHeight > imgWidth) {
+            imgElt[i].classList.add('vertical-img-resize');
+        }
+        else {
+            imgElt[i].classList.add('horizontal-img-resize');
+        }
+    }
+}
 
 console.log(articleDescriptionElt.length);
 
