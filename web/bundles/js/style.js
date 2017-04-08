@@ -11,7 +11,7 @@ var articleDescriptionElt = document.getElementsByClassName('article-caption');
 var imgElt = document.getElementsByClassName('image');
 var containerDateElt = document.getElementsByClassName('container-dates');
 
-containerDateElt[0].style.minHeight = window.innerHeight - 100 + 'px';
+
 
 if(window.innerWidth>=768)
 {
@@ -39,6 +39,13 @@ for(i=0; i<articleElt.length; i++){
     });
 }
 
-// On redéfinit la hauteur la section lors du redimensionnement de la fenêtre
+// On définit une taille miminum du container de la page date lorsque le visiteur arrive
+// sur la page afin que le footer soit bien placé en bas de la page
+if(containerDateElt[0]) {
+    containerDateElt[0].style.minHeight = window.innerHeight - 100 + 'px';
+}
 
-sectionElt[0].style.height = window.innerWidth/2.08 + 'px';
+// On redimensionne la section de la page d'accueil en fonction de la largeur de la fenêtre
+if(sectionElt[0]) {
+    sectionElt[0].style.height = window.innerWidth / 2.08 + 'px';
+}
