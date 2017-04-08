@@ -14,6 +14,7 @@ body{
     font-family: 'Dancing Script', cursive;
     padding: 0;
     margin: 0;
+    position: relative;
 }
 
 /*
@@ -211,16 +212,46 @@ h1{
 
 .container-dates,
 .container-article{
-    margin-top: 75px;
-    margin-bottom: 75px;
+    padding-top: 75px;
+    margin-bottom: 50px;
 }
 
-.row-dates{
+/* page dates */
+.row-custom{
     font-size: 1.75em;
     text-align: center;
     margin-bottom: 50px;
+}
+
+.row-custom h1{
+    font-size: 3em;
+    background: #eee;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+@media all and (max-width: 600px){
+    .row-custom h1{
+        font-size: 2.5em;
+    }
+}
+
+.article-dates-list{
+    background: yellow;
+}
+
+@media all and (max-width: 1024px){
+    label,
+    input{
+        width: 100%;
+    }
+    input[type="submit"]{
+        margin-top: 10px;
+    }
 
 }
+
+/* page articles */
 
 .article{
     margin: 0 auto;
@@ -232,7 +263,7 @@ h1{
 }
 
 .article h1{
-    background: #f8f8f8;
+    background: rgba(0,0,0,0);
     height: 80px;
     line-height: 80px;
     color: #333;
@@ -264,18 +295,15 @@ article p{
 
 /********/
 
-@media all and (min-width: 768px){
-    .article-custom{
-        position: relative;
-        padding: 0;
-        margin: 0;
-        margin-bottom: 5px;
-        margin-top: 5px;
-        height: 300px;
-        overflow: hidden;
-    }
+.article-custom{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    height: 300px;
+    overflow: hidden;
 }
-
 
 @media all and (max-width: 767px){
     .article-custom{
