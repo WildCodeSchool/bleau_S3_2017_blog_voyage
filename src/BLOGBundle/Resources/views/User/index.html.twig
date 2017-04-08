@@ -12,7 +12,7 @@
 				<figcaption class="picture-caption">
 					<h2> {{ article.title }} </h2>
 					<a href='{{ path('blog_article', {id : article.id}) }}'><button class="btn btn-custom btn-danger">En savoir plus</button></a>
-					<i> Publié le {{ article.date.date|date('d/m/Y') }}</i>
+					<i> Publi le {{ article.date.date|date('d/m/Y') }}</i>
 				</figcaption>
 			{% endif %}
 		{% endfor %}
