@@ -7,17 +7,45 @@
     <div class="menu">
          <a href="{{ path('admin_add') }}"><button class="btn btn-lg btn-danger">Ajouter un article</button></a>
          <a href="{{ path('admin_profil') }}"><button class="btn btn-lg btn-danger">Profil</button></a>
+         <a href="{{ path('admin_newsletter') }}"><button class="btn btn-lg btn-danger">Abonnés newsletter</button></a>
          <a href="#"><button class="btn btn-lg btn-danger">Déconnexion </button></a>
     </div>
 {% endblock %}
 
 {% block container %}
     <div class="container">
+        <div class="row row-custom">
+            <div class="col-xs-12">
+                {# Simulation de résultat en bdd#}{% set comments = ['hg', 'hgf', 'hgf'] %}
+                <b> {{ comments|length }} commentaire(s) à valider </b>
+                {% if comments|length !=0 %}
+                    <a href="{{ path('admin_comments') }}"><button class="btn btn-large btn-warning">Valider les commentaires</button></a>
+                {% endif %}
+            </div>
+        </div>
         <div class="row">
             <h1> Liste des derniers articles publiés </h1>
             {% for article in articles %}
                 <div class="col-xs-12 col-custom">
-
+                    <div class="row">
+                        <div class="col-xs-2">
+                            {%  for image in article.image %}
+                                {% if loop.first %}
+                                    <img src="{{ asset('bundles/images/'~image.src) }}" class="image-admin"/>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-xs-3 col-title">
+                            <b>Titre : </b>{{ article.title }}
+                        </div>
+                        <div class="col-xs-3 col-date">
+                            <b>Publié le : </b> {{ article.date.date|date('d/m/Y') }}
+                        </div>
+                        <div class="col-xs-3">
+                            <a href="{{ path('admin_edit', {id : article.id }) }}"><button class="btn btn-medium btn-success"> Editer </button></a>
+                            <a href="{{ path('admin_delete', {id : article.id }) }}"><button class="btn btn-large btn-danger"> Supprimer </button></a>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>

@@ -28,12 +28,15 @@ class AdminController extends Controller
        
 	   // On récupère tous les éléments de la table Article
         $articles = $em->getRepository('BLOGBundle:Article');
+		$articles = $articles->myFindAll();
 
-		$articles = $articles->findAll();
-		
+		$comments = $em->getRepository('BLOGBundle:Comments');
+		$comments = $comments->findAll();
+
 	   // On envoit le résultat à la vue
         return $this->render('@BLOG/Admin/index.html.twig', array(
-            'articles' => $articles
+            'articles' => $articles,
+            'comments' => $comments
         ));
     }
 
@@ -247,5 +250,15 @@ class AdminController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function commentAction(){
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('BLOGBundle:Comments');
+        $comments = $comments->findAll();
+
+        return $this->render('@BLOG/Admin/comment.html.twig', array(
+            'comments' => $comments
+        ));
     }
 }

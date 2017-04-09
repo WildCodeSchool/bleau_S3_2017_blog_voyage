@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 
-{% block style %} {{ asset('bundles/css/form.css') }} {% endblock %}
+{% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
 {% block title %}Administration{% endblock%}
 
 {% block form %}
-	<div class="menu">
+	<div class="menu menu-add">
 		<a href="{{ path('admin_index') }}"><button class="btn btn-large btn-danger"> Accueil </button></a>
 		<a href=""><button class="btn btn-large btn-danger"> Déconnexion </button></a>
 	</div>
@@ -29,9 +29,9 @@
 	{% endif %}
 
 	<div id='buttonRange'>
-		<button class='picture'>Nouvelle image</button>
-		<button class='text'>Nouveau texte</button>
-		<button class='category'>Nouvelle catégorie</button>
+		<button class='picture btn btn-large btn-danger'>Nouvelle image</button>
+		<button class='text btn btn-large btn-danger'>Nouveau texte</button>
+		<button class='category btn btn-large btn-danger'>Nouvelle catégorie</button>
 	</div>
     <label for="submit" id="label-submit"> Publier l'article </label>
     <input type="submit" id="submit" class="btn btn-large btn-danger" value="Valider la création"/>
