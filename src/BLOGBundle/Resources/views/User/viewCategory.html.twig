@@ -1,3 +1,67 @@
 {% extends '@BLOG/layout.html.twig' %}
 
 {% block title %} {{ parent() }} {% endblock %}
+
+{% block h1 %}
+    <h1>Categories</h1>
+{% endblock %}
+
+{% block Category %}
+
+    <div class="form">
+        {{ form_start(form,{'attr': {'enctype': 'multipart/form-data'}}) }}
+
+        <input type="submit" value="Chercher les articles correspondant"/>
+        <p>
+            {{ form_label(form.category, "Titre de l'article") }}
+            {{ form_errors(form.category) }}
+            {{ form_widget(form.category) }}
+        </p>
+
+        {{ form_end(form) }}
+
+    </div>
+        {#{% if category !=null %}
+            <div id='categoryList'>
+                <label for="content" > Catégories existantes </label>
+                <select name='category[]' id='content'>
+                    <option value="" selected> Choisir une catégorie </option>
+                    {% for key in category %}
+                        <option value='{{ key.category }}'/>{{ key.category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+       <a href=""> <input type="submit" value="Chercher les articles correspondant"/>
+       </a>#}
+
+{% endblock %}
+
+
+{% block container %}
+    <div class="container container-category">
+        {% block row %}
+            <div class="row">
+                {% for article in articles_categ %}
+                    <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
+                        {% for image in article.image %}
+                            {% if loop.first %}
+                                <img src="{{ asset('bundles/images/'~image.src)}}" class="img-thu"/>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="article-caption">
+                            <h3>{{ article.title }}</h3>
+                            <p>
+                                {% for content in article.content %}
+                                    {{ content.content }}
+                                {% endfor %}
+                            </p>
+                            <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                            <i>Publié le {{ article.date.date|date('d/m/Y h:m:s') }} </i>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
