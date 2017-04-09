@@ -86,7 +86,7 @@ class Comments
         return $this->comment;
     }
 
-    public function construct()
+    public function __construct()
     {
         $this->date = new \ Datetime();
     }

@@ -49,9 +49,3 @@ if(containerDateElt[0]) {
 if(sectionElt[0]) {
     sectionElt[0].style.height = window.innerWidth / 2.08 + 'px';
 }
-
-if(buttonPublishElt[0]){
-    $(this).click(function(){
-        $('form').show();
-    });
-}
