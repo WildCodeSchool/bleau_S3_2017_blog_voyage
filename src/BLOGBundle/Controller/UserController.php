@@ -28,8 +28,22 @@ class UserController extends Controller
         $form = $this->createForm('BLOGBundle\Form\CommentsType', $comment);
         $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
-        $article = $em->myFindOne($id);
+        $em = $this->getDoctrine()->getManager();
+
+        $article = $em->getRepository('BLOGBundle:Article');
+        $article = $article->myFindOne($id);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($article as $articles) {
+                $comment->setArticle($articles);
+            }
+            foreach($comment as $comments) {
+                $article->addComment($comments);
+            }
+            $em->persist($comment);
+            $em->flush();
+        }
 
         return $this->render('BLOGBundle:User:view.html.twig', array(
             'articles'=>$article,

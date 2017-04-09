@@ -307,11 +307,11 @@ h1{
 .comments{
     color: black;
     padding: 5px;
+    margin-top: 20px;
 }
 
 .comments form{
-    margin-top: 10px;
-    display: none;
+    margin-top: 20px;
 }
 
 .comments button{
@@ -324,6 +324,20 @@ input,
 textarea{
     font-size: 2em;
     width: 100%;
+}
+
+.comment{
+    background: white;
+    margin-bottom: 10px;
+}
+
+.comment p{
+    padding: 5px;
+    font-size: 2em;
+}
+
+.comment p:nth-child(2){
+    font-size: 1.75em;
 }
 
 .comments input[type=text], textarea{
@@ -339,6 +353,11 @@ textarea{
     background: #d9534f;
     color: white;
     border: none;
+}
+
+.button-range{
+    display: flex;
+    justify-content: space-between;
 }
 
 /********/

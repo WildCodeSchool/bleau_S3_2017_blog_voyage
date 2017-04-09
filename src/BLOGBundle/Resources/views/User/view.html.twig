@@ -4,6 +4,7 @@
 
 {% block container %}
     <div class="container container-article"
+
         {% block row %}
             <div class="row">
                 {% for article in articles %}
@@ -23,7 +24,10 @@
                              Publié le {{ article.date.date|date('d/m/Y') }}
                         </aside>
                         <div class="comments">
-                            <button class="btn btn-large btn-danger">Publier un commentaire</button>
+                            <div class="button-range">
+                                <button class="btn btn-large btn-danger">Publier un commentaire</button>
+                                <button class="btn btn-large btn-danger">Voir les commentaires</button>
+                            </div>
                             {{ form_start(form) }}
                                 {{ form_label(form.author, 'Auteur') }}
                                 {{ form_errors(form.author) }}
@@ -32,10 +36,16 @@
                                 {{ form_label(form.comment, 'Commentaire') }}
                                 {{ form_errors(form.comment) }}
                                 {{ form_widget(form.comment) }}
-
                             <input type="submit"/>
                             {{ form_end(form) }}
                         </div>
+
+                        {% for comment in article.comment %}
+                            <div class="comment">
+                                <p> {{ comment.comment }}</p>
+                                <p><b>Par {{ comment.author }} le {{ comment.date.date|date('d/m/Y') }}</b></p>
+                            </div>
+                        {% endfor %}
                     </div>
                 {% endfor %}
             </div>

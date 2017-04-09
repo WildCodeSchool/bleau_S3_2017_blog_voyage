@@ -86,18 +86,9 @@ class Comments
         return $this->comment;
     }
 
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return comments
-     */
-    public function setDate($date)
+    public function __construct()
     {
-        $this->date = $date;
-
-        return $this;
+        $this->date = new \ Datetime();
     }
 
     /**
