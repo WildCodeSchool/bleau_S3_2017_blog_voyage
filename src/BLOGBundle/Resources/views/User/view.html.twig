@@ -23,7 +23,7 @@
                              Publié le {{ article.date.date|date('d/m/Y') }}
                         </aside>
                         <div class="comments">
-                            <button class="btn btn-large btn-danger">Publier un commentaire</button>
+                            <button class="btn btn-large btn-danger publish">Publier un commentaire</button>
                             {{ form_start(form) }}
                                 {{ form_label(form.author, 'Auteur') }}
                                 {{ form_errors(form.author) }}

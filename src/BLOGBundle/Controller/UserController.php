@@ -31,6 +31,12 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
         $article = $em->myFindOne($id);
 
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+        }
+
         return $this->render('BLOGBundle:User:view.html.twig', array(
             'articles'=>$article,
             'form' => $form->createView()

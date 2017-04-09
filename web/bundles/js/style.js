@@ -10,7 +10,7 @@ var articleElt = document.getElementsByClassName('article-custom');
 var articleDescriptionElt = document.getElementsByClassName('article-caption');
 var imgElt = document.getElementsByClassName('image');
 var containerDateElt = document.getElementsByClassName('container-dates');
-var formElt = document.querySelectorAll('.comments > button');
+var buttonPublishElt = document.getElementsByClassName('publish');
 
 function load(){
     if (window.innerWidth >= 768) {
@@ -50,8 +50,8 @@ if(sectionElt[0]) {
     sectionElt[0].style.height = window.innerWidth / 2.08 + 'px';
 }
 
-if(formElt[0]){
+if(buttonPublishElt[0]){
     $(this).click(function(){
-        $('form').slideToggle();
+        $('form').show();
     });
 }
