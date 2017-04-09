@@ -28,22 +28,22 @@ buttonPictureElt[0].addEventListener('click', function(e){
 	
     // Création de la balise p qui contiendra l'input type file
     var pElt = document.createElement('p');
-    pElt.style.background = '#f8f8f8';
+
     pElt.style.paddingTop = '5px';
     pElt.style.paddingBottom = '5px';
 	
 	var labelElt = document.createElement('label');
-    labelElt.setAttribute('class', 'keyWordLabel');
+    labelElt.setAttribute('class', 'label-image');
     labelElt.textContent = 'Image ' +k;
 
     // Création de la balise p qui contiendra le bouton de suppression
     var pElt2 = document.createElement('p');
     pElt2.style.margin = '5px 0 0 0';
     pElt2.style.textAlign = 'right';
-    pElt.style.background = 'white';
     var inputImgElt = document.createElement('input');
    
     var buttonRemoveElt = document.createElement('button');
+    buttonRemoveElt.setAttribute('class', 'btn btn-large btn-danger')
     buttonRemoveElt.textContent = 'Supprimer';
     buttonRemoveElt.style.right = '0';
 
@@ -107,11 +107,12 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 
     // Création du bouton de suppression
     var buttonRemoveElt = document.createElement('button');
+    buttonRemoveElt.setAttribute('class', 'btn btn-large btn-danger');
     buttonRemoveElt.textContent = 'Supprimer';
 
     // Création du label, attribution d'une classe et ajout de contenu
     var labelElt = document.createElement('label');
-    labelElt.setAttribute('class', 'keyWordLabel');
+    labelElt.setAttribute('class', 'label-category');
     labelElt.textContent = 'Nouveau mot-clef ' +j;
 
     // Création de la phrase de conseil
@@ -134,7 +135,6 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 	
     // Création de la balise p qui contiendra le bouton de suppression
     var pElt2 = document.createElement('p');
-    pElt2.style.width = '95%';
     pElt2.style.margin = '0 auto';
     pElt2.style.paddingTop = '5px';
     pElt2.style.textAlign = 'right';
@@ -158,7 +158,6 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     var validation;
     inputElt.addEventListener('input', function(e){
         this.parentNode.style.backgroundColor = '#77b5fe';
-        labelElt.style.color = 'black';
         pElt.style.color = 'black';
 
         var regex = new RegExp('autres*|Autres*');
@@ -187,7 +186,6 @@ buttonCategoryElt[0].addEventListener('click', function(e){
             pElt.style.display = 'none';
             spanElt.style.display = 'none';
             this.parentNode.style.backgroundColor = '#f8f8f8';
-            labelElt.style.color = 'black';
         }
     });
 
@@ -195,7 +193,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     inputElt.addEventListener('blur', function(e){
         if(this.parentNode.style.backgroundColor !== 'green'){
             this.parentNode.style.backgroundColor = '#f8f8f8';
-            labelElt.style.color = 'black';
+
         }
         if(validation == true){
             if(e.target.value.length > 0){
@@ -224,16 +222,18 @@ buttonTextElt[0].addEventListener("click", function(e){
 	var inputTextElt = document.createElement('textarea');
 	var pElt = document.createElement('p');
 	var pElt2 = document.createElement('p');
+	pElt.style.margin = "25px 0 25px 0";
 	pElt2.style.textAlign = 'right';
 	pElt2.style.margin = '0 auto';
-	pElt2.style.width = '95%';
+
 	
 	var labelElt = document.createElement('label');
-	labelElt.setAttribute('class', 'keyWordLabel');
+	labelElt.setAttribute('class', 'label-text');
 	labelElt.textContent = 'Texte ' + l;
 	
 	 // Création du bouton de suppression
     var buttonRemoveElt = document.createElement('button');
+    buttonRemoveElt.setAttribute('class', 'btn btn-large btn-danger');
     buttonRemoveElt.textContent = 'Supprimer';
 	
 	inputTextElt.setAttribute('name', 'content[]');

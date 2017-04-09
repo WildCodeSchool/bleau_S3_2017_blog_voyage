@@ -1,3 +1,9 @@
+.menu{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
 form[name='blogbundle_article']{
     width: auto;
     margin: 0 auto;
@@ -7,30 +13,54 @@ form[name='blogbundle_article']{
 	background: #eee;
 }
 
+#buttonRange{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+@media all and (max-width: 480px){
+    #buttonRange{
+        flex-wrap: wrap;
+    }
+    button{
+        width: 100%;
+        margin: 10px 0 10px 0;
+    }
+}
+
+
 select{
 	width: 100%;
 }
 
 #categoryList{
-	margin-bottom: 20px;
+	margin: 25px 0 25px 0;
 }
 
 form
 input[type='text'],
 textarea{
 	display: block;
-    width: 95%;
+    width: 100%;
 	margin: 0 auto;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 textarea{
+    margin: 0 0 5px 0;
     height: 100px;
 }
 
-label{
-    font-weight: 900;
+.label-titre,
+.label-category,
+.label-image,
+.label-text{
+    background: black;
+    color: white;
+    padding: 5px;
+    width: 100%;
 }
 
 ul{
@@ -71,15 +101,7 @@ ul li a{
 	padding-top: 5px;
 	padding-bottom: 5px;
 	background: #f8f8f8;
-	margin-bottom: 5px;
-}
-
-.keyWordLabel{
-	display: block;
-	margin: 0 auto;
-    font-weight: bold;
-    color: black;
-	width: 95%;
+	margin: 25px 0 25px 0;
 }
 
 .keyWordInput{
@@ -104,4 +126,18 @@ ul li a{
     .inputFileUpload{
         width: 100%;
     }
+}
+
+input[type="submit"]{
+    display: block;
+    margin: 0 auto;
+}
+
+#label-submit{
+    margin-top: 25px;
+    padding: 5px;
+    border: 2px solid #888;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 1.5em;
 }

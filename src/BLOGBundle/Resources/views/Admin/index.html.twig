@@ -1,3 +1,25 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Administration{% endblock%}
+{% block style %}{{ asset('bundles/css/admin.css') }}{% endblock %}
+
+{% block add %}
+    <div class="menu">
+         <a href="{{ path('admin_add') }}"><button class="btn btn-lg btn-danger">Ajouter un article</button></a>
+         <a href="{{ path('admin_profil') }}"><button class="btn btn-lg btn-danger">Profil</button></a>
+         <a href="#"><button class="btn btn-lg btn-danger">Déconnexion </button></a>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <h1> Liste des derniers articles publiés </h1>
+            {% for article in articles %}
+                <div class="col-xs-12 col-custom">
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

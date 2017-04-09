@@ -1,22 +1,24 @@
 {% extends 'layout.html.twig' %}
 
 {% block style %} {{ asset('bundles/css/form.css') }} {% endblock %}
-
 {% block title %}Administration{% endblock%}
 
 {% block form %}
+	<div class="menu">
+		<a href="{{ path('admin_index') }}"><button class="btn btn-large btn-danger"> Accueil </button></a>
+		<a href=""><button class="btn btn-large btn-danger"> Déconnexion </button></a>
+	</div>
 <div class="form">
     {{ form_start(form,{'attr': {'enctype': 'multipart/form-data'}}) }}
-	<input type="submit" value="Valider la création"/>
     <p>
-        {{ form_label(form.title, "Titre de l'article") }}
+        {{ form_label(form.title, "Titre de l'article", {'label_attr' : {class:"label-titre" }} ) }}
         {{ form_errors(form.title) }}
         {{ form_widget(form.title) }}
 	</p>
 	
 	{% if keyword !=null %} 
 	<div id='categoryList'>
-		<label for="content" > Catégories existantes </label>
+		<label for="content" class="label-category"> Catégories existantes </label>
 		<select name='category[]' id='content' multiple="true">
 				<option value="" selected> Choisir une catégorie </option>
 			{% for key in keyword %}
@@ -31,7 +33,8 @@
 		<button class='text'>Nouveau texte</button>
 		<button class='category'>Nouvelle catégorie</button>
 	</div>
-
+    <label for="submit" id="label-submit"> Publier l'article </label>
+    <input type="submit" id="submit" class="btn btn-large btn-danger" value="Valider la création"/>
 	{{ form_end(form) }}
 
 </div>

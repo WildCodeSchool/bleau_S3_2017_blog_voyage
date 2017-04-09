@@ -20,3 +20,8 @@ admin_delete:
     path:     /delete/{id}
     defaults: { _controller: "BLOGBundle:Admin:delete" }
     methods:  DELETE
+
+admin_profil:
+    path:     /profil
+    defaults: { _controller: "BLOGBundle:Admin:profil" }
+    methods:  DELETE
