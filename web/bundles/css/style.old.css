@@ -4,14 +4,18 @@
 3. CONTAINER
 4. FOOTER
 */
+
 /*
-1. BODY
-*/
-body {
-    font: 1em/1.67 Arial, Sans-serif;
+1.BODY
+ */
+
+body{
+    color: darkslategrey;
+    font-family: 'Dancing Script', cursive;
+    padding: 0;
     margin: 0;
-    background: #e9e9e9;
 }
+
 /*
 2. NAVBAR
 */
@@ -132,13 +136,9 @@ h1{
     text-align: center;
 }
 
-
-
-img, iframe {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
+/*
+3. CONTAINER
+*/
 
 .wrapper {
     width: 95%;
@@ -173,14 +173,6 @@ img, iframe {
     text-align: center;
 }
 
-/*
-3. CONTAINER
-*/
-
-.container-homepage{
-    margin-bottom: 50px;
-}
-
 .title {
     font-size: 1.75em;
     margin: .25em 0;
@@ -204,94 +196,11 @@ img, iframe {
     color: #666;
 }
 
-/* 3.1 Container de la page /dates */
-
-.container-dates{
-    min-height: 100vh;
-}
-
-.row-dates{
-    background: yellow;
-    min-height: 100%;
-    margin-top: 200px;
-}
-
-/********/
-
-row_custom{
-    background: yellow;
-}
-
-.article-custom{
-    position: relative;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 5px;
-    margin-top: 5px;
-    clear: none;
-
-
 .title a:hover {
     color: #666;
     border-color: #888;
 }
 
-
-.share-link,
-.article-link {
-    color: #888;
-}
-
-
-.article-caption{
-    text-indent: 100%;
-    white-space: nowrap;
-    align-items: center;
-    justify-content: center;
-    color: transparent;
-    overflow: hidden;
-}
-
-.article-caption h3{
-    font-size: 2.5em;
-}
-
-.article-caption p{
-    width: 75%;
-    height: 30%;
-    overflow: hidden;
-    font-size: 1.5em;
-    text-align: justify;
-}
-
-.article-caption button {
-    display: none;
-    font-size: 1.5em;
-}
-
-.article-caption i{
-    margin-top: 5px;
-    font-size: 1.5em;
-}
-
-/* classe ajoutée à article-caption lorsque la souris passe sur l'article (mouseover) */
-
-.article-caption-show{
-    text-indent: 100%;
-    white-space: normal;
-    background: royalblue;
-    color: white;
-    overflow: visible;
-}
-
-.article-caption-show a{
-    text-decoration: none;
-}
-
-.article-caption-show button{
-    display: block;
-    color: white;
-}
 
 
 @media only screen and (min-width: 700px) {
@@ -312,9 +221,9 @@ row_custom{
 
 @media only screen and (min-width: 1100px) {
     .masonry {
-        -moz-column-count: 4;
-        -webkit-column-count: 4;
-        column-count: 4;
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
     }
 }
 
@@ -322,12 +231,7 @@ row_custom{
     .wrapper {
         width: 1260px;
     }
-}
 
-/*
-Newsletter
-
-*/
 
 .newsletter{
     font-size: 2.5em;
@@ -346,16 +250,3 @@ Newsletter
 }
 
 
-
-/*
-4. FOOTER
- */
-
-footer{
-    background: black;
-    height: 50px;
-    line-height: 50px;
-    color: white;
-    font-size: 1.5em;
-    text-align: center;
-}
