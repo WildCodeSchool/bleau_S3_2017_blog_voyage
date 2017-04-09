@@ -2,7 +2,7 @@
 
 namespace BLOGBundle\Controller;
 
-
+use BLOGBundle\Entity\Comments;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -21,13 +21,19 @@ class UserController extends Controller
 			));
     }
 
-    public function viewAction($id)
+    public function viewAction($id, Request $request)
     {
+        $comment = new Comments();
+
+        $form = $this->createForm('BLOGBundle\Form\CommentsType', $comment);
+        $form->handleRequest($request);
+
         $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
         $article = $em->myFindOne($id);
 
         return $this->render('BLOGBundle:User:view.html.twig', array(
-            'articles'=>$article
+            'articles'=>$article,
+            'form' => $form->createView()
         ));
     }
 

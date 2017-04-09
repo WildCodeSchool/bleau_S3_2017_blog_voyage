@@ -10,22 +10,22 @@ var articleElt = document.getElementsByClassName('article-custom');
 var articleDescriptionElt = document.getElementsByClassName('article-caption');
 var imgElt = document.getElementsByClassName('image');
 var containerDateElt = document.getElementsByClassName('container-dates');
+var formElt = document.querySelectorAll('.comments > button');
 
+function load(){
+    if (window.innerWidth >= 768) {
+        for (i = 0; i < imgElt.length; i++) {
+            // On mesure hauteur et largueur
+            var imgHeight = parseFloat(getComputedStyle(imgElt[i]).height);
+            var imgWidth = parseFloat(getComputedStyle(imgElt[i]).width);
 
-
-if(window.innerWidth>=768)
-{
-    for (i = 0; i < imgElt.length; i++) {
-        // On mesure hauteur et largueur
-        var imgHeight = parseFloat(getComputedStyle(imgElt[i]).height);
-        var imgWidth = parseFloat(getComputedStyle(imgElt[i]).width);
-
-        // Si format portrait, ajout classe correspondante
-        if (imgHeight > imgWidth) {
-            imgElt[i].classList.add('vertical-img-resize');
-        }
-        else {
-            imgElt[i].classList.add('horizontal-img-resize');
+            // Si format portrait, ajout classe correspondante
+            if (imgHeight > imgWidth) {
+                imgElt[i].classList.add('vertical-img-resize');
+            }
+            else {
+                imgElt[i].classList.add('horizontal-img-resize');
+            }
         }
     }
 }
@@ -48,4 +48,10 @@ if(containerDateElt[0]) {
 // On redimensionne la section de la page d'accueil en fonction de la largeur de la fenêtre
 if(sectionElt[0]) {
     sectionElt[0].style.height = window.innerWidth / 2.08 + 'px';
+}
+
+if(formElt[0]){
+    $(this).click(function(){
+        $('form').slideToggle();
+    });
 }

@@ -7,7 +7,7 @@
         {% block row %}
             <div class="row">
                 {% for article in articles %}
-                    <div class="article">
+                    <div class="col-xs-12 article">
                         <h1>{{ article.title }}</h1>
                         {% for image in article.image %}
                             {% for content in article.content %}
@@ -19,12 +19,30 @@
                                 {% endif %}
                             {% endfor %}
                         {% endfor %}
-                        <footer>
+                        <aside>
                              Publié le {{ article.date.date|date('d/m/Y') }}
-                        </footer>
+                        </aside>
+                        <div class="comments">
+                            <button class="btn btn-large btn-danger">Publier un commentaire</button>
+                            {{ form_start(form) }}
+                                {{ form_label(form.author, 'Auteur') }}
+                                {{ form_errors(form.author) }}
+                                {{ form_widget(form.author) }}
+
+                                {{ form_label(form.comment, 'Commentaire') }}
+                                {{ form_errors(form.comment) }}
+                                {{ form_widget(form.comment) }}
+
+                            <input type="submit"/>
+                            {{ form_end(form) }}
+                        </div>
                     </div>
                 {% endfor %}
             </div>
         {% endblock %}
     </div>
 {% endblock %}
+{% block footer %}
+   {{ parent() }}
+{% endblock %}
+{% block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
