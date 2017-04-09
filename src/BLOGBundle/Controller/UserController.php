@@ -45,12 +45,6 @@ class UserController extends Controller
             $em->flush();
         }
 
-        if ($form->isSubmitted() && $form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();
-        }
-
         return $this->render('BLOGBundle:User:view.html.twig', array(
             'articles'=>$article,
             'form' => $form->createView()
