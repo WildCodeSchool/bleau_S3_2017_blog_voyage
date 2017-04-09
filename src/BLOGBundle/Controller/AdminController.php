@@ -23,12 +23,11 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-		
         // On se connecte à la bdd
         $em = $this->getDoctrine()->getManager();
        
 	   // On récupère tous les éléments de la table Article
-        $articles = $em;
+        $articles = $em->getRepository('BLOGBundle:Article');
 
 		$articles = $articles->findAll();
 		

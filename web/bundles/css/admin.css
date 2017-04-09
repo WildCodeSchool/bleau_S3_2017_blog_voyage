@@ -1,0 +1,44 @@
+/*
+
+1. Menu
+2. Container
+
+*/
+
+
+/* 1. Menu */
+
+.menu{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.menu button{
+    margin: 7px 20px 7px 20px;
+}
+
+@media all and (max-width: 480px){
+
+}
+
+/* Container */
+
+h1{
+    background: #eee;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+
+@media all and (max-width: 600px){
+    h1{
+        font-size: 2em;
+    }
+}
+
+@media all and (max-width: 480px){
+    h1{
+        font-size: 1.5em;
+    }
+}
