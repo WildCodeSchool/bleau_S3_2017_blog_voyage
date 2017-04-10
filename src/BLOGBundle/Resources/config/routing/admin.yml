@@ -25,6 +25,10 @@ admin_comments:
     path:     /comments
     defaults: { _controller: "BLOGBundle:Admin:comment" }
 
+admin_comments_validation:
+    path:     /comments/{id}
+    defaults: { _controller: "BLOGBundle:Admin:commentValidation" }
+
 admin_newsletter:
     path:     /newsletter
     defaults: { _controller: "BLOGBundle:Admin:newsletter" }

@@ -159,4 +159,14 @@ class Comments
     {
         return $this->publication;
     }
+
+    /**
+     * Set publication
+     *
+     * @return boolean
+     */
+    public function setPublication($publication)
+    {
+        $this->publication = $publication;
+    }
 }

@@ -31,7 +31,7 @@ class AdminController extends Controller
 		$articles = $articles->myFindAll();
 
 		$comments = $em->getRepository('BLOGBundle:Comments');
-		$comments = $comments->findAll();
+		$comments = $comments->myFindAll();
 
 	   // On envoit le résultat à la vue
         return $this->render('@BLOG/Admin/index.html.twig', array(
@@ -260,5 +260,24 @@ class AdminController extends Controller
         return $this->render('@BLOG/Admin/comment.html.twig', array(
             'comments' => $comments
         ));
+    }
+
+    public function commentValidationAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository("BLOGBundle:Comments")->findBy(array('id' => $id));
+
+        foreach($comments as $comment){
+            $comment->setPublication('1');
+        }
+
+        $em->persist($comment);
+        $em->flush();
+
+        $comment = $em->getRepository("BLOGBundle:Comments")->myFindAll();
+
+        return $this->render('@BLOG/Admin/comment.html.twig', array(
+            'comments' => $comment
+        ));
+
     }
 }
