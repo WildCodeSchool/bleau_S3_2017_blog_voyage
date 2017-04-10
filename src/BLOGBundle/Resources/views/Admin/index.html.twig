@@ -16,8 +16,9 @@
     <div class="container">
         <div class="row row-custom">
             <div class="col-xs-12">
-                <b> {{ comments|length }} commentaire(s) à valider </b>
                 {% if comments|length !=0 %}
+                <b> {{ comments|length }} commentaire(s) à valider </b>
+
                     <a href="{{ path('admin_comments') }}"><button class="btn btn-large btn-warning">Valider les commentaires</button></a>
                 {% endif %}
             </div>
@@ -27,19 +28,18 @@
             {% for article in articles %}
                 <div class="col-xs-12 col-custom">
                     <div class="row">
-                        <div class="col-xs-2">
+                        <div class="col-xs-3">
                             {%  for image in article.image %}
                                 {% if loop.first %}
                                     <img src="{{ asset('bundles/images/'~image.src) }}" class="image-admin"/>
                                 {% endif %}
                             {% endfor %}
                         </div>
-                        <div class="col-xs-3 col-title">
-                            <b>Titre : </b>{{ article.title }}
-                        </div>
-                        <div class="col-xs-3 col-date">
+                        <div class="col-xs-5 col-title">
+                            <b>Titre : </b>{{ article.title }} <br/><br />
                             <b>Publié le : </b> {{ article.date.date|date('d/m/Y') }}
                         </div>
+
                         <div class="col-xs-3">
                             <a href="{{ path('admin_edit', {id : article.id }) }}"><button class="btn btn-medium btn-success"> Editer </button></a>
                             <a href="{{ path('admin_delete', {id : article.id }) }}"><button class="btn btn-large btn-danger"> Supprimer </button></a>

@@ -19,7 +19,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 			$qb->orderBy('a.date', 'DESC');
 			return $qb->getQuery()->getResult();
 		}
-		
+
 		public function myFindOne($id)
 		{
 			$qb = $this->createQueryBuilder('a');

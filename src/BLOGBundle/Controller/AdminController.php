@@ -147,7 +147,8 @@ class AdminController extends Controller
             $nbTexts = count($request->request->get('content'));
 
             // Si leurs quantités n'est pas similaires, on rentre dans la condition
-            if($nbImages !== $nbTexts){
+            if($nbImages !== $nbTexts)
+            {
                 if($nbImages > $nbTexts){
                     $deltaTexts = $nbImages - $nbTexts;
                     echo "Le delta de texte(s) est de : " .$deltaTexts . " texte(s).
@@ -172,6 +173,7 @@ class AdminController extends Controller
                         $image->setAlt("");
                         $image->setArticle($article);
                         $article->addImage($image);
+
                     }
                 }
             }
@@ -261,6 +263,7 @@ class AdminController extends Controller
 
     public function commentValidationAction($id){
         $em = $this->getDoctrine()->getManager();
+
         $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id));
 
         $comment->setPublication('1');
