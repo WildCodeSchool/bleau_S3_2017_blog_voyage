@@ -2,3 +2,28 @@
 
 {% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
 {% block title %}Administration{% endblock%}
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1> Liste des commentaires à valider </h1>
+            </div>
+        </div>
+        {% for comment in comments %}
+            <div class="row row-comment-validation">
+                <div class="col-xs-12 ">
+                    <p><b>Titre de l'article : {{ comment.article.title }}</b> </p>
+                    <p> De : <u>{{ comment.author }}</u> le {{ comment.date.date|date('d/m/Y') }} </p>
+                    <p> {{ comment.comment }} </p>
+                    
+                        <a href="#"><button class="btn btn-large btn-success">Valider</button></a>
+                        <a href="#"><button class="btn btn-large btn-info">Editer</button></a>
+                        <a href="#"><button class="btn btn-large btn-danger">Supprimer</button></a>
+
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

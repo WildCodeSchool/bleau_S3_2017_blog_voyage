@@ -255,7 +255,7 @@ class AdminController extends Controller
     public function commentAction(){
         $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('BLOGBundle:Comments');
-        $comments = $comments->findAll();
+        $comments = $comments->myFindAll();
 
         return $this->render('@BLOG/Admin/comment.html.twig', array(
             'comments' => $comments

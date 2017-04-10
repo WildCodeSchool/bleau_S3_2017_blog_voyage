@@ -246,3 +246,9 @@ input[type="submit"]{
     padding: 20px;
     background: #eee;
 }
+
+.row-comment-validation{
+    margin-bottom: 10px;
+    border: 1px solid #d8d8d8;
+    padding: 10px;
+}

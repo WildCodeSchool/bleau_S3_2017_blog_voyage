@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row row-custom">
             <div class="col-xs-12">
-                {# Simulation de résultat en bdd#}{% set comments = ['hg', 'hgf', 'hgf'] %}
+                {# Simulation de résultat en bdd{% set comments = ['hg', 'hgf', 'hgf'] %} #}
                 <b> {{ comments|length }} commentaire(s) à valider </b>
                 {% if comments|length !=0 %}
                     <a href="{{ path('admin_comments') }}"><button class="btn btn-large btn-warning">Valider les commentaires</button></a>
