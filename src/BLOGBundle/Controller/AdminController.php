@@ -56,44 +56,41 @@ class AdminController extends Controller
         $form = $this->createForm('BLOGBundle\Form\ArticleType', $article);
 		$form->handleRequest($request);
 
-
-
 		if ($form->isSubmitted() && $form->isValid()) {
 
 				foreach($request->request->get('category') as $category)
 				{
 					if($category !== "") // Si catégorie est vide (y compris si select est laissé sur 'choisir une catégorie')
 					{
-						if($keyword) 
-						{			
+						if($keyword)
+						{
 							$i=0; $j=0; $endLoop = false; $loopIndex=0; $loopLength=count($keyword);
 							foreach($keyword as $key){
-																
-								
+
 								// Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
-								if($category !== $key->getCategory()) 
-								
+								if($category !== $key->getCategory())
+
 								{
 									$j++;
 								}
-								
+
 								// Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
 								if($category == $key->getCategory())
-								{					
+								{
 									$key->addArticle($article);
 									$article->addCategory($key);
 									$i++;
 								}
-															
+
 								// Si le mot-clef renseigné n'existe pas encore, alors on l'ajoute en bdd et on fait l'association
 
 								$loopIndex++; // On ajoute un tour de boucle
-								
+
 								if($loopLength == $loopIndex){
 									$endLoop = true; // Si on a parcouru, alors fin des boucles
 								}
 							}
-							
+
 							// Puisque j est supérieur à 0, alors on doit créer une catégorie.
 							if($j>0 AND $i==0 AND $endLoop == true){
 								$categ = new Category();
@@ -128,20 +125,20 @@ class AdminController extends Controller
                         $article->addImage($image);
                     }
 				}
-			}		
-			
+			}
+
 			foreach($request->request->get('content') as $content)
 			{
 				if(!empty($content)){
 					$cont = new Content();
 					$cont->setContent($content);
 					$cont->setArticle($article);
-					$article->addContent($cont); 
+					$article->addContent($cont);
 				}
 			}
 
 			// On récupère le nombre d'images créées
-            // On rcupère le nombre de textes créées
+            // On récupère le nombre de textes créées
             // Est-ce cohérent ?
             // Si texte en trop, alors images correspondantes doivent être vides
             // Si images en trop, alors textes correspondants doivent être vides
@@ -178,12 +175,12 @@ class AdminController extends Controller
                     }
                 }
             }
-			
+
 			$em->persist($article);
 			$em->flush();
-			
+
              // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-            
+
 
             return $this->redirectToRoute('admin_add');
         }
@@ -264,11 +261,9 @@ class AdminController extends Controller
 
     public function commentValidationAction($id){
         $em = $this->getDoctrine()->getManager();
-        $comments = $em->getRepository("BLOGBundle:Comments")->findBy(array('id' => $id));
+        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id));
 
-        foreach($comments as $comment){
-            $comment->setPublication('1');
-        }
+        $comment->setPublication('1');
 
         $em->persist($comment);
         $em->flush();
