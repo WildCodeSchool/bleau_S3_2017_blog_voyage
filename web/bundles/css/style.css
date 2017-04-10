@@ -312,6 +312,11 @@ h1{
 
 .comments form{
     margin-top: 20px;
+    display: none;
+}
+
+.show{
+    display: block;
 }
 
 .comments button{
@@ -329,6 +334,7 @@ textarea{
 .comment{
     background: white;
     margin-bottom: 10px;
+    display: none;
 }
 
 .comment p{

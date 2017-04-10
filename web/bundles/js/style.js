@@ -10,7 +10,10 @@ var articleElt = document.getElementsByClassName('article-custom');
 var articleDescriptionElt = document.getElementsByClassName('article-caption');
 var imgElt = document.getElementsByClassName('image');
 var containerDateElt = document.getElementsByClassName('container-dates');
-var buttonPublishElt = document.getElementsByClassName('publish');
+var buttonPublishElt = document.getElementById('publish');
+var buttonSeeElt = document.getElementById('see');
+var formElt = document.querySelectorAll('.comments > form');
+var commentsElt = document.getElementsByClassName('comment');
 
 function load(){
     if (window.innerWidth >= 768) {
@@ -48,4 +51,28 @@ if(containerDateElt[0]) {
 // On redimensionne la section de la page d'accueil en fonction de la largeur de la fenêtre
 if(sectionElt[0]) {
     sectionElt[0].style.height = window.innerWidth / 2.08 + 'px';
+}
+
+if(buttonPublishElt && buttonSeeElt){
+    buttonPublishElt.addEventListener('click', function(){
+        if(formElt[0].classList.contains('show')){
+            formElt[0].classList.remove('show');
+            buttonPublishElt.textContent = "Publier un commentaire";
+        }
+        else{
+            formElt[0].classList.add('show');
+            buttonPublishElt.textContent = "Masquer le formulaire";
+        }
+    });
+
+    buttonSeeElt.addEventListener('click', function(){
+        if(commentsElt[0].classList.contains('show')){
+            commentsElt[0].classList.remove('show');
+            buttonSeeElt.textContent = "Voir les commentaires";
+        }
+        else{
+            commentsElt[0].classList.add('show');
+            buttonSeeElt.textContent = "Masquer les commentaires";
+        }
+    });
 }
