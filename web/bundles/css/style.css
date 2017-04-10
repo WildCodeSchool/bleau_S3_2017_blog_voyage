@@ -331,10 +331,13 @@ textarea{
     width: 100%;
 }
 
+.comments-block{
+    display: none;
+}
+
 .comment{
     background: white;
     margin-bottom: 10px;
-    display: none;
 }
 
 .comment p{

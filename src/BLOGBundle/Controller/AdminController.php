@@ -56,8 +56,6 @@ class AdminController extends Controller
         $form = $this->createForm('BLOGBundle\Form\ArticleType', $article);
 		$form->handleRequest($request);
 
-
-
 		if ($form->isSubmitted() && $form->isValid()) {
 
 				foreach($request->request->get('category') as $category)
@@ -68,8 +66,7 @@ class AdminController extends Controller
 						{			
 							$i=0; $j=0; $endLoop = false; $loopIndex=0; $loopLength=count($keyword);
 							foreach($keyword as $key){
-																
-								
+
 								// Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
 								if($category !== $key->getCategory()) 
 								
@@ -141,7 +138,7 @@ class AdminController extends Controller
 			}
 
 			// On récupère le nombre d'images créées
-            // On rcupère le nombre de textes créées
+            // On récupère le nombre de textes créées
             // Est-ce cohérent ?
             // Si texte en trop, alors images correspondantes doivent être vides
             // Si images en trop, alors textes correspondants doivent être vides
@@ -150,7 +147,8 @@ class AdminController extends Controller
             $nbTexts = count($request->request->get('content'));
 
             // Si leurs quantités n'est pas similaires, on rentre dans la condition
-            if($nbImages !== $nbTexts){
+            if($nbImages !== $nbTexts)
+            {
                 if($nbImages > $nbTexts){
                     $deltaTexts = $nbImages - $nbTexts;
                     echo "Le delta de texte(s) est de : " .$deltaTexts . " texte(s).
@@ -175,10 +173,11 @@ class AdminController extends Controller
                         $image->setAlt("");
                         $image->setArticle($article);
                         $article->addImage($image);
+
                     }
                 }
             }
-			
+
 			$em->persist($article);
 			$em->flush();
 			
@@ -264,11 +263,9 @@ class AdminController extends Controller
 
     public function commentValidationAction($id){
         $em = $this->getDoctrine()->getManager();
-        $comments = $em->getRepository("BLOGBundle:Comments")->findBy(array('id' => $id));
+        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id);
 
-        foreach($comments as $comment){
-            $comment->setPublication('1');
-        }
+        $comment->setPublication('1');
 
         $em->persist($comment);
         $em->flush();

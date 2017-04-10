@@ -13,11 +13,11 @@ var containerDateElt = document.getElementsByClassName('container-dates');
 var buttonPublishElt = document.getElementById('publish');
 var buttonSeeElt = document.getElementById('see');
 var formElt = document.querySelectorAll('.comments > form');
-var commentsElt = document.getElementsByClassName('comment');
+var commentsElt = document.getElementsByClassName('comments-block');
 
 function load(){
     if (window.innerWidth >= 768) {
-        for (i = 0; i < imgElt.length; i++) {
+        for (i=0; i < imgElt.length; i++) {
             // On mesure hauteur et largueur
             var imgHeight = parseFloat(getComputedStyle(imgElt[i]).height);
             var imgWidth = parseFloat(getComputedStyle(imgElt[i]).width);
@@ -49,7 +49,7 @@ if(containerDateElt[0]) {
 }
 
 // On redimensionne la section de la page d'accueil en fonction de la largeur de la fenêtre
-if(sectionElt[0]) {
+if (sectionElt[0]) {
     sectionElt[0].style.height = window.innerWidth / 2.08 + 'px';
 }
 

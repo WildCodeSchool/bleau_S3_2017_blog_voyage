@@ -225,15 +225,13 @@ input[type="submit"]{
 
 }
 
-.col-title,
-.col-date{
+.col-title{
     margin-top: 5px;
     font-size: 1.25em;
 }
 
 @media all and (max-width: 480px){
-    .col-title,
-    .col-date{
+    .col-title{
         font-size: 1em;
     }
 }
