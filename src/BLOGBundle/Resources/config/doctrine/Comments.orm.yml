@@ -16,6 +16,8 @@ BLOGBundle\Entity\Comments:
             type: text
         date:
             type: datetime
+        publication:
+            type: boolean
 
     manyToOne:
         article:

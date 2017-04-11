@@ -1,3 +1,61 @@
 {% extends '@BLOG/layout.html.twig' %}
 
 {% block title %} {{ parent() }} {% endblock %}
+
+{% block container %}
+    <div class="container container-article"
+
+        {% block row %}
+            <div class="row">
+                {% for article in articles %}
+                    <div class="col-xs-12 article">
+                        <h1>{{ article.title }}</h1>
+                        {% for image in article.image %}
+                            {% for content in article.content %}
+                                {% if content.id == image.id %}
+                                    {% if image.src is not empty %}
+                                        <img src="{{ asset('bundles/images/'~image.src ) }}"/>
+                                    {% endif %}
+                                    <p> {{ content.content }} </p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        <aside>
+                             Publié le {{ article.date.date|date('d/m/Y') }}
+                        </aside>
+                        <div class="comments">
+                            <div class="button-range">
+                                <button class="btn btn-large btn-danger" id="publish">Publier un commentaire</button>
+                                <button class="btn btn-large btn-danger" id="see">Voir les commentaires</button>
+                            </div>
+                            {{ form_start(form) }}
+                                {{ form_label(form.author, 'Auteur') }}
+                                {{ form_errors(form.author) }}
+                                {{ form_widget(form.author) }}
+
+                                {{ form_label(form.comment, 'Commentaire') }}
+                                {{ form_errors(form.comment) }}
+                                {{ form_widget(form.comment) }}
+                            <input type="submit"/>
+                            {{ form_end(form) }}
+                        </div>
+                        <div class="comments-block">
+                            {% for comment in article.comment %}
+                                {% if comment.publication == 1 %}
+                                    <div class="comment">
+                                        <p> {{ comment.comment }}</p>
+                                        <p><b>Par {{ comment.author }} le {{ comment.date.date|date('d/m/Y') }}</b></p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+{% block footer %}
+   {{ parent() }}
+{% endblock %}
+{% block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}

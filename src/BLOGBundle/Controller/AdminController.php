@@ -23,18 +23,20 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-		
         // On se connecte à la bdd
         $em = $this->getDoctrine()->getManager();
        
 	   // On récupère tous les éléments de la table Article
-        $articles = $em;
+        $articles = $em->getRepository('BLOGBundle:Article');
+		$articles = $articles->myFindAll();
 
-		$articles = $articles->findAll();
-		
+		$comments = $em->getRepository('BLOGBundle:Comments');
+		$comments = $comments->myFindAll();
+
 	   // On envoit le résultat à la vue
         return $this->render('@BLOG/Admin/index.html.twig', array(
-            'articles' => $articles
+            'articles' => $articles,
+            'comments' => $comments
         ));
     }
 
@@ -54,44 +56,41 @@ class AdminController extends Controller
         $form = $this->createForm('BLOGBundle\Form\ArticleType', $article);
 		$form->handleRequest($request);
 
-
-
-		if ($form->isSubmitted() && $form->isValid()) {		
+		if ($form->isSubmitted() && $form->isValid()) {
 
 				foreach($request->request->get('category') as $category)
 				{
 					if($category !== "") // Si catégorie est vide (y compris si select est laissé sur 'choisir une catégorie')
 					{
-						if($keyword) 
-						{			
+						if($keyword)
+						{
 							$i=0; $j=0; $endLoop = false; $loopIndex=0; $loopLength=count($keyword);
 							foreach($keyword as $key){
-																
-								
+
 								// Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
-								if($category !== $key->getCategory()) 
-								
+								if($category !== $key->getCategory())
+
 								{
 									$j++;
 								}
-								
+
 								// Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
 								if($category == $key->getCategory())
-								{					
+								{
 									$key->addArticle($article);
 									$article->addCategory($key);
 									$i++;
 								}
-															
+
 								// Si le mot-clef renseigné n'existe pas encore, alors on l'ajoute en bdd et on fait l'association
 
 								$loopIndex++; // On ajoute un tour de boucle
-								
+
 								if($loopLength == $loopIndex){
 									$endLoop = true; // Si on a parcouru, alors fin des boucles
 								}
 							}
-							
+
 							// Puisque j est supérieur à 0, alors on doit créer une catégorie.
 							if($j>0 AND $i==0 AND $endLoop == true){
 								$categ = new Category();
@@ -115,35 +114,75 @@ class AdminController extends Controller
 			{
                 foreach($request->files->get('src') as $src)
 				{
-                    if(!empty($src))
-					{ // On vérifie qu'aucun des formulaires envoyés n'est vide	
-						$fileName = uniqid().'.'.$src->guessExtension();
+                    if(!empty($src)) { // On vérifie qu'aucun des formulaires envoyés n'est vide
+                        $fileName = uniqid() . '.' . $src->guessExtension();
                         $src->move($this->getParameter('image_directory'), $fileName);
 
-						$image = new Image();
-						$image->setSrc($fileName);
-						$image->setAlt($article->getTitle());
-						$image->setArticle($article);
-						$article->addImage($image);
-					}
+                        $image = new Image();
+                        $image->setSrc($fileName);
+                        $image->setAlt($article->getTitle());
+                        $image->setArticle($article);
+                        $article->addImage($image);
+                    }
 				}
-			}		
-			
+			}
+
 			foreach($request->request->get('content') as $content)
 			{
 				if(!empty($content)){
 					$cont = new Content();
 					$cont->setContent($content);
 					$cont->setArticle($article);
-					$article->addContent($cont); 
+					$article->addContent($cont);
 				}
 			}
-			
+
+			// On récupère le nombre d'images créées
+            // On récupère le nombre de textes créées
+            // Est-ce cohérent ?
+            // Si texte en trop, alors images correspondantes doivent être vides
+            // Si images en trop, alors textes correspondants doivent être vides
+
+            $nbImages = count($request->files->get('src'));
+            $nbTexts = count($request->request->get('content'));
+
+            // Si leurs quantités n'est pas similaires, on rentre dans la condition
+            if($nbImages !== $nbTexts)
+            {
+                if($nbImages > $nbTexts){
+                    $deltaTexts = $nbImages - $nbTexts;
+                    echo "Le delta de texte(s) est de : " .$deltaTexts . " texte(s).
+                        <br /> Il faut donc créer " . $deltaTexts . " texte(s) vides";
+                    for($i=0; $i<$deltaTexts; $i++){
+                        $cont = new Content();
+                        $cont->setContent("");
+                        $cont->setArticle($article);
+                        $article->addContent($cont);
+                    }
+                }
+                if($nbTexts > $nbImages)
+                {
+                    $deltaImages = $nbTexts - $nbImages;
+                    echo "Le delta d'image(s) est de ". $deltaImages .
+                        "<br /> Il faut donc créer " . $deltaImages . " image(s) vides";
+
+                    for($i=0; $i<$deltaImages; $i++)
+                    {
+                        $image = new Image();
+                        $image->setSrc("");
+                        $image->setAlt("");
+                        $image->setArticle($article);
+                        $article->addImage($image);
+
+                    }
+                }
+            }
+
 			$em->persist($article);
 			$em->flush();
-			
+
              // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-            
+
 
             return $this->redirectToRoute('admin_add');
         }
@@ -210,5 +249,33 @@ class AdminController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function commentAction(){
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('BLOGBundle:Comments');
+        $comments = $comments->myFindAll();
+
+        return $this->render('@BLOG/Admin/comment.html.twig', array(
+            'comments' => $comments
+        ));
+    }
+
+    public function commentValidationAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id));
+
+        $comment->setPublication('1');
+
+        $em->persist($comment);
+        $em->flush();
+
+        $comment = $em->getRepository("BLOGBundle:Comments")->myFindAll();
+
+        return $this->render('@BLOG/Admin/comment.html.twig', array(
+            'comments' => $comment
+        ));
+
     }
 }
