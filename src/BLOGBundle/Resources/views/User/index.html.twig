@@ -1,6 +1,7 @@
 {% extends 'BLOGBundle::layout.html.twig' %}
 
 {% block section %}
+    {%  if articles is defined %}
     <section>
         <img src="{{ asset('bundles/images/'~articles[0].image[0].src)}}"/>
         <figcaption class="picture-caption">
@@ -9,6 +10,7 @@
             <i> Publié le {{ articles[0].date.date|date('d/m/Y') }}</i>
         </figcaption>
     </section>
+{% endif %}
 
 {% endblock %}
 

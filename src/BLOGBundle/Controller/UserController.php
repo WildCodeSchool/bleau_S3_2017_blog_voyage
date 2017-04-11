@@ -6,6 +6,8 @@ namespace BLOGBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use BLOGBundle\Entity\Category;
+use BLOGBundle\Repository\CategoryRepository;
 
 class UserController extends Controller
 {
@@ -38,43 +40,38 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
         $articles = $em->findAll();
         $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Category');
-        $categories = $em->findAll();
+        $categ = $em->findAll();
+        foreach ($categ as $category)
+        {
+            $cat[] = $category->getCategory();
+        }
         // On récupère les articles pour les envoyer sur la vue et en haut avoir les choix de catégories possible
 
-        $categories = new ArrayCollection($categories);
+        $form = $this->createForm('BLOGBundle\Form\CategoryType', $cat);
+        $form->handleRequest($request);
 
-        $form = $this->createForm('BLOGBundle\Form\CategoryType', $categories);
-       $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
+            $data = $form->getData();
+            $data = $data['categories']->getCategory();
+
+
+
+            return $this->render('@BLOG/User/viewCategory.html.twig', array(
+                'chosencat' => $data,
+                'articles'=> $articles,
+                'form' => $form->createView()
+            ));
+        }
         return $this->render('BLOGBundle:User:category.html.twig', array(
 
             'articles'=>$articles,
-            'categories'=>$categories,
+            'categories'=>$cat,
            'form' => $form->createView()
 
         ));
     }
-	
-	public function viewCategoryAction($category)
-    {
-        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Category');
-        $categories = $em->findAll();
-        // On récupère les articles ayant category $category
-        //we need a foreach article which contain the category a render of this article
 
-
-       foreach ($categorie as $categories)
-       {
-           if($category == $categorie )
-               $articles_categ = $categorie->get('article');
-
-       }
-        return $this->render('BLOGBundle:User:viewCategory.html.twig', array(
-
-            'articles_categ'=>$articles_categ
-
-        ));
-    }
 
     public function datesAction($request)
     {

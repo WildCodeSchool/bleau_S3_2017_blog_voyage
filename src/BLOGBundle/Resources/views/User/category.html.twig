@@ -19,18 +19,21 @@
         {{ form_start(form) }}
 
         <p>
-            {{ form_label(form.categories, "Titre de l'article") }}
+            {{ form_label(form.categories) }}
             {{ form_errors(form.categories) }}
-            {{ form_widget(form.categories) }}
+            {{ form_widget(form, { 'attr': {'name': 'cat'} }) }}
             {#{{ form_row(form.categories) }}#}
         </p>
-        <input type="submit" value="Chercher les articles correspondant"/>
+
+        {{ form_widget(form.chercher, { 'label': 'Click me' }) }}
+
         {{ form_rest(form) }}
 
         {{ form_end(form) }}
     </div>
 {% endblock %}
 {% block container %}
+
     <div class="container container-categ">
         {% block row %}
             <div class="row">

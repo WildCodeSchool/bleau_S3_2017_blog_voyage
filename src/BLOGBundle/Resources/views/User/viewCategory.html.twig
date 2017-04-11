@@ -1,6 +1,8 @@
 {% extends '@BLOG/layout.html.twig' %}
 
-{% block title %} {{ parent() }} {% endblock %}
+{% block title %} {{ parent() }} - Catégories {% endblock %}
+
+
 
 {% block h1 %}
     <h1>Categories</h1>
@@ -8,60 +10,61 @@
 
 {% block Category %}
 
-    <div class="form">
-        {{ form_start(form,{'attr': {'enctype': 'multipart/form-data'}}) }}
 
-        <input type="submit" value="Chercher les articles correspondant"/>
+
+
+
+
+    <div class="form">
+        {{ form_start(form) }}
+
         <p>
-            {{ form_label(form.category, "Titre de l'article") }}
-            {{ form_errors(form.category) }}
-            {{ form_widget(form.category) }}
+            {{ form_label(form.categories) }}
+            {{ form_errors(form.categories) }}
+            {{ form_widget(form, { 'attr': {'name': 'cat'} }) }}
+            {#{{ form_row(form.categories) }}#}
         </p>
+        {{ form_widget(form.chercher) }}
+
+        {{ form_rest(form) }}
 
         {{ form_end(form) }}
-
     </div>
-        {#{% if category !=null %}
-            <div id='categoryList'>
-                <label for="content" > Catégories existantes </label>
-                <select name='category[]' id='content'>
-                    <option value="" selected> Choisir une catégorie </option>
-                    {% for key in category %}
-                        <option value='{{ key.category }}'/>{{ key.category }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        {% endif %}
-       <a href=""> <input type="submit" value="Chercher les articles correspondant"/>
-       </a>#}
-
 {% endblock %}
-
-
 {% block container %}
-    <div class="container container-category">
-        {% block row %}
-            <div class="row">
-                {% for article in articles_categ %}
-                    <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
-                        {% for image in article.image %}
-                            {% if loop.first %}
-                                <img src="{{ asset('bundles/images/'~image.src)}}" class="img-thu"/>
-                            {% endif %}
-                        {% endfor %}
-                        <div class="article-caption">
-                            <h3>{{ article.title }}</h3>
-                            <p>
-                                {% for content in article.content %}
-                                    {{ content.content }}
-                                {% endfor %}
-                            </p>
-                            <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                            <i>Publié le {{ article.date.date|date('d/m/Y h:m:s') }} </i>
+    {% for article in articles %}
+        {% for articl_cat in article.category %}
+                {% block row %}
+                    {% if chosencat == articl_cat.category %}
+                        <div class="container container-categ">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
+                                    {% for image in article.image %}
+                                        {% if loop.first %}
+                                            <img src="{{ asset('bundles/images/'~image.src)}}" class="img-thu"/>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div class="article-caption">
+                                        <h3>{{ article.title }}</h3>
+                                        <p>
+
+                                            {% for content in article.content %}
+                                                {{ content.content }}
+                                            {% endfor %}
+                                        </p>
+                                        <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                                        <i>Publié le {{ article.date.date|date('d/m/Y h:m:s') }} </i>
+                                    </div>
+                                </div>
+
+
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endblock %}
-    </div>
+                    {% endif %}
+                {% endblock %}
+        {% endfor %}
+    {% endfor %}
 {% endblock %}
+
+{%block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
+
