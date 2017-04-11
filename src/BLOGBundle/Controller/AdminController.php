@@ -58,57 +58,6 @@ class AdminController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid()) {
 
-				foreach($request->request->get('category') as $category)
-				{
-					if($category !== "") // Si catégorie est vide (y compris si select est laissé sur 'choisir une catégorie')
-					{
-						if($keyword)
-						{
-							$i=0; $j=0; $endLoop = false; $loopIndex=0; $loopLength=count($keyword);
-							foreach($keyword as $key){
-
-								// Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
-								if($category !== $key->getCategory())
-
-								{
-									$j++;
-								}
-
-								// Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
-								if($category == $key->getCategory())
-								{
-									$key->addArticle($article);
-									$article->addCategory($key);
-									$i++;
-								}
-
-								// Si le mot-clef renseigné n'existe pas encore, alors on l'ajoute en bdd et on fait l'association
-
-								$loopIndex++; // On ajoute un tour de boucle
-
-								if($loopLength == $loopIndex){
-									$endLoop = true; // Si on a parcouru, alors fin des boucles
-								}
-							}
-
-							// Puisque j est supérieur à 0, alors on doit créer une catégorie.
-							if($j>0 AND $i==0 AND $endLoop == true){
-								$categ = new Category();
-								$categ->setCategory($category);
-								$categ->addArticle($article);
-								$article->addCategory($categ);
-							}
-						}
-						else // Si la base est vide, je crée ma première catégorie
-						{
-							$categ = new Category();
-							$categ->setCategory($category);
-							$categ->addArticle($article);
-							$article->addCategory($categ);
-						}
-					}
-				}
-
 		        if($request->request->get('category'))
 		        {
                     foreach ($request->request->get('category') as $category)
@@ -180,33 +129,11 @@ class AdminController extends Controller
                 }
 				else
                 {
-                    $i=0;
-                    if($keyword)
-                    {
-                        echo "bonjour";
-                        die();
-                        foreach ($keyword as $key)
-                        {
-                            $key->addArticle($article);
-                            $article->addCategory($key);
-                            $i++;
-                        }
-
-                        if($i == 0)
-                        {
-                            $categ = new Category();
-                            $categ->setCategory("Autres");
-                            $categ->addArticle($article);
-                            $article->addCategory($categ);
-                        }
-                    }
-                    else
-                    {
                         $categ = new Category();
                         $categ->setCategory("Autres");
                         $categ->addArticle($article);
                         $article->addCategory($categ);
-                    }
+
                 }
 
 			// On vérifie qu'il y a au moins une image envoyée
@@ -397,7 +324,7 @@ class AdminController extends Controller
     public function commentValidationAction($id){
         $em = $this->getDoctrine()->getManager();
 
-        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id));
+        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id);
 
         $comment->setPublication('1');
 
