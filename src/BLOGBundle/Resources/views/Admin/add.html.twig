@@ -28,10 +28,25 @@
 	</div>
 	{% endif %}
 
+	<div class="content-block">
+		<div style="background-color: white; margin: 25px 0px 50px;">
+			<p style="padding-top: 5px; padding-bottom: 5px;">
+				<label class="label-image">Image 1</label>
+				<input type="file" name="src[]" class="inputFileNoUpload" required="undefined">
+			</p>
+			<p style="margin: 25px 0px;">
+				<label class="label-text">Texte 1</label>
+				<textarea name="content[]" id="first-text"></textarea>
+				<p style="display: flex; justify-content: space-around; margin: 0px auto; padding-bottom: 15px; padding-top: 15px;">
+					<button class="btn btn-large btn-danger" id="text-trash">Vider le texte</button>
+				</p>
+			</p>
+		</div>
+	</div>
+
 	<div id='buttonRange'>
-		<button class='picture btn btn-large btn-danger'>Nouvelle image</button>
-		<button class='text btn btn-large btn-danger'>Nouveau texte</button>
-		<button class='category btn btn-large btn-danger'>Nouvelle catégorie</button>
+		<button class='content btn btn-large btn-success'>Nouveau contenu</button>
+		<button class='category btn btn-large btn-success'>Nouvelle catégorie</button>
 	</div>
     <label for="submit" id="label-submit"> Publier l'article </label>
     <input type="submit" id="submit" class="btn btn-large btn-danger" value="Valider la création"/>

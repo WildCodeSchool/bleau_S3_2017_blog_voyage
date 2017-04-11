@@ -24,7 +24,7 @@
 
 }
 
-@media all and (max-width: 480px){
+@media all and (max-width: 680px){
     .menu{
         display: block;
     }
@@ -86,7 +86,7 @@ form[name='blogbundle_article']{
     border-radius: 10px;
 }
 
-@media all and (max-width: 480px){
+@media all and (max-width: 680px){
     #buttonRange{
         flex-wrap: wrap;
     }
@@ -124,7 +124,7 @@ textarea{
 .label-category,
 .label-image,
 .label-text{
-    background: black;
+    background: #555;
     color: white;
     padding: 5px;
     width: 100%;

@@ -58,6 +58,18 @@ class AdminController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid()) {
 				// Si l'input catégorie a été généré
+				$nbCategory = count($request->request->get('category'));
+									
+				$check = $request->request->get('category');					
+				foreach(array_count_values($check) as $key => $value)
+				{
+					if($value > 1){
+						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double");
+						return $this->redirectToRoute('admin_add'); // Si doublons de mots-clefs trouvés, on redirige
+					}
+				}
+
+				
 		        if($request->request->get('category'))
 		        {
                     foreach ($request->request->get('category') as $category)
@@ -84,6 +96,7 @@ class AdminController extends Controller
                                         $key->addArticle($article);
                                         $article->addCategory($key);
                                         $i++;
+									
                                     }
 
                                     // Si le mot-clef renseigné n'existe pas encore, alors on l'ajoute en bdd et on fait l'association
@@ -105,62 +118,47 @@ class AdminController extends Controller
                                 }
                             } else // Si la base est vide, je crée ma première catégorie
                             {
-								echo 'Soleil';die();
+								
                                 $categ = new Category();
                                 $categ->setCategory($category);
                                 $categ->addArticle($article);
                                 $article->addCategory($categ);
                             }
 						// Si l'input categorie a été généré mais qu'il est laissé vide !!!!!!!!	
-                        } else { 
-							
-							// Y'a-t-il déjà des éléments en bdd?
-							
-							// Si bdd vide, on créé une catégorie "Autres"
-							if(!$keyword){
-								echo 'Gaz';die();
-								$categ = new Category();
-								$categ->setCategory("Autres");
-								$categ->addArticle($article);
-								$article->addCategory($categ);
-							}	
-							
-							// Si la bdd n'est pas vide, on associe catégorie "Autres" à cet article
-							else{
+                        } 
+						else{
+							if($nbCategory == 1)
+							{
 								$i=0;
-								foreach ($keyword as $key) {
-									if ($key->getCategory() == "Autres") {
-										// echo 'Glou';die();
-										$key->addArticle($article);
-										$article->addCategory($key);
+								foreach ($keyword as $key) 
+								{
+                                    if ($key->getCategory() == "Autres") {
+                                        $key->addArticle($article);
+                                        $article->addCategory($key);	
 										$i++;
-									}
-								}
+                                    }
+								}	
 								if($i==0){
-									echo 'Hey';die();
 									$categ = new Category();
 									$categ->setCategory("Autres");
 									$categ->addArticle($article);
 									$article->addCategory($categ);
 								}
 							}
-                        }
+						}
                     }
                 }
 				else
                 {
-                   echo 'Au revoir';die();
+                   
                     $categ = new Category();
                     $categ->setCategory("Autres");
                     $categ->addArticle($article);
                     $article->addCategory($categ);
-
                 }
 
-			// On vérifie qu'il y a au moins une image envoyée
-			if(!empty($request->files))
-			{
-                foreach($request->files->get('src') as $src)
+			// Images
+			foreach($request->files->get('src') as $src)
 				{
                     if(!empty($src)) { // On vérifie qu'aucun des formulaires envoyés n'est vide
                         $fileName = uniqid() . '.' . $src->guessExtension();
@@ -171,60 +169,20 @@ class AdminController extends Controller
                         $image->setAlt($article->getTitle());
                         $image->setArticle($article);
                         $article->addImage($image);
+
+                    }
+                    else{
+                        echo "bonjour";die();
                     }
 				}
-			}
 
 			foreach($request->request->get('content') as $content)
 			{
-				if(!empty($content)){
-					$cont = new Content();
-					$cont->setContent($content);
-					$cont->setArticle($article);
-					$article->addContent($cont);
-				}
+				$cont = new Content();
+				$cont->setContent($content);
+				$cont->setArticle($article);
+				$article->addContent($cont);
 			}
-
-			// On récupère le nombre d'images créées
-            // On récupère le nombre de textes créées
-            // Est-ce cohérent ?
-            // Si texte en trop, alors images correspondantes doivent être vides
-            // Si images en trop, alors textes correspondants doivent être vides
-
-            $nbImages = count($request->files->get('src'));
-            $nbTexts = count($request->request->get('content'));
-
-            // Si leurs quantités n'est pas similaires, on rentre dans la condition
-            if($nbImages !== $nbTexts)
-            {
-                if($nbImages > $nbTexts){
-                    $deltaTexts = $nbImages - $nbTexts;
-                    echo "Le delta de texte(s) est de : " .$deltaTexts . " texte(s).
-                        <br /> Il faut donc créer " . $deltaTexts . " texte(s) vides";
-                    for($i=0; $i<$deltaTexts; $i++){
-                        $cont = new Content();
-                        $cont->setContent("");
-                        $cont->setArticle($article);
-                        $article->addContent($cont);
-                    }
-                }
-                if($nbTexts > $nbImages)
-                {
-                    $deltaImages = $nbTexts - $nbImages;
-                    echo "Le delta d'image(s) est de ". $deltaImages .
-                        "<br /> Il faut donc créer " . $deltaImages . " image(s) vides";
-
-                    for($i=0; $i<$deltaImages; $i++)
-                    {
-                        $image = new Image();
-                        $image->setSrc("");
-                        $image->setAlt("");
-                        $image->setArticle($article);
-                        $article->addImage($image);
-
-                    }
-                }
-            }
 
 			$em->persist($article);
 			$em->flush();
