@@ -7,7 +7,6 @@
 
 var sectionElt = document.getElementsByTagName('section');
 var articleElt = document.getElementsByClassName('article-custom');
-var articleDescriptionElt = document.getElementsByClassName('article-caption');
 var imgElt = document.getElementsByClassName('image');
 var containerDateElt = document.getElementsByClassName('container-dates');
 var buttonPublishElt = document.getElementById('publish');

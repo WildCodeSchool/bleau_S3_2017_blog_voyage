@@ -315,8 +315,10 @@ h1{
     background: rgba(0,0,0,.7);
 }
 
-.button-left{
+.button-left,
+.button-right{
     margin: 0 auto;
+    display: none;
 }
 
 .article aside{

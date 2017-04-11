@@ -57,14 +57,16 @@ class AdminController extends Controller
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
-
+				// Si l'input catégorie a été généré
 		        if($request->request->get('category'))
 		        {
                     foreach ($request->request->get('category') as $category)
                     {
-                        if ($category !== "") // Si catégorie est vide (y compris si select est laissé sur 'choisir une catégorie')
+						// Si l'input a été généré et qu'il n'est pas laissé vide !!!!!!!! (par oubli de le remplir par exemple)
+                        if (strlen($category)>0) 
                         {
                             if ($keyword) {
+								
                                 $i = 0;
                                 $j = 0;
                                 $endLoop = false;
@@ -77,6 +79,8 @@ class AdminController extends Controller
                                     }
                                     // Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
                                     if ($category == $key->getCategory()) {
+										//echo "mon premier article avec catégorie";die();
+										
                                         $key->addArticle($article);
                                         $article->addCategory($key);
                                         $i++;
@@ -92,6 +96,8 @@ class AdminController extends Controller
                                 }
                                 // Puisque j est supérieur à 0, alors on doit créer une catégorie.
                                 if ($j > 0 AND $i == 0 AND $endLoop == true) {
+									// echo "Noix de cajou";die();
+									
                                     $categ = new Category();
                                     $categ->setCategory($category);
                                     $categ->addArticle($article);
@@ -99,40 +105,55 @@ class AdminController extends Controller
                                 }
                             } else // Si la base est vide, je crée ma première catégorie
                             {
+								echo 'Soleil';die();
                                 $categ = new Category();
                                 $categ->setCategory($category);
                                 $categ->addArticle($article);
                                 $article->addCategory($categ);
                             }
-                        } else { // On gère le set automatique à "Autres" si aucune catégorie indiquée
-                            // Deux cas de figure ->
-                            // La catégorie "Autres" n'existe pas en bdd. Il faut la créer.
-                            // Elle existe en bdd -> on associe l'article à "Autres"
-                            $i = 0;
-                            foreach ($keyword as $key) {
-
-                                if ($key->getCategory() == "Autres") {
-                                    $key->addArticle($article);
-                                    $article->addCategory($key);
-                                    $i++;
-                                }
-
-                                if($i==0){
-                                    $categ = new Category();
-                                    $categ->setCategory("Autres");
-                                    $categ->addArticle($article);
-                                    $article->addCategory($categ);
-                                }
-                            }
+						// Si l'input categorie a été généré mais qu'il est laissé vide !!!!!!!!	
+                        } else { 
+							
+							// Y'a-t-il déjà des éléments en bdd?
+							
+							// Si bdd vide, on créé une catégorie "Autres"
+							if(!$keyword){
+								echo 'Gaz';die();
+								$categ = new Category();
+								$categ->setCategory("Autres");
+								$categ->addArticle($article);
+								$article->addCategory($categ);
+							}	
+							
+							// Si la bdd n'est pas vide, on associe catégorie "Autres" à cet article
+							else{
+								$i=0;
+								foreach ($keyword as $key) {
+									if ($key->getCategory() == "Autres") {
+										// echo 'Glou';die();
+										$key->addArticle($article);
+										$article->addCategory($key);
+										$i++;
+									}
+								}
+								if($i==0){
+									echo 'Hey';die();
+									$categ = new Category();
+									$categ->setCategory("Autres");
+									$categ->addArticle($article);
+									$article->addCategory($categ);
+								}
+							}
                         }
                     }
                 }
 				else
                 {
-                        $categ = new Category();
-                        $categ->setCategory("Autres");
-                        $categ->addArticle($article);
-                        $article->addCategory($categ);
+                   echo 'Au revoir';die();
+                    $categ = new Category();
+                    $categ->setCategory("Autres");
+                    $categ->addArticle($article);
+                    $article->addCategory($categ);
 
                 }
 
