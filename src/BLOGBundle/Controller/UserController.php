@@ -90,6 +90,8 @@ class UserController extends Controller
 
     public function contactAction()
     {
+
+        
         return $this->render('BLOGBundle:User:contact.html.twig');
     }
 }
