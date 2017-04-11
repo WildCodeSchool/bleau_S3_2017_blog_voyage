@@ -14,6 +14,8 @@ var buttonPublishElt = document.getElementById('publish');
 var buttonSeeElt = document.getElementById('see');
 var formElt = document.querySelectorAll('.comments > form');
 var commentsElt = document.getElementsByClassName('comments-block');
+var modalImageElt = document.querySelectorAll('.modal-image > img');
+var bodyElt = document.getElementsByTagName('body');
 
 function load(){
     if (window.innerWidth >= 768) {
@@ -75,4 +77,14 @@ if(buttonPublishElt && buttonSeeElt){
             buttonSeeElt.textContent = "Masquer les commentaires";
         }
     });
+}
+
+if(modalImageElt){
+    for(i=0; i<modalImageElt.length; i++){
+        modalImageElt[i].addEventListener("click", function(e){
+           this.parentNode.classList.add('modal-image-big');
+           bodyElt[0].style.overflow = "hidden";
+
+        });
+    }
 }

@@ -250,3 +250,25 @@ input[type="submit"]{
     border: 1px solid #d8d8d8;
     padding: 10px;
 }
+
+/* page edit */
+
+#edit{
+    width: 70%;
+    margin: 0 auto;
+}
+
+#edit img{
+    width: 100%;
+}
+
+@media all and (max-width: 767px){
+    #edit{
+        width: 100%;
+    }
+}
+
+.image-update,
+.text-update{
+    margin-bottom: 25px;
+}
