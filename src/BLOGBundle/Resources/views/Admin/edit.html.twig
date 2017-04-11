@@ -1,3 +1,51 @@
 {% extends 'layout.html.twig' %}
 
+{% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
 {% block title %}Administration{% endblock%}
+
+{% block form %}
+    <div class="menu menu-add">
+        <a href="{{ path('admin_index') }}"><button class="btn btn-large btn-danger"> Accueil </button></a>
+        <a href=""><button class="btn btn-large btn-danger"> Déconnexion </button></a>
+    </div>
+    <div class="form">
+    {{ form_start(edit_form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+        <p>
+            {{ form_label(edit_form.title, "Titre de l'article", {'label_attr' : {class:"label-titre" }} ) }}
+            {{ form_errors(edit_form.title) }}
+            {{ form_widget(edit_form.title) }}
+        </p>
+        <div id="edit">
+        {% for image in article.image %}
+            {% for content in article.content %}
+                {% if content.id == image.id %}
+                    {% if image.src is not empty %}
+                       <div class="image-update">
+                           <img src="{{ asset('bundles/images/'~image.src ) }}"/>
+                           <input type="hidden" name="src[]" value="{{ image.src }}"/>
+                           <button class="btn btn-large btn-danger remove-image"> Supprimer l'image {{ loop.index }}</button>
+                       </div>
+                    {% endif %}
+                        <div class="text-update">
+                            <textarea name="content[]">{{ content.content }}</textarea>
+                            <button class="btn btn-large btn-danger remove-text"> Supprimer le texte {{ loop.index }} </button>
+                        </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </div>
+
+        <div id='buttonRange'>
+            <button class='picture btn btn-large btn-danger'>Nouvelle image</button>
+            <button class='text btn btn-large btn-danger'>Nouveau texte</button>
+            <button class='category btn btn-large btn-danger'>Nouvelle catégorie</button>
+        </div>
+        <label for="submit" id="label-submit"> Editer l'article </label>
+        <input type="submit" id="submit" class="btn btn-large btn-danger" value="Editer"/>
+
+    {{ form_end(edit_form) }}
+
+</div>
+{% endblock %}
+
+{% block javascript %}{{ asset('bundles/js/form.js') }}{% endblock %}

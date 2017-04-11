@@ -14,7 +14,11 @@
                             {% for content in article.content %}
                                 {% if content.id == image.id %}
                                     {% if image.src is not empty %}
-                                        <img src="{{ asset('bundles/images/'~image.src ) }}"/>
+                                        <figcaption class="modal-image">
+                                            <button class="button-left 	glyphicon glyphicon-chevron-left"></button>
+                                            <img src="{{ asset('bundles/images/'~image.src ) }}" />
+                                            <button class="button-right"> Droite </button>
+                                        </figcaption>
                                     {% endif %}
                                     <p> {{ content.content }} </p>
                                 {% endif %}

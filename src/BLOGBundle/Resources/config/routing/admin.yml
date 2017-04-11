@@ -15,7 +15,6 @@ admin_edit:
 admin_delete:
     path:     /delete/{id}
     defaults: { _controller: "BLOGBundle:Admin:delete" }
-    methods:  DELETE
 
 admin_profil:
     path:     /profil

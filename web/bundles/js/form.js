@@ -17,8 +17,13 @@ keywordRangeElt.setAttribute('id', 'keywordRange');
 // Sélection de la div comprenant les boutons d'ajout/soumission
 var buttonRangeElt = document.getElementById('buttonRange');
 
+var buttonRemoveImageElt = document.getElementsByClassName('remove-image');
+var buttonRemoveTextElt = document.getElementsByClassName('remove-text');
+
 // On insére la div contenant les mots-clefs avant la div contenant les boutons d'ajout/soumission
 buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
+
+
 
 // Ecoute du clic sur le bouton d'ajout d'images
 var k=1;
@@ -254,3 +259,16 @@ buttonTextElt[0].addEventListener("click", function(e){
 	l++;
 });
 
+for(i=0; i<buttonRemoveImageElt.length; i++) {
+    buttonRemoveImageElt[i].addEventListener('click', function (e) {
+        e.preventDefault();
+        this.parentNode.remove();
+    });
+}
+
+for(i=0; i<buttonRemoveTextElt.length; i++) {
+    buttonRemoveTextElt[i].addEventListener('click', function (e) {
+        e.preventDefault();
+        this.parentNode.remove();
+    });
+}
