@@ -272,7 +272,7 @@ h1{
     display: block;
     width: 90%;
     margin: 0 auto;
-    margin-top: 10px;
+    
 }
 
 .article p{
@@ -293,6 +293,30 @@ h1{
     .article p{
         width: 100%;
     }
+}
+
+.modal-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-image img{
+    cursor: pointer;
+}
+
+.modal-image-big{
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0,0,0,.7);
+}
+
+.button-left{
+    margin: 0 auto;
 }
 
 .article aside{
@@ -457,6 +481,7 @@ figure img{
 
 .article-caption-show{
     background: black;
+    transition: 1s;
     color: white;
 }
 
