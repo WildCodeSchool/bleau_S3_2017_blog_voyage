@@ -3,29 +3,52 @@
 namespace BLOGBundle\Controller;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
+use BLOGBundle\Entity\Comments;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use BLOGBundle\Entity\Category;
-use BLOGBundle\Repository\CategoryRepository;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserController extends Controller
 {
     public function indexAction()
     {
 		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
-		$articles = $em->findAll();
-//        dump($articles);die;
+
+		$articles = $em->myFindAll();
 		
         return $this->render('BLOGBundle:User:index.html.twig', array(
 			'articles'=> $articles,
 			));
     }
 
-    public function viewAction($id)
+    public function viewAction($id, Request $request)
     {
+        $comment = new Comments();
+
+        $form = $this->createForm('BLOGBundle\Form\CommentsType', $comment);
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $article = $em->getRepository('BLOGBundle:Article');
+        $article = $article->myFindOne($id);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($article as $articles) {
+                $comment->setArticle($articles);
+            }
+            foreach($comment as $comments) {
+                $article->addComment($comments);
+            }
+            $em->persist($comment);
+            $em->flush();
+        }
+
         return $this->render('BLOGBundle:User:view.html.twig', array(
-            'id'=>$id
+            'articles'=>$article,
+            'form' => $form->createView()
         ));
     }
 
@@ -73,18 +96,33 @@ class UserController extends Controller
     }
 
 
-    public function datesAction($request)
+    public function datesAction(Request $request)
+
     {
+        // On récupères les dates de début et de fin saisie par l'utilisateur
         $start = $request->request->get('start');
-        $start = $request->request->get('end');
+        $end = $request->request->get('end');
+
+        // On met des heures et minutes pour correspondre au format datetime...de la bdd
+        $start_conv = $start.' '.'00:00:00';
+        $end_conv = $end.' '.'23:59:59';
+
         $em = $this->getDoctrine()->getManager();
-        $date = $em->getRepository('BLOGBundle:Article');
+        $articles = $em->getRepository('BLOGBundle:Article');
 
-        $date = $date->myfindBYdatrange($start,$end);
+        // On donne les arguments à la méthode de recherche par date du Repository
+        $articles = $articles->myFindByDateRange($start_conv, $end_conv);
 
+        // http://symfony.com/doc/current/forms.html
+        $form = $this->createFormBuilder()->getForm();
 
         return $this->render('BLOGBundle:User:dates.html.twig', array(
-            'date' => $date
+            'articles' => $articles,
+            'form' => $form->createView(),
+            // On renvoi les dates saisies par l'utilisateur et on les remet dans le
+            // formulaire pour qu'il se rappelle des dates saisies
+            'start' => $start,
+            'end' => $end,
         ));
     }
 

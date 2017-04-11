@@ -86,18 +86,10 @@ class Comments
         return $this->comment;
     }
 
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return comments
-     */
-    public function setDate($date)
+    public function __construct()
     {
-        $this->date = $date;
-
-        return $this;
+        $this->date = new \ Datetime();
+        $this->publication = 0;
     }
 
     /**
@@ -137,5 +129,44 @@ class Comments
     public function getArticle()
     {
         return $this->article;
+    }
+    /**
+     * @var boolean
+     */
+    private $publication;
+
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Comments
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get publication
+     *
+     * @return boolean
+     */
+    public function getPublication()
+    {
+        return $this->publication;
+    }
+
+    /**
+     * Set publication
+     *
+     * @return boolean
+     */
+    public function setPublication($publication)
+    {
+        $this->publication = $publication;
     }
 }

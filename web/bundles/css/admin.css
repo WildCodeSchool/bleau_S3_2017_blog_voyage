@@ -1,0 +1,274 @@
+/*
+
+1. Menu
+2. Container
+
+*/
+
+
+/* 1. Menu */
+
+.menu{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+.menu button{
+    margin: 5px;
+}
+
+.menu-add{
+    justify-content: space-between;
+
+}
+
+@media all and (max-width: 480px){
+    .menu{
+        display: block;
+    }
+
+    .menu button{
+        width: 100%;
+        margin: 7px 0 7px 0;
+    }
+
+    .menu-add{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .menu-add button{
+        width: auto;
+    }
+}
+
+/* Container */
+
+h1{
+    background: #eee;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+
+@media all and (max-width: 600px){
+    h1{
+        font-size: 2em;
+    }
+}
+
+@media all and (max-width: 480px){
+    h1{
+        font-size: 1.5em;
+    }
+}
+
+/*  Page ajout articles : Formulaire */
+
+
+form[name='blogbundle_article']{
+    width: auto;
+    margin: 0 auto;
+    height: auto;
+    padding: 20px;
+    font-size: 1.2em;
+    background: #eee;
+}
+
+#buttonRange{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    background: #fff;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+@media all and (max-width: 480px){
+    #buttonRange{
+        flex-wrap: wrap;
+    }
+
+    #buttonRange button{
+        width: 100%;
+        margin: 10px 0px 10px 0px;
+    }
+}
+
+select{
+    width: 100%;
+}
+
+#categoryList{
+    margin: 25px 0 25px 0;
+}
+
+form
+input[type='text'],
+textarea{
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+textarea{
+    margin: 0 0 5px 0;
+    height: 100px;
+}
+
+.label-titre,
+.label-category,
+.label-image,
+.label-text{
+    background: black;
+    color: white;
+    padding: 5px;
+    width: 100%;
+}
+
+ul{
+    list-style: none;
+    background: #b22222;
+    text-align: center;
+    padding: 20px;
+    width: 30%;
+    margin: 0 auto;
+}
+
+ul li{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+ul li a{
+    color: white;
+}
+
+/* CSS en lien avec les inputs générés par Javascript */
+
+.inputFileNoUpload{
+    background: #b22222;
+    color: white;
+    width: 100%;
+}
+
+.inputFileUpload{
+    background: green;
+    color: white;
+    width: 100%;
+}
+
+.keywordDiv{
+    border: 1px solid #d8d8d8;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: #f8f8f8;
+    margin: 25px 0 25px 0;
+}
+
+.keyWordInput{
+    width: 70%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.keyWordHelp{
+    width: 95%;
+    margin: 0 auto;
+}
+
+#blogbundle_article_title{
+    margin: 0;
+    width: 100%;
+}
+
+@media only screen and (max-width: 680px){
+
+    .inputFileNoUpload,
+    .inputFileUpload{
+        width: 100%;
+    }
+}
+
+input[type="submit"]{
+    display: block;
+    margin: 0 auto;
+}
+
+#label-submit{
+    margin-top: 25px;
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 1.5em;
+    text-align: center;
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+/*  Page accueil */
+.col-custom {
+    margin: 5px 0 5px 0;
+    background: #f8f8f8;
+    font-size: 1em;
+    padding: 0;
+    word-break: break;
+}
+
+.col-custom button{
+    margin: 10px 0 10px 0;
+
+}
+
+.col-title{
+    margin-top: 5px;
+    font-size: 1.25em;
+}
+
+@media all and (max-width: 480px){
+    .col-title{
+        font-size: 1em;
+    }
+}
+
+.image-admin{
+    width: 100%;
+}
+
+.row-custom{
+    padding: 20px;
+    background: #eee;
+}
+
+.row-comment-validation{
+    margin-bottom: 10px;
+    border: 1px solid #d8d8d8;
+    padding: 10px;
+}
+
+/* page edit */
+
+#edit{
+    width: 70%;
+    margin: 0 auto;
+}
+
+#edit img{
+    width: 100%;
+}
+
+@media all and (max-width: 767px){
+    #edit{
+        width: 100%;
+    }
+}
+
+.image-update,
+.text-update{
+    margin-bottom: 25px;
+}

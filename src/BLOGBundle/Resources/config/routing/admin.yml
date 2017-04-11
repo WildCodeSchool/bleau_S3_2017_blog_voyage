@@ -2,10 +2,6 @@ admin_index:
     path:     /
     defaults: { _controller: "BLOGBundle:Admin:index" }
 
-admin_menu:
-    path:     /menu
-    defaults: { _controller: "BLOGBundle:Admin:menu" }
-
 admin_add:
     path:     /add
     defaults: { _controller: "BLOGBundle:Admin:add" }
@@ -19,4 +15,19 @@ admin_edit:
 admin_delete:
     path:     /delete/{id}
     defaults: { _controller: "BLOGBundle:Admin:delete" }
-    methods:  DELETE
+
+admin_profil:
+    path:     /profil
+    defaults: { _controller: "BLOGBundle:Admin:profil" }
+
+admin_comments:
+    path:     /comments
+    defaults: { _controller: "BLOGBundle:Admin:comment" }
+
+admin_comments_validation:
+    path:     /comments/{id}
+    defaults: { _controller: "BLOGBundle:Admin:commentValidation" }
+
+admin_newsletter:
+    path:     /newsletter
+    defaults: { _controller: "BLOGBundle:Admin:newsletter" }

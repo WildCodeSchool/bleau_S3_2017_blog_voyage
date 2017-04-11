@@ -8,7 +8,7 @@
     <meta charset="utf-8"/>
 </head>
 
-<body>
+<body onload="load()">
 
 {% block nav %}
 {% endblock %}
@@ -21,13 +21,18 @@
 
 {% block Category %}
 {% endblock %}
+
+{# Page principale de l'espace administration #}
+{% block add %}
+{% endblock %}
+
 {% block container %}
     {% block row %}
     {% endblock %}
 {% endblock %}
 
-    {% block form %}
-    {% endblock %}
+{% block form %}
+{% endblock %}
 
 
 {% block footer %}
