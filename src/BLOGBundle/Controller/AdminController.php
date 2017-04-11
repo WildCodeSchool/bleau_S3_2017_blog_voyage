@@ -264,7 +264,7 @@ class AdminController extends Controller
     public function commentValidationAction($id){
         $em = $this->getDoctrine()->getManager();
 
-        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id));
+        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id);
 
         $comment->setPublication('1');
 
