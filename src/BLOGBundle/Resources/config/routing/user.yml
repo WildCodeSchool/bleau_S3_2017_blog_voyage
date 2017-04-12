@@ -24,8 +24,6 @@ blog_category_specifique:
     path: /category/{category}
     defaults:
         _controller: 'BLOGBundle:User:viewCategory'
-    requirements:
-        category: \[a-zA-Z0-9]+
 
 blog_articles_by_date:
     path: /article/dates

@@ -57,10 +57,10 @@ class AdminController extends Controller
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
-				// Si l'input catégorie a été généré
-				$nbCategory = count($request->request->get('category'));
 				
-				$checkbox = $request->request->get('checked');
+				$nbCategory = count($request->request->get('category')); // Combien de catégories définies?
+				
+				$checkbox = $request->request->get('checked'); // Faut-il envoyer la newsletter?
 				if($checkbox == "on"){
 					$article->setNewsletter('1');
 				}
@@ -69,29 +69,32 @@ class AdminController extends Controller
 				}
 						
 				$check = $request->request->get('category');	
-				// Warning: array_count_values() expects parameter 1 to be array, null given
+
+				// if $check car doit au moins avoir un élément pour comparer
 				if($check){
-					foreach(array_count_values($check) as $key => $value)
+					// On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
+					$str;
+					foreach($check as $tab){
+						$str[] = strtolower($tab); 
+					}
+					
+					foreach(array_count_values($str) as $key => $value)
 					{
 						if($value > 1){
 							echo "doublon trouvé"; die();
 							$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double");
-							return $this->redirectToRoute('admin_add'); // Si doublons de mots-clefs trouvés, on redirige
+							return $this->redirectToRoute('admin_add'); 
 						}
 					}
 				}
-				
-				
 				
 		        if($request->request->get('category'))
 		        {
                     foreach ($request->request->get('category') as $category)
                     {
-						// Si l'input a été généré et qu'il n'est pas laissé vide !!!!!!!! (par oubli de le remplir par exemple)
-                        if (strlen($category)>0) 
+                        if (strlen($category)>0) // Si texte n'est pas "";
                         {
-                            if ($keyword) {
-								
+                            if($keyword){
                                 $i = 0;
                                 $j = 0;
                                 $endLoop = false;
@@ -99,11 +102,11 @@ class AdminController extends Controller
                                 $loopLength = count($keyword);
                                 foreach ($keyword as $key) {
                                     // Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
-                                    if ($category !== $key->getCategory()) {
+                                    if (strtolower($category) !== strtolower($key->getCategory())) {
                                         $j++;
                                     }
                                     // Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
-                                    if ($category == $key->getCategory()) {
+                                    if (strtolower($category) == strtolower($key->getCategory())) {
 										//echo "mon premier article avec catégorie";die();
 										
                                         $key->addArticle($article);
@@ -123,8 +126,6 @@ class AdminController extends Controller
                                 // Puisque j est supérieur à 0, alors on doit créer une catégorie.
                                 if ($j > 0 AND $i == 0 AND $endLoop == true) {
 									// echo "Noix de cajou";die();
-									
-									
                                     $categ = new Category();
                                     $categ->setCategory($category);
                                     $categ->addArticle($article);
@@ -132,13 +133,12 @@ class AdminController extends Controller
                                 }
                             } else // Si la base est vide, je crée ma première catégorie
                             {
-								
                                 $categ = new Category();
                                 $categ->setCategory($category);
                                 $categ->addArticle($article);
                                 $article->addCategory($categ);
                             }
-						// Si l'input categorie a été généré mais qu'il est laissé vide !!!!!!!!	
+				
                         } 
 						else{
 							
@@ -147,7 +147,6 @@ class AdminController extends Controller
 								$i=0;
 								foreach ($keyword as $key) 
 								{
-									
                                     if ($key->getCategory() == "Autres") 
 									{	
                                         $key->addArticle($article);
@@ -155,7 +154,8 @@ class AdminController extends Controller
 										$i++;
                                     }
 								}	
-								if($i==0){
+								if($i==0) // Autre n'existe pas encore en bdd, donc on le créé
+								{
 									$categ = new Category();
 									$categ->setCategory("Autres");
 									$categ->addArticle($article);

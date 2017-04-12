@@ -20,9 +20,9 @@
 			{% for image in article.image %}
 				{% for content in article.content %}
 					{% if content.id == image.id %}
-					<div>
+					<div style="background: #f8f8f1; margin-bottom: 50px; padding: 5px; border: 1px solid #ccc;">
 						<div class="image-update">
-							<img src="{{ asset('bundles/images/'~image.src ) }}"/>
+							<img src="{{ asset('bundles/images/'~image.src ) }}" style="width: 100%;"/>
 							<input type="hidden" name="src[]" value="{{ image.src }}"/>
 						</div>
 						<div class="text-update">
@@ -40,6 +40,21 @@
 			<button class='content btn btn-large btn-success'>Nouveau contenu</button>
 			<button class='category btn btn-large btn-success'>Nouvelle catégorie</button>
 		</div>
+		
+		<label for="check" for="submit" id="label-submit"> Alerter mes abonnés </label>
+		<input type="checkbox" name="checked" id="check" {% if article.newsletter == '1' %} checked {% endif %}/>
+		
+		{% if article.newsletter == '1' %} 
+			<p style="margin-top: 10px; background: green; color: white; text-align: center;"> 
+				La newsletter a été envoyée lors de la création de l'article 
+			</p> 
+		{% endif %}
+		
+		{% if article.newsletter == '0' %} 
+			<p style="margin-top: 10px; background: #b22222; color: white; text-align: center;"> 
+				La newsletter n'a pas été envoyée lors de la création de l'article 
+			</p> 
+		{% endif %}
 		
         <label for="submit" id="label-submit"> Editer l'article </label>
         <input type="submit" id="submit" class="btn btn-large btn-danger" value="Editer"/>

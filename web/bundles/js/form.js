@@ -1,11 +1,17 @@
 // Identification du formulaire
 var formElt = document.querySelectorAll('.form > form');
 
-// Identification du bouton de suppression de texte du premier élément "Contenu"
-var resetElt = document.getElementById("text-trash");
+// Identification du bouton de suppression de texte du premier élément "textarea"
+// de la partie Add et de tous ceux de la partie Edit (lorsqu'on arrive sur la page"), si plusieurs textarea
+var resetElt = document.getElementsByClassName("text-trash");
+
+// Identification du bouton de suppression de "Image + texte"
+var buttonRemoveContentElt = document.getElementsByClassName('remove-content');
+
+
 
 // Identification du premier textarea
-var firstTextElt = document.getElementById("first-text");
+var firstTextElt = document.getElementsByClassName("first-text");
 
 // Création bouton ajout de contenu (image + texte)
 var buttonContentElt = document.getElementsByClassName('content');
@@ -26,12 +32,17 @@ var buttonRangeElt = document.getElementById('buttonRange');
 // On insére la div contenant les mots-clefs avant la div contenant les boutons d'ajout/soumission
 buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
 
+console.log(firstTextElt.length);
+console.log(buttonRemoveContentElt.length);
 
 // Si l'utilisateur clique sur le bouton "vider le texte" du premier élément contenu
-resetElt.addEventListener("click", function(e){
-    e.preventDefault();
-    firstTextElt.value = "";
-});
+for(i=0; i<resetElt.length; i++){
+	resetElt[i].addEventListener("click", function(e){
+		e.preventDefault();
+		this.parentNode.parentNode.childNodes[3].childNodes[1].value="";
+	});
+}
+
 
 // Ecoute du clic sur le bouton d'ajout de contenu
 var k = 2;
@@ -280,16 +291,8 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 
 /// fichier d'édition
 
-
-for(i=0; i<buttonRemoveImageElt.length; i++) {
-    buttonRemoveImageElt[i].addEventListener('click', function (e) {
-        e.preventDefault();
-        this.parentNode.remove();
-    });
-}
-
-for(i=0; i<buttonRemoveTextElt.length; i++) {
-    buttonRemoveTextElt[i].addEventListener('click', function (e) {
+for(i=0; i<buttonRemoveContentElt.length; i++) {
+    buttonRemoveContentElt[i].addEventListener('click', function (e) {
         e.preventDefault();
         this.parentNode.remove();
     });

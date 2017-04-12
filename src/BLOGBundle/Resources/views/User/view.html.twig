@@ -29,7 +29,7 @@
                         <aside>
 							<p><b><u> Catégorie(s) associée(s)</u> : </b> 
 								{% for category in article.category %}
-									<span> {{ category.category }}{% if not loop.last %},{% endif %} </span>
+									<span><a href="{{ path('blog_category_specifique', {category : category.category}) }}"/> {{ category.category }} </a> {% if not loop.last %},{% endif %} </span>
 								{% endfor %}
 							</p>
 							<p>
