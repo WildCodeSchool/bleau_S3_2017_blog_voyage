@@ -280,7 +280,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 
 /// fichier d'édition
 
-/*
+
 for(i=0; i<buttonRemoveImageElt.length; i++) {
     buttonRemoveImageElt[i].addEventListener('click', function (e) {
         e.preventDefault();
@@ -294,4 +294,3 @@ for(i=0; i<buttonRemoveTextElt.length; i++) {
         this.parentNode.remove();
     });
 }
-*/

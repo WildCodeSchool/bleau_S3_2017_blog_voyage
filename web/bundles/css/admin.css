@@ -195,6 +195,7 @@ ul li a{
     }
 }
 
+input[type="checkbox"],
 input[type="submit"]{
     display: block;
     margin: 0 auto;

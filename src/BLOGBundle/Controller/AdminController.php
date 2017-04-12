@@ -59,16 +59,29 @@ class AdminController extends Controller
 		if ($form->isSubmitted() && $form->isValid()) {
 				// Si l'input catégorie a été généré
 				$nbCategory = count($request->request->get('category'));
-									
-				$check = $request->request->get('category');					
-				foreach(array_count_values($check) as $key => $value)
-				{
-					if($value > 1){
-						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double");
-						return $this->redirectToRoute('admin_add'); // Si doublons de mots-clefs trouvés, on redirige
+				
+				$checkbox = $request->request->get('checked');
+				if($checkbox == "on"){
+					$article->setNewsletter('1');
+				}
+				else{
+					$article->setNewsletter('0');
+				}
+						
+				$check = $request->request->get('category');	
+				// Warning: array_count_values() expects parameter 1 to be array, null given
+				if($check){
+					foreach(array_count_values($check) as $key => $value)
+					{
+						if($value > 1){
+							echo "doublon trouvé"; die();
+							$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double");
+							return $this->redirectToRoute('admin_add'); // Si doublons de mots-clefs trouvés, on redirige
+						}
 					}
 				}
-
+				
+				
 				
 		        if($request->request->get('category'))
 		        {
@@ -111,6 +124,7 @@ class AdminController extends Controller
                                 if ($j > 0 AND $i == 0 AND $endLoop == true) {
 									// echo "Noix de cajou";die();
 									
+									
                                     $categ = new Category();
                                     $categ->setCategory($category);
                                     $categ->addArticle($article);
@@ -127,12 +141,15 @@ class AdminController extends Controller
 						// Si l'input categorie a été généré mais qu'il est laissé vide !!!!!!!!	
                         } 
 						else{
+							
 							if($nbCategory == 1)
 							{
 								$i=0;
 								foreach ($keyword as $key) 
 								{
-                                    if ($key->getCategory() == "Autres") {
+									
+                                    if ($key->getCategory() == "Autres") 
+									{	
                                         $key->addArticle($article);
                                         $article->addCategory($key);	
 										$i++;
@@ -148,9 +165,9 @@ class AdminController extends Controller
 						}
                     }
                 }
-				else
-                {
-                   
+				else // Valable ici uniquement que pour le premier article. Ne peut être utilisé qu'une fois
+					// Si les auteurs ont créé leur premier article sans définir de catégorie
+                {                
                     $categ = new Category();
                     $categ->setCategory("Autres");
                     $categ->addArticle($article);
@@ -190,7 +207,7 @@ class AdminController extends Controller
              // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
 
 
-            return $this->redirectToRoute('admin_add');
+            return $this->redirectToRoute('admin_index');
         }
 
         return $this->render('@BLOG/Admin/add.html.twig', array(
@@ -242,10 +259,10 @@ class AdminController extends Controller
                 }
              }
 
-
+					die();
             $em->flush();
             echo $i;
-            die();
+            
 
 
 
@@ -267,6 +284,21 @@ class AdminController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $article = $em->getRepository('BLOGBundle:Article')->findOneById($id);
+			
+			
+			
+			foreach($article->getImage() as $image)
+			{
+				$fileName = $image->getSrc();
+				$path = $this->getParameter('image_directory')."/".$fileName;
+				if(file_exists($path))
+				{
+					unlink($path);
+					
+				}
+			}
+		
+			
             $em->remove($article);
             $em->flush($article);
 
@@ -310,11 +342,7 @@ class AdminController extends Controller
         $em->persist($comment);
         $em->flush();
 
-        $comment = $em->getRepository("BLOGBundle:Comments")->myFindAll();
-
-        return $this->render('@BLOG/Admin/comment.html.twig', array(
-            'comments' => $comment
-        ));
+        return $this->redirectToRoute('admin_comments');
 
     }
 }

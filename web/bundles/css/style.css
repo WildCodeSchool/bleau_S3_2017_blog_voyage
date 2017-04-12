@@ -213,6 +213,7 @@ h1{
 .container-dates,
 .container-article{
     padding-top: 75px;
+    margin-top: 50px;
     margin-bottom: 200px;
 }
 
@@ -256,23 +257,29 @@ h1{
 .article{
     margin: 0 auto;
     padding: 10px;
-    background: #f7f7f7;
-    border: 1px solid #e8e8e8;
+    background: #f8f1f1;
+    border: 1px solid #d8d8d8;
     min-height: 100vh;
 }
 
 .article h1{
-    background: rgba(0,0,0,0);
-    height: 80px;
-    line-height: 80px;
+    background: white;
+	width: 90%;
+	margin: 0 auto;
+    height: 100px;
+    line-height: 100px;
     color: #333;
+	border: 1px solid #d8d8d8;
+	font-size: 4em;
 }
 
 .article img{
     display: block;
     width: 90%;
     margin: 0 auto;
-    
+	border: 15px solid white;
+	outline: 1px solid #d8d8d8;
+	box-shadow: 0 0 10px black;
 }
 
 .article p{
@@ -283,16 +290,41 @@ h1{
     line-height: 35px;
     margin-top: 10px;
     margin-bottom: 10px;
-    word-break: break-all;
     padding: 20px;
     background: white;
+	border: 1px solid #d8d8d8;
 }
+
+.article aside{
+	border: none;
+    color: #222;
+	width: 100%;
+	margin: 0 auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.article aside p{
+	font-size: 1.75em;
+}
+
+
+.article aside p:nth-child(2){
+	text-align: center;
+}
+
 
 @media all and (max-width: 767px){
     .article img,
-    .article p{
+	.article h1,
+    .article p, 
+	.article aside{
         width: 100%;
     }
+	
+	.article h1{
+		font-size: 4em;
+	}
 }
 
 .modal-image{
@@ -302,7 +334,10 @@ h1{
 }
 
 .modal-image img{
+	display: block;
     cursor: pointer;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .modal-image-big{
@@ -319,15 +354,6 @@ h1{
 .button-right{
     margin: 0 auto;
     display: none;
-}
-
-.article aside{
-    background: black;
-    color: white;
-    font-size: 1.75em;
-    text-align: center;
-    padding: 5px;
-    border-radius: 5px;
 }
 
 .comments{
@@ -392,7 +418,15 @@ textarea{
 
 .button-range{
     display: flex;
+	flex-wrap: wrap;
     justify-content: space-between;
+}
+
+@media all and (max-width: 767px){
+	.button-range button{
+		width: 100%;
+		margin: 5px;
+	}	
 }
 
 /********/

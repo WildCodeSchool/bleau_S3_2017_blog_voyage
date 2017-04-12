@@ -78,6 +78,8 @@ if(buttonPublishElt && buttonSeeElt){
     });
 }
 
+// Affichage en plein écran de(s) photo(s) de l'article
+
 if(modalImageElt){
     for(i=0; i<modalImageElt.length; i++){
         modalImageElt[i].addEventListener("click", function(e){

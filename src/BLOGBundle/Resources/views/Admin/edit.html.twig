@@ -15,31 +15,32 @@
             {{ form_errors(edit_form.title) }}
             {{ form_widget(edit_form.title) }}
         </p>
-        <div id="edit">
-        {% for image in article.image %}
-            {% for content in article.content %}
-                {% if content.id == image.id %}
-                    {% if image.src is not empty %}
-                       <div class="image-update">
-                           <img src="{{ asset('bundles/images/'~image.src ) }}"/>
-                           <input type="hidden" name="src[]" value="{{ image.src }}"/>
-                           <button class="btn btn-large btn-danger remove-image"> Supprimer l'image {{ loop.index }}</button>
-                       </div>
-                    {% endif %}
-                        <div class="text-update">
-                            <textarea name="content[]">{{ content.content }}</textarea>
-                            <button class="btn btn-large btn-danger remove-text"> Supprimer le texte {{ loop.index }} </button>
-                        </div>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-        </div>
 
-        <div id='buttonRange'>
-            <button class='picture btn btn-large btn-danger'>Nouvelle image</button>
-            <button class='text btn btn-large btn-danger'>Nouveau texte</button>
-            <button class='category btn btn-large btn-danger'>Nouvelle catégorie</button>
-        </div>
+		<div class="content-block">
+			{% for image in article.image %}
+				{% for content in article.content %}
+					{% if content.id == image.id %}
+					<div>
+						<div class="image-update">
+							<img src="{{ asset('bundles/images/'~image.src ) }}"/>
+							<input type="hidden" name="src[]" value="{{ image.src }}"/>
+						</div>
+						<div class="text-update">
+							<textarea name="content[]" class="first-text">{{ content.content }}</textarea>
+							<button class="btn btn-large btn-danger text-trash"> Vider le texte </button>
+						</div>
+					<button class="btn btn-large btn-danger remove-content"> Supprimer Image + texte </button>
+					</div>	
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		</div>
+
+       	<div id='buttonRange'>
+			<button class='content btn btn-large btn-success'>Nouveau contenu</button>
+			<button class='category btn btn-large btn-success'>Nouvelle catégorie</button>
+		</div>
+		
         <label for="submit" id="label-submit"> Editer l'article </label>
         <input type="submit" id="submit" class="btn btn-large btn-danger" value="Editer"/>
 

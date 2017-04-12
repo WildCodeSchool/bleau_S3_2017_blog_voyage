@@ -21,13 +21,20 @@
                                         </figcaption>
                                     {% endif %}
                                     {% if content.content is not empty %}
-                                        <p> {{ content.content }} </p>
+                                        <p> {{ content.content|nl2br  }}</p>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
                         {% endfor %}
                         <aside>
-                             Publié le {{ article.date.date|date('d/m/Y') }}
+							<p><b><u> Catégorie(s) associée(s)</u> : </b> 
+								{% for category in article.category %}
+									<span> {{ category.category }}{% if not loop.last %},{% endif %} </span>
+								{% endfor %}
+							</p>
+							<p>
+								Publié le {{ article.date.date|date('d/m/Y') }}
+							</p>
                         </aside>
                         <div class="comments">
                             <div class="button-range">

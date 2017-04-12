@@ -14,6 +14,8 @@ BLOGBundle\Entity\Article:
             length: 255
         date:
             type: datetime
+        newsletter:
+            type: boolean
 
     manyToMany:
         category:
