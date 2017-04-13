@@ -243,7 +243,9 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('BLOGBundle:Article')->findOneById($id);
-		
+        $imageBdd = $em->getRepository('BLOGBundle:Image')->findBy(array('article' => $article));
+        $contentBdd = $em->getRepository('BLOGBundle:Content')->findBy(array('article' => $article));
+        
 		$nbImage = count($article->getImage()); // On compte le nombre d'éléments envoyés dans le formulaire d'édition.
         
 		$editForm = $this->createForm('BLOGBundle\Form\ArticleType', $article);
@@ -336,32 +338,73 @@ class AdminController extends Controller
 						}			
 					}
 				}	
-			
+				
 				// Tout le surplus de fichier contenu vs nb de ligne en bdd est nécessairement de l'uploaded
 				// On doit donc créer de nouvelles lignes
 				if($nbBlocksReceived > $nbImage){ // Doit être strictement supérieur
-					if($i>=$nbImage){
-						
-						$fileName = uniqid() . '.' . $tabImgReceived[$i]->guessExtension();
-						$src->move($this->getParameter('image_directory'), $fileName);
+					for($i=$nbImage; $i<$nbBlocksReceived; $i++){
+						if($i>=$nbImage){
+							
+							$fileName = uniqid() . '.' . $tabImgReceived[$i]->guessExtension();
+							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $fileName);
 
-						$image = new Image();
-						$image->setSrc($fileName);
-						$image->setAlt($article->getTitle());
-						$image->setArticle($article);
-						$article->addImage($image);
-						
-						$cont = new Content();
-						$cont->setContent('' . $tabText[$i] . '');
-						$cont->setArticle($article);
-						$article->addContent($cont);
+							$image = new Image();
+							$image->setSrc($fileName);
+							$image->setAlt($article->getTitle());
+							$image->setArticle($article);
+							$article->addImage($image);
+							
+							$cont = new Content();
+							$cont->setContent('' . $tabText[$i] . '');
+							$cont->setArticle($article);
+							$article->addContent($cont);
+						}
 					}
 				}	
 			}
 			
 			// Cas 2 : le nombre d'images est inférieur à "avant l'édition"
-			else{
-				echo "no";
+			else
+			{
+				for($i=0; $i<$nbImage; $i++)
+				{
+					if($nbOfAncientBlocksReceived)
+					{
+						if(array_key_exists($i, $tabImgReceived))
+						{
+							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							$article->getImage()[$i]->setSrc($tabImgReceived[$i]);
+						}
+						else
+						{	
+							$em->remove($imageBdd[$i]);
+							$em->remove($contentBdd[$i]);
+							$article->removeContent($contentBdd[$i]);
+							$article->removeImage($imageBdd[$i]);		
+						}	
+						
+						if(in_array($tabBdd[$i], $tabImgReceived)==0)
+						{
+							$ancientFileToBeRemoved = $tabBdd[$i];
+							$path = $this->getParameter('image_directory')."/".$ancientFileToBeRemoved;
+							
+							if(file_exists($path))
+							{
+								unlink($path);
+							}
+						}
+					}
+				
+					if($nbOfNewBlocksReceived)
+					{
+						
+					}
+					
+					if($nbOfAncientBlocksReceived && $nbOfAncientBlocksReceived)
+					{
+						
+					}
+				}
 			}
 			
 			
