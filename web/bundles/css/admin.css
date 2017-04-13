@@ -254,22 +254,39 @@ input[type="submit"]{
 
 /* page edit */
 
-#edit{
-    width: 70%;
-    margin: 0 auto;
+.edit-img{
+	display: block;
+	width: 50%;
+	margin: 0 auto;
 }
 
-#edit img{
-    width: 100%;
+.first-text{
+	width: 50%;
+	margin: 0 auto;
+	height: 200px;
+	margin-bottom: 10px;
+}
+
+.text-update{
+	text-align: center;
+    margin-bottom: 25px;
 }
 
 @media all and (max-width: 767px){
-    #edit{
-        width: 100%;
-    }
+	.edit-img{
+		width: 100%;
+	}
+	
+	.first-text{
+		width: 100%;
+	}
+	
+	.text-update{
+		text-align: right;
+	}	
 }
 
-.image-update,
-.text-update{
-    margin-bottom: 25px;
+.image-update{
+	margin-bottom: 5px;
 }
+

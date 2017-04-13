@@ -9,6 +9,7 @@ use BLOGBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Finder\SplFileInfo;
 
 
 /**
@@ -225,47 +226,135 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('BLOGBundle:Article')->findOneById($id);
-
-        $editForm = $this->createForm('BLOGBundle\Form\ArticleType', $article);
+		
+		$nbImage = count($article->getImage()); // On compte le nombre d'éléments envoyés dans le formulaire d'édition.
+        
+		$editForm = $this->createForm('BLOGBundle\Form\ArticleType', $article);
 
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager();
-            var_dump($request->request);
-            die();
-            // On récupères les images de l'article édité
-            foreach($article->getImage() as $image)
-            {
-                // On vérifie si ça ne matche pas avec les infos en bdd
-                // Alors, cela signifie que l'image a été supprimée
-                // Il faudra donc l'enlever de la bdd
-                $i=0;
-                $img = $image;
-                $src= $img->getSrc();
-                // On récupère les src des images envoyées via le formulaire d'édition
-                foreach($request->request->get('src') as $src2)
-                {
-                    if($src2 == $src) // Si le src de l'image envoyée ne correspond pas à
-                    {                // une image en bdd, c'est que l'image en bdd doit être supp
-                        $i++;       // Le compteur est alors égal à 0
-                    }
-                }
-
-                if($i==0)
-                {
-                    var_dump(src2);
-                    // $em->remove($img);
-                }
-             }
-
-					die();
-            $em->flush();
-            echo $i;
+			
+			$nbOfAncientBlocksReceived = count($request->request->get('src')); 
+            $nbOfNewBlocksReceived = count($request->files->get('src'));
+			$nbBlocksReceived = $nbOfAncientBlocksReceived + $nbOfNewBlocksReceived;
+			
+			echo "Total blocs reçus = " . $nbBlocksReceived . ' dont :<br />';
+			echo " - " . $nbOfAncientBlocksReceived . ' ancien(s) blocs <br />';
+			echo " - " . $nbOfNewBlocksReceived . ' nouveau(x) blocs <br />'; 
+			
+			// On récupère toutes les images (anciennes (src) + nouvelles (files));
+			$tabImgReceived;
+			foreach($request->request->get('src') as $src){
+				$tabImgReceived[] = $src;
+			}
+			
+			if($request->files->get('src')){
+				foreach($request->files->get('src') as $src){
+					$tabImgReceived[] = $src;
+				}
+			}
+			
+			// On récupère tous les textes envoyés
+			$tabText;
+			foreach($request->request->get('content') as $text){
+				$tabText[] = $text;
+			}
+			
+			// On récupère toutes les src de la bdd 
+			$tabBdd;
+			foreach($article->getImage() as $Image){
+				$tabBdd[] = $Image->getSrc();
+			}
+			
+			dump($tabImgReceived);
+			dump($tabBdd);
+			dump($tabText);
+			
             
-
-
-
+			// Cas 1 : le nombre d'images est supérieur ou égal à "avant l'édition"
+			if($nbBlocksReceived >= $nbImage){
+				// On met éventuellement à jour les photos et/ou textes sur les lignes présentes en bdd
+				for($i=0; $i<$nbImage; $i++){
+					// Si les images coïncident (pas de suppression lors de l'édition)
+					if($tabImgReceived[$i] == $tabBdd[$i])
+					{
+						// On met à jour le texte uniquement
+						
+						// echo "Ancien texte :" . $article->getContent()[$i]->getContent() . '<br />';
+						$article->getContent()[$i]->setContent($tabText[$i]);
+						// echo "Nouveau texte :" . $article->getContent()[$i]->getContent() . '<br />';
+						
+					}
+					// Attention, si les auteurs suppriment un bloc compris entre 1 et n-1, cela décale tout et donc 
+					// on rentre nécessaire dans le else
+					else{
+						// Si image pas correspondante, alors il faut remplacer l'ancienne.
+						// Puis écrire un nouveau texte
+						// echo "Image à supprimer " . $tabBdd[$i];
+						
+	
+						
+						
+						if(is_uploaded_file($tabImgReceived[$i])){
+							echo "bonjour <br />";
+							echo $i . '<br />' ;
+							dump($article->getImage()[$i]);
+							
+							// $article->removeImage($article->getImage()[$i]);
+							$image = new Image();
+							$newFileName = uniqid() . '.' .$tabImgReceived[$i]->guessExtension();
+							// Pas besoin de faire new Image si on ne fait que mettre à jour le src de l'image i
+							$article->getImage()[$i]->setSrc($newFileName);
+							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							dump($article->getImage()[$i]);
+							
+							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newFileName);							
+						}
+						
+						else{
+							
+							$ancientFileName = $tabBdd[$i];
+							$path = $this->getParameter('image_directory')."/".$ancientFileName;
+							
+							if($tabImgReceived[$i] !== $tabBdd[$i+1])
+							{	
+								if(file_exists($path))
+								{
+									echo "bonjour"; die();
+									unlink($path);
+								}
+							}	
+							/*
+							else{
+								// echo "il ne faut pas supprimer" . $tabBdd[$i+1]; die();
+							}
+							*/
+							dump($article->getImage()[$i]);
+							
+							$article->getImage()[$i]->setSrc(''.$tabImgReceived[$i].'');
+							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							
+							dump($article->getImage()[$i]);
+																				
+							// die();
+						}
+					}
+				}	
+			}
+			
+			// Cas 2 : le nombre d'images est inférieur à "avant l'édition"
+			else{
+				echo "no";
+			}
+			
+			
+			// On récupères les images de l'article édité
+            
+			$em->persist($article);
+            $em->flush();
+			
             return $this->redirectToRoute('admin_edit', array('id' => $article->getId()));
         }
 

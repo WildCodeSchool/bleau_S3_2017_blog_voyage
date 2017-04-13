@@ -8,7 +8,8 @@ var resetElt = document.getElementsByClassName("text-trash");
 // Identification du bouton de suppression de "Image + texte"
 var buttonRemoveContentElt = document.getElementsByClassName('remove-content');
 
-
+// Identification du bouton de suppression des blocs de mots clefs déjà présents dans edit
+var buttonDeleteKeyWordElt = document.getElementsByClassName('delete-keyword');
 
 // Identification du premier textarea
 var firstTextElt = document.getElementsByClassName("first-text");
@@ -290,6 +291,13 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 
 
 /// fichier d'édition
+for(i=0; i<buttonDeleteKeyWordElt.length; i++){
+	buttonDeleteKeyWordElt[i].addEventListener("click", function(e){
+		e.preventDefault();
+		this.parentNode.remove();
+	});
+}
+
 
 for(i=0; i<buttonRemoveContentElt.length; i++) {
     buttonRemoveContentElt[i].addEventListener('click', function (e) {

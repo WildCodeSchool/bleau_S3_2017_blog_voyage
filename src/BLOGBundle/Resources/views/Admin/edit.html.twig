@@ -22,7 +22,7 @@
 					{% if content.id == image.id %}
 					<div style="background: #f8f8f1; margin-bottom: 50px; padding: 5px; border: 1px solid #ccc;">
 						<div class="image-update">
-							<img src="{{ asset('bundles/images/'~image.src ) }}" style="width: 100%;"/>
+							<img src="{{ asset('bundles/images/'~image.src ) }}" class="edit-img"/>
 							<input type="hidden" name="src[]" value="{{ image.src }}"/>
 						</div>
 						<div class="text-update">
@@ -33,6 +33,20 @@
 					</div>	
 					{% endif %}
 				{% endfor %}
+			{% endfor %}
+		</div>
+		
+		<div style="margin-bottom: 30px;">
+			<p style="text-align: center; background: white; font-size: 1.25em; font-weight: bold; color: #333; padding: 10px;">
+				Mots clefs associés à l'article
+			</p>
+			{% for category in article.category %}
+				<p style="margin-bottom: 15px; background: #f8f8f1; padding: 5px;">
+					<label for="keyword">Mot clef {{ loop.index }} </label>
+					<input type="text" name="category[]" value="{{ category.category }}"/>
+					<button class="btn btn-large btn-danger delete-keyword"> Supprimer </button>
+				</p>
+				
 			{% endfor %}
 		</div>
 
