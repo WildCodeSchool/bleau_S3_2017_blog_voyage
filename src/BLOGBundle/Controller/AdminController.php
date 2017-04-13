@@ -60,14 +60,6 @@ class AdminController extends Controller
 		if ($form->isSubmitted() && $form->isValid()) {
 				
 				$nbCategory = count($request->request->get('category')); // Combien de catégories définies?
-				
-				$checkbox = $request->request->get('checked'); // Faut-il envoyer la newsletter?
-				if($checkbox == "on"){
-					$article->setNewsletter('1');
-				}
-				else{
-					$article->setNewsletter('0');
-				}
 						
 				$check = $request->request->get('category');	
 
@@ -201,9 +193,34 @@ class AdminController extends Controller
 				$cont->setArticle($article);
 				$article->addContent($cont);
 			}
+			
+			$checkbox = $request->request->get('checked'); // Faut-il envoyer la newsletter?
+			if($checkbox == "on"){
+				$article->setNewsletter('1');
+			}
+			else{
+				$article->setNewsletter('0');
+			}
 
+			
 			$em->persist($article);
 			$em->flush();
+			
+			// Une fois les infos enregistrées, on envoie la newsletter avec Swiftmailer
+			// On récupère les infos de la bdd
+			/*
+			if($checkbox == "on"){
+				swiftmailer
+				
+				$this->render(........twig, array
+					'image' => $src[0];
+					'texte' => $cont[0];
+				)
+				array(
+				
+				)
+			}
+			*/
 
              // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
 
@@ -284,7 +301,6 @@ class AdminController extends Controller
 					else{
 						// Si image pas correspondante, alors il faut remplacer l'ancienne.
 						// Puis associer le nouveau texte
-						// echo "Image à supprimer " . $tabBdd[$i];					
 						
 						if(is_uploaded_file($tabImgReceived[$i])){
 						
@@ -320,9 +336,27 @@ class AdminController extends Controller
 						}			
 					}
 				}	
-				
+			
+				// Tout le surplus de fichier contenu vs nb de ligne en bdd est nécessairement de l'uploaded
+				// On doit donc créer de nouvelles lignes
+				if($nbBlocksReceived > $nbImage){ // Doit être strictement supérieur
+					if($i>=$nbImage){
+						
+						$fileName = uniqid() . '.' . $tabImgReceived[$i]->guessExtension();
+						$src->move($this->getParameter('image_directory'), $fileName);
 
-				
+						$image = new Image();
+						$image->setSrc($fileName);
+						$image->setAlt($article->getTitle());
+						$image->setArticle($article);
+						$article->addImage($image);
+						
+						$cont = new Content();
+						$cont->setContent('' . $tabText[$i] . '');
+						$cont->setArticle($article);
+						$article->addContent($cont);
+					}
+				}	
 			}
 			
 			// Cas 2 : le nombre d'images est inférieur à "avant l'édition"
