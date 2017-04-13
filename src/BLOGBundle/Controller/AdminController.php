@@ -240,14 +240,12 @@ class AdminController extends Controller
             $nbOfNewBlocksReceived = count($request->files->get('src'));
 			$nbBlocksReceived = $nbOfAncientBlocksReceived + $nbOfNewBlocksReceived;
 			
-			echo "Total blocs reçus = " . $nbBlocksReceived . ' dont :<br />';
-			echo " - " . $nbOfAncientBlocksReceived . ' ancien(s) blocs <br />';
-			echo " - " . $nbOfNewBlocksReceived . ' nouveau(x) blocs <br />'; 
-			
 			// On récupère toutes les images (anciennes (src) + nouvelles (files));
 			$tabImgReceived;
-			foreach($request->request->get('src') as $src){
-				$tabImgReceived[] = $src;
+			if($request->request->get('src')){
+				foreach($request->request->get('src') as $src){
+					$tabImgReceived[] = $src;
+				}
 			}
 			
 			if($request->files->get('src')){
@@ -266,12 +264,7 @@ class AdminController extends Controller
 			$tabBdd;
 			foreach($article->getImage() as $Image){
 				$tabBdd[] = $Image->getSrc();
-			}
-			
-			dump($tabImgReceived);
-			dump($tabBdd);
-			dump($tabText);
-			
+			}		
             
 			// Cas 1 : le nombre d'images est supérieur ou égal à "avant l'édition"
 			if($nbBlocksReceived >= $nbImage){
@@ -282,66 +275,54 @@ class AdminController extends Controller
 					{
 						// On met à jour le texte uniquement
 						
-						// echo "Ancien texte :" . $article->getContent()[$i]->getContent() . '<br />';
 						$article->getContent()[$i]->setContent($tabText[$i]);
-						// echo "Nouveau texte :" . $article->getContent()[$i]->getContent() . '<br />';
+
 						
 					}
 					// Attention, si les auteurs suppriment un bloc compris entre 1 et n-1, cela décale tout et donc 
-					// on rentre nécessaire dans le else
+					// on rentre nécessairement dans le else
 					else{
 						// Si image pas correspondante, alors il faut remplacer l'ancienne.
-						// Puis écrire un nouveau texte
-						// echo "Image à supprimer " . $tabBdd[$i];
-						
-	
-						
+						// Puis associer le nouveau texte
+						// echo "Image à supprimer " . $tabBdd[$i];					
 						
 						if(is_uploaded_file($tabImgReceived[$i])){
-							echo "bonjour <br />";
-							echo $i . '<br />' ;
-							dump($article->getImage()[$i]);
-							
-							// $article->removeImage($article->getImage()[$i]);
-							$image = new Image();
-							$newFileName = uniqid() . '.' .$tabImgReceived[$i]->guessExtension();
+						
 							// Pas besoin de faire new Image si on ne fait que mettre à jour le src de l'image i
+							
+							$newFileName = uniqid() . '.' .$tabImgReceived[$i]->guessExtension();
+							
 							$article->getImage()[$i]->setSrc($newFileName);
 							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
-							dump($article->getImage()[$i]);
 							
 							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newFileName);							
 						}
 						
 						else{
-							
 							$ancientFileName = $tabBdd[$i];
 							$path = $this->getParameter('image_directory')."/".$ancientFileName;
 							
-							if($tabImgReceived[$i] !== $tabBdd[$i+1])
-							{	
-								if(file_exists($path))
-								{
-									echo "bonjour"; die();
-									unlink($path);
-								}
-							}	
-							/*
-							else{
-								// echo "il ne faut pas supprimer" . $tabBdd[$i+1]; die();
-							}
-							*/
-							dump($article->getImage()[$i]);
-							
 							$article->getImage()[$i]->setSrc(''.$tabImgReceived[$i].'');
 							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
-							
-							dump($article->getImage()[$i]);
-																				
-							// die();
 						}
+						
+						// C'est ici qu'on doit éventuellement supprimer des images (car y'a forcément un décalage)
+						if(in_array('' . $tabBdd[$i] . '', $tabImgReceived)==0)
+						{
+									
+							$ancientFileNameNotFound = $tabBdd[$i];
+							$path = $this->getParameter('image_directory')."/".$ancientFileNameNotFound;
+									
+							if(file_exists($path))
+							{
+								unlink($path);
+							}
+						}			
 					}
 				}	
+				
+
+				
 			}
 			
 			// Cas 2 : le nombre d'images est inférieur à "avant l'édition"
