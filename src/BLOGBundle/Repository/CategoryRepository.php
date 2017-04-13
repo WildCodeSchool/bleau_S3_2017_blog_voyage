@@ -10,4 +10,10 @@ namespace BLOGBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function myFindAll()
+	{
+		$qb = $this->createQueryBuilder('category');
+		$qb->orderBy('category.id', 'ASC');
+		return $qb->getQuery()->getResult();
+	}
 }

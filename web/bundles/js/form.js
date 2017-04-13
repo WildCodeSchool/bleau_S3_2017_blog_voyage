@@ -23,6 +23,9 @@ var buttonCategoryElt = document.getElementsByClassName('category');
 // Identification de la balise qui contiendra les éléments images et textes
 var contentElt = document.getElementsByClassName('content-block');
 
+//Identification du bouton submit de la page edit
+var buttonEditElt = document.getElementById('submit');
+
 // Création de la div pour les mots-clefs/catégories
 var keywordRangeElt = document.createElement('div');
 keywordRangeElt.setAttribute('id', 'keywordRange');
@@ -305,3 +308,7 @@ for(i=0; i<buttonRemoveContentElt.length; i++) {
         this.parentNode.remove();
     });
 }
+
+buttonEditElt.addEventListener("mouseover", function(){
+	contentElt[0].required = "true";
+})

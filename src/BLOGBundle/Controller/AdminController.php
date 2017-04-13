@@ -245,9 +245,11 @@ class AdminController extends Controller
         $article = $em->getRepository('BLOGBundle:Article')->findOneById($id);
         $imageBdd = $em->getRepository('BLOGBundle:Image')->findBy(array('article' => $article));
         $contentBdd = $em->getRepository('BLOGBundle:Content')->findBy(array('article' => $article));
+        $categoryBdd = $em->getRepository('BLOGBundle:Category')->myFindAll();
         
-		$nbImage = count($article->getImage()); // On compte le nombre d'éléments envoyés dans le formulaire d'édition.
-        
+		$nbImage = count($article->getImage()); // On compte le nombre de blocs Img+Text envoyés dans le form
+		$nbCatArticleBdd = count($article->getCategory()); // On compte le nombre de catégories envoyées dans le form      
+		
 		$editForm = $this->createForm('BLOGBundle\Form\ArticleType', $article);
 
         $editForm->handleRequest($request);
@@ -259,7 +261,11 @@ class AdminController extends Controller
             $nbOfNewBlocksReceived = count($request->files->get('src'));
 			$nbBlocksReceived = $nbOfAncientBlocksReceived + $nbOfNewBlocksReceived;
 			
+			$nbCategories = count($request->request->get('category'));
+			
 			// On récupère toutes les images (anciennes (src) + nouvelles (files));
+			
+			// Anciens fichiers que l'utilisateur a conservés
 			$tabImgReceived;
 			if($request->request->get('src')){
 				foreach($request->request->get('src') as $src){
@@ -267,6 +273,7 @@ class AdminController extends Controller
 				}
 			}
 			
+			// nouveaux fichiers uploadés
 			if($request->files->get('src')){
 				foreach($request->files->get('src') as $src){
 					$tabImgReceived[] = $src;
@@ -279,12 +286,32 @@ class AdminController extends Controller
 				$tabText[] = $text;
 			}
 			
+			// On récupère les catégories envoyées
+			$tabKeyWord;
+			foreach($request->request->get('category') as $category){
+				$tabKeyWord[] = $category;
+			}
+			
 			// On récupère toutes les src de la bdd 
 			$tabBdd;
 			foreach($article->getImage() as $Image){
 				$tabBdd[] = $Image->getSrc();
-			}		
-            
+			}	
+
+			// On récupères toutes les catégories associées à l'article
+			$keyWordArticle;
+			foreach($article->getCategory() as $categ)
+			{
+				$keyWordArticle[] = $categ->getCategory();
+			}
+			
+			// On récupère toutes les catégories en bdd
+			$allKeyWordsInBdd;
+			foreach($categoryBdd as $categ)
+			{
+				$allKeyWordsInBdd[] = $categ->getCategory();
+			}
+			
 			// Cas 1 : le nombre d'images est supérieur ou égal à "avant l'édition"
 			if($nbBlocksReceived >= $nbImage){
 				// On met éventuellement à jour les photos et/ou textes sur les lignes présentes en bdd
@@ -392,8 +419,7 @@ class AdminController extends Controller
 						}
 						
 						if(in_array($tabBdd[$i], $tabImgReceived)==0)
-						{
-							
+						{	
 							$ancientFileToBeRemoved = $tabBdd[$i];
 							$path = $this->getParameter('image_directory')."/".$ancientFileToBeRemoved;
 							
@@ -458,7 +484,78 @@ class AdminController extends Controller
 				}
 			}
 			
+			// Gestion des catégories
 			
+			if($nbCategories >= $nbCatArticleBdd)
+			{
+				for($i=0; $i<$nbCatArticleBdd; $i++)
+				{
+
+					// Le mot-clef existe-t-il déjà en bdd et est-il déjà associé à l'article?
+					// Sinon, on créé un nouveau article.
+					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd) &&
+					   in_array($tabKeyWord[$i], $keyWordArticle)==0){
+						   
+						$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
+						
+						$categoryBdd[$key]->addArticle($article);
+						$article->addCategory($categoryBdd[$key]);
+					}
+					
+
+					
+					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)
+					{
+						$categ = new Category();
+						$categ->setCategory('' . $tabKeyWord[$i] . '');
+						$categ->addArticle($article);
+						$article->addCategory($categ);
+					}
+					
+					if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
+					{
+						$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
+						$article->removeCategory($categoryBdd[$key]);
+						$categoryBdd[$key]->removeArticle($article);
+					}
+				}
+			}
+			else
+			{
+				for($i=0; $i<$nbCatArticleBdd; $i++)
+				{
+					// Si l'index existe dans le tableau de mots-clefs renvoyé (car on a un nombre inférieur)
+					if(array_key_exists($i, $tabKeyWord))
+					{
+						// Si le mot-clef existe en bdd, et qu'il n'est pas déjà associé à l'article
+						// on recherche la clef pour faire l'association d'objets
+						
+						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd) AND 
+						   in_array($tabKeyWord[$i], $keyWordArticle)==0){
+							   
+							$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
+	
+							$categoryBdd[$key]->addArticle($article);
+							$article->addCategory($categoryBdd[$key]);
+						}
+						else
+						{
+							$categ = new Category();
+							$categ->setCategory('' . $tabKeyWord[$i] . '');
+							$categ->addArticle($article);
+							$article->addCategory($categ);
+						}						
+					}
+
+					if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
+					{
+						$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
+					
+						$article->removeCategory($categoryBdd[$key]);
+						$categoryBdd[$key]->removeArticle($article);
+					}
+				}
+			}
 			// On récupères les images de l'article édité
             
 			$em->persist($article);
@@ -479,28 +576,22 @@ class AdminController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-
-            $em = $this->getDoctrine()->getManager();
-            $article = $em->getRepository('BLOGBundle:Article')->findOneById($id);
-			
-			
-			
-			foreach($article->getImage() as $image)
+		$em = $this->getDoctrine()->getManager();
+		$article = $em->getRepository('BLOGBundle:Article')->findOneById($id);
+	
+		foreach($article->getImage() as $image)
+		{
+			$fileName = $image->getSrc();
+			$path = $this->getParameter('image_directory')."/".$fileName;
+			if(file_exists($path))
 			{
-				$fileName = $image->getSrc();
-				$path = $this->getParameter('image_directory')."/".$fileName;
-				if(file_exists($path))
-				{
-					unlink($path);
-					
-				}
+				unlink($path);
+				
 			}
-		
+		}
+		$em->remove($article);
+		$em->flush($article);
 			
-            $em->remove($article);
-            $em->flush($article);
-
-
         return $this->redirectToRoute('admin_index');
     }
 
