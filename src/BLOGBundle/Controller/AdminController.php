@@ -293,27 +293,23 @@ class AdminController extends Controller
 					if($tabImgReceived[$i] == $tabBdd[$i])
 					{
 						// On met à jour le texte uniquement
-						
-						$article->getContent()[$i]->setContent($tabText[$i]);
-
-						
+						$article->getContent()[$i]->setContent($tabText[$i]);						
 					}
 					// Attention, si les auteurs suppriment un bloc compris entre 1 et n-1, cela décale tout et donc 
 					// on rentre nécessairement dans le else
 					else{
+						
 						// Si image pas correspondante, alors il faut remplacer l'ancienne.
 						// Puis associer le nouveau texte
-						
 						if(is_uploaded_file($tabImgReceived[$i])){
 						
 							// Pas besoin de faire new Image si on ne fait que mettre à jour le src de l'image i
-							
 							$newFileName = uniqid() . '.' .$tabImgReceived[$i]->guessExtension();
 							
 							$article->getImage()[$i]->setSrc($newFileName);
 							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
 							
-							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newFileName);							
+							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newFileName);		
 						}
 						
 						else{
@@ -368,7 +364,48 @@ class AdminController extends Controller
 			{
 				for($i=0; $i<$nbImage; $i++)
 				{
-					if($nbOfAncientBlocksReceived)
+					$foo = false;
+					if($nbOfAncientBlocksReceived && $nbOfAncientBlocksReceived)
+					{
+						if(array_key_exists($i, $tabImgReceived))
+						{
+							if(is_uploaded_file($tabImgReceived[$i]))
+							{
+								$newfileName = uniqid() . '.' . $tabImgReceived[$i]->guessExtension();
+								$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newfileName);
+								
+								$article->getImage()[$i]->setSrc($newfileName);
+								$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							}
+							else
+							{
+								$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+								$article->getImage()[$i]->setSrc($tabImgReceived[$i]);								
+							}
+						}
+						else
+						{
+							$em->remove($imageBdd[$i]);
+							$em->remove($contentBdd[$i]);
+							$article->removeContent($contentBdd[$i]);
+							$article->removeImage($imageBdd[$i]);	
+						}
+						
+						if(in_array($tabBdd[$i], $tabImgReceived)==0)
+						{
+							
+							$ancientFileToBeRemoved = $tabBdd[$i];
+							$path = $this->getParameter('image_directory')."/".$ancientFileToBeRemoved;
+							
+							if(file_exists($path))
+							{
+								unlink($path);
+							}
+						}
+						$foo = true;
+					}
+					
+					elseif($nbOfAncientBlocksReceived && $foo == false)
 					{
 						if(array_key_exists($i, $tabImgReceived))
 						{
@@ -395,14 +432,28 @@ class AdminController extends Controller
 						}
 					}
 				
-					if($nbOfNewBlocksReceived)
+					elseif($nbOfNewBlocksReceived && $foo == false)
 					{
-						
-					}
-					
-					if($nbOfAncientBlocksReceived && $nbOfAncientBlocksReceived)
-					{
-						
+						if(array_key_exists($i, $tabImgReceived))
+						{
+							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							$article->getImage()[$i]->setSrc($tabImgReceived[$i]);
+						}
+						else
+						{
+							$em->remove($imageBdd[$i]);
+							$em->remove($contentBdd[$i]);
+							$article->removeContent($contentBdd[$i]);
+							$article->removeImage($imageBdd[$i]);	
+							
+							$ancientFileToBeRemoved = $tabBdd[$i];
+							$path = $this->getParameter('image_directory')."/".$ancientFileToBeRemoved;
+							
+							if(file_exists($path))
+							{
+								unlink($path);
+							}
+						}
 					}
 				}
 			}
