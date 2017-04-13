@@ -28,8 +28,7 @@ class CategoryType extends AbstractType
             ))
             ->add('chercher', SubmitType::class, array(
                 'attr' => array('class' => 'chercher')
-            ))
-        ;
+            ));
     }
 
 

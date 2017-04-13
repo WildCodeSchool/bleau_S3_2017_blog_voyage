@@ -237,7 +237,7 @@ class AdminController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager();
             var_dump($request->request);
-            die();
+
             // On récupères les images de l'article édité
             foreach($article->getImage() as $image)
             {
@@ -321,7 +321,8 @@ class AdminController extends Controller
         ));
     }
 
-    public function commentValidationAction($id){
+    public function commentValidationAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id);
@@ -336,6 +337,36 @@ class AdminController extends Controller
         return $this->render('@BLOG/Admin/comment.html.twig', array(
             'comments' => $comment
         ));
+    }
+    public function newsletterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+
+
+        return $this->render('@BLOG/Admin/newsletter.html.twig', array(
+            'email' => $email
+        ));
+    }
+//    public function sendAction(request $request, $articles_contenu, $emails, $subject)
+    public function sendAction(request $request)
+    {
+
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject('hello')
+                ->setFrom('vincentchristophe177@gmail.com')
+                ->setTo('vincentchristophe177@gmail.com')
+//                ->setTo('$email')
+                ->setBody('Bjour',
+                    'text/html');
+
+            //diviser
+            $this->get('mailer')->send($message);
+
+        return $this->redirectToRoute('admin_index');
+
 
     }
+
 }

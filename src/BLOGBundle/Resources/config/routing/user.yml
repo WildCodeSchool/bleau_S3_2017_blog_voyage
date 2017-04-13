@@ -3,6 +3,7 @@ blog_homepage:
     defaults:
         _controller: 'BLOGBundle:User:index'
 
+
 blog_article:
     path: /article/{id}
     defaults:
@@ -20,6 +21,11 @@ blog_category:
     defaults:
         _controller: 'BLOGBundle:User:category'
 
+blog_category_specifique:
+    path: /category/{category}
+    defaults:
+        _controller: 'BLOGBundle:User:viewCategory'
+
 blog_articles_by_date:
     path: /article/dates
     defaults:
@@ -29,3 +35,8 @@ blog_contact:
     path: /contact
     defaults:
         _controller: 'BLOGBundle:User:contact'
+
+blog_newsletter:
+    path: /newsLetter
+    defaults:
+        _controller: 'BLOGBundle:User:newsLetter'

@@ -2,3 +2,9 @@
 
 {% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
 {% block title %}Administration{% endblock%}
+
+{% block email %}
+    {%  for emails in email  %}
+        <p>{{ emails.lien }}</p>
+    {% endfor %}
+{% endblock %}

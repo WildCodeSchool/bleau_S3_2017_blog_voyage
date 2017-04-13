@@ -9,9 +9,6 @@ BLOGBundle\Entity\NewsLetter:
             generator:
                 strategy: AUTO
     fields:
-        nom:
-            type: string
-            length: 255
         lien:
             type: string
             length: 255

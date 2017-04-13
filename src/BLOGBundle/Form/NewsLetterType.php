@@ -2,25 +2,25 @@
 
 namespace BLOGBundle\Form;
 
-use BLOGBundle\Entity\Article; // Ajouté
 use Symfony\Component\Form\AbstractType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class ArticleType extends AbstractType
+class NewsLetterType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')
-            //ajouté pour tester l'envoi de mail
-            ->add('envoyer', SubmitType::class, array(
-                'attr' => array('class' => 'envoyer')));
+        $builder->add('lien',EmailType::class
+                    ,array(  'label' => false))
+                ->add('envoyer', SubmitType::class, array(
+                'attr' => array('class' => 'envoyer')
+            ));
     }
     
     /**
@@ -29,7 +29,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BLOGBundle\Entity\Article'
+            'data_class' => 'BLOGBundle\Entity\NewsLetter'
         ));
     }
 
@@ -38,7 +38,7 @@ class ArticleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'blogbundle_article';
+        return 'blogbundle_newsletter';
     }
 
 
