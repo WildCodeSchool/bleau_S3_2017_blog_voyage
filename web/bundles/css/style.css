@@ -270,11 +270,13 @@ h1{
     background: white;
 	width: 90%;
 	margin: 0 auto;
-    height: 100px;
-    line-height: 100px;
+    display: flex;
+	align-items: center;
+	justify-content: center;
     color: #333;
 	border: 1px solid #d8d8d8;
 	font-size: 4em;
+	line-height: 50px;
 }
 
 .article img{
@@ -326,14 +328,22 @@ h1{
         width: 100%;
     }
 	
+	.article img{
+		border: 5px solid white;
+	}
+	
+	.article p{
+		padding: 10px;
+	}
+	
 	.article h1{
-		font-size: 4em;
+		font-size: 3.5em;
 	}
 }
 
 @media all and (max-width: 480px){
 	.article h1{
-		font-size: 2em;
+		font-size: 3em;
 		line-height: auto;
 	}
 }

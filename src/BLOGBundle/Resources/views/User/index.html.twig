@@ -44,9 +44,7 @@
                         <div class="article-caption">
                             <h3>{{ article.title }}</h3>
                             <p>
-                                {% for content in article.content %}
-                                    {{ content.content }}
-                                {% endfor %}
+                                 {{ article.content|first.content|slice(0,125) }}...
                             </p>
                             <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
                             <i>Publié le {{ article.date.date|date('d/m/Y') }} </i>
