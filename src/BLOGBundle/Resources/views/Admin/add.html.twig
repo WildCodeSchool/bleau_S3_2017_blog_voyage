@@ -1,3 +1,4 @@
+
 {% extends 'layout.html.twig' %}
 
 {% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
@@ -53,8 +54,8 @@
 	<label for="check" for="submit" id="label-submit"> Alerter mes abonnés </label>
 	<input type="checkbox" name="checked" id="check" checked/>
 	
-    <label for="submit" id="label-submit"> Publier l'article </label>
-    <input type="submit" id="submit" class="btn btn-large btn-danger" value="Valider la création"/>
+    <label for="submit1" id="label-submit"> Publier l'article </label>
+    <input type="submit" id="submit1" class="btn btn-large btn-danger" value="Valider la création"/>
 	{{ form_end(form) }}
 
 </div>
