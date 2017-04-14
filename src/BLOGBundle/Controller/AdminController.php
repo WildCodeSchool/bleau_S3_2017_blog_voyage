@@ -546,7 +546,10 @@ class AdminController extends Controller
 							$em->remove($contentBdd[$i]);
 							$article->removeContent($contentBdd[$i]);
 							$article->removeImage($imageBdd[$i]);	
-							
+						}	
+						
+						if(in_array($tabBdd[$i], $tabImgReceived)==0)
+						{
 							$ancientFileToBeRemoved = $tabBdd[$i];
 							$path = $this->getParameter('image_directory')."/".$ancientFileToBeRemoved;
 							
