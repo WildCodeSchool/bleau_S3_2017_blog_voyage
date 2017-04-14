@@ -312,9 +312,11 @@ var check = false;
 window.addEventListener("scroll", function(){
 	if(firstTextElt.length > 0){
 		check = true;
+		console.log('true');
 		firstTextElt[0].required = true;
 	}
 	else{
+		console.log('false');
 		check = false;
 	}
 });
@@ -346,7 +348,7 @@ if(divAlertElt){
 			}
 		}, 100);
 			
-	}, 1000);
+	}, 3000);
 }	
 
 

@@ -345,7 +345,7 @@ class AdminController extends Controller
 				{
 					if($value > 1)
 					{
-						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double");
+						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double. L'article n'a donc pas été édité. Veuillez recommencer.");
 						return $this->redirectToRoute('admin_edit', array(
 							"id" => $id
 						)); 
