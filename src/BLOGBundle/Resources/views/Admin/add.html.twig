@@ -9,6 +9,17 @@
 		<a href="{{ path('admin_index') }}"><button class="btn btn-large btn-danger"> Accueil </button></a>
 		<a href=""><button class="btn btn-large btn-danger"> Déconnexion </button></a>
 	</div>
+	
+	{% for flashes in app.session.flashbag.all %}
+		{% for flash in flashes %}
+			<div id="alert-message">
+				<p>
+					{{ (flash) }}
+				</p>	
+			</div>	
+		{% endfor %}
+	{% endfor %}
+	
 <div class="form">
     {{ form_start(form,{'attr': {'enctype': 'multipart/form-data'}}) }}
     <p>

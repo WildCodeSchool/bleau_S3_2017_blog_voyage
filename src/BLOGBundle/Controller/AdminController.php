@@ -74,8 +74,7 @@ class AdminController extends Controller
 					foreach(array_count_values($str) as $key => $value)
 					{
 						if($value > 1){
-							echo "doublon trouvé"; die();
-							$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double");
+							$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double. L'article n'a donc pas été publié. Veuillez recommencer.");
 							return $this->redirectToRoute('admin_add'); 
 						}
 					}

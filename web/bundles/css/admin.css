@@ -255,14 +255,19 @@ input[type="submit"]{
 /* page edit */
 
 #alert-message{
-	height: 200px;
-	line-height: 200px;
 	margin: 0;
 	background: #b22222;
 	text-align: center;
-	font-size: 2em;
+	font-size: 1.5em;
 	color: white;
-	transition: 1s;
+}
+
+#alert-message p{
+	display: flex;
+	align-items: center;
+	height: 200px;
+	width: 80%;
+	margin: 0 auto;
 }
 
 .edit-img{

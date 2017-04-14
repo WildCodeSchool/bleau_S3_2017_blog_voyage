@@ -321,12 +321,14 @@ window.addEventListener("scroll", function(){
 	}
 });
 
-buttonEditElt.addEventListener("click", function(e){
-	if(check == false){
-		e.preventDefault();
-		alert("Merci d'ajouter au moins une image et un texte");
-	}	
-});
+if(buttonEditElt){
+	buttonEditElt.addEventListener("click", function(e){
+		if(check == false){
+			e.preventDefault();
+			alert("Merci d'ajouter au moins une image et un texte");
+		}	
+	});
+}	
 
 if(divAlertElt){
 	setTimeout(function(){
