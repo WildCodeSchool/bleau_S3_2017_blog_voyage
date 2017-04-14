@@ -6,8 +6,9 @@
 {% block container %}
     <div class="container">
         <div class="menu">
-            <a href="{{ path('admin_index') }}"><button class="btn btn-large btn-danger">Accueil</button></a>
-            <a href="#"><button class="btn btn-large btn-danger">Déconnexion</button></a>
+            <a href="{{ path('admin_index') }}"><button class="btn btn-lg btn-danger">Accueil administration</button></a>
+			<a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Retour au site</button></a>
+            <a href="#"><button class="btn btn-lg btn-danger">Déconnexion</button></a>
         </div>
         <div class="row">
             <div class="col-xs-12">

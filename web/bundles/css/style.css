@@ -250,6 +250,8 @@ h1{
 	border: 1px solid #d8d8d8;
 	font-size: 4em;
 	line-height: 50px;
+	height: auto;
+	padding: 10px;
 }
 
 .article img{
@@ -365,7 +367,7 @@ h1{
 }
 
 .comments button{
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 .comments
@@ -401,12 +403,12 @@ textarea{
 .comments input[type="submit"]{
     margin: 0 auto;
     display: block;
-    width: 20%;
-    padding: 5px;
+    width: 125px;
     border-radius: 5px;
     background: #d9534f;
     color: white;
     border: none;
+	font-size: 1.5em;
 }
 
 .button-range{
@@ -497,7 +499,7 @@ figure img{
     text-align: justify;
 }
 
-.article-caption button {
+.article-caption button{
     display: none;
     font-size: 1.5em;
 }
@@ -522,8 +524,6 @@ figure img{
 		font-size: 1em;
 	}
 }
-
-
 
 /* classe ajoutée à article-caption lorsque la souris passe sur l'article (mouseover) */
 

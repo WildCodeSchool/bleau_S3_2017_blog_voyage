@@ -21,7 +21,6 @@
 
 .menu-add{
     justify-content: space-between;
-
 }
 
 @media all and (max-width: 680px){
@@ -34,13 +33,8 @@
         margin: 7px 0 7px 0;
     }
 
-    .menu-add{
-        display: flex;
-        justify-content: space-between;
-    }
-
     .menu-add button{
-        width: auto;
+        width: 100%;
     }
 }
 
@@ -254,20 +248,16 @@ input[type="submit"]{
 
 /* page edit */
 
-#alert-message{
-	margin: 0;
-	background: #b22222;
-	text-align: center;
-	font-size: 1.5em;
-	color: white;
-}
-
 #alert-message p{
 	display: flex;
+	color: white;
 	align-items: center;
+	background: #b22222;
+	font-size: 1.5em;
 	height: 200px;
-	width: 80%;
+	width: 100%;
 	margin: 0 auto;
+	justify-content: center;
 }
 
 .edit-img{
@@ -277,7 +267,7 @@ input[type="submit"]{
 }
 
 .first-text{
-	width: 50%;
+	width: 100%;
 	margin: 0 auto;
 	height: 200px;
 	margin-bottom: 10px;
@@ -305,4 +295,3 @@ input[type="submit"]{
 .image-update{
 	margin-bottom: 5px;
 }
-
