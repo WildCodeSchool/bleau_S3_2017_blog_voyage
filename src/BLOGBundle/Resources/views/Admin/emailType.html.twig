@@ -1,0 +1,21 @@
+
+
+        <div style="" >
+            <h1>{{ article_mail.title }}</h1>
+
+            <img src="{{img}}" style="height: 400px" class="img-thu"/>
+
+            <div style="">
+                <p>{{ article_mail.content[0].content }}</p>
+                <p>Catégories correspondant à l'article :
+                    {% for cat in article_mail.category %}
+                        {% if loop.last %}
+                            {{ cat.category}}
+                        {% else %}
+                        {{ cat.category~', '  }}
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                <i>Publié le {{ article_mail.date.date|date('d/m/Y h:m:s') }} </i>
+            </div>
+        </div>

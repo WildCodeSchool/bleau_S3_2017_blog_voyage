@@ -17,10 +17,7 @@ class ArticleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')
-            //ajouté pour tester l'envoi de mail
-            ->add('envoyer', SubmitType::class, array(
-                'attr' => array('class' => 'envoyer')));
+        $builder->add('title');
     }
     
     /**

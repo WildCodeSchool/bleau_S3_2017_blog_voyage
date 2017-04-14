@@ -31,7 +31,3 @@ admin_comments_validation:
 admin_newsletter:
     path:     /newsletter
     defaults: { _controller: "BLOGBundle:Admin:newsletter" }
-
-admin_send:
-    path:     /send
-    defaults: { _controller: "BLOGBundle:Admin:send" }
