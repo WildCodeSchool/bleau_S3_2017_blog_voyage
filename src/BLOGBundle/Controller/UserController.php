@@ -4,6 +4,7 @@ namespace BLOGBundle\Controller;
 
 
 use BLOGBundle\Entity\Comments;
+use BLOGBundle\Entity\Contact;
 use BLOGBundle\Entity\NewsLetter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -143,14 +144,7 @@ class UserController extends Controller
         ));
     }
 
-    public function contactAction(Request $request)
-    {
 
-
-        return $this->render('@BLOG/User/contact.html.twig', array(
-            'form' => $form->createView()
-        ));
-    }
     public function newsLetterAction(Request $request)
     {
         $emnews = $this->getDoctrine()->getManager();
@@ -169,6 +163,46 @@ class UserController extends Controller
         }
         return $this->render('BLOGBundle:User:newsLetter.html.twig', array(
             'form_news' => $form->createView()
+        ));
+    }
+    public function contactAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $Contact = new Contact();
+
+        $form = $this->createForm('BLOGBundle\Form\ContactType', $Contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($Contact);
+            $em->flush();
+            $sujet = $Contact->getsujet();
+            $message = \Swift_Message::newInstance()
+                ->setSubject($sujet)
+                ->setFrom('vincentchristophe177@gmail.com')
+                ->setTo('vincentchristophe177@gmail.com');
+
+
+            $message->setBody(
+//
+                $this->renderView(
+                    '@BLOG/User/formulaire_contact.html.twig',
+                    array(
+                        'form' => $Contact)
+                ),
+                'text/html'
+            );
+            ;
+
+            $this->get('mailer')->send($message);
+
+            return $this->redirectToRoute('blog_homepage');
+        }
+
+        return $this->render('@BLOG/User/contact.html.twig', array(
+            'form' => $form->createView()
         ));
     }
 

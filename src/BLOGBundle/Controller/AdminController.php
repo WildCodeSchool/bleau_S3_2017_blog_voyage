@@ -250,7 +250,7 @@ class AdminController extends Controller
                     'text/html'
                 );
             ;
-            
+
            $this->get('mailer')->send($message);
 
             return $this->redirectToRoute('admin_add');

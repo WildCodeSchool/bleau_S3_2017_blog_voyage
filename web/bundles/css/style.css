@@ -205,6 +205,15 @@ img, iframe {
 .title {
     color: #666;
 }
+/*
+Page Contact
+
+*/
+
+.container-contact
+{
+    margin-top: 50px;
+}
 
 /*
 Page Category
