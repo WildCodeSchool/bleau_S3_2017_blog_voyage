@@ -14,6 +14,9 @@ var buttonDeleteKeyWordElt = document.getElementsByClassName('delete-keyword');
 // Identification du premier textarea
 var firstTextElt = document.getElementsByClassName("first-text");
 
+// Identification du bouton d'édition
+var buttonEditElt = document.getElementById('submit');
+
 // Création bouton ajout de contenu (image + texte)
 var buttonContentElt = document.getElementsByClassName('content');
 
@@ -22,9 +25,6 @@ var buttonCategoryElt = document.getElementsByClassName('category');
 
 // Identification de la balise qui contiendra les éléments images et textes
 var contentElt = document.getElementsByClassName('content-block');
-
-//Identification du bouton submit de la page edit
-var buttonEditElt = document.getElementById('submit');
 
 // Création de la div pour les mots-clefs/catégories
 var keywordRangeElt = document.createElement('div');
@@ -62,6 +62,7 @@ buttonContentElt[0].addEventListener('click', function(e){
 ///////////////////////////////////////////PARTIE TEXTE////////////////////////
     var inputTextElt = document.createElement('textarea');
     inputTextElt.setAttribute('name', 'content[]');
+    inputTextElt.setAttribute('class', 'first-text');
 
     var pTextElt = document.createElement('p');
     pTextElt.style.margin = "25px 0 25px 0";
@@ -159,8 +160,6 @@ buttonContentElt[0].addEventListener('click', function(e){
 	k++;
 });
 
-
-
 ///////////////////////////////PARTIE CATEGORIES///////////////////////////////////
 
 var j=1;
@@ -222,7 +221,6 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     divElt.appendChild(pElt2);
 	keywordRangeElt.appendChild(divElt);
    
-
     buttonRemoveElt.addEventListener('click', function(e){
 		e.preventDefault();
         keywordRangeElt.removeChild(divElt);
@@ -290,17 +288,13 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     j++;
 });
 
-
-
-
-/// fichier d'édition
+/// fichier d'édition  
 for(i=0; i<buttonDeleteKeyWordElt.length; i++){
 	buttonDeleteKeyWordElt[i].addEventListener("click", function(e){
 		e.preventDefault();
 		this.parentNode.remove();
 	});
 }
-
 
 for(i=0; i<buttonRemoveContentElt.length; i++) {
     buttonRemoveContentElt[i].addEventListener('click', function (e) {
@@ -309,6 +303,24 @@ for(i=0; i<buttonRemoveContentElt.length; i++) {
     });
 }
 
-buttonEditElt.addEventListener("mouseover", function(){
-	contentElt[0].required = "true";
-})
+// On vérifie s'il y a bien au moins un bloc "texte + image" envoyé dans le formulaire d'édition.
+
+var check = false;
+window.addEventListener("scroll", function(){
+	if(firstTextElt.length > 0){
+		check = true;
+		firstTextElt[0].required = true;
+	}
+	else{
+		check = false;
+	}
+});
+
+buttonEditElt.addEventListener("click", function(e){
+	if(check == false){
+		e.preventDefault();
+		alert("Merci d'ajouter au moins une image et un texte");
+	}	
+});
+
+

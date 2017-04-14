@@ -270,32 +270,42 @@ class AdminController extends Controller
 			
 			// On compte le nombre de nouveaux blocs IMAGE + TEXTE envoyés (si !== 0, : CREATE)
             $nbOfNewBlocksReceived = count($request->files->get('src'));
+			
+			// On additionne ancien(s) + nouveau(x)
 			$nbBlocksReceived = $nbOfAncientBlocksReceived + $nbOfNewBlocksReceived;
 				
 			// On récupère toutes les images (ANCIENNES (src) + NOUVELLES (files));
 			
-			// Anciens fichiers que l'utilisateur a conservés
+			// Anciens fichiers que l'utilisateur a conservés (src)
 			$tabImgReceived;
-			if($request->request->get('src')){
-				foreach($request->request->get('src') as $src){
+			if($request->request->get('src'))
+			{
+				foreach($request->request->get('src') as $src)
+				{
 					$tabImgReceived[] = $src;
 				}
 			}
 			
-			// nouveaux fichiers uploadés
-			if($request->files->get('src')){
-				foreach($request->files->get('src') as $src){
+			// Nouveaux fichiers ajoutés (files)
+			if($request->files->get('src'))
+			{
+				foreach($request->files->get('src') as $src)
+				{
 					$tabImgReceived[] = $src;
 				}
 			}
 			
 			// On récupère tous les textes envoyés
 			$tabText;
-			foreach($request->request->get('content') as $text){
-				$tabText[] = $text;
+			if($request->request->get('content'))
+			{
+				foreach($request->request->get('content') as $text)
+				{
+					$tabText[] = $text;
+				}
 			}
 			
-			// On récupère les catégories envoyées et la quantité
+			// On récupère les catégories envoyées et la quantité de catégories
 			$check = $request->request->get('category');	
 			$nbCategories = count($check);
 			
@@ -308,34 +318,40 @@ class AdminController extends Controller
 			
 			$tabKeyWord;
 			// Si les auteurs retournent un formulaire d'édition avec au moins un mot-clef
-			// Sinon, on va créer une catégorie "Autres" dans la bdd si pas existante ou alors
-			// l'associer à "Autres" si déjà existante en bdd
-			if($check){
-				foreach($check as $tab){
+			// Si rien reçu, on crée une catégorie "Autres" dans la bdd (si pas existante) :
+			   // Voir "GESTION DES CATEGORIES"
+			if($check)
+			{
+				foreach($check as $tab)
+				{
 					$tabKeyWord[] = $tab;
 				}
 			}
 			
 			// On vérifie qu'il n'y a pas de doublon dans les catégories envoyées.
 			// if $check car doit au moins avoir un élément pour comparer sinon ça pète
-			if($check){
+			if($check)
+			{
 			// On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
 				$str;
-				foreach($check as $tab){
+				foreach($check as $tab)
+				{
 					$str[] = strtolower($tab); 
 				}
 				
 				// Si valeur > 1, alors on a un doublon et on renvoie vers la page d'édition
 				foreach(array_count_values($str) as $key => $value)
 				{
-					if($value > 1){
+					if($value > 1)
+					{
 						echo "doublon trouvé"; die();
 						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double");
-						return $this->redirectToRoute('admin_add'); 
+						return $this->redirectToRoute('admin_edit'); 
 					}
 				}
 				
-				for($i=0; $i<count($str); $i++){
+				for($i=0; $i<count($str); $i++)
+				{
 					// On compare mot-clef envoyé passé en miniscule avec tous les mots clefs de la bdd passés
 					// en minuscules
 					$CatBddLowercase = array_map('strtolower', $allKeyWordsInBdd);
@@ -349,7 +365,8 @@ class AdminController extends Controller
 
 			// On récupère toutes les src de la bdd 
 			$tabBdd;
-			foreach($article->getImage() as $Image){
+			foreach($article->getImage() as $Image)
+			{
 				$tabBdd[] = $Image->getSrc();
 			}	
 
@@ -361,33 +378,34 @@ class AdminController extends Controller
 			}
 			
 			// Cas 1 : le nombre d'images est supérieur ou égal à "avant l'édition"
-			if($nbBlocksReceived >= $nbImage){
+			if($nbBlocksReceived >= $nbImage)
+			{
 				// On met éventuellement à jour les photos et/ou textes sur les lignes présentes en bdd
-				for($i=0; $i<$nbImage; $i++){
+				for($i=0; $i<$nbImage; $i++)
+				{
 					// Si les images coïncident (pas de suppression lors de l'édition)
 					if($tabImgReceived[$i] == $tabBdd[$i])
 					{
 						// On met à jour le texte uniquement
 						$article->getContent()[$i]->setContent($tabText[$i]);						
 					}
-					// Attention, si les auteurs suppriment un bloc compris entre 1 et n-1, cela décale tout et donc 
-					// on rentre nécessairement dans le else
+					// Attention, si les auteurs suppriment un bloc compris entre 1 et n-1, cela décale tout
+					// On rentre donc nécessairement dans le else
 					else{
-						
 						// Si image pas correspondante, alors il faut remplacer l'ancienne.
 						// Puis associer le nouveau texte
-						if(is_uploaded_file($tabImgReceived[$i])){
-						
+						if(is_uploaded_file($tabImgReceived[$i]))
+						{
 							// Pas besoin de faire new Image si on ne fait que mettre à jour le src de l'image i
 							$newFileName = uniqid() . '.' .$tabImgReceived[$i]->guessExtension();
 							
 							$article->getImage()[$i]->setSrc($newFileName);
 							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
 							
-							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newFileName);		
+							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newFileName);	
 						}
-						
-						else{
+						else
+						{
 							$ancientFileName = $tabBdd[$i];
 							$path = $this->getParameter('image_directory')."/".$ancientFileName;
 							
@@ -397,8 +415,7 @@ class AdminController extends Controller
 						
 						// C'est ici qu'on doit éventuellement supprimer des images (car y'a forcément un décalage)
 						if(in_array('' . $tabBdd[$i] . '', $tabImgReceived)==0)
-						{
-									
+						{		
 							$ancientFileNameNotFound = $tabBdd[$i];
 							$path = $this->getParameter('image_directory')."/".$ancientFileNameNotFound;
 									
@@ -412,10 +429,13 @@ class AdminController extends Controller
 				
 				// Tout le surplus de fichier contenu vs nb de ligne en bdd est nécessairement de l'uploaded
 				// On doit donc créer de nouvelles lignes
-				if($nbBlocksReceived > $nbImage){ // Doit être strictement supérieur
-					for($i=$nbImage; $i<$nbBlocksReceived; $i++){
-						if($i>=$nbImage){
-							
+				// Doit être strictement supérieur
+				if($nbBlocksReceived > $nbImage)
+				{ 
+					for($i=$nbImage; $i<$nbBlocksReceived; $i++)
+					{
+						if($i>=$nbImage)
+						{	
 							$fileName = uniqid() . '.' . $tabImgReceived[$i]->guessExtension();
 							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $fileName);
 
@@ -580,6 +600,7 @@ class AdminController extends Controller
 						}
 					}	
 				}
+				
 				for($i=$nbCatArticleBdd; $i<$nbCategories; $i++)
 				{
 					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
