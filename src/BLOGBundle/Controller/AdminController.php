@@ -540,7 +540,11 @@ class AdminController extends Controller
 			*******************************************
 			******************************************/
 			
-			
+			// Si aucun mot-clef reçu, on associe l'article à "Autres"
+			if($nbCategories == 0)
+			{
+				$tabKeyWord[] = "Autres";
+			}
 			
 			if($nbCategories >= $nbCatArticleBdd)
 			{
@@ -563,7 +567,7 @@ class AdminController extends Controller
 						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)  
 						{
 							$categ = new Category();
-							$categ->setCategory('' . $tabKeyWord[$i] . '');
+							$categ->setCategory('' . ucfirst($tabKeyWord[$i]) . '');
 							$categ->addArticle($article);
 							$article->addCategory($categ);
 						}
@@ -659,7 +663,7 @@ class AdminController extends Controller
 						}
 					}
 				}				
-			}
+			}	
 			// On récupères les images de l'article édité
             
 			$em->persist($article);
