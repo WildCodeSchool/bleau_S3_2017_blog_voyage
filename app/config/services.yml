@@ -7,3 +7,8 @@ services:
     app.image_uploader:
         class: BLOGBundle\FileUploader
         arguments: ['%image_directory%']
+    twig.extension.imgsize:
+        class: BLOGBundle\Twig\ImgSizeExtension
+        arguments:    [%image_directory%]
+        tags:
+            - name: twig.extension

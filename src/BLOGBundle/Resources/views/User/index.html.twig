@@ -2,20 +2,25 @@
 
 {% block section %}
     <section>
-		{% for article in articles %}
-			{% if loop.first %}
-				{% for image in article.image %}
-					{% if loop.first %}
-						<img src="{{ asset('bundles/images/'~image.src)}}"/>
-					{% endif %}
-				{% endfor %}
-				<figcaption class="picture-caption">
-					<h2> {{ article.title }} </h2>
-					<a href='{{ path('blog_article', {id : article.id}) }}'><button class="btn btn-custom btn-danger">En savoir plus</button></a>
-					<i> Publié le {{ article.date.date|date('d/m/Y') }}</i>
-				</figcaption>
-			{% endif %}
-		{% endfor %}
+        {% set breack = false %}
+        {% if breack == false %}
+            {% for article in articles %}
+                {% if breack == false %}
+                    {% for image in article.image %}
+                        {% set size = imgsize(image.src) %}
+                        {% if size.width >= size.height %}
+                            {% set breack = true %}
+                            <img src="{{ asset('bundles/images/'~image.src)}}"/>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <figcaption class="picture-caption">
+                    <h2> {{ article.title }} </h2>
+                    <a href='{{ path('blog_article', {id : article.id}) }}'><button class="btn btn-custom btn-danger">En savoir plus</button></a>
+                    <i> Publié le {{ article.date.date|date('d/m/Y') }}</i>
+                </figcaption>
+            {% endfor %}
+        {% endif %}
     </section>
 {% endblock %}
 
