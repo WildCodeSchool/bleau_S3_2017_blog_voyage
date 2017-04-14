@@ -588,12 +588,13 @@ class AdminController extends Controller
 					// Si l'index existe dans le tableau de mots-clefs renvoyé (car on a un nombre inférieur)
 					if(array_key_exists($i, $tabKeyWord))
 					{
-						// Si le mot-clef existe en bdd, et qu'il n'est pas déjà associé à l'article
+						// Si le mot-clef existe en bdd, 
 						// on recherche la clef pour faire l'association d'objets
-						
 						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
 						{	
+							// Si le mot-clef n'est pas déjà associé à l'article
 							if(in_array($tabKeyWord[$i], $keyWordArticle)==0){
+								// On récupère la clef de l'objet en bdd et on l'associe à l'article
 								$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
 							
 								$categoryBdd[$key]->addArticle($article);
