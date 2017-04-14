@@ -15,6 +15,7 @@ var formElt = document.querySelectorAll('.comments > form');
 var commentsElt = document.getElementsByClassName('comments-block');
 var modalImageElt = document.querySelectorAll('.modal-image > img');
 var bodyElt = document.getElementsByTagName('body');
+var articleCaptionButtonElts = document.querySelectorAll('.article-caption button');
 
 function load(){
     if (window.innerWidth >= 768) {
@@ -32,6 +33,12 @@ function load(){
             }
         }
     }
+	
+	if(window.innerWidth <=380){
+		for(i=0; i<articleCaptionButtonElts.length; i++){
+			articleCaptionButtonElts[i].className = "btn btn-sm btn-danger";
+		}
+	}
 }
 
 for(i=0; i<articleElt.length; i++){

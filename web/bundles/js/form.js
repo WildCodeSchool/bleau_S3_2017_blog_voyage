@@ -39,9 +39,6 @@ var buttonRangeElt = document.getElementById('buttonRange');
 // On insére la div contenant les mots-clefs avant la div contenant les boutons d'ajout/soumission
 buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
 
-console.log(firstTextElt.length);
-console.log(buttonRemoveContentElt.length);
-
 // Si l'utilisateur clique sur le bouton "vider le texte" du premier élément contenu
 for(i=0; i<resetElt.length; i++){
 	resetElt[i].addEventListener("click", function(e){
@@ -52,7 +49,6 @@ for(i=0; i<resetElt.length; i++){
 
 // Ecoute du clic sur le bouton d'ajout de contenu
 buttonContentElt[0].addEventListener('click', function(e){
-	// Evite la soumission automatique du formulaire.....
 	e.preventDefault();
 
     // Création du bouton de suppression de la div de contenu
@@ -167,7 +163,7 @@ buttonContentElt[0].addEventListener('click', function(e){
 
 var j=1;
 buttonCategoryElt[0].addEventListener('click', function(e){
-	e.preventDefault(); // Ajouté cela empêche l'envoi automatique du formulaire sans appuyer pourtant sur le bouton submit
+	e.preventDefault(); 
 
     // Création de l'input et définition des attributs
     var inputElt = document.createElement('input');
@@ -285,9 +281,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
                 pElt.style.color = 'white';
             }
         }
-
     });
-
     j++;
 });
 
@@ -334,7 +328,6 @@ if(divAlertElt){
 		height = 200;
 		x=0;
 		var alertMessage = setInterval(function(){
-			console.log(x);
 			x += 1;
 			divAlertElt.style.opacity = "" + opacity + "";
 			opacity -= 0.025;
@@ -347,7 +340,6 @@ if(divAlertElt){
 				clearInterval(alertMessage);
 			}
 		}, 100);
-			
 	}, 3000);
 }	
 
