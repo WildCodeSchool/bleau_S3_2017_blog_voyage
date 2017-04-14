@@ -327,6 +327,13 @@ h1{
 	}
 }
 
+@media all and (max-width: 480px){
+	.article h1{
+		font-size: 2em;
+		line-height: auto;
+	}
+}
+
 .modal-image{
     display: flex;
     align-items: center;
