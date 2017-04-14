@@ -460,9 +460,11 @@ class AdminController extends Controller
 			{
 				for($i=0; $i<$nbImage; $i++)
 				{
+					
 					$foo = false;
-					if($nbOfAncientBlocksReceived && $nbOfAncientBlocksReceived)
+					if($nbOfNewBlocksReceived && $nbOfAncientBlocksReceived)
 					{
+						echo "bob"; die();
 						if(array_key_exists($i, $tabImgReceived))
 						{
 							if(is_uploaded_file($tabImgReceived[$i]))
@@ -500,8 +502,9 @@ class AdminController extends Controller
 						$foo = true;
 					}
 					
-					elseif($nbOfAncientBlocksReceived && $foo == false)
+					if($nbOfAncientBlocksReceived && $foo == false)
 					{
+						echo "ok"; die();
 						if(array_key_exists($i, $tabImgReceived))
 						{
 							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
@@ -527,12 +530,15 @@ class AdminController extends Controller
 						}
 					}
 				
-					elseif($nbOfNewBlocksReceived && $foo == false)
+					if($nbOfNewBlocksReceived && $foo == false)
 					{
 						if(array_key_exists($i, $tabImgReceived))
 						{
+							$newfileName = uniqid() . '.' . $tabImgReceived[$i]->guessExtension();
+							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newfileName);
+								
+							$article->getImage()[$i]->setSrc($newfileName);
 							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
-							$article->getImage()[$i]->setSrc($tabImgReceived[$i]);
 						}
 						else
 						{
