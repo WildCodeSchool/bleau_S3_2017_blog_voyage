@@ -101,17 +101,14 @@ class AdminController extends Controller
                                     // Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
                                     if (strtolower($category) == strtolower($key->getCategory())) {
 										//echo "mon premier article avec catégorie";die();
-										
                                         $key->addArticle($article);
                                         $article->addCategory($key);
                                         $i++;
-									
                                     }
-
-                                    // Si le mot-clef renseigné n'existe pas encore, alors on l'ajoute en bdd et on fait l'association
-
-                                    $loopIndex++; // On ajoute un tour de boucle
-
+                                    // Si le mot-clef renseigné n'existe pas encore, 
+									// Alors on l'ajoute en bdd et on fait l'association
+									// On ajoute un tour de boucle
+                                    $loopIndex++; 
                                     if ($loopLength == $loopIndex) {
                                         $endLoop = true; // Si on a parcouru, alors fin des boucles
                                     }
@@ -120,18 +117,18 @@ class AdminController extends Controller
                                 if ($j > 0 AND $i == 0 AND $endLoop == true) {
 									// echo "Noix de cajou";die();
                                     $categ = new Category();
-                                    $categ->setCategory($category);
+                                    $categ->setCategory(ucfirst($category));
                                     $categ->addArticle($article);
                                     $article->addCategory($categ);
                                 }
-                            } else // Si la base est vide, je crée ma première catégorie
+                            } 
+							else // Si la base est vide, je crée ma première catégorie
                             {
                                 $categ = new Category();
-                                $categ->setCategory($category);
+                                $categ->setCategory(ucfirst($category));
                                 $categ->addArticle($article);
                                 $article->addCategory($categ);
                             }
-				
                         } 
 						else{
 							
@@ -247,23 +244,35 @@ class AdminController extends Controller
         $contentBdd = $em->getRepository('BLOGBundle:Content')->findBy(array('article' => $article));
         $categoryBdd = $em->getRepository('BLOGBundle:Category')->myFindAll();
         
-		$nbImage = count($article->getImage()); // On compte le nombre de blocs Img+Text envoyés dans le form
-		$nbCatArticleBdd = count($article->getCategory()); // On compte le nombre de catégories envoyées dans le form      
+		// On compte le nombre de blocs Img + Text(texte vide ou pas) envoyés dans le form
+		$nbImage = count($article->getImage()); 
+		
+		// On compte le nombre de catégories envoyées dans le form		
+		$nbCatArticleBdd = count($article->getCategory());        
 		
 		$editForm = $this->createForm('BLOGBundle\Form\ArticleType', $article);
-
         $editForm->handleRequest($request);
-
+		
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager();
+            
+			$this->getDoctrine()->getManager();
 			
+			/****************************************** 
+			*******************************************
+			
+				GESTION DES BLOCS IMAGES + TEXTES
+			
+			*******************************************
+			******************************************/
+			
+			// On compte le nombre d'anciens blocs IMAGE + TEXTE envoyés (si !== 0, : UPDATE)
 			$nbOfAncientBlocksReceived = count($request->request->get('src')); 
+			
+			// On compte le nombre de nouveaux blocs IMAGE + TEXTE envoyés (si !== 0, : CREATE)
             $nbOfNewBlocksReceived = count($request->files->get('src'));
 			$nbBlocksReceived = $nbOfAncientBlocksReceived + $nbOfNewBlocksReceived;
-			
-			$nbCategories = count($request->request->get('category'));
-			
-			// On récupère toutes les images (anciennes (src) + nouvelles (files));
+				
+			// On récupère toutes les images (ANCIENNES (src) + NOUVELLES (files));
 			
 			// Anciens fichiers que l'utilisateur a conservés
 			$tabImgReceived;
@@ -286,10 +295,29 @@ class AdminController extends Controller
 				$tabText[] = $text;
 			}
 			
-			// On récupère les catégories envoyées
+			// On récupère les catégories envoyées et la quantité
 			$check = $request->request->get('category');	
-
-			// if $check car doit au moins avoir un élément pour comparer
+			$nbCategories = count($check);
+			
+			// On récupère toutes les catégories en bdd
+			$allKeyWordsInBdd;
+			foreach($categoryBdd as $categ)
+			{
+				$allKeyWordsInBdd[] = $categ->getCategory();
+			}
+			
+			$tabKeyWord;
+			// Si les auteurs retournent un formulaire d'édition avec au moins un mot-clef
+			// Sinon, on va créer une catégorie "Autres" dans la bdd si pas existante ou alors
+			// l'associer à "Autres" si déjà existante en bdd
+			if($check){
+				foreach($check as $tab){
+					$tabKeyWord[] = $tab;
+				}
+			}
+			
+			// On vérifie qu'il n'y a pas de doublon dans les catégories envoyées.
+			// if $check car doit au moins avoir un élément pour comparer sinon ça pète
 			if($check){
 			// On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
 				$str;
@@ -297,6 +325,7 @@ class AdminController extends Controller
 					$str[] = strtolower($tab); 
 				}
 				
+				// Si valeur > 1, alors on a un doublon et on renvoie vers la page d'édition
 				foreach(array_count_values($str) as $key => $value)
 				{
 					if($value > 1){
@@ -305,13 +334,19 @@ class AdminController extends Controller
 						return $this->redirectToRoute('admin_add'); 
 					}
 				}
+				
+				for($i=0; $i<count($str); $i++){
+					// On compare mot-clef envoyé passé en miniscule avec tous les mots clefs de la bdd passés
+					// en minuscules
+					$CatBddLowercase = array_map('strtolower', $allKeyWordsInBdd);
+					if(in_array($str[$i], $CatBddLowercase))
+					{
+						$keySimilarCategoryInBdd = array_search($str[$i], $CatBddLowercase); 
+						$tabKeyWord[$i] = $allKeyWordsInBdd[$keySimilarCategoryInBdd]; 
+					}
+				}		
 			}
-			
-			$tabKeyWord;
-			foreach($request->request->get('category') as $category){
-				$tabKeyWord[] = $category;
-			}
-			
+
 			// On récupère toutes les src de la bdd 
 			$tabBdd;
 			foreach($article->getImage() as $Image){
@@ -323,13 +358,6 @@ class AdminController extends Controller
 			foreach($article->getCategory() as $categ)
 			{
 				$keyWordArticle[] = $categ->getCategory();
-			}
-			
-			// On récupère toutes les catégories en bdd
-			$allKeyWordsInBdd;
-			foreach($categoryBdd as $categ)
-			{
-				$allKeyWordsInBdd[] = $categ->getCategory();
 			}
 			
 			// Cas 1 : le nombre d'images est supérieur ou égal à "avant l'édition"
@@ -504,59 +532,66 @@ class AdminController extends Controller
 				}
 			}
 			
-			// Gestion des catégories
+			/****************************************** 
+			*******************************************
+			
+					GESTION DES CATEGORIES 
+			
+			*******************************************
+			******************************************/
+			
+			
 			
 			if($nbCategories >= $nbCatArticleBdd)
 			{
 				for($i=0; $i<$nbCatArticleBdd; $i++)
 				{
-					
-					// Le mot-clef existe-t-il déjà en bdd et est-il déjà associé à l'article?
-					// Cas 1 :  existe en bdd mais pas dans article -> On associe et on empêche le passage dans la boucle
-					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
-					{	
-						if(in_array($tabKeyWord[$i], $keyWordArticle)==0){
-							$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
-						
-							$categoryBdd[$key]->addArticle($article);
-							$article->addCategory($categoryBdd[$key]);
-						
+					if(array_key_exists($i, $tabKeyWord))	
+					{
+						// Le mot-clef existe-t-il déjà en bdd et est-il déjà associé à l'article?
+						// Cas 1 :  existe en bdd mais pas dans article -> On associe et on empêche le passage dans la boucle
+						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
+						{	
+							if(in_array($tabKeyWord[$i], $keyWordArticle)==0)
+							{
+								$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
+								$categoryBdd[$key]->addArticle($article);
+								$article->addCategory($categoryBdd[$key]);
+							}
 						}
-					}
-					
-					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)  
-					{
-						$categ = new Category();
-						$categ->setCategory('' . $tabKeyWord[$i] . '');
-						$categ->addArticle($article);
-						$article->addCategory($categ);
-					}
-					
-					if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
-					{
 						
-						$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
-						$article->removeCategory($categoryBdd[$key]);
-						$categoryBdd[$key]->removeArticle($article);
-					}
+						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)  
+						{
+							$categ = new Category();
+							$categ->setCategory('' . $tabKeyWord[$i] . '');
+							$categ->addArticle($article);
+							$article->addCategory($categ);
+						}
+						
+						if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
+						{
+							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
+							$article->removeCategory($categoryBdd[$key]);
+							$categoryBdd[$key]->removeArticle($article);
+						}
+					}	
 				}
 				for($i=$nbCatArticleBdd; $i<$nbCategories; $i++)
 				{
 					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
 					{	
-						if(in_array($tabKeyWord[$i], $keyWordArticle)==0){
+						if(in_array($tabKeyWord[$i], $keyWordArticle)==0)
+						{
 							$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
-						
 							$categoryBdd[$key]->addArticle($article);
 							$article->addCategory($categoryBdd[$key]);
-						
 						}
 					}
 					
 					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)  
 					{
 						$categ = new Category();
-						$categ->setCategory('' . $tabKeyWord[$i] . '');
+						$categ->setCategory('' . ucfirst($tabKeyWord[$i]) . '');
 						$categ->addArticle($article);
 						$article->addCategory($categ);
 					}
@@ -564,8 +599,7 @@ class AdminController extends Controller
 					if(array_key_exists($i, $keyWordArticle))
 					{	
 						if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
-						{
-							
+						{	
 							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
 							$article->removeCategory($categoryBdd[$key]);
 							$categoryBdd[$key]->removeArticle($article);
@@ -574,10 +608,8 @@ class AdminController extends Controller
 						{
 							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
 							$article->removeCategory($categoryBdd[$key]);
-							$categoryBdd[$key]->removeArticle($article);
-							
+							$categoryBdd[$key]->removeArticle($article);	
 						}
-					
 					}
 				}					
 			}
@@ -593,33 +625,32 @@ class AdminController extends Controller
 						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
 						{	
 							// Si le mot-clef n'est pas déjà associé à l'article
-							if(in_array($tabKeyWord[$i], $keyWordArticle)==0){
+							if(in_array($tabKeyWord[$i], $keyWordArticle)==0)
+							{
 								// On récupère la clef de l'objet en bdd et on l'associe à l'article
 								$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
-							
 								$categoryBdd[$key]->addArticle($article);
 								$article->addCategory($categoryBdd[$key]);
-							
 							}
 						}
 						
 						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)  
 						{
 							$categ = new Category();
-							$categ->setCategory('' . $tabKeyWord[$i] . '');
+							$categ->setCategory('' . ucfirst($tabKeyWord[$i]) . '');
 							$categ->addArticle($article);
 							$article->addCategory($categ);
 						}
 						
 						if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
 						{
-							
 							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
 							$article->removeCategory($categoryBdd[$key]);
 							$categoryBdd[$key]->removeArticle($article);
 						}
 					}
-					else{
+					else
+					{
 						if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
 						{
 							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
