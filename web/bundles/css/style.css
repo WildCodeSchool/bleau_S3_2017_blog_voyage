@@ -10,7 +10,6 @@
  */
 
 body{
-    color: darkslategrey;
     font-family: 'Dancing Script', cursive;
     padding: 0;
     margin: 0;
@@ -203,7 +202,6 @@ h1{
 }
 
 .container-homepage{
-
     background-size: cover;
     width: 100%;
 }
@@ -215,6 +213,12 @@ h1{
     padding-top: 75px;
     margin-top: 50px;
     margin-bottom: 200px;
+}
+
+@media all and (max-width: 767px){
+	.container-article{
+		padding: 0;
+	}
 }
 
 /* page dates */

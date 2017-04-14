@@ -8,20 +8,20 @@
          <a href="{{ path('admin_add') }}"><button class="btn btn-lg btn-danger">Ajouter un article</button></a>
          <a href="#"><button class="btn btn-lg btn-danger">Profil</button></a>
          <a href="#"><button class="btn btn-lg btn-danger">Abonnés newsletter</button></a>
+         <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Retour au site</button></a>
          <a href="#"><button class="btn btn-lg btn-danger">Déconnexion </button></a>
     </div>
 {% endblock %}
 
 {% block container %}
     <div class="container">
-        <div class="row row-custom">
-            <div class="col-xs-12">
-                {% if comments|length !=0 %}
-                <b> {{ comments|length }} commentaire(s) à valider </b>
-
-                    <a href="{{ path('admin_comments') }}"><button class="btn btn-large btn-warning">Valider les commentaires</button></a>
-                {% endif %}
-            </div>
+		{% if comments|length !=0 %}
+			<div class="row row-custom">
+				<div class="col-xs-12">
+					<b> {{ comments|length }} commentaire(s) à valider </b>
+						<a href="{{ path('admin_comments') }}"><button class="btn btn-large btn-warning">Valider les commentaires</button></a>
+				</div>
+		{% endif %}		
         </div>
         <div class="row">
             <h1> Liste des derniers articles publiés </h1>
