@@ -254,6 +254,17 @@ input[type="submit"]{
 
 /* page edit */
 
+#alert-message{
+	height: 200px;
+	line-height: 200px;
+	margin: 0;
+	background: #b22222;
+	text-align: center;
+	font-size: 2em;
+	color: white;
+	transition: 1s;
+}
+
 .edit-img{
 	display: block;
 	width: 50%;

@@ -95,12 +95,13 @@ class AdminController extends Controller
                                 $loopLength = count($keyword);
                                 foreach ($keyword as $key) {
                                     // Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
-                                    if (strtolower($category) !== strtolower($key->getCategory())) {
+                                    if(strtolower($category) !== strtolower($key->getCategory())) 
+									{
                                         $j++;
                                     }
                                     // Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
-                                    if (strtolower($category) == strtolower($key->getCategory())) {
-										//echo "mon premier article avec catégorie";die();
+                                    if(strtolower($category) == strtolower($key->getCategory())) 
+									{
                                         $key->addArticle($article);
                                         $article->addCategory($key);
                                         $i++;
@@ -344,9 +345,10 @@ class AdminController extends Controller
 				{
 					if($value > 1)
 					{
-						echo "doublon trouvé"; die();
 						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double");
-						return $this->redirectToRoute('admin_edit'); 
+						return $this->redirectToRoute('admin_edit', array(
+							"id" => $id
+						)); 
 					}
 				}
 				

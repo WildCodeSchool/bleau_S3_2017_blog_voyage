@@ -14,6 +14,9 @@ var buttonDeleteKeyWordElt = document.getElementsByClassName('delete-keyword');
 // Identification du premier textarea
 var firstTextElt = document.getElementsByClassName("first-text");
 
+// Identification du bloc d'alert si mots-clef en double
+var divAlertElt = document.getElementById('alert-message');
+
 // Identification du bouton d'édition
 var buttonEditElt = document.getElementById('submit');
 
@@ -47,9 +50,7 @@ for(i=0; i<resetElt.length; i++){
 	});
 }
 
-
 // Ecoute du clic sur le bouton d'ajout de contenu
-var k = 2;
 buttonContentElt[0].addEventListener('click', function(e){
 	// Evite la soumission automatique du formulaire.....
 	e.preventDefault();
@@ -77,7 +78,7 @@ buttonContentElt[0].addEventListener('click', function(e){
     // Création du label pour l'input texte
     var labelElt = document.createElement('label');
     labelElt.setAttribute('class', 'label-text');
-    labelElt.textContent = 'Texte ' + k;
+    labelElt.textContent = 'Texte ';
 
     // Création du bouton de suppression
     var buttonResetElt = document.createElement('button');
@@ -102,7 +103,7 @@ buttonContentElt[0].addEventListener('click', function(e){
     // Création du label pour l'input image
 	var labelElt = document.createElement('label');
     labelElt.setAttribute('class', 'label-image');
-    labelElt.textContent = 'Image ' +k;
+    labelElt.textContent = 'Image ';
 
     /***************************************************************************/
     // Création de l'input
@@ -151,13 +152,15 @@ buttonContentElt[0].addEventListener('click', function(e){
     // On retire le bloc de contenu si clic sur bouton supprimer correspondant
     buttonRemoveElt.addEventListener('click', function(e){
         e.preventDefault();
+		/*
         if((labelElt.textContent).includes(''+k-1+'')){
             k--;
         }
+		*/
         contentElt[0].removeChild(divElt);
     });
-
-	k++;
+	
+	// k++;
 });
 
 ///////////////////////////////PARTIE CATEGORIES///////////////////////////////////
@@ -322,5 +325,28 @@ buttonEditElt.addEventListener("click", function(e){
 		alert("Merci d'ajouter au moins une image et un texte");
 	}	
 });
+
+if(divAlertElt){
+	setTimeout(function(){
+		opacity = 1;
+		height = 200;
+		x=0;
+		var alertMessage = setInterval(function(){
+			console.log(x);
+			x += 1;
+			divAlertElt.style.opacity = "" + opacity + "";
+			opacity -= 0.025;
+			if(opacity <= 0.1){
+				divAlertElt.style.height = "" + height + "px";
+				height -= 50;
+			}
+			if(x == 60)
+			{
+				clearInterval(alertMessage);
+			}
+		}, 100);
+			
+	}, 1000);
+}	
 
 
