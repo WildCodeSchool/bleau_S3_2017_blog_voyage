@@ -13,7 +13,7 @@
 
                 <ul class="nav navbar-nav">
                     <li><a href="{{ path('blog_homepage') }}">Accueil</a></li>
-                    <li><a href="#">Présentation du projet</a></li>
+                    <li><a href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
                     <li><a href="#">Catégories</a></li>
                     <li><a href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
                     <li><a href="#">Contact</a></li>
@@ -33,7 +33,7 @@
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_homepage') }}">Accueil</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Présentation du projet</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Catégories</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact</a></li>

@@ -179,13 +179,36 @@ h1{
     width: 100%;
 }
 
-/* 3.1 Container des pages /Articles/id et /dates */
+/* 3.1 
+Container des pages /Articles/id,  /dates  et /presentation */
 
 .container-dates,
-.container-article{
+.container-article, 
+.container-presentation{
     padding-top: 75px;
     margin-top: 50px;
     margin-bottom: 200px;
+}
+
+.container-presentation img{
+	width: 100%;
+	border: 10px solid white;
+	outline: 1px solid #c8c8c8;
+}
+
+#presentation, 
+#contributors{
+	border: 1px solid #c8c8c8;
+	font-size: 2em;
+	padding: 20px;
+	margin-top: 10px;
+	margin-bottom: 0;
+	text-align: justify;
+}
+
+.presentation-section-title{
+	background: #f9f9f9;
+	margin: 10px 0 10px 0;
 }
 
 @media all and (max-width: 767px){
@@ -234,8 +257,6 @@ h1{
 .article{
     margin: 0 auto;
     padding: 10px;
-    background: #f8f1f1;
-    border: 1px solid #d8d8d8;
     min-height: 100vh;
 }
 
@@ -247,11 +268,9 @@ h1{
 	align-items: center;
 	justify-content: center;
     color: #333;
-	border: 1px solid #d8d8d8;
+	background: #f9f9f9;
 	font-size: 4em;
-	line-height: 50px;
-	height: auto;
-	padding: 10px;
+	margin-bottom: 5px;
 }
 
 .article img{
@@ -273,27 +292,30 @@ h1{
     margin-bottom: 10px;
     padding: 20px;
     background: white;
-	border: 1px solid #d8d8d8;
+}
+
+.article-content{
+	border: 1px solid #c8c8c8;
 }
 
 .article aside{
 	border: none;
-    color: #222;
-	width: 100%;
+    color: #333;
+	width: 90%;
 	margin: 0 auto;
     padding: 5px;
     border-radius: 5px;
 }
 
 .article aside p{
-	font-size: 1.75em;
+	font-size: 2em;
+	width: 100%;
 }
-
 
 .article aside p:nth-child(2){
 	text-align: center;
+	background: #f8f8f8;
 }
-
 
 @media all and (max-width: 767px){
     .article img,
@@ -355,6 +377,8 @@ h1{
     color: black;
     padding: 5px;
     margin-top: 20px;
+	width: 90%;
+	margin: 0 auto;
 }
 
 .comments form{
@@ -390,6 +414,7 @@ textarea{
 .comment p{
     padding: 5px;
     font-size: 2em;
+	border: 1px solid #c8c8c8;
 }
 
 .comment p:nth-child(2){

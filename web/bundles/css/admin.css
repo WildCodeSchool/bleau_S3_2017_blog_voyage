@@ -252,12 +252,12 @@ input[type="submit"]{
 	display: flex;
 	color: white;
 	align-items: center;
-	background: #b22222;
 	font-size: 1.5em;
 	height: 200px;
 	width: 100%;
 	margin: 0 auto;
 	justify-content: center;
+	background: #b22222;
 }
 
 .edit-img{
@@ -298,7 +298,33 @@ input[type="submit"]{
 
 /* page presentation */
 
-#presentation-form p:last-child{
-    text-align: center;
-    background: yellow;
+#presentation-form figure{
+	text-align: center;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+#presentation-form figcaption{
+	padding: 20px;
+	margin-bottom: 10px;
+	font-size: 1.5em;
+	font-weight: bold;
+	background: #eee;
+	color: #333;
+}
+
+#presentation-form img{
+	width: 50%;
+}
+
+@media all and (max-width: 1024px){
+	#presentation-form img{
+		width: 60%;
+	}
+}
+
+@media all and (max-width: 767px){
+	#presentation-form img{
+		width: 100%;
+	}
 }

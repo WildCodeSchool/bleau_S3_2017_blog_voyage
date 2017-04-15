@@ -6,19 +6,9 @@
 {% block form %}
     <div class="menu menu-add">
         <a href="{{ path('admin_index') }}"><button class="btn btn-lg btn-danger"> Accueil administration</button></a>
-		<a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Retour au site</button></a>
+		<a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
         <a href=""><button class="btn btn-lg btn-danger"> Déconnexion </button></a>
     </div>
-	
-		{% for flashes in app.session.flashbag.all %}
-			{% for flash in flashes %}
-				<div id="alert-message">
-					<p>
-						{{ (flash) }}
-					</p>	
-				</div>	
-			{% endfor %}
-		{% endfor %}
 		
     <div class="form">
     {{ form_start(edit_form, {'attr': {'enctype': 'multipart/form-data'}}) }}
@@ -39,9 +29,9 @@
 						</div>
 						<div class="text-update">
 							<textarea name="content[]" class="first-text">{{ content.content }}</textarea>
-							<button class="btn btn-large btn-danger text-trash"> Vider le texte </button>
+							<button class="btn btn-lg btn-danger text-trash"> Vider le texte </button>
 						</div>
-					<button class="btn btn-large btn-danger remove-content"> Supprimer Image + texte </button>
+					<button class="btn btn-lg btn-danger remove-content"> Supprimer Image + texte </button>
 					</div>	
 					{% endif %}
 				{% endfor %}
@@ -56,9 +46,8 @@
 				<p style="margin-bottom: 15px; background: #f8f8f1; padding: 5px;">
 					<label for="keyword">Mot clef {{ loop.index }} </label>
 					<input type="text" name="category[]" value="{{ category.category }}"/>
-					<button class="btn btn-large btn-danger delete-keyword"> Supprimer </button>
+					<button class="btn btn-danger delete-keyword"> Supprimer </button>
 				</p>
-				
 			{% endfor %}
 		</div>
 
@@ -83,7 +72,7 @@
 		{% endif %}
 		
         <label for="submit" id="label-submit"> Editer l'article </label>
-        <input type="submit" id="submit" class="btn btn-large btn-danger" value="Editer"/>
+        <input type="submit" id="submit" class="btn btn-lg btn-danger" value="Editer"/>
 
     {{ form_end(edit_form) }}
 
@@ -91,3 +80,4 @@
 {% endblock %}
 
 {% block javascript %}{{ asset('bundles/js/form.js') }}{% endblock %}
+{% block javascript_Admin_Index %} {{ asset('bundles/js/flash.js') }} {% endblock %}

@@ -6,20 +6,34 @@
 {% block add %}
     <div class="menu">
          <a href="{{ path('admin_add') }}"><button class="btn btn-lg btn-danger">Ajouter un article</button></a>
-         <a href="{{ path('admin_profil') }}"><button class="btn btn-lg btn-danger">Profil</button></a>
-         <a href="#"><button class="btn btn-lg btn-danger">Abonnés newsletter</button></a>
-         <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Retour au site</button></a>
+		 {% if profil is empty %}
+			<a href="{{ path('admin_profil') }}"><button class="btn btn-lg btn-danger">Créer le profil</button></a>
+		 {% endif %}
+		 {% if profil is not empty %}
+			<a href="{{ path('admin_profil_edit') }}"><button class="btn btn-lg btn-danger">Editer le profil</button></a>
+		 {% endif %}
+		 <a href="#"><button class="btn btn-lg btn-danger">Abonnés newsletter</button></a>		 
+         <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
          <a href="#"><button class="btn btn-lg btn-danger">Déconnexion </button></a>
     </div>
 {% endblock %}
 
 {% block container %}
     <div class="container">
+		{% for flashes in app.session.flashbag.all %}
+			{% for flash in flashes %}
+				<div id="alert-message">
+					<p>
+						{{ (flash) }}
+					</p>	
+				</div>	
+			{% endfor %}
+		{% endfor %} 
 		{% if comments|length !=0 %}
 			<div class="row row-custom">
 				<div class="col-xs-12">
 					<b> {{ comments|length }} commentaire(s) à valider </b>
-						<a href="{{ path('admin_comments') }}"><button class="btn btn-large btn-warning">Valider les commentaires</button></a>
+						<a href="{{ path('admin_comments') }}"><button class="btn btn-warning">Valider les commentaires</button></a>
 				</div>
 		{% endif %}		
         </div>
@@ -41,8 +55,8 @@
                         </div>
 
                         <div class="col-xs-3">
-                            <a href="{{ path('admin_edit', {id : article.id }) }}"><button class="btn btn-medium btn-success"> Editer </button></a>
-                            <a href="{{ path('admin_delete', {id : article.id }) }}"><button class="btn btn-large btn-danger"> Supprimer </button></a>
+                            <a href="{{ path('admin_edit', {id : article.id }) }}"><button class="btn btn-success"> Editer </button></a>
+                            <a href="{{ path('admin_delete', {id : article.id }) }}"><button class="btn btn-danger"> Supprimer </button></a>
                         </div>
                     </div>
                 </div>
@@ -50,3 +64,5 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascript_Admin_Index %} {{ asset('bundles/js/flash.js') }} {% endblock %}

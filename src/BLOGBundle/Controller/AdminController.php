@@ -8,6 +8,7 @@ use BLOGBundle\Entity\Content;
 use BLOGBundle\Entity\Image;
 use BLOGBundle\Entity\Presentation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Finder\SplFileInfo;
@@ -34,11 +35,15 @@ class AdminController extends Controller
 
 		$comments = $em->getRepository('BLOGBundle:Comments');
 		$comments = $comments->myFindAll();
+		
+		$profil = $em->getRepository('BLOGBundle:Presentation');
+		$profil = $profil->findAll();
 
 	   // On envoit le résultat à la vue
         return $this->render('@BLOG/Admin/index.html.twig', array(
             'articles' => $articles,
-            'comments' => $comments
+            'comments' => $comments, 
+			'profil' => $profil
         ));
     }
 
@@ -224,7 +229,8 @@ class AdminController extends Controller
 			*/
 
              // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-            return $this->redirectToRoute('admin_index');
+            $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
+			return $this->redirectToRoute('admin_index');
         }
 
         return $this->render('@BLOG/Admin/add.html.twig', array(
@@ -701,6 +707,7 @@ class AdminController extends Controller
 			$em->persist($article);
             $em->flush();
 			
+			$request->getSession()->getFlashBag()->add("notice", "L'article a bien été modifié.");
             return $this->redirectToRoute('admin_edit', array('id' => $article->getId()));
         }
 
@@ -726,7 +733,6 @@ class AdminController extends Controller
 			if(file_exists($path))
 			{
 				unlink($path);
-				
 			}
 		}
 		$em->remove($article);
@@ -773,22 +779,89 @@ class AdminController extends Controller
 
         return $this->redirectToRoute('admin_comments');
     }
+	
+	public function commentDeleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id);
+
+        $em->remove($comment);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_comments');
+    }
 
     public function profilAction(Request $request){
         $em = $this->getDoctrine()->getManager();
-
-        $presentation = new Presentation();
+        $presentation = new presentation();
 
         $form = $this->createForm('BLOGBundle\Form\PresentationType', $presentation);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
+            foreach($request->files->get('blogbundle_presentation') as $image)
+            {
+                $fileName = uniqId() . '.' . $image->guessExtension();
+                $image->move($this->getParameter('image_directory'), $fileName);
+                $presentation->setImage($fileName);
+            }
 
+            $em->persist($presentation);
+            $em->flush();
+
+			$request->getSession()->getFlashBag()->add("notice", "Votre profil a bien été créé.
+			Vous pouvez l'éditer à tout moment en cliquant sur \"Editer le profil\".");
+            return $this->redirectToRoute('admin_index');
         }
 
         return $this->render('BLOGBundle:Admin:profil.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+        ));
+    }
+
+    public function profilEditAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $presentation = $em->getRepository('BLOGBundle:Presentation')->findOneById(1);
+
+        $form = $this->createForm(FormType::class, $presentation)
+            ->add('presentation')
+            ->add('contributors');
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $image = $request->files->get('image');
+
+            if(count($image) !== 0)
+            {
+                $ancientFileName = $presentation->getImage();
+                $path = $this->getParameter('image_directory')."/".$ancientFileName;
+                if(file_exists($path))
+                {
+                    unlink($path);
+                }
+
+                $fileName = uniqId() . '.' . $image->guessExtension();
+                $image->move($this->getParameter('image_directory'), $fileName);
+                $presentation->setImage($fileName);
+            }
+
+            $em->persist($presentation);
+            $em->flush();
+
+			$request->getSession()->getFlashBag()->add("notice", "Votre profil a bien été modifié.");
+            return $this->redirectToRoute('admin_profil_edit');
+        }
+		
+		if(count($presentation) == 0)
+		{
+			return $this->redirectToRoute('admin_profil');
+		}
+
+        return $this->render('BLOGBundle:Admin:profil.edit.html.twig', array(
+            'form' => $form->createView(),
+            'presentation' => $presentation
         ));
     }
 }

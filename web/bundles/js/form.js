@@ -5,6 +5,8 @@ var formElt = document.querySelectorAll('.form > form');
 // de la partie Add et de tous ceux de la partie Edit (lorsqu'on arrive sur la page"), si plusieurs textarea
 var resetElt = document.getElementsByClassName("text-trash");
 
+var resetFirstAddElt = document.getElementById("text-bin");
+
 // Identification du bouton de suppression de "Image + texte"
 var buttonRemoveContentElt = document.getElementsByClassName('remove-content');
 
@@ -13,9 +15,6 @@ var buttonDeleteKeyWordElt = document.getElementsByClassName('delete-keyword');
 
 // Identification du premier textarea
 var firstTextElt = document.getElementsByClassName("first-text");
-
-// Identification du bloc d'alert si mots-clef en double
-var divAlertElt = document.getElementById('alert-message');
 
 // Identification du bouton d'édition
 var buttonEditElt = document.getElementById('submit');
@@ -37,7 +36,9 @@ keywordRangeElt.setAttribute('id', 'keywordRange');
 var buttonRangeElt = document.getElementById('buttonRange');
 
 // On insére la div contenant les mots-clefs avant la div contenant les boutons d'ajout/soumission
-buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
+if(buttonRangeElt){
+	buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
+}	
 
 // Si l'utilisateur clique sur le bouton "vider le texte" du premier élément contenu
 for(i=0; i<resetElt.length; i++){
@@ -47,14 +48,26 @@ for(i=0; i<resetElt.length; i++){
 	});
 }
 
+if(resetFirstAddElt){
+	resetFirstAddElt.addEventListener("click", function(e){
+		e.preventDefault();
+		this.parentNode.previousSibling.childNodes[3].value="";
+	});
+}
+
+
 // Ecoute du clic sur le bouton d'ajout de contenu
 buttonContentElt[0].addEventListener('click', function(e){
 	e.preventDefault();
 
     // Création du bouton de suppression de la div de contenu
     var buttonRemoveElt = document.createElement('button');
-    buttonRemoveElt.setAttribute('class', 'btn btn-large btn-danger')
-    buttonRemoveElt.textContent = 'Supprimer';
+    buttonRemoveElt.setAttribute('class', 'btn btn-lg btn-danger')
+    buttonRemoveElt.textContent = 'Supprimer Image + Texte';
+	if(window.innerWidth<480){
+		buttonRemoveElt.style.marginBottom = '10px';
+		buttonRemoveElt.style.width = '100%';
+	}
 
 ///////////////////////////////////////////PARTIE TEXTE////////////////////////
     var inputTextElt = document.createElement('textarea');
@@ -66,6 +79,7 @@ buttonContentElt[0].addEventListener('click', function(e){
 
     var pTextElt2 = document.createElement('p');
     pTextElt2.style.display = 'flex';
+    pTextElt2.style.flexWrap = 'wrap';
     pTextElt2.style.justifyContent = 'space-around';
     pTextElt2.style.margin = '0 auto';
     pTextElt2.style.paddingBottom = '15px';
@@ -78,12 +92,16 @@ buttonContentElt[0].addEventListener('click', function(e){
 
     // Création du bouton de suppression
     var buttonResetElt = document.createElement('button');
-    buttonResetElt.setAttribute('class', 'btn btn-large btn-danger');
+    buttonResetElt.setAttribute('class', 'btn btn-lg btn-danger');
     buttonResetElt.textContent = 'Vider le texte';
+	
+	if(window.innerWidth<480){
+		buttonResetElt.style.width = '100%';
+	}
 
 	// On imbrique les éléments pour le texte
     pTextElt.appendChild(labelElt);
-    pTextElt2.appendChild(buttonRemoveElt);
+	pTextElt2.appendChild(buttonRemoveElt);
     pTextElt2.appendChild(buttonResetElt);
     pTextElt.appendChild(inputTextElt);
     pTextElt.appendChild(pTextElt2);
@@ -320,27 +338,6 @@ if(buttonEditElt){
 			alert("Merci d'ajouter au moins une image et un texte");
 		}	
 	});
-}	
-
-if(divAlertElt){
-	setTimeout(function(){
-		opacity = 1;
-		height = 200;
-		x=0;
-		var alertMessage = setInterval(function(){
-			x += 1;
-			divAlertElt.style.opacity = "" + opacity + "";
-			opacity -= 0.025;
-			if(opacity <= 0.1){
-				divAlertElt.style.height = "" + height + "px";
-				height -= 50;
-			}
-			if(x == 60)
-			{
-				clearInterval(alertMessage);
-			}
-		}, 100);
-	}, 3000);
-}	
+}
 
 

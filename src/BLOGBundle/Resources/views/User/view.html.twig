@@ -4,7 +4,6 @@
 
 {% block container %}
     <div class="container container-article"
-
         {% block row %}
             <div class="row">
                 {% for article in articles %}
@@ -21,7 +20,7 @@
                                         </figcaption>
                                     {% endif %}
                                     {% if content.content is not empty %}
-                                        <p> {{ content.content|nl2br  }}</p>
+                                        <p class="article-content"> {{ content.content|nl2br  }} </p>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
@@ -56,8 +55,8 @@
                             {% for comment in article.comment %}
                                 {% if comment.publication == 1 %}
                                     <div class="comment">
-                                        <p> {{ comment.comment }}</p>
-                                        <p><b>Par {{ comment.author }} le {{ comment.date.date|date('d/m/Y') }}</b></p>
+                                        <p> {{ comment.comment }} <br /><br />
+                                        <b>{{ comment.author }}, le {{ comment.date.date|date('d/m/Y') }}</b></p>
                                     </div>
                                 {% endif %}
                             {% endfor %}
