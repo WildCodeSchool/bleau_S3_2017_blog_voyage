@@ -1,0 +1,31 @@
+{% extends "layout.html.twig" %}
+
+{% block style %}{{ asset('bundles/css/admin.css') }} {% endblock %}
+
+{% block form %}
+    <div class="menu menu-add">
+        <a href="{{ path('admin_index') }}"><button class="btn btn-lg btn-danger"> Accueil administration </button></a>
+        <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Retour au site</button></a>
+        <a href=""><button class="btn btn-lg btn-danger"> Déconnexion </button></a>
+    </div>
+    {{ form_start(form, {'attr' : {'id' : 'presentation-form'}} ) }}
+        <p>
+            {{ form_label(form.image, 'Photo', {'label_attr' : {class : 'label-titre'}} ) }}
+            {{ form_errors(form.image) }}
+            {{ form_widget(form.image) }}
+        </p>
+        <p>
+            {{ form_label(form.presentation, 'Présentation du projet', {'label_attr' : {class : 'label-titre'}} ) }}
+            {{ form_errors(form.presentation) }}
+            {{ form_widget(form.presentation) }}
+        </p>
+        <p>
+            {{ form_label(form.contributors, 'Remerciements', {'label_attr' : {class : 'label-titre'}} ) }}
+            {{ form_errors(form.contributors) }}
+            {{ form_widget(form.contributors) }}
+        </p>
+        <p>
+            <input type="submit" class="btn btn-lg btn-danger"/>
+        </p>
+    {{ form_end(form) }}
+{% endblock %}

@@ -53,7 +53,7 @@ class UserController extends Controller
 
     public function presentationAction()
 	{
-		return $this->render('BLOGBundle:User:presentation.html.twig');
+		return $this->render('BLOGBundle:User:profil.html.twig');
 	}
 
     public function categoryAction()

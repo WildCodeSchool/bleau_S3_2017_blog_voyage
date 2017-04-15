@@ -6,6 +6,7 @@ use BLOGBundle\Entity\Article;
 use BLOGBundle\Entity\Category;
 use BLOGBundle\Entity\Content;
 use BLOGBundle\Entity\Image;
+use BLOGBundle\Entity\Presentation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -65,7 +66,7 @@ class AdminController extends Controller
 			if($check)
 			{
 				// On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
-				$str;
+				$str = [];
 				foreach($check as $tab)
 				{
 					$str[] = strtolower($tab); 
@@ -278,7 +279,7 @@ class AdminController extends Controller
 			// On récupère toutes les images (ANCIENNES (src) + NOUVELLES (files));
 			
 			// Anciens fichiers que l'utilisateur a conservés (src)
-			$tabImgReceived;
+			$tabImgReceived =[];
 			if($request->request->get('src'))
 			{
 				foreach($request->request->get('src') as $src)
@@ -297,7 +298,7 @@ class AdminController extends Controller
 			}
 			
 			// On récupère tous les textes envoyés
-			$tabText;
+			$tabText = [];
 			if($request->request->get('content'))
 			{
 				foreach($request->request->get('content') as $text)
@@ -311,13 +312,13 @@ class AdminController extends Controller
 			$nbCategories = count($check);
 			
 			// On récupère toutes les catégories en bdd
-			$allKeyWordsInBdd;
+			$allKeyWordsInBdd = [];
 			foreach($categoryBdd as $categ)
 			{
 				$allKeyWordsInBdd[] = $categ->getCategory();
 			}
-			
-			$tabKeyWord;
+
+			$tabKeyWord = [];
 			// Si les auteurs retournent un formulaire d'édition avec au moins un mot-clef
 			// Si rien reçu, on crée une catégorie "Autres" dans la bdd (si pas existante) : Voir "GESTION DES 
 			// CATEGORIES"
@@ -334,7 +335,7 @@ class AdminController extends Controller
 			if($check)
 			{
 				// On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
-				$str;
+				$str = [];
 				foreach($check as $tab)
 				{
 					$str[] = strtolower($tab); 
@@ -368,15 +369,15 @@ class AdminController extends Controller
 				}		
 			}
 
-			// On récupère toutes les src de la bdd 
-			$tabBdd;
+			// On récupère toutes les src de la bdd
+			$tabBdd = [];
 			foreach($article->getImage() as $Image)
 			{
 				$tabBdd[] = $Image->getSrc();
 			}	
 
 			// On récupères toutes les catégories associées à l'article
-			$keyWordArticle;
+			$keyWordArticle = [];
 			foreach($article->getCategory() as $categ)
 			{
 				$keyWordArticle[] = $categ->getCategory();
@@ -771,6 +772,23 @@ class AdminController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('admin_comments');
+    }
 
+    public function profilAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+
+        $presentation = new Presentation();
+
+        $form = $this->createForm('BLOGBundle\Form\PresentationType', $presentation);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+
+        }
+
+        return $this->render('BLOGBundle:Admin:profil.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }
