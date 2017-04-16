@@ -31,6 +31,10 @@ admin_comments:
 admin_comments_validation:
     path:     /comments/{id}
     defaults: { _controller: "BLOGBundle:Admin:commentValidation" }
+
+admin_comments_unvalidation:
+    path:     /commentsHide/{id}
+    defaults: { _controller: "BLOGBundle:Admin:commentUnvalidation" }
     
 admin_comments_delete:
     path:     /comments/delete/{id}

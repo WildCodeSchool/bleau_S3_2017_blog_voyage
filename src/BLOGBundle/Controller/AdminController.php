@@ -10,8 +10,6 @@ use BLOGBundle\Entity\Presentation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Finder\SplFileInfo;
 
 
 /**
@@ -34,7 +32,7 @@ class AdminController extends Controller
 		$articles = $articles->myFindAll();
 
 		$comments = $em->getRepository('BLOGBundle:Comments');
-		$comments = $comments->myFindAll();
+		$comments = $comments->myFindAllNotPublicated();
 		
 		$profil = $em->getRepository('BLOGBundle:Presentation');
 		$profil = $profil->findAll();
@@ -702,7 +700,16 @@ class AdminController extends Controller
 						}
 					}
 				}				
-			}	
+			}
+
+            $checkbox = $request->request->get('checked');
+            if($checkbox == "on")
+            {
+                $article->setNewsletter('1');
+            }
+            else{
+                $article->setNewsletter('0');
+            }
             
 			$em->persist($article);
             $em->flush();
@@ -759,11 +766,15 @@ class AdminController extends Controller
 
     public function commentAction(){
         $em = $this->getDoctrine()->getManager();
-        $comments = $em->getRepository('BLOGBundle:Comments');
-        $comments = $comments->myFindAll();
+        $commentsNotPublicated = $em->getRepository('BLOGBundle:Comments');
+        $commentsNotPublicated = $commentsNotPublicated->myFindAllNotPublicated();
+
+        $commentsPublicated = $em->getRepository('BLOGBundle:Comments');
+        $commentsPublicated = $commentsPublicated->myFindAllPublicated();
 
         return $this->render('@BLOG/Admin/comment.html.twig', array(
-            'comments' => $comments
+            'commentsNotPublicated' => $commentsNotPublicated,
+            'commentsPublicated' => $commentsPublicated
         ));
     }
 
@@ -771,8 +782,19 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id);
-
         $comment->setPublication('1');
+
+        $em->persist($comment);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_comments');
+    }
+
+    public function commentUnvalidationAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id);
+        $comment->setPublication('0');
 
         $em->persist($comment);
         $em->flush();

@@ -12,17 +12,32 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <h1> Liste des commentaires à valider </h1>
+                <h1 style="background: #ee9514; color: white;"> Commentaires à valider </h1>
             </div>
         </div>
-        {% for comment in comments %}
+        {% for comment in commentsNotPublicated %}
             <div class="row row-comment-validation">
                 <div class="col-xs-12 ">
                     <p><b>Titre de l'article commenté : {{ comment.article.title }}</b> </p>
                     <p> <b> Auteur : </b> <u>{{ comment.author }}</u> le <i> {{ comment.date.date|date('d/m/Y') }} </i> </p>
                     <p> <b>Commentaire : </b> {{ comment.comment }} </p>
-                        <a href="{{ path('admin_comments_validation', {id : comment.id} ) }}"><button class="btn btn-success">Valider</button></a>
+                        <a href="{{ path('admin_comments_validation', {id : comment.id} ) }}"><button class="btn btn-success">Publier</button></a>
                         <a href="{{ path('admin_comments_delete', {id : comment.id}) }}"><button class="btn btn-danger">Supprimer</button></a>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-xs-12">
+            <h1 style="background: green; color: white"> Commentaires validés </h1>
+        </div>
+        {% for comment in commentsPublicated %}
+            <div class="row row-comment-validation">
+                <div class="col-xs-12 ">
+                    <p><b>Titre de l'article commenté : {{ comment.article.title }}</b> </p>
+                    <p> <b> Auteur : </b> <u>{{ comment.author }}</u> le <i> {{ comment.date.date|date('d/m/Y') }} </i> </p>
+                    <p> <b>Commentaire : </b> {{ comment.comment }} </p>
+                    <a href="{{ path('admin_comments_unvalidation', {id : comment.id} ) }}"><button class="btn btn-success">Dépublier</button></a>
+                    <a href="{{ path('admin_comments_delete', {id : comment.id}) }}"><button class="btn btn-danger">Supprimer</button></a>
                     </p>
                 </div>
             </div>

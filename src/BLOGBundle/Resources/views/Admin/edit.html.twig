@@ -70,14 +70,14 @@
 		<input type="checkbox" name="checked" id="check" {% if article.newsletter == '1' %} checked {% endif %}/>
 		
 		{% if article.newsletter == '1' %} 
-			<p style="margin-top: 10px; background: green; color: white; text-align: center;"> 
-				La newsletter a été envoyée lors de la création de l'article 
+			<p style="margin-top: 10px; background: green; color: white; text-align: center; padding: 5px 0 5px 0">
+				La newsletter a été envoyée pour cet article.
 			</p> 
 		{% endif %}
 		
 		{% if article.newsletter == '0' %} 
-			<p style="margin-top: 10px; background: #b22222; color: white; text-align: center;"> 
-				La newsletter n'a pas été envoyée lors de la création de l'article 
+			<p style="margin-top: 10px; background: #b22222; color: white; text-align: center; padding: 5px 0 5px 0">
+				La newsletter n'a pas été envoyée pour cet article
 			</p> 
 		{% endif %}
 		
