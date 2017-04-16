@@ -67,7 +67,7 @@ class UserController extends Controller
 			return new Response("Page en cours de construction. Revenez plus tard :)");
 		}
 		
-		return $this->render('BLOGBundle:User:profil.html.twig', array(
+		return $this->render('BLOGBundle:User:presentation.html.twig', array(
 			'presentation' => $presentation
 		));
 	}
