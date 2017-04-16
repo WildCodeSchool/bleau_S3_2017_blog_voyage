@@ -9,6 +9,16 @@
 		<a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
         <a href=""><button class="btn btn-lg btn-danger"> Déconnexion </button></a>
     </div>
+	
+	{% for flashes in app.session.flashbag.all %}
+		{% for flash in flashes %}
+			<div id="alert-message">
+				<p>
+					{{ (flash) }}
+				</p>	
+			</div>	
+		{% endfor %}
+	{% endfor %}
 		
     <div class="form">
     {{ form_start(edit_form, {'attr': {'enctype': 'multipart/form-data'}}) }}

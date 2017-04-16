@@ -196,6 +196,10 @@ Container des pages /Articles/id,  /dates  et /presentation */
 	outline: 1px solid #c8c8c8;
 }
 
+.container-dates input[type="submit"]{
+	margin-top: 10px;
+}
+
 #presentation, 
 #contributors{
 	border: 1px solid #c8c8c8;
@@ -237,19 +241,11 @@ Container des pages /Articles/id,  /dates  et /presentation */
     }
 }
 
-.article-dates-list{
-    background: yellow;
-}
-
 @media all and (max-width: 1024px){
     label,
     input{
         width: 100%;
     }
-    input[type="submit"]{
-        margin-top: 10px;
-    }
-
 }
 
 /* page articles */
@@ -394,6 +390,10 @@ Container des pages /Articles/id,  /dates  et /presentation */
     font-size: 1.5em;
 }
 
+.comments button:focus{
+	outline: none;
+}
+
 .comments
 label,
 input,
@@ -421,8 +421,14 @@ textarea{
     font-size: 1.75em;
 }
 
-.comments input[type=text], textarea{
+.comments input[type=text], 
+textarea{
     font-family: sans-serif;
+	font-size: 1em;
+}
+
+.comments textarea{
+	height: 200px;
 }
 
 .comments input[type="submit"]{
@@ -430,7 +436,6 @@ textarea{
     display: block;
     width: 125px;
     border-radius: 5px;
-    background: #d9534f;
     color: white;
     border: none;
 	font-size: 1.5em;

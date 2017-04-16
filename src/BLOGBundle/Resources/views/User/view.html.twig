@@ -38,8 +38,10 @@
                         <div class="comments">
                             <div class="button-range">
                                 <button class="btn btn-lg btn-danger" id="publish">Publier un commentaire</button>
-                                <button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
-                            </div>
+								{% if article.comment is not empty %}
+									<button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
+								{% endif %}
+							</div>
                             {{ form_start(form) }}
                                 {{ form_label(form.author, 'Auteur') }}
                                 {{ form_errors(form.author) }}
@@ -48,7 +50,7 @@
                                 {{ form_label(form.comment, 'Commentaire') }}
                                 {{ form_errors(form.comment) }}
                                 {{ form_widget(form.comment) }}
-                            <input type="submit"/>
+                            <input class="btn btn-lg btn-danger" type="submit"/>
                             {{ form_end(form) }}
                         </div>
                         <div class="comments-block">
