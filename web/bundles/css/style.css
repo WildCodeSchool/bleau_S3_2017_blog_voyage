@@ -345,12 +345,14 @@ Container des pages /Articles/id,  /dates  et /presentation */
     display: flex;
     align-items: center;
     justify-content: center;
+	position: relative;
 }
 
 .modal-image img{
 	display: block;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 
 .modal-image-big{
@@ -363,10 +365,18 @@ Container des pages /Articles/id,  /dates  et /presentation */
     background: rgba(0,0,0,.7);
 }
 
-.button-left,
-.button-right{
-    margin: 0 auto;
+.button-cross{
+	background: black;
+	outline: none;
+	border: 2px solid white;
+	color: white;
+	position: absolute;
+	top: 5px;
+	right: 10px;
     display: none;
+	height: 40px;
+	width: 40px;
+	border-radius: 40px;
 }
 
 .comments{
@@ -537,21 +547,24 @@ figure img{
 .article-caption i{
     margin-top: 5px;
     font-size: 1.5em;
-}
+}	
 
 @media all and (max-width: 380px){
 	.article-caption h3{
+		font-size: 1.75em;
+	}
+	 
+	.article-caption p{
 		font-size: 1.5em;
 	}
 	
-	.article-caption p, 
 	.article-caption i{
-		font-size: 1em;
+		font-size: 1.25em;
 	}
 	
 	.article-caption button {
 		display: none;
-		font-size: 1em;
+		font-size: 1.25em;
 	}
 }
 

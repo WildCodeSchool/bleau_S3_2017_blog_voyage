@@ -14,9 +14,8 @@
                                 {% if content.id == image.id %}
                                     {% if image.src is not empty %}
                                         <figcaption class="modal-image">
-                                            <button class="button-left 	glyphicon glyphicon-chevron-left"></button>
                                             <img src="{{ asset('bundles/images/'~image.src ) }}" />
-                                            <button class="button-right"> Droite </button>
+                                            <button class="button-cross glyphicon glyphicon-remove" ></button>
                                         </figcaption>
                                     {% endif %}
                                     {% if content.content is not empty %}
@@ -38,9 +37,11 @@
                         <div class="comments">
                             <div class="button-range">
                                 <button class="btn btn-lg btn-danger" id="publish">Publier un commentaire</button>
-								{% if article.comment is not empty %}
-									<button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
-								{% endif %}
+								{% for comment in article.comment %}
+									{% if comment.publication !=0 %}
+										<button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
+									{% endif %}
+								{% endfor %}
 							</div>
                             {{ form_start(form) }}
                                 {{ form_label(form.author, 'Auteur') }}

@@ -10,22 +10,24 @@
 			<a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
             <a href="{{ path('blog_homepage') }}logout"><button class="btn btn-lg btn-danger">Déconnexion</button></a>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <h1 style="background: #ee9514; color: white;"> Commentaires à valider </h1>
-            </div>
-        </div>
+		{% if commentsNotPublicated is not empty %}
+			<div class="row">
+				<div class="col-xs-12">
+					<h1 style="background: #ee9514; color: white;"> Commentaires à valider </h1>
+				</div>
+			</div>
+		{% endif %}
         {% for comment in commentsNotPublicated %}
-            <div class="row row-comment-validation">
-                <div class="col-xs-12 ">
-                    <p><b>Titre de l'article commenté : {{ comment.article.title }}</b> </p>
-                    <p> <b> Auteur : </b> <u>{{ comment.author }}</u> le <i> {{ comment.date.date|date('d/m/Y') }} </i> </p>
-                    <p> <b>Commentaire : </b> {{ comment.comment }} </p>
-                        <a href="{{ path('admin_comments_validation', {id : comment.id} ) }}"><button class="btn btn-success">Publier</button></a>
-                        <a href="{{ path('admin_comments_delete', {id : comment.id}) }}"><button class="btn btn-danger">Supprimer</button></a>
-                    </p>
-                </div>
-            </div>
+			<div class="row row-comment-validation">
+				<div class="col-xs-12 ">
+					<p><b>Titre de l'article commenté : {{ comment.article.title }}</b> </p>
+					<p> <b> Auteur : </b> <u>{{ comment.author }}</u> le <i> {{ comment.date.date|date('d/m/Y') }} </i> </p>
+					<p> <b>Commentaire : </b> {{ comment.comment }} </p>
+						<a href="{{ path('admin_comments_validation', {id : comment.id} ) }}"><button class="btn btn-success">Publier</button></a>
+						<a href="{{ path('admin_comments_delete', {id : comment.id}) }}"><button class="btn btn-danger">Supprimer</button></a>
+					</p>
+				</div>
+			</div>
         {% endfor %}
        	<div class="row">
 			<div class="col-xs-12">

@@ -31,7 +31,7 @@
 				</div>	
 			{% endfor %}
 		{% endfor %} 
-		{% if comments|length !=0 %}
+		{% if comments is not empty %}
 			<div class="row row-custom">
 				<div class="col-xs-12">
 					<b> {{ comments|length }} commentaire(s) à valider </b>
@@ -43,9 +43,9 @@
             <h1> Liste des derniers articles publiés </h1>
 		</div>	
             {% for article in articles %}
-				<div class="row"
+				<div class="row">
 					<div class="col-xs-12 col-custom">
-						<div class="row"  style="background: #eee;">
+						<div class="row" ">
 							<div class="col-xs-offset-1 col-xs-3">
 								{%  for image in article.image %}
 									{% if loop.first %}
@@ -58,7 +58,7 @@
 								<b>Publié le : </b> {{ article.date.date|date('d/m/Y') }}
 							</div>
 						</div>
-						<div class="row" style="margin-bottom: 15px; padding: 10px; background: #eee; text-align: center;">
+						<div class="row" style="margin-bottom: 15px; padding: 10px; text-align: center;">
 							<div class="col-xs-offset-3 col-xs-6">
 								<a href="{{ path('admin_edit', {id : article.id }) }}"><button class="btn btn-success"> Editer </button></a>
 								<a href="{{ path('admin_delete', {id : article.id }) }}"><button class="btn btn-danger"> Supprimer </button></a>
