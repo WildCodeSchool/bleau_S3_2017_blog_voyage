@@ -1,12 +1,25 @@
-/*
+/*  SOMMAIRE
 
-1. Menu
-2. Container
+I.  ELEMENTS COMMUNS AUX PAGES DE LA PARTIE ADMIN
+		1. MENU
+		2. CONTAINER
+
+II.  PAGE AJOUT D'ARTICLES
+		1. FORMULAIRE
+
+III. PAGE D'ACCUEIL
+
+IV.  PAGE EDITION ARTICLES
+
+V.	 PAGE PRESENTATION DU PROJET
 
 */
 
 
-/* 1. Menu */
+/* 
+I.  ELEMENTS COMMUNS AUX PAGES DE LA PARTIE ADMIN
+	1. MENU 
+*/
 
 .menu{
     display: flex;
@@ -38,13 +51,17 @@
     }
 }
 
-/* Container */
+/* 
+	2. CONTAINER 
+*/
 
 h1{
-    background: #eee;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
+	background: #eee;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	padding: 20px;
 }
 
 @media all and (max-width: 600px){
@@ -55,12 +72,14 @@ h1{
 
 @media all and (max-width: 480px){
     h1{
-        font-size: 1.5em;
+        font-size: 1.25em;
     }
 }
 
-/*  Page ajout articles : Formulaire */
-
+/*  
+	III. PAGE AJOUT D'ARTICLES
+		1.FORMULAIRE
+*/
 
 form[name='blogbundle_article']{
     width: auto;
@@ -143,7 +162,7 @@ ul li a{
     color: white;
 }
 
-/* CSS en lien avec les inputs générés par Javascript */
+/* CSS des inputs générés par Javascript */
 
 .inputFileNoUpload{
     background: #b22222;
@@ -206,7 +225,10 @@ input[type="submit"]{
     margin-bottom: 20px;
 }
 
-/*  Page accueil */
+/*  
+	III PAGE D'ACCUEIL 
+*/
+
 .col-custom {
     margin: 5px 0 5px 0;
     background: #f8f8f8;
@@ -246,7 +268,9 @@ input[type="submit"]{
     padding: 10px;
 }
 
-/* page edit */
+/* 
+	IV. PAGE EDITION ARTICLES
+*/
 
 #alert-message p{
 	display: flex;
@@ -296,7 +320,9 @@ input[type="submit"]{
 	margin-bottom: 5px;
 }
 
-/* page presentation */
+/* 
+	V. PAGE PRESENTATION DU PROJET
+*/
 
 #presentation-form figure{
 	text-align: center;
