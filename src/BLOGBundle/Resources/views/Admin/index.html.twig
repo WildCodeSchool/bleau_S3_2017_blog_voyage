@@ -15,7 +15,7 @@
 		 <a href="#"><button class="btn btn-lg btn-danger">Abonnés newsletter</button></a>		 
 		 <a href="{{ path('admin_comments') }}"><button class="btn btn-lg btn-danger">Liste des commentaires</button></a>
          <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
-         <a href="#"><button class="btn btn-lg btn-danger">Déconnexion</button></a>
+         <a href="{{ path('blog_homepage') }}logout"><button class="btn btn-lg btn-danger">Déconnexion</button></a>
     </div>
 {% endblock %}
 

@@ -8,11 +8,4 @@ BLOGBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
-    fields:
-        pseudo:
-            type: string
-            length: 255
-        password:
-            type: string
-            length: 255
     lifecycleCallbacks: {  }
