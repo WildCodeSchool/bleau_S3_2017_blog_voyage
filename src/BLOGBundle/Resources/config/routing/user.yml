@@ -40,3 +40,8 @@ blog_newsletter:
     path: /newsLetter
     defaults:
         _controller: 'BLOGBundle:User:newsLetter'
+
+blog_newsletter_delete:
+    path: /newsLetterdelete
+    defaults:
+        _controller: 'BLOGBundle:User:newsLetterDelete'

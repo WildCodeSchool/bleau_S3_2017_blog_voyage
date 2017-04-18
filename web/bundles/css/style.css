@@ -561,8 +561,13 @@ figure img{
 
 
 .article-caption{
-    text-indent: 100%;
-    white-space: nowrap;
+    position: absolute;
+    top:0;
+    left:2.5%;
+    height: 100%;
+    width:95%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: transparent;
@@ -695,4 +700,16 @@ footer{
     color: white;
     font-size: 1.5em;
     text-align: center;
+}
+
+#alert-message p{
+    display: flex;
+    color: white;
+    align-items: center;
+    font-size: 1.5em;
+    height: 200px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    background: #b22222;
 }

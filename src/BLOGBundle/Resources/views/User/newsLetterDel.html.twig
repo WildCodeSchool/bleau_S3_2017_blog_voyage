@@ -1,0 +1,36 @@
+
+
+{% block form %}
+
+{% for flashes in app.session.flashbag.all %}
+    {% for flash in flashes %}
+        <div style="display: flex;
+    color: white;
+    align-items: center;
+    font-size: 1.5em;
+    height: 200px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    background: #b22222;">
+            <p>
+                {{ (flash) }}
+            </p>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+{% endblock %}
+
+{% block NewsLetterDel %}
+{{ form_start(form_del,  {'action': path('blog_newsletter_delete'), 'method': 'POST'}) }}
+<div id="form-lien">
+    {{ form_widget(form_del.lien, { 'attr': {'id': 'lien'} }) }}
+</div>
+<div id="form-envoyer">
+    {{ form_widget(form_del.envoyer, { 'attr': {'id': 'envoyer'} }) }}
+</div>
+{{ form_end(form_del) }}
+{% endblock %}
+
+

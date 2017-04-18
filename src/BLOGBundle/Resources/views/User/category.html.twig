@@ -18,5 +18,39 @@
     </div>
 {% endblock %}
 
-{%block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
+{% block container %}
+    <div class="container container-categ">
+        {% block row %}
+            {%  for categories in categ %}
+                <div class="row">
+                    <p>{{ categories.category }}</p>
 
+
+                    {% for articles in categories.article %}
+
+                        <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
+                            {% for image in articles.image %}
+                                {% if loop.first %}
+                                    <img src="{{ asset('bundles/images/'~image.src)}}" class="img-thu"/>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="article-caption">
+                                <h3>{{ articles.title }}</h3>
+                                <p>
+                                    {% for content in articles.content %}
+                                        {{ content.content }}
+                                    {% endfor %}
+                                </p>
+                                <a href="{{ path('blog_article', {id : articles.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                                <i>Publié le {{ articles.date.date|date('d/m/Y h:m:s') }} </i>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{%block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
