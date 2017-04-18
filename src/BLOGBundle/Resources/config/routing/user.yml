@@ -20,6 +20,13 @@ blog_category:
     defaults:
         _controller: 'BLOGBundle:User:category'
 
+
+blog_category_specifique:
+    path: /category/{category}
+    defaults:
+        _controller: 'BLOGBundle:User:viewCategory'
+
+
 blog_articles_by_date:
     path: /article/dates
     defaults:

@@ -1,0 +1,18 @@
+BLOGBundle\Entity\Presentation:
+    type: entity
+    table: null
+    repositoryClass: BLOGBundle\Repository\PresentationRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        image:
+            type: string
+            length: 255
+        presentation:
+            type: text
+        contributors:
+            type: text

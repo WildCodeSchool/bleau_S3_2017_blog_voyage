@@ -1,3 +1,4 @@
+
 {% extends 'layout.html.twig' %}
 
 {% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
@@ -5,9 +6,21 @@
 
 {% block form %}
 	<div class="menu menu-add">
-		<a href="{{ path('admin_index') }}"><button class="btn btn-large btn-danger"> Accueil </button></a>
-		<a href=""><button class="btn btn-large btn-danger"> Déconnexion </button></a>
+		<a href="{{ path('admin_index') }}"><button class="btn btn-lg btn-danger"> Accueil administration </button></a>
+		<a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
+		<a href="{{ path('blog_homepage') }}logout"><button class="btn btn-lg btn-danger"> Déconnexion </button></a>
 	</div>
+	
+	{% for flashes in app.session.flashbag.all %}
+		{% for flash in flashes %}
+			<div id="alert-message">
+				<p>
+					{{ (flash) }}
+				</p>	
+			</div>	
+		{% endfor %}
+	{% endfor %}
+	
 <div class="form">
     {{ form_start(form,{'attr': {'enctype': 'multipart/form-data'}}) }}
     <p>
@@ -28,14 +41,33 @@
 	</div>
 	{% endif %}
 
+	<div class="content-block">
+		<div style="background-color: white; margin: 25px 0px 50px;">
+			<p style="padding-top: 5px; padding-bottom: 5px;">
+				<label class="label-image">Image</label>
+				<input type="file" name="src[]" class="inputFileNoUpload" required="undefined">
+			</p>
+			<p style="margin: 25px 0px;">
+				<label for="first-text" class="label-text">Texte</label>
+				<textarea name="content[]" class="first-text" required></textarea>
+				<p style="display: flex; justify-content: space-around; margin: 0px auto; padding-bottom: 15px; padding-top: 15px;">
+					<button class="btn btn-lg btn-danger" id="text-bin">Vider le texte</button>
+				</p>
+			</p>
+		</div>
+	</div>
+	
 	<div id='buttonRange'>
-		<button class='picture btn btn-large btn-danger'>Nouvelle image</button>
-		<button class='text btn btn-large btn-danger'>Nouveau texte</button>
-		<button class='category btn btn-large btn-danger'>Nouvelle catégorie</button>
+		<button class='content btn btn-lg btn-primary'>Nouveau contenu</button>
+		<button class='category btn btn-lg btn-primary'>Nouvelle catégorie</button>
 	</div>
 
-    <label for="submit" id="label-submit"> Publier l'article </label>
-    <input type="submit" id="submit" class="btn btn-large btn-danger" value="Valider la création"/>
+
+	<label for="check" for="submit" id="label-submit"> Alerter mes abonnés </label>
+	<input type="checkbox" name="checked" id="check" checked/>
+	
+    <label for="submit1" id="label-submit"> Publier l'article </label>
+    <input type="submit" id="submit1" class="btn btn-lg btn-danger" value="Valider la création"/>
 
 	{{ form_end(form) }}
 

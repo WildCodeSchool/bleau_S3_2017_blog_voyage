@@ -6,16 +6,25 @@ namespace BLOGBundle\Controller;
 use BLOGBundle\Entity\Comments;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $local = $request->getLocale();
+
+
 		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
 
 		$articles = $em->myFindAll();
+		
+		if(count($articles) == 0)
+		{
+			return new Response("Page en cours de construction. Revenez plus tard :)");
+		}
 		
         return $this->render('BLOGBundle:User:index.html.twig', array(
 			'articles'=> $articles,
@@ -54,7 +63,17 @@ class UserController extends Controller
 
     public function presentationAction()
 	{
-		return $this->render('BLOGBundle:User:presentation.html.twig');
+		$em = $this->getDoctrine()->getManager();
+		$presentation = $em->getRepository('BLOGBundle:Presentation')->findAll();
+		
+		if(count($presentation) == 0)
+		{
+			return new Response("Page en cours de construction. Revenez plus tard :)");
+		}
+		
+		return $this->render('BLOGBundle:User:presentation.html.twig', array(
+			'presentation' => $presentation
+		));
 	}
 
     public function categoryAction(Request $request)
@@ -110,6 +129,11 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('BLOGBundle:Article');
 
+		if(count($articles) == 0)
+		{
+			return new Response("Page en cours de construction. Revenez plus tard :)");
+		}
+		
         // On donne les arguments à la méthode de recherche par date du Repository
         $articles = $articles->myFindByDateRange($start_conv, $end_conv);
 
