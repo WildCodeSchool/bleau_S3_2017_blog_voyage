@@ -3,8 +3,22 @@
 {% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
 {% block title %}Administration{% endblock%}
 
-{% block email %}
-    {%  for emails in email  %}
-        <p>{{ emails.lien }}</p>
-    {% endfor %}
+{% block container %}
+<div class="container">
+    <div class="well">
+        <div class="menu">
+            <a href="{{ path('admin_index') }}"><button class="btn btn-lg btn-danger">Accueil administration</button></a>
+            <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
+            <a href="{{ path('blog_homepage') }}logout"><button class="btn btn-lg btn-danger">Déconnexion</button></a>
+        </div>
+    </div>
+    <div class="well">
+        <h1>Abonnés à la newsletter</h1>
+        <div class="email">
+            {%  for email in emails  %}
+                   <p>{{ email.lien }}</p>
+             {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -23,8 +23,9 @@
         {% block row %}
             {%  for categories in categ %}
                 <div class="row">
-                    <p>{{ categories.category }}</p>
-
+                    <div class="well display-category">
+                    <h1>{{ categories.category }}</h1>
+                    </div>
 
                     {% for articles in categories.article %}
 
