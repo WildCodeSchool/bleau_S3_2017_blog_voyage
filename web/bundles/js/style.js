@@ -6,8 +6,7 @@
 // Définition des variables
 
 var sectionElt = document.getElementsByTagName('section');
-var articleElt = document.getElementsByClassName('item');
-var articleDescriptionElt = document.getElementsByClassName('article-caption');
+var articleElt = document.getElementsByClassName('article-custom');
 var imgElt = document.getElementsByClassName('image');
 var containerDateElt = document.getElementsByClassName('container-dates');
 var buttonPublishElt = document.getElementById('publish');
@@ -16,6 +15,8 @@ var formElt = document.querySelectorAll('.comments > form');
 var commentsElt = document.getElementsByClassName('comments-block');
 var modalImageElt = document.querySelectorAll('.modal-image > img');
 var bodyElt = document.getElementsByTagName('body');
+var articleCaptionButtonElts = document.querySelectorAll('.article-caption button');
+var buttonCrossElt = document.getElementsByClassName('button-cross');
 
 function load(){
     if (window.innerWidth >= 768) {
@@ -33,6 +34,12 @@ function load(){
             }
         }
     }
+	
+	if(window.innerWidth <=380){
+		for(i=0; i<articleCaptionButtonElts.length; i++){
+			articleCaptionButtonElts[i].className = "btn btn-sm btn-danger";
+		}
+	}
 }
 
 for(i=0; i<articleElt.length; i++){
@@ -55,7 +62,7 @@ if (sectionElt[0]) {
     sectionElt[0].style.height = window.innerWidth / 2.08 + 'px';
 }
 
-if(buttonPublishElt && buttonSeeElt){
+if(buttonPublishElt){
     buttonPublishElt.addEventListener('click', function(){
         if(formElt[0].classList.contains('show')){
             formElt[0].classList.remove('show');
@@ -66,7 +73,9 @@ if(buttonPublishElt && buttonSeeElt){
             buttonPublishElt.textContent = "Masquer le formulaire";
         }
     });
-
+}
+	
+if(buttonSeeElt){
     buttonSeeElt.addEventListener('click', function(){
         if(commentsElt[0].classList.contains('show')){
             commentsElt[0].classList.remove('show');
@@ -79,12 +88,21 @@ if(buttonPublishElt && buttonSeeElt){
     });
 }
 
+// Affichage en plein écran de(s) photo(s) de l'article
+
+
 if(modalImageElt){
     for(i=0; i<modalImageElt.length; i++){
         modalImageElt[i].addEventListener("click", function(e){
            this.parentNode.classList.add('modal-image-big');
            bodyElt[0].style.overflow = "hidden";
-
+		   buttonCrossElt[0].style.display = "block";
+		   
+		   buttonCrossElt[0].addEventListener("click", function(){
+			   this.parentNode.classList.remove('modal-image-big');
+			   bodyElt[0].style.overflow = "visible";
+			   this.style.display = "none";
+		   });
         });
     }
 }

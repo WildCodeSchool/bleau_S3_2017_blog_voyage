@@ -1,14 +1,32 @@
-// Sélection du formulaire
+// Identification du formulaire
 var formElt = document.querySelectorAll('.form > form');
 
-// Création bouton ajout d'images
-var buttonPictureElt = document.getElementsByClassName('picture');
+// Identification du bouton de suppression de texte du premier élément "textarea"
+// de la partie Add et de tous ceux de la partie Edit (lorsqu'on arrive sur la page"), si plusieurs textarea
+var resetElt = document.getElementsByClassName("text-trash");
+
+var resetFirstAddElt = document.getElementById("text-bin");
+
+// Identification du bouton de suppression de "Image + texte"
+var buttonRemoveContentElt = document.getElementsByClassName('remove-content');
+
+// Identification du bouton de suppression des blocs de mots clefs déjà présents dans edit
+var buttonDeleteKeyWordElt = document.getElementsByClassName('delete-keyword');
+
+// Identification du premier textarea
+var firstTextElt = document.getElementsByClassName("first-text");
+
+// Identification du bouton d'édition
+var buttonEditElt = document.getElementById('submit');
+
+// Création bouton ajout de contenu (image + texte)
+var buttonContentElt = document.getElementsByClassName('content');
 
 // Création bouton ajout de catégories
 var buttonCategoryElt = document.getElementsByClassName('category');
 
-// Création bouton ajout de textes
-var buttonTextElt = document.getElementsByClassName('text');
+// Identification de la balise qui contiendra les éléments images et textes
+var contentElt = document.getElementsByClassName('content-block');
 
 // Création de la div pour les mots-clefs/catégories
 var keywordRangeElt = document.createElement('div');
@@ -17,42 +35,93 @@ keywordRangeElt.setAttribute('id', 'keywordRange');
 // Sélection de la div comprenant les boutons d'ajout/soumission
 var buttonRangeElt = document.getElementById('buttonRange');
 
-var buttonRemoveImageElt = document.getElementsByClassName('remove-image');
-var buttonRemoveTextElt = document.getElementsByClassName('remove-text');
-
 // On insére la div contenant les mots-clefs avant la div contenant les boutons d'ajout/soumission
-buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
+if(buttonRangeElt){
+	buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
+}	
+
+// Si l'utilisateur clique sur le bouton "vider le texte" du premier élément contenu
+for(i=0; i<resetElt.length; i++){
+	resetElt[i].addEventListener("click", function(e){
+		e.preventDefault();
+		this.parentNode.parentNode.childNodes[3].childNodes[1].value="";
+	});
+}
+
+if(resetFirstAddElt){
+	resetFirstAddElt.addEventListener("click", function(e){
+		e.preventDefault();
+		this.parentNode.previousSibling.childNodes[3].value="";
+	});
+}
 
 
-
-// Ecoute du clic sur le bouton d'ajout d'images
-var k=1;
-buttonPictureElt[0].addEventListener('click', function(e){
-	// Evite la soumission automatique du formulaire.....
+// Ecoute du clic sur le bouton d'ajout de contenu
+buttonContentElt[0].addEventListener('click', function(e){
 	e.preventDefault();
-	
-    // Création de la balise p qui contiendra l'input type file
-    var pElt = document.createElement('p');
 
-    pElt.style.paddingTop = '5px';
-    pElt.style.paddingBottom = '5px';
+    // Création du bouton de suppression de la div de contenu
+    var buttonRemoveElt = document.createElement('button');
+    buttonRemoveElt.setAttribute('class', 'btn btn-lg btn-danger')
+    buttonRemoveElt.textContent = 'Supprimer Image + Texte';
+	if(window.innerWidth<480){
+		buttonRemoveElt.style.marginBottom = '10px';
+		buttonRemoveElt.style.width = '100%';
+	}
+
+///////////////////////////////////////////PARTIE TEXTE////////////////////////
+    var inputTextElt = document.createElement('textarea');
+    inputTextElt.setAttribute('name', 'content[]');
+    inputTextElt.setAttribute('class', 'first-text');
+
+    var pTextElt = document.createElement('p');
+    pTextElt.style.margin = "25px 0 25px 0";
+
+    var pTextElt2 = document.createElement('p');
+    pTextElt2.style.display = 'flex';
+    pTextElt2.style.flexWrap = 'wrap';
+    pTextElt2.style.justifyContent = 'space-around';
+    pTextElt2.style.margin = '0 auto';
+    pTextElt2.style.paddingBottom = '15px';
+    pTextElt2.style.paddingTop = '15px';
+
+    // Création du label pour l'input texte
+    var labelElt = document.createElement('label');
+    labelElt.setAttribute('class', 'label-text');
+    labelElt.textContent = 'Texte ';
+
+    // Création du bouton de suppression
+    var buttonResetElt = document.createElement('button');
+    buttonResetElt.setAttribute('class', 'btn btn-lg btn-danger');
+    buttonResetElt.textContent = 'Vider le texte';
 	
+	if(window.innerWidth<480){
+		buttonResetElt.style.width = '100%';
+	}
+
+	// On imbrique les éléments pour le texte
+    pTextElt.appendChild(labelElt);
+	pTextElt2.appendChild(buttonRemoveElt);
+    pTextElt2.appendChild(buttonResetElt);
+    pTextElt.appendChild(inputTextElt);
+    pTextElt.appendChild(pTextElt2);
+
+ //////////////////////////PARTIE IMAGE///////////////////////////////////////////////////////////
+
+    // Création de la balise p qui contiendra l'input type file
+    var pImgElt = document.createElement('p');
+
+    pImgElt.style.paddingTop = '5px';
+    pImgElt.style.paddingBottom = '5px';
+
+    // Création du label pour l'input image
 	var labelElt = document.createElement('label');
     labelElt.setAttribute('class', 'label-image');
-    labelElt.textContent = 'Image ' +k;
+    labelElt.textContent = 'Image ';
 
-    // Création de la balise p qui contiendra le bouton de suppression
-    var pElt2 = document.createElement('p');
-    pElt2.style.margin = '5px 0 0 0';
-    pElt2.style.textAlign = 'right';
+    /***************************************************************************/
+    // Création de l'input
     var inputImgElt = document.createElement('input');
-   
-    var buttonRemoveElt = document.createElement('button');
-    buttonRemoveElt.setAttribute('class', 'btn btn-large btn-danger')
-    buttonRemoveElt.textContent = 'Supprimer';
-    buttonRemoveElt.style.right = '0';
-
-    /*********************************************************************************************/
 
     function setAttributes(tab){
         // On récupère les attributs tab[i] et leur valeur tab[i+1] avec une boucle et on les intègre à l'input
@@ -62,24 +131,12 @@ buttonPictureElt[0].addEventListener('click', function(e){
     }
 	
     // On appelle la fonction et on lui envoie un tableau en argument
-    setAttributes(tab = ['type', 'file', 'name', 'src[]', 'class', 'inputFileNoUpload']);
+    setAttributes(tab = ['type', 'file', 'name', 'src[]', 'class', 'inputFileNoUpload', 'required']);
 
     /*********************************************************************************************/
 
-    pElt.appendChild(labelElt);
-	pElt.appendChild(inputImgElt);
-    pElt2.appendChild(buttonRemoveElt);
-    pElt.appendChild(pElt2);
-    buttonRangeElt.parentNode.insertBefore(pElt, buttonRangeElt);
-
-    // On retire l'input si clic sur bouton supprimer correspondant
-    buttonRemoveElt.addEventListener('click', function(e){
-		e.preventDefault();
-		if((labelElt.textContent).includes(''+k-1+'')){
-			k--;
-		}
-        buttonRangeElt.parentNode.removeChild(pElt);
-    });
+    pImgElt.appendChild(labelElt);
+    pImgElt.appendChild(inputImgElt);
 
     // On écoute si fichier upload vide ou non et change la classe en vert ou rouge selon les cas
     inputImgElt.addEventListener('change', function(e){
@@ -90,13 +147,41 @@ buttonPictureElt[0].addEventListener('click', function(e){
             this.className = 'inputFileNoUpload';
         }
     });
+
+    var divElt = document.createElement('div');
+    divElt.style.backgroundColor = "white";
+    divElt.style.margin = "25px 0 50px 0";
+    var pRemoveElt = document.createElement('p');
+
+
+    divElt.appendChild(pImgElt);
+    divElt.appendChild(pTextElt);
+    contentElt[0].appendChild(divElt);
+
+    buttonResetElt.addEventListener("click", function(e){
+        e.preventDefault();
+        inputTextElt.value = "";
+    });
+
+    // On retire le bloc de contenu si clic sur bouton supprimer correspondant
+    buttonRemoveElt.addEventListener('click', function(e){
+        e.preventDefault();
+		/*
+        if((labelElt.textContent).includes(''+k-1+'')){
+            k--;
+        }
+		*/
+        contentElt[0].removeChild(divElt);
+    });
 	
-	k++;
+	// k++;
 });
+
+///////////////////////////////PARTIE CATEGORIES///////////////////////////////////
 
 var j=1;
 buttonCategoryElt[0].addEventListener('click', function(e){
-	e.preventDefault(); // Ajouté cela empêche l'envoi automatique du formulaire sans appuyer pourtant sur le bouton submit
+	e.preventDefault(); 
 
     // Création de l'input et définition des attributs
     var inputElt = document.createElement('input');
@@ -108,7 +193,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
         }
     }
     // On appelle la fonction et on lui envoie un tableau en argument
-    setAttributes(tab = ['type' , 'text' , 'id' , 'category' , 'name' , 'category[]']);
+    setAttributes(tab = ['type' , 'text' , 'id' , 'category' , 'name' , 'category[]', 'required']);
 
     // Création du bouton de suppression
     var buttonRemoveElt = document.createElement('button');
@@ -153,7 +238,6 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     divElt.appendChild(pElt2);
 	keywordRangeElt.appendChild(divElt);
    
-
     buttonRemoveElt.addEventListener('click', function(e){
 		e.preventDefault();
         keywordRangeElt.removeChild(divElt);
@@ -215,60 +299,45 @@ buttonCategoryElt[0].addEventListener('click', function(e){
                 pElt.style.color = 'white';
             }
         }
-
     });
-
     j++;
 });
 
-var l=1;
-buttonTextElt[0].addEventListener("click", function(e){
-	e.preventDefault();
-	var inputTextElt = document.createElement('textarea');
-	var pElt = document.createElement('p');
-	var pElt2 = document.createElement('p');
-	pElt.style.margin = "25px 0 25px 0";
-	pElt2.style.textAlign = 'right';
-	pElt2.style.margin = '0 auto';
-
-	
-	var labelElt = document.createElement('label');
-	labelElt.setAttribute('class', 'label-text');
-	labelElt.textContent = 'Texte ' + l;
-	
-	 // Création du bouton de suppression
-    var buttonRemoveElt = document.createElement('button');
-    buttonRemoveElt.setAttribute('class', 'btn btn-large btn-danger');
-    buttonRemoveElt.textContent = 'Supprimer';
-	
-	inputTextElt.setAttribute('name', 'content[]');
-	pElt.appendChild(labelElt);
-	pElt2.appendChild(buttonRemoveElt);
-	pElt.appendChild(inputTextElt);
-	pElt.appendChild(pElt2);
-	buttonRangeElt.parentNode.insertBefore(pElt, buttonRangeElt);
-	
-	buttonRemoveElt.addEventListener('click', function(e){
+/// fichier d'édition  
+for(i=0; i<buttonDeleteKeyWordElt.length; i++){
+	buttonDeleteKeyWordElt[i].addEventListener("click", function(e){
 		e.preventDefault();
-		if((labelElt.textContent).includes(''+l-1+'')){
-			l--;
-		}
-		buttonRangeElt.parentNode.removeChild(pElt);
+		this.parentNode.remove();
 	});
-	
-	l++;
+}
+
+for(i=0; i<buttonRemoveContentElt.length; i++) {
+    buttonRemoveContentElt[i].addEventListener('click', function (e) {
+        e.preventDefault();
+        this.parentNode.remove();
+    });
+}
+
+// On vérifie s'il y a bien au moins un bloc "texte + image" envoyé dans le formulaire d'édition.
+
+var check = false;
+window.addEventListener("scroll", function(){
+	if(firstTextElt.length > 0){
+		check = true;
+		firstTextElt[0].required = true;
+	}
+	else{
+		check = false;
+	}
 });
 
-for(i=0; i<buttonRemoveImageElt.length; i++) {
-    buttonRemoveImageElt[i].addEventListener('click', function (e) {
-        e.preventDefault();
-        this.parentNode.remove();
-    });
+if(buttonEditElt){
+	buttonEditElt.addEventListener("click", function(e){
+		if(check == false){
+			e.preventDefault();
+			alert("Merci d'ajouter au moins une image et un texte");
+		}	
+	});
 }
 
-for(i=0; i<buttonRemoveTextElt.length; i++) {
-    buttonRemoveTextElt[i].addEventListener('click', function (e) {
-        e.preventDefault();
-        this.parentNode.remove();
-    });
-}
+

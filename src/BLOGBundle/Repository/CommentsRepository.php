@@ -10,7 +10,14 @@ namespace BLOGBundle\Repository;
  */
 class CommentsRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function myFindAll(){
+    public function myFindAllPublicated(){
+        $qb = $this->createQueryBuilder('comments');
+        $qb->where('comments.publication = :publication')
+            ->setParameter('publication', '1');
+        return $qb->getQuery()->getResult();
+    }
+
+    public function myFindAllNotPublicated(){
         $qb = $this->createQueryBuilder('comments');
         $qb->where('comments.publication = :publication')
             ->setParameter('publication', '0');

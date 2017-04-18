@@ -5,9 +5,21 @@
 
 {% block form %}
     <div class="menu menu-add">
-        <a href="{{ path('admin_index') }}"><button class="btn btn-large btn-danger"> Accueil </button></a>
-        <a href=""><button class="btn btn-large btn-danger"> Déconnexion </button></a>
+        <a href="{{ path('admin_index') }}"><button class="btn btn-lg btn-danger"> Accueil administration</button></a>
+		<a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
+        <a href="{{ path('blog_homepage') }}logout"><button class="btn btn-lg btn-danger"> Déconnexion </button></a>
     </div>
+	
+	{% for flashes in app.session.flashbag.all %}
+		{% for flash in flashes %}
+			<div id="alert-message">
+				<p>
+					{{ (flash) }}
+				</p>	
+			</div>	
+		{% endfor %}
+	{% endfor %}
+		
     <div class="form">
     {{ form_start(edit_form, {'attr': {'enctype': 'multipart/form-data'}}) }}
         <p>
@@ -15,33 +27,62 @@
             {{ form_errors(edit_form.title) }}
             {{ form_widget(edit_form.title) }}
         </p>
-        <div id="edit">
-        {% for image in article.image %}
-            {% for content in article.content %}
-                {% if content.id == image.id %}
-                    {% if image.src is not empty %}
-                       <div class="image-update">
-                           <img src="{{ asset('bundles/images/'~image.src ) }}"/>
-                           <input type="hidden" name="src[]" value="{{ image.src }}"/>
-                           <button class="btn btn-large btn-danger remove-image"> Supprimer l'image {{ loop.index }}</button>
-                       </div>
-                    {% endif %}
-                        <div class="text-update">
-                            <textarea name="content[]">{{ content.content }}</textarea>
-                            <button class="btn btn-large btn-danger remove-text"> Supprimer le texte {{ loop.index }} </button>
-                        </div>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-        </div>
+	
+		<div class="content-block">
+			{% for image in article.image %}
+				{% for content in article.content %}
+					{% if content.id == image.id %}
+					<div style="background: #f8f8f1; margin-bottom: 50px; padding: 5px; border: 1px solid #ccc;">
+						<div class="image-update">
+							<img src="{{ asset('bundles/images/'~image.src ) }}" class="edit-img"/>
+							<input type="hidden" name="src[]" value="{{ image.src }}"/>
+						</div>
+						<div class="text-update">
+							<textarea name="content[]" class="first-text">{{ content.content }}</textarea>
+							<button class="btn btn-lg btn-danger text-trash"> Vider le texte </button>
+						</div>
+					<button class="btn btn-lg btn-danger remove-content"> Supprimer Image + texte </button>
+					</div>	
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		</div>
+		
+		<div style="margin-bottom: 30px;">
+			<p style="text-align: center; background: white; font-size: 1.25em; font-weight: bold; color: #333; padding: 10px;">
+				Mots clefs associés à l'article
+			</p>
+			{% for category in article.category|sort %}
+				<p style="margin-bottom: 15px; background: #f8f8f1; padding: 5px;">
+					<label for="keyword">Mot clef {{ loop.index }} </label>
+					<input type="text" name="category[]" value="{{ category.category }}"/>
+					<button class="btn btn-danger delete-keyword"> Supprimer </button>
+				</p>
+			{% endfor %}
+		</div>
 
-        <div id='buttonRange'>
-            <button class='picture btn btn-large btn-danger'>Nouvelle image</button>
-            <button class='text btn btn-large btn-danger'>Nouveau texte</button>
-            <button class='category btn btn-large btn-danger'>Nouvelle catégorie</button>
-        </div>
+       	<div id='buttonRange'>
+			<button class='content btn btn-lg btn-primary'>Nouveau contenu</button>
+			<button class='category btn btn-lg btn-primary'>Nouvelle catégorie</button>
+		</div>
+		
+		<label for="check" for="submit" id="label-submit"> Alerter mes abonnés </label>
+		<input type="checkbox" name="checked" id="check" {% if article.newsletter == '1' %} checked {% endif %}/>
+		
+		{% if article.newsletter == '1' %} 
+			<p style="margin-top: 10px; background: green; color: white; text-align: center; padding: 5px 0 5px 0">
+				La newsletter a été envoyée pour cet article.
+			</p> 
+		{% endif %}
+		
+		{% if article.newsletter == '0' %} 
+			<p style="margin-top: 10px; background: #b22222; color: white; text-align: center; padding: 5px 0 5px 0">
+				La newsletter n'a pas été envoyée pour cet article
+			</p> 
+		{% endif %}
+		
         <label for="submit" id="label-submit"> Editer l'article </label>
-        <input type="submit" id="submit" class="btn btn-large btn-danger" value="Editer"/>
+        <input type="submit" id="submit" class="btn btn-lg btn-danger" value="Editer"/>
 
     {{ form_end(edit_form) }}
 
@@ -49,3 +90,4 @@
 {% endblock %}
 
 {% block javascript %}{{ asset('bundles/js/form.js') }}{% endblock %}
+{% block javascript_Admin_Index %} {{ asset('bundles/js/flash.js') }} {% endblock %}

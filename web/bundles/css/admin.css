@@ -1,12 +1,25 @@
-/*
+/*  SOMMAIRE
 
-1. Menu
-2. Container
+I.  ELEMENTS COMMUNS AUX PAGES DE LA PARTIE ADMIN
+		1. MENU
+		2. CONTAINER
+
+II.  PAGE AJOUT D'ARTICLES
+		1. FORMULAIRE
+
+III. PAGE D'ACCUEIL
+
+IV.  PAGE EDITION ARTICLES
+
+V.	 PAGE PRESENTATION DU PROJET
 
 */
 
 
-/* 1. Menu */
+/* 
+I.  ELEMENTS COMMUNS AUX PAGES DE LA PARTIE ADMIN
+	1. MENU 
+*/
 
 .menu{
     display: flex;
@@ -21,10 +34,9 @@
 
 .menu-add{
     justify-content: space-between;
-
 }
 
-@media all and (max-width: 480px){
+@media all and (max-width: 680px){
     .menu{
         display: block;
     }
@@ -34,23 +46,22 @@
         margin: 7px 0 7px 0;
     }
 
-    .menu-add{
-        display: flex;
-        justify-content: space-between;
-    }
-
     .menu-add button{
-        width: auto;
+        width: 100%;
     }
 }
 
-/* Container */
+/* 
+	2. CONTAINER 
+*/
 
 h1{
-    background: #eee;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
+	background: #eee;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	padding: 20px;
 }
 
 @media all and (max-width: 600px){
@@ -61,12 +72,14 @@ h1{
 
 @media all and (max-width: 480px){
     h1{
-        font-size: 1.5em;
+        font-size: 1.25em;
     }
 }
 
-/*  Page ajout articles : Formulaire */
-
+/*  
+	III. PAGE AJOUT D'ARTICLES
+		1.FORMULAIRE
+*/
 
 form[name='blogbundle_article']{
     width: auto;
@@ -86,7 +99,7 @@ form[name='blogbundle_article']{
     border-radius: 10px;
 }
 
-@media all and (max-width: 480px){
+@media all and (max-width: 680px){
     #buttonRange{
         flex-wrap: wrap;
     }
@@ -124,7 +137,7 @@ textarea{
 .label-category,
 .label-image,
 .label-text{
-    background: black;
+    background: #555;
     color: white;
     padding: 5px;
     width: 100%;
@@ -149,7 +162,7 @@ ul li a{
     color: white;
 }
 
-/* CSS en lien avec les inputs générés par Javascript */
+/* CSS des inputs générés par Javascript */
 
 .inputFileNoUpload{
     background: #b22222;
@@ -195,6 +208,7 @@ ul li a{
     }
 }
 
+input[type="checkbox"],
 input[type="submit"]{
     display: block;
     margin: 0 auto;
@@ -211,7 +225,10 @@ input[type="submit"]{
     margin-bottom: 20px;
 }
 
-/*  Page accueil */
+/*  
+	III PAGE D'ACCUEIL 
+*/
+
 .col-custom {
     margin: 5px 0 5px 0;
     background: #f8f8f8;
@@ -251,24 +268,89 @@ input[type="submit"]{
     padding: 10px;
 }
 
-/* page edit */
+/* 
+	IV. PAGE EDITION ARTICLES
+*/
 
-#edit{
-    width: 70%;
-    margin: 0 auto;
+#alert-message p{
+	display: flex;
+	color: white;
+	align-items: center;
+	font-size: 1.5em;
+	height: 200px;
+	width: 100%;
+	margin: 0 auto;
+	justify-content: center;
+	background: #b22222;
 }
 
-#edit img{
-    width: 100%;
+.edit-img{
+	display: block;
+	width: 50%;
+	margin: 0 auto;
+}
+
+.first-text{
+	width: 100%;
+	margin: 0 auto;
+	height: 200px;
+	margin-bottom: 10px;
+}
+
+.text-update{
+	text-align: center;
+    margin-bottom: 25px;
 }
 
 @media all and (max-width: 767px){
-    #edit{
-        width: 100%;
-    }
+	.edit-img{
+		width: 100%;
+	}
+	
+	.first-text{
+		width: 100%;
+	}
+	
+	.text-update{
+		text-align: right;
+	}	
 }
 
-.image-update,
-.text-update{
-    margin-bottom: 25px;
+.image-update{
+	margin-bottom: 5px;
+}
+
+/* 
+	V. PAGE PRESENTATION DU PROJET
+*/
+
+#presentation-form figure{
+	text-align: center;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+#presentation-form figcaption{
+	padding: 20px;
+	margin-bottom: 10px;
+	font-size: 1.5em;
+	font-weight: bold;
+	background: #eee;
+	color: #333;
+}
+
+#presentation-form img{
+	width: 50%;
+}
+
+@media all and (max-width: 1024px){
+	#presentation-form img{
+		width: 60%;
+	}
+}
+
+@media all and (max-width: 767px){
+	#presentation-form img{
+		width: 100%;
+	}
 }

@@ -14,12 +14,14 @@ BLOGBundle\Entity\Article:
             length: 255
         date:
             type: datetime
+        newsletter:
+            type: boolean
 
     manyToMany:
         category:
             targetEntity: BLOGBundle\Entity\Category
             mappedBy: article
-            cascade: ["persist","remove"]
+            cascade: ["persist"]
 
     oneToMany:
         image:

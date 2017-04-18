@@ -20,6 +20,10 @@ admin_profil:
     path:     /profil
     defaults: { _controller: "BLOGBundle:Admin:profil" }
 
+admin_profil_edit:
+    path:     /profil/edit
+    defaults: { _controller: "BLOGBundle:Admin:profilEdit" }
+
 admin_comments:
     path:     /comments
     defaults: { _controller: "BLOGBundle:Admin:comment" }
@@ -27,6 +31,14 @@ admin_comments:
 admin_comments_validation:
     path:     /comments/{id}
     defaults: { _controller: "BLOGBundle:Admin:commentValidation" }
+
+admin_comments_unvalidation:
+    path:     /commentsHide/{id}
+    defaults: { _controller: "BLOGBundle:Admin:commentUnvalidation" }
+    
+admin_comments_delete:
+    path:     /comments/delete/{id}
+    defaults: { _controller: "BLOGBundle:Admin:commentDelete" }    
 
 admin_newsletter:
     path:     /newsletter

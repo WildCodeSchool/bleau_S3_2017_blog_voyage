@@ -6,47 +6,69 @@
 {% block add %}
     <div class="menu">
          <a href="{{ path('admin_add') }}"><button class="btn btn-lg btn-danger">Ajouter un article</button></a>
-         <a href="{{ path('admin_profil') }}"><button class="btn btn-lg btn-danger">Profil</button></a>
-         <a href="{{ path('admin_newsletter') }}"><button class="btn btn-lg btn-danger">Abonnés newsletter</button></a>
-         <a href="#"><button class="btn btn-lg btn-danger">Déconnexion </button></a>
+		 {% if profil is empty %}
+			<a href="{{ path('admin_profil') }}"><button class="btn btn-lg btn-danger">Créer ma présentation</button></a>
+		 {% endif %}
+		 {% if profil is not empty %}
+			<a href="{{ path('admin_profil_edit') }}"><button class="btn btn-lg btn-danger">Editer ma présentation</button></a>
+		 {% endif %}
+		 <a href="{{ path('fos_user_change_password') }}"><button class="btn btn-lg btn-danger"> Changer mon mot de passe </button></a>		 
+		 <a href="#"><button class="btn btn-lg btn-danger">Abonnés newsletter</button></a>		 
+		 <a href="{{ path('admin_comments') }}"><button class="btn btn-lg btn-danger">Liste des commentaires</button></a>
+         <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
+         <a href="{{ path('blog_homepage') }}logout"><button class="btn btn-lg btn-danger">Déconnexion</button></a>
     </div>
 {% endblock %}
 
 {% block container %}
     <div class="container">
-        <div class="row row-custom">
-            <div class="col-xs-12">
-                {% if comments|length !=0 %}
-                <b> {{ comments|length }} commentaire(s) à valider </b>
-
-                    <a href="{{ path('admin_comments') }}"><button class="btn btn-large btn-warning">Valider les commentaires</button></a>
-                {% endif %}
-            </div>
+		{% for flashes in app.session.flashbag.all %}
+			{% for flash in flashes %}
+				<div id="alert-message">
+					<p>
+						{{ (flash) }}
+					</p>	
+				</div>	
+			{% endfor %}
+		{% endfor %} 
+		{% if comments is not empty %}
+			<div class="row row-custom">
+				<div class="col-xs-12">
+					<b> {{ comments|length }} commentaire(s) à valider </b>
+						<a href="{{ path('admin_comments') }}"><button class="btn btn-warning">Valider les commentaires</button></a>
+				</div>
+		{% endif %}		
         </div>
         <div class="row">
             <h1> Liste des derniers articles publiés </h1>
+		</div>	
             {% for article in articles %}
-                <div class="col-xs-12 col-custom">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            {%  for image in article.image %}
-                                {% if loop.first %}
-                                    <img src="{{ asset('bundles/images/'~image.src) }}" class="image-admin"/>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="col-xs-5 col-title">
-                            <b>Titre : </b>{{ article.title }} <br/><br />
-                            <b>Publié le : </b> {{ article.date.date|date('d/m/Y') }}
-                        </div>
-
-                        <div class="col-xs-3">
-                            <a href="{{ path('admin_edit', {id : article.id }) }}"><button class="btn btn-medium btn-success"> Editer </button></a>
-                            <a href="{{ path('admin_delete', {id : article.id }) }}"><button class="btn btn-large btn-danger"> Supprimer </button></a>
-                        </div>
-                    </div>
-                </div>
+				<div class="row">
+					<div class="col-xs-12 col-custom">
+						<div class="row" ">
+							<div class="col-xs-offset-1 col-xs-3">
+								{%  for image in article.image %}
+									{% if loop.first %}
+										<img src="{{ asset('bundles/images/'~image.src) }}" class="image-admin"/>
+									{% endif %}
+								{% endfor %}
+							</div>
+							<div class="col-xs-8 col-title">
+								<b>Titre : </b>{{ article.title }} <br/>
+								<b>Publié le : </b> {{ article.date.date|date('d/m/Y') }}
+							</div>
+						</div>
+						<div class="row" style="margin-bottom: 15px; padding: 10px; text-align: center;">
+							<div class="col-xs-offset-3 col-xs-6">
+								<a href="{{ path('admin_edit', {id : article.id }) }}"><button class="btn btn-success"> Editer </button></a>
+								<a href="{{ path('admin_delete', {id : article.id }) }}"><button class="btn btn-danger"> Supprimer </button></a>
+							</div>
+						</div>
+					</div>
+				</div>	
             {% endfor %}
         </div>
     </div>
 {% endblock %}
+
+{% block javascript_Admin_Index %} {{ asset('bundles/js/flash.js') }} {% endblock %}

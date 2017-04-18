@@ -1,0 +1,49 @@
+{% extends "layout.html.twig" %}
+
+{% block style %}{{ asset('bundles/css/admin.css') }} {% endblock %}
+
+{% block form %}
+    <div class="menu menu-add">
+        <a href="{{ path('admin_index') }}"><button class="btn btn-lg btn-danger"> Accueil administration</button></a>
+        <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
+        <a href="{{ path('blog_homepage') }}logout"><button class="btn btn-lg btn-danger"> Déconnexion </button></a>
+    </div>
+	
+	{% for flashes in app.session.flashbag.all %}
+		{% for flash in flashes %}
+			<div id="alert-message">
+				<p>
+					{{ (flash) }}
+				</p>	
+			</div>	
+		{% endfor %}
+	{% endfor %}
+	
+    {{ form_start(form, {'attr' : {'id' : 'presentation-form', 'enctype' : 'multipart/form-data'} } ) }}
+    <p>
+		<figure>
+			<figcaption> Ma photo de profil </figcaption>
+			{% if presentation.image is not empty %}
+				<img src="{{ asset('bundles/images/'~presentation.image) }}"/>
+			{% endif %}	
+		</figure>	
+        <label for="image" class="label-titre"> Modifier l'image de profil </label>
+        <input type="file" name="image" />
+    </p>
+    <p>
+        {{ form_label(form.presentation, 'Présentation du projet', {'label_attr' : {class : 'label-titre'}} ) }}
+        {{ form_errors(form.presentation) }}
+        {{ form_widget(form.presentation) }}
+    </p>
+    <p>
+        {{ form_label(form.contributors, 'Remerciements', {'label_attr' : {class : 'label-titre'}} ) }}
+        {{ form_errors(form.contributors) }}
+        {{ form_widget(form.contributors) }}
+    </p>
+    <p>
+        <input type="submit" class="btn btn-lg btn-danger"/>
+    </p>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascript_Admin_Index %} {{ asset('bundles/js/flash.js') }} {% endblock %}
