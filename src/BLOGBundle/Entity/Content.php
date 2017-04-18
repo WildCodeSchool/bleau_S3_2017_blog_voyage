@@ -80,4 +80,33 @@ class Content
     {
         return $this->article;
     }
+    /**
+     * @var string
+     */
+    private $contentES;
+
+
+    /**
+     * Set contentES
+     *
+     * @param string $contentES
+     *
+     * @return Content
+     */
+    public function setContentES($contentES)
+    {
+        $this->contentES = $contentES;
+
+        return $this;
+    }
+
+    /**
+     * Get contentES
+     *
+     * @return string
+     */
+    public function getContentES()
+    {
+        return $this->contentES;
+    }
 }

@@ -16,14 +16,6 @@ class UserController extends Controller
 {
     public function indexAction(Request $request)
     {
-
-        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
-        $articles = $em->myFindAll();
-
-
-        $local = $request->getLocale();
-
-
 		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
 
 		$articles = $em->myFindAll();

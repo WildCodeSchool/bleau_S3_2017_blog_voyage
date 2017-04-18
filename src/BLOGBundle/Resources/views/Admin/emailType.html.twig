@@ -1,12 +1,14 @@
 
 
         <div style="" >
-            <h1>{{ article_mail.title }}</h1>
+            <h1>{{ article_mail.titleFr }}</h1>
+            <h1>{{ article_mail.titleEs }}</h1>
 
             <img src="{{img}}" style="height: 400px" class="img-thu"/>
 
             <div style="">
                 <p>{{ article_mail.content[0].content }}</p>
+                <p>{{ article_mail.content[0].contentEs }}</p>
                 <p>Catégories correspondant à l'article :
                     {% for cat in article_mail.category %}
                         {% if loop.last %}

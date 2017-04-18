@@ -44,10 +44,10 @@ function load(){
 
 for(i=0; i<articleElt.length; i++){
     articleElt[i].addEventListener('mouseover', function(){
-        this.lastElementChild.classList.add('article-caption-show');
+        this.lastElementChild.classList.add('article-custom-show');
     });
     articleElt[i].addEventListener('mouseleave', function(){
-        this.lastElementChild.classList.remove('article-caption-show');
+        this.lastElementChild.classList.remove('article-custom-show');
     });
 }
 

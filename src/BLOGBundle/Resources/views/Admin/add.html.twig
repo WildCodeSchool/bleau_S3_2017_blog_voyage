@@ -25,18 +25,31 @@
 
     {{ form_start(form,{'attr': {'enctype': 'multipart/form-data'}}) }}
     <p>
-        {{ form_label(form.title, "Titre de l'article", {'label_attr' : {class:"label-titre" }} ) }}
-        {{ form_errors(form.title) }}
-        {{ form_widget(form.title) }}
+        {{ form_label(form.titleFr, "Titre de l'article", {'label_attr' : {class:"label-titre" }} ) }}
+        {{ form_errors(form.titleFr) }}
+        {{ form_widget(form.titleFr) }}
+	</p>
+	
+	<p>
+        {{ form_label(form.titleEs, "Título del artículo", {'label_attr' : {class:"label-titre" }} ) }}
+        {{ form_errors(form.titleEs) }}
+        {{ form_widget(form.titleEs) }}
 	</p>
 	
 	{% if keyword !=null %} 
 	<div id='categoryList'>
-		<label for="content" class="label-category"> Catégories existantes </label>
-		<select name='category[]' id='content' multiple="true">
+		<label for="content" class="label-category"> Catégories existantes Fr </label>
+		<select name='categoryFr[]' id='content' multiple="true">
 				<option value="" selected> Choisir une catégorie </option>
 			{% for key in keyword %}
 				<option value='{{ key.category }}'/>{{ key.category }}</option>
+			{% endfor %}
+		</select>
+		<label for="content" class="label-category"> Categorías existentes </label>
+		<select name='categoryEs[]' id='content' multiple="true">
+				<option value="" selected> Escoger una categoria </option>
+			{% for key in keyword %}
+				<option value='{{ key.categoryEs }}'/>{{ key.categoryEs }}</option>
 			{% endfor %}
 		</select>
 	</div>
@@ -49,8 +62,15 @@
 				<input type="file" name="src[]" class="inputFileNoUpload" required="undefined">
 			</p>
 			<p style="margin: 25px 0px;">
-				<label for="first-text" class="label-text">Texte</label>
-				<textarea name="content[]" class="first-text" required></textarea>
+				<label for="first-text" class="label-text">Texte en français</label>
+				<textarea name="contentFr[]" class="first-text" required></textarea>
+				<p style="display: flex; justify-content: space-around; margin: 0px auto; padding-bottom: 15px; padding-top: 15px;">
+					<button class="btn btn-lg btn-danger" id="text-bin">Vider le texte</button>
+				</p>
+			</p>
+			<p style="margin: 25px 0px;">
+				<label for="first-text" class="label-text">Texto en español</label>
+				<textarea name="contentEs[]" class="first-text" required></textarea>
 				<p style="display: flex; justify-content: space-around; margin: 0px auto; padding-bottom: 15px; padding-top: 15px;">
 					<button class="btn btn-lg btn-danger" id="text-bin">Vider le texte</button>
 				</p>
