@@ -278,7 +278,7 @@ class AdminController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager();
-            var_dump($request->request);
+
 
             // On récupères les images de l'article édité
             foreach($article->getImage() as $image)

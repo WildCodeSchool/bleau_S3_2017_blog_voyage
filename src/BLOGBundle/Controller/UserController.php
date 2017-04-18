@@ -165,6 +165,16 @@ class UserController extends Controller
             'form_news' => $form->createView()
         ));
     }
+    public function newsLetterDeleteAction(Request $request, $newsLetter_email)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $email = $em->getRepository('BLOGBundle:NewsLetter')->findOneBy($newsLetter_email);
+        $em->remove($email);
+        $em->flush($email);
+
+        return $this->redirectToRoute('blog_homepage');
+    }
     public function contactAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
