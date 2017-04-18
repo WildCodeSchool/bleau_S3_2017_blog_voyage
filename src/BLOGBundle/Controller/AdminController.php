@@ -899,7 +899,7 @@ class AdminController extends Controller
 
 
         return $this->render('@BLOG/Admin/newsletter.html.twig', array(
-            'email' => $email
+            'email' => $email));
     }
 
     public function profilEditAction(Request $request){
