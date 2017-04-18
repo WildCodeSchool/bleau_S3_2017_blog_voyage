@@ -12,8 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $local = $request->getLocale();
+
+
 		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
 		$articles = $em->myFindAll();
 		

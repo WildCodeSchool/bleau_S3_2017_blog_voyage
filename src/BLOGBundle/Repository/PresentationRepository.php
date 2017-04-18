@@ -10,4 +10,12 @@ namespace BLOGBundle\Repository;
  */
 class PresentationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function MyFindOne(){
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p')
+            ->setMaxResults(1);
+    return $qb->getQuery()->getOneOrNullResult();
+    }
+
+
 }

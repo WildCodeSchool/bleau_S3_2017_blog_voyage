@@ -24,11 +24,16 @@
     </section>
 {% endblock %}
 
+{% block map %}
+	<div id="map"></div>
+{% endblock %}
+
 {% block h1 %}
     <h1>ROAD SHOW</h1>
 {% endblock %}
 
 {% block container %}
+    
     <div class="container container-homepage">
         {% block row %}
             <div class="row">
@@ -57,4 +62,17 @@
 {% endblock %}
 
 {%block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
+{% block googleMapJS %} 
+
+ <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+
+{% endblock %}
 

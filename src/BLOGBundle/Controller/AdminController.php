@@ -26,7 +26,8 @@ class AdminController extends Controller
     {
         // On se connecte à la bdd
         $em = $this->getDoctrine()->getManager();
-       
+
+
 	   // On récupère tous les éléments de la table Article
         $articles = $em->getRepository('BLOGBundle:Article');
 		$articles = $articles->myFindAll();
@@ -844,7 +845,7 @@ class AdminController extends Controller
 
     public function profilEditAction(Request $request){
         $em = $this->getDoctrine()->getManager();
-        $presentation = $em->getRepository('BLOGBundle:Presentation')->findOneById(1);
+        $presentation = $em->getRepository('BLOGBundle:Presentation')->myFindOne();
 
         $form = $this->createForm(FormType::class, $presentation)
             ->add('presentation')
