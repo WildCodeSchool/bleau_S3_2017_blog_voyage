@@ -2,22 +2,31 @@
 
 namespace BLOGBundle\Form;
 
-use BLOGBundle\Entity\Article; // Ajouté
 use Symfony\Component\Form\AbstractType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class ArticleType extends AbstractType
+class ContactType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title');
+        $builder->add('sujet')
+            ->add('nom')
+            ->add('prenom')
+            ->add('contenu')
+            ->add('email',EmailType::class
+                ,array(
+                    'required'    => false
+   ))
+            ->add('envoyer', SubmitType::class, array(
+                'attr' => array('class' => 'envoyer')
+            ))
+        ;
     }
     
     /**
@@ -26,7 +35,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BLOGBundle\Entity\Article'
+            'data_class' => 'BLOGBundle\Entity\Contact'
         ));
     }
 
@@ -35,7 +44,7 @@ class ArticleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'blogbundle_article';
+        return 'blogbundle_contact';
     }
 
 

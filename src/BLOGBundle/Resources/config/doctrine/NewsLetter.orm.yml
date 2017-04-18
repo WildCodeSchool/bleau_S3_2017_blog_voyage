@@ -1,0 +1,16 @@
+BLOGBundle\Entity\NewsLetter:
+    type: entity
+    table: null
+    repositoryClass: BLOGBundle\Repository\NewsLetterRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        lien:
+            type: string
+            length: 255
+            unique: true
+    lifecycleCallbacks: {  }

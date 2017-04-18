@@ -227,9 +227,56 @@ class AdminController extends Controller
 			}
 			*/
 
+
+//			  mise en place de l'envoi swiftmailer
+//            if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie
+
+//            recupérer directement le dernier article
+         $article_mail = $article;
+
+         $object_cat = $article_mail->getCategory();
+         $subject = $object_cat[0]->getCategory();
+         $image_mail = $article_mail->getImage();
+         $image_mails = $image_mail[0]->getSrc();
+
+         //recuperer chaque addresse mail a qui envoyer l'article
+//            $em = $this->getDoctrine()->getManager();
+//           $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+//
+//            foreach($email as $emails)
+//            {
+//                $lien[] = $emails->getLien();
+//            }
+
+
+//            Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject($subject)
+                ->setFrom('vincentchristophe177@gmail.com')
+                ->setTo('vincentchristophe177@gmail.com');
+//                ->setTo('$email')
+//ici j'ajoute des images a ma vue
+            $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
+
+            $message->setBody(
+//
+                    $this->renderView(
+                        '@BLOG/Admin/emailType.html.twig',
+                        array('img' => $img,
+                            'article_mail' => $article_mail)
+                    ),
+                    'text/html'
+                );
+            ;
+
+           $this->get('mailer')->send($message);
+
              // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
             $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
 			return $this->redirectToRoute('admin_index');
+
         }
 
         return $this->render('@BLOG/Admin/add.html.twig', array(
@@ -261,6 +308,7 @@ class AdminController extends Controller
         $editForm->handleRequest($request);
 		
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
             
 			$this->getDoctrine()->getManager();
 			
@@ -779,7 +827,8 @@ class AdminController extends Controller
         ));
     }
 
-    public function commentValidationAction($id){
+    public function commentValidationAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $comment = $em->getRepository("BLOGBundle:Comments")->findOneById($id);
@@ -843,6 +892,16 @@ class AdminController extends Controller
         ));
     }
 
+    public function newsletterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+
+
+        return $this->render('@BLOG/Admin/newsletter.html.twig', array(
+            'email' => $email));
+    }
+
     public function profilEditAction(Request $request){
         $em = $this->getDoctrine()->getManager();
         $presentation = $em->getRepository('BLOGBundle:Presentation')->myFindOne();
@@ -887,4 +946,5 @@ class AdminController extends Controller
             'presentation' => $presentation
         ));
     }
+
 }

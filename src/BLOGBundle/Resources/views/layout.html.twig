@@ -16,7 +16,9 @@
                     <li><a href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
                     <li><a href="#">Catégories</a></li>
                     <li><a href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{{ path('blog_contact') }}">Contact</a></li>
+                    <li>  {{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
+
                 </ul>
             </div>
         </nav>
@@ -36,7 +38,9 @@
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Catégories</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_contact') }}">Contact</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1">{{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
+
                     </ul>
                 </div>
             </div>

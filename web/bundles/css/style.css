@@ -4,18 +4,19 @@
 3. CONTAINER
 4. FOOTER
 */
-
 /*
-1.BODY
- */
+
+1. BODY
+
+*/
 
 body{
     font-family: 'Dancing Script', cursive;
     padding: 0;
     margin: 0;
     position: relative;
-}
 
+}
 /*
 2. NAVBAR
 */
@@ -124,11 +125,6 @@ h2{
     padding: 0;
 }
 
-.picture-caption a {
-    color: white;
-    font-size: 2em;
-    text-decoration: none;
-}
 
 .btn-custom{
     font-size: 1em;
@@ -166,6 +162,7 @@ h1{
     }
 }
 
+
 /*
 3. CONTAINER
 */
@@ -174,9 +171,12 @@ h1{
     margin-bottom: 50px;
 }
 
+
 .container-homepage{
     background-size: cover;
     width: 100%;
+
+
 }
 
 /* 3.1 
@@ -194,6 +194,7 @@ Container des pages /Articles/id,  /dates  et /presentation */
 	width: 100%;
 	border: 10px solid white;
 	outline: 1px solid #c8c8c8;
+
 }
 
 .container-dates input[type="submit"]{
@@ -209,6 +210,51 @@ Container des pages /Articles/id,  /dates  et /presentation */
 	margin-bottom: 0;
 	text-align: justify;
 }
+/*
+Page Contact
+
+*/
+
+.container-contact
+{
+    margin-top: 50px;
+}
+
+/*
+Page Category
+
+*/
+.container-categ{
+    margin-bottom: 50px;
+}
+.form-cat
+{
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+/*
+Newsletter
+
+*/
+#form-lien
+{
+display: inline-block;
+
+    font-size: 1em;
+}
+#form-lien input
+{
+
+
+    font-size: 1em;
+}
+#form-envoyer
+{
+    display: inline-block;
+}
+
 
 .presentation-section-title{
 	background: #f9f9f9;
@@ -510,16 +556,13 @@ figure img{
     width: auto;
     height: 100%;
     margin: 0 auto;
+
 }
 
+
 .article-caption{
-    position: absolute;
-    top: 0;
-    left: 2.5%;
-    height: 100%;
-    width: 95%;
-    display: flex;
-    flex-direction: column;
+    text-indent: 100%;
+    white-space: nowrap;
     align-items: center;
     justify-content: center;
     color: transparent;
@@ -571,9 +614,11 @@ figure img{
 /* classe ajoutée à article-caption lorsque la souris passe sur l'article (mouseover) */
 
 .article-caption-show{
+
     background: black;
     transition: 1s;
     color: white;
+    overflow: visible;
 }
 
 .article-caption-show a{
@@ -584,6 +629,42 @@ figure img{
     display: block;
     color: white;
 }
+
+
+@media only screen and (min-width: 700px) {
+    .masonry {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .masonry {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    .masonry {
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .wrapper {
+        width: 1260px;
+    }
+}
+
+/*
+Newsletter
+
+*/
 
 .newsletter{
     font-size: 2.5em;
@@ -600,6 +681,8 @@ figure img{
 .newsletter input[type='submit']{
     font-size: .8em;
 }
+
+
 
 /*
 4. FOOTER

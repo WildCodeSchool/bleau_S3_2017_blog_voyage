@@ -1,6 +1,7 @@
 {% extends 'BLOGBundle::layout.html.twig' %}
 
 {% block section %}
+    {%  if articles is defined %}
     <section>
         {% set breack = false %}
         {% if breack == false %}
@@ -22,6 +23,8 @@
                 </figcaption>
         {% endif %}
     </section>
+{% endif %}
+
 {% endblock %}
 
 {% block map %}
@@ -56,6 +59,7 @@
                         </div>
                     </div>
                 {% endfor %}
+
             </div>
         {% endblock %}
     </div>

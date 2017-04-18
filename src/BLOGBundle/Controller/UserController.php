@@ -2,32 +2,40 @@
 
 namespace BLOGBundle\Controller;
 
+
 use BLOGBundle\Entity\Comments;
+use BLOGBundle\Entity\Contact;
+use BLOGBundle\Entity\NewsLetter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
 class UserController extends Controller
 {
     public function indexAction(Request $request)
     {
+
+        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
+        $articles = $em->myFindAll();
+
+
         $local = $request->getLocale();
 
 
 		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
+
 		$articles = $em->myFindAll();
 		
 		if(count($articles) == 0)
 		{
 			return new Response("Page en cours de construction. Revenez plus tard :)");
 		}
-		
+
         return $this->render('BLOGBundle:User:index.html.twig', array(
-			'articles'=> $articles,
-			));
+            'articles' => $articles
+        ));
     }
 
     public function viewAction($id, Request $request)
@@ -75,19 +83,64 @@ class UserController extends Controller
 		));
 	}
 
-    public function categoryAction()
+    public function categoryAction(Request $request)
     {
-        return $this->render('BLOGBundle:User:category.html.twig');
-    }
-	
-	public function viewCategoryAction($category)
-    {
-        return $this->render('BLOGBundle:User:viewCategory.html.twig', array(
-            'category'=>$category
+
+        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
+        $articles = $em->findAll();
+        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Category');
+        $categ = $em->findAll();
+        foreach ($categ as $category)
+        {
+            $cat[] = $category->getCategory();
+        }
+        // On récupère les articles pour les envoyer sur la vue et en haut avoir les choix de catégories possible
+
+        $form = $this->createForm('BLOGBundle\Form\CategoryType', $cat);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            $data = $data['categories']->getCategory();
+
+            return $this->render('@BLOG/User/viewCategory.html.twig', array(
+                'chosencat' => $data,
+                'articles'=> $articles,
+                'form_cat' => $form->createView()
+            ));
+        }
+        return $this->render('BLOGBundle:User:category.html.twig', array(
+           'form_cat' => $form->createView()
+
         ));
     }
+    public function viewCategoryAction(Request $request, $category)
+    {
+
+        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
+        $articles = $em->findAll();
+        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Category');
+        $categ = $em->findAll();
+        foreach ($categ as $donnees)
+        {
+            $cat[] = $donnees->getCategory();
+        }
+        // On récupère les articles pour les envoyer sur la vue et en haut avoir les choix de catégories possible
+        $form = $this->createForm('BLOGBundle\Form\CategoryType', $cat);
+        $form->handleRequest($request);
+
+
+        return $this->render('@BLOG/User/viewCategory.html.twig', array(
+                'chosencat' => $category,
+                'articles'=> $articles,
+                'form_cat' => $form->createView()
+            ));
+    }
+
 
     public function datesAction(Request $request)
+
     {
         // On récupères les dates de début et de fin saisie par l'utilisateur
         $start = $request->request->get('start');
@@ -121,8 +174,76 @@ class UserController extends Controller
         ));
     }
 
-    public function contactAction()
+
+    public function newsLetterAction(Request $request)
     {
-        return $this->render('BLOGBundle:User:contact.html.twig');
+        $emnews = $this->getDoctrine()->getManager();
+
+        $NewsLetter = new NewsLetter();
+
+        $form = $this->createForm('BLOGBundle\Form\NewsLetterType', $NewsLetter);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $emnews->persist($NewsLetter);
+            $emnews->flush();
+
+            return $this->redirectToRoute('blog_homepage');
+        }
+        return $this->render('BLOGBundle:User:newsLetter.html.twig', array(
+            'form_news' => $form->createView()
+        ));
     }
+    public function newsLetterDeleteAction(Request $request, $newsLetter_email)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $email = $em->getRepository('BLOGBundle:NewsLetter')->findOneBy($newsLetter_email);
+        $em->remove($email);
+        $em->flush($email);
+
+        return $this->redirectToRoute('blog_homepage');
+    }
+    public function contactAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $Contact = new Contact();
+
+        $form = $this->createForm('BLOGBundle\Form\ContactType', $Contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($Contact);
+            $em->flush();
+            $sujet = $Contact->getsujet();
+            $message = \Swift_Message::newInstance()
+                ->setSubject($sujet)
+                ->setFrom('vincentchristophe177@gmail.com')
+                ->setTo('vincentchristophe177@gmail.com');
+
+
+            $message->setBody(
+//
+                $this->renderView(
+                    '@BLOG/User/formulaire_contact.html.twig',
+                    array(
+                        'form' => $Contact)
+                ),
+                'text/html'
+            );
+            ;
+
+            $this->get('mailer')->send($message);
+
+            return $this->redirectToRoute('blog_homepage');
+        }
+
+        return $this->render('@BLOG/User/contact.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
 }

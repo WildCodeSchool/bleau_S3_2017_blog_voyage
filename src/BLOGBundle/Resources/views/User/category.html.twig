@@ -1,3 +1,22 @@
 {% extends '@BLOG/layout.html.twig' %}
 
 {% block title %} {{ parent() }} - Catégories {% endblock %}
+
+
+{% block Category %}
+
+    <div class="well form-cat">
+        {{ form_start(form_cat) }}
+        <p>
+            {{ form_errors(form_cat.categories) }}
+            {{ form_widget(form_cat, { 'attr': {'name': 'cat'} }) }}
+            {#{{ form_row(form.categories) }}#}
+        </p>
+        {{ form_widget(form_cat.chercher, { 'label': 'Click me' }) }}
+        {{ form_rest(form_cat) }}
+        {{ form_end(form_cat) }}
+    </div>
+{% endblock %}
+
+{%block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
+
