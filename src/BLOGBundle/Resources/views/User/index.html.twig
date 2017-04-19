@@ -17,7 +17,7 @@
                 {% endif %}
             {% endfor %}
 			    <figcaption class="picture-caption">
-                    <h2> {{ articles|first.title }} </h2>
+                    <h2> {{ articles|first.titleFr }} </h2>
                     <a href='{{ path('blog_article', {id : articles|first.id}) }}'><button class="btn btn-custom btn-danger">En savoir plus</button></a>
                     <i> Publié le {{ articles|first.date|date('d/m/Y') }} </i>
                 </figcaption>
@@ -46,7 +46,7 @@
                             {% endif %}
                         {% endfor %}
                         <div class="article-caption">
-                            <h3>{{ article.title }}</h3>
+                            <h3>{{ article.titleFr }}</h3>
                             <p>
                                  {{ article.content|first.content|slice(0,100) }}...
                             </p>

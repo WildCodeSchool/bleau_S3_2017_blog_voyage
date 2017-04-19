@@ -341,9 +341,9 @@ class AdminController extends Controller
                     $this->get('mailer')->send($message);
                 }
                 // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-                $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
-                return $this->redirectToRoute('admin_index');
             }
+            $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
+            return $this->redirectToRoute('admin_index');
         }
 
         return $this->render('@BLOG/Admin/add.html.twig', array(
