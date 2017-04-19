@@ -188,21 +188,8 @@ class AdminController extends Controller
 
             // Une fois les infos enregistrées, on envoie la newsletter
             // On récupère les infos de la bdd
-            /*
-            if($checkbox == "on"){
-                swiftmailer
 
-                $this->render(........twig, array
-                    'image' => $src[0];
-                    'texte' => $cont[0];
-                )
-                array(
 
-                )
-            }
-            */
-
-//
 //			  mise en place de l'envoi swiftmailer
 //            if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie
             if ($checkbox == "on") {
