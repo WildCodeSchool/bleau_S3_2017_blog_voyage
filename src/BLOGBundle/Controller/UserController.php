@@ -14,8 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction()
     {
+
 		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
 
 		$articles = $em->myFindAll();
@@ -103,7 +104,8 @@ class UserController extends Controller
             ));
         }
         return $this->render('BLOGBundle:User:category.html.twig', array(
-           'form_cat' => $form->createView()
+           'form_cat' => $form->createView(),
+            'categ' => $categ
 
         ));
     }
@@ -187,16 +189,20 @@ class UserController extends Controller
             'form_news' => $form->createView()
         ));
     }
-    public function newsLetterDeleteAction(Request $request, $newsLetter_email)
+    public function newsLetterDeleteAction($id)
     {
-
         $em = $this->getDoctrine()->getManager();
-        $email = $em->getRepository('BLOGBundle:NewsLetter')->findOneBy($newsLetter_email);
-        $em->remove($email);
-        $em->flush($email);
 
-        return $this->redirectToRoute('blog_homepage');
+        $NewsLetter = $em->getRepository('BLOGBundle:NewsLetter')->findOneById($id);
+
+        $em->remove($NewsLetter);
+        $em->flush();
+
+        return $this->render('@BLOG/User/newsLetterDel.html.twig');
+
+
     }
+
     public function contactAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();

@@ -297,70 +297,62 @@ class AdminController extends Controller
 			
 			$em->persist($article);
 			$em->flush();
-			
-			/*
-			* Une fois les infos enregistrées, on envoie la newsletter
-			* On récupère les infos de la bdd
 
-			* mise en place de l'envoi swiftmailer
-			* if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie
+            /*
+            * Une fois les infos enregistrées, on envoie la newsletter
+            * On récupère les infos de la bdd
 
-			*  recupérer directement le dernier article
-			*/
-			
-			$article_mail = $article;
+            * mise en place de l'envoi swiftmailer
+            * if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie*/
+            if ($checkbox == "on") {
+//            recupérer directement le dernier article
+                $article_mail = $article;
+                $image_mail = $article_mail->getImage();
+                $image_mails = $image_mail[0]->getSrc();
 
-			$object_cat = $article_mail->getCategory();
-			$subject = $object_cat[0]->getCategory();
-			$image_mail = $article_mail->getImage();
-			$image_mails = $image_mail[0]->getSrc();
-
-            //recuperer chaque addresse mail a qui envoyer l'article
+                //recuperer chaque addresse mail a qui envoyer l'article
 //          
-			$em = $this->getDoctrine()->getManager();
+                $em = $this->getDoctrine()->getManager();
+
 //           $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+                $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+                foreach ($email as $emails) {
 //
-//            foreach($email as $emails)
-//            {
-//                $lien[] = $emails->getLien();
-//            }
-
-
 //            Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject($subject)
-                ->setFrom('vincentchristophe177@gmail.com')
-                ->setTo('vincentchristophe177@gmail.com');
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('blog de Raquelita et Pierre')
+                        ->setFrom('vincentchristophe177@gmail.com')
+                        ->setTo('vincentchristophe177@gmail.com');
 //                ->setTo('$email')
 //ici j'ajoute des images a ma vue
-            $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
+                    $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
 
-            $message->setBody(
+                    $message->setBody(
 //
-                    $this->renderView(
-                        '@BLOG/Admin/emailType.html.twig',
-                        array('img' => $img,
-                            'article_mail' => $article_mail)
-                    ),
-                    'text/html'
-                );
-            ;
+                        $this->renderView(
+                            '@BLOG/Admin/emailType.html.twig',
+                            array('img' => $img,
+                                'article_mail' => $article_mail,
+                                'email' => $emails)
+                        ),
+                        'text/html'
+                    );
 
-           $this->get('mailer')->send($message);
-
-             // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+                    $this->get('mailer')->send($message);
+                }
+                // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+            }
             $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
-			return $this->redirectToRoute('admin_index');
-
+            return $this->redirectToRoute('admin_index');
         }
 
         return $this->render('@BLOG/Admin/add.html.twig', array(
             'admin' => $article,
-			'keyword' => $keyword,
+            'keyword' => $keyword,
             'form' => $form->createView()
         ));
+
+
     }
 
     /**
@@ -1028,7 +1020,7 @@ class AdminController extends Controller
 
 
         return $this->render('@BLOG/Admin/newsletter.html.twig', array(
-            'email' => $email));
+            'emails' => $email));
     }
 
     public function profilEditAction(Request $request){

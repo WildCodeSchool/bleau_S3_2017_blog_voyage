@@ -234,6 +234,7 @@ Page Category
 */
 .container-categ{
     margin-bottom: 50px;
+    width: 100%;
 }
 .form-cat
 {
@@ -246,6 +247,7 @@ Page Category
 Newsletter
 
 */
+
 #form-lien
 {
     display: inline-block;
@@ -672,4 +674,16 @@ footer{
     color: white;
     font-size: 1.5em;
     text-align: center;
+}
+
+#alert-message p{
+    display: flex;
+    color: white;
+    align-items: center;
+    font-size: 1.5em;
+    height: 200px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    background: #b22222;
 }
