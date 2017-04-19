@@ -2,15 +2,20 @@
 
 
 {{ form_start(form_news,  {'action': path('blog_newsletter'), 'method': 'POST'}) }}
-<div id="form-lien">
-    {{ form_widget(form_news.lien, { 'attr': {'id': 'lien'} }) }}
-</div>
-<div id="form-envoyer">
-    {{ form_widget(form_news.envoyer, { 'attr': {'id': 'envoyer'} }) }}
+<div id="form-envoyer-total">
+    <div id="form-lien">
+        <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon2">@</span>
+            {{ form_widget(form_news.lien, { 'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div id="form-envoyer">
+        <div class="input-group-btn">
+            {{ form_widget(form_news.Souscrire, { 'attr': {'class' : 'btn btn-primary'} } ) }}
+        </div>
+    </div>
 </div>
 {{ form_end(form_news) }}
-
-
 
 
 
