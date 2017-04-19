@@ -5,7 +5,7 @@ var formElt = document.querySelectorAll('.form > form');
 // de la partie Add et de tous ceux de la partie Edit (lorsqu'on arrive sur la page"), si plusieurs textarea
 var resetElt = document.getElementsByClassName("text-trash");
 
-var resetFirstAddElt = document.getElementById("text-bin");
+var resetFirstAddElt = document.getElementsByClassName("text-bin");
 
 // Identification du bouton de suppression de "Image + texte"
 var buttonRemoveContentElt = document.getElementsByClassName('remove-content');
@@ -49,10 +49,13 @@ for(i=0; i<resetElt.length; i++){
 }
 
 if(resetFirstAddElt){
-	resetFirstAddElt.addEventListener("click", function(e){
-		e.preventDefault();
-		this.parentNode.previousSibling.childNodes[3].value="";
-	});
+	console.log(resetFirstAddElt);
+	for(i=0; i<resetFirstAddElt.length; i++){
+		resetFirstAddElt[i].addEventListener("click", function(e){
+			e.preventDefault();
+			this.parentNode.previousSibling.childNodes[3].value="";
+		});
+	}
 }
 
 

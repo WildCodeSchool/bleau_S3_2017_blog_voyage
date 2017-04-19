@@ -109,6 +109,7 @@ class AdminController extends Controller
 				}
 			}
 			
+			// Si on n'a que des nouveaux mots-clef (aucune sélection de mot(s)-clef(s) français)
 			if(isset($check) AND $check == false AND $rowEs)
 			{
 				foreach($rowEs as $cat)

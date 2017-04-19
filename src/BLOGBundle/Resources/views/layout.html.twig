@@ -18,8 +18,11 @@
                     <li><a href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
                     <li><a href="{{ path('blog_contact') }}">Contact</a></li>
                     <li>{{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
-
                 </ul>
+				<ul id="li-last-child">
+					<a href="#"><img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" /></a>
+					<a href="#"><img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" /></a>
+				</ul>
             </div>
         </nav>
 
