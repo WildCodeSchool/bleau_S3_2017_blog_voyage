@@ -62,228 +62,197 @@ class AdminController extends Controller
         $form = $this->createForm('BLOGBundle\Form\ArticleType', $article);
 		$form->handleRequest($request);
 
-		if ($form->isSubmitted() && $form->isValid()) 
-		{
-			$check = $request->request->get('category');	
-			$nbCategory = count($check);
-			
-			if($check)
-			{
-				// On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
-				$str = [];
-				foreach($check as $tab)
-				{
-					$str[] = strtolower($tab); 
-				}
-				
-				foreach(array_count_values($str) as $key => $value)
-				{
-					if($value > 1)
-					{
-						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double. L'article n'a donc pas été publié. Veuillez recommencer.");
-						return $this->redirectToRoute('admin_add'); 
-					}
-				}
-			}
-				
-			if($request->request->get('category'))
-			{
-				foreach ($request->request->get('category') as $category)
-				{
-					if (strlen($category)>0) // Si texte n'est pas "";
-					{
-						if($keyword)
-						{
-							$i = 0;
-							$j = 0;
-							$endLoop = false;
-							$loopIndex = 0;
-							$loopLength = count($keyword);
-							
-							foreach ($keyword as $key) 
-							{
-								// Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
-								if(strtolower($category) !== strtolower($key->getCategory())) 
-								{
-									$j++;
-								}
-								// Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
-								if(strtolower($category) == strtolower($key->getCategory())) 
-								{
-									$key->addArticle($article);
-									$article->addCategory($key);
-									$i++;
-								}
-								// Si le mot-clef renseigné n'existe pas encore, 
-								// Alors on l'ajoute en bdd et on fait l'association
-								// On ajoute un tour de boucle
-								$loopIndex++; 
-								if ($loopLength == $loopIndex) 
-								{
-									$endLoop = true; // Si on a parcouru, alors fin des boucles
-								}
-							}
-							// Puisque j est supérieur à 0, alors on doit créer une catégorie.
-							if ($j > 0 AND $i == 0 AND $endLoop == true) 
-							{
-								$categ = new Category();
-								$categ->setCategory(ucfirst($category));
-								$categ->addArticle($article);
-								$article->addCategory($categ);
-							}
-						} 
-						else // Si la base est vide, je crée ma première catégorie
-						{
-							$categ = new Category();
-							$categ->setCategory(ucfirst($category));
-							$categ->addArticle($article);
-							$article->addCategory($categ);
-						}
-					} 
-					else
-					{
-						if($nbCategory == 1)
-						{
-							$i=0;
-							foreach ($keyword as $key) 
-							{
-								if ($key->getCategory() == "Autres") 
-								{	
-									$key->addArticle($article);
-									$article->addCategory($key);	
-									$i++;
-								}
-							}	
-							if($i==0) // Autre n'existe pas encore en bdd, donc on le créé
-							{
-								$categ = new Category();
-								$categ->setCategory("Autres");
-								$categ->addArticle($article);
-								$article->addCategory($categ);
-							}
-						}
-					}
-				}
-			}
-			else // Valable ici uniquement que pour le premier article. Ne peut être utilisé qu'une fois 
-			{   // Si les auteurs ont créé leur premier article sans définir de catégorie         
-				$categ = new Category();
-				$categ->setCategory("Autres");
-				$categ->addArticle($article);
-				$article->addCategory($categ);
-			}
+		if ($form->isSubmitted() && $form->isValid()) {
+            $check = $request->request->get('category');
+            $nbCategory = count($check);
 
-			// Images
-			foreach($request->files->get('src') as $src)
-			{
-				if(!empty($src)) 
-				{   // On vérifie qu'aucun des formulaires envoyés n'est vide
-					$fileName = uniqid() . '.' . $src->guessExtension();
-					$src->move($this->getParameter('image_directory'), $fileName);
+            if ($check) {
+                // On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
+                $str = [];
+                foreach ($check as $tab) {
+                    $str[] = strtolower($tab);
+                }
 
-					$image = new Image();
-					$image->setSrc($fileName);
-					$image->setAlt($article->getTitle());
-					$image->setArticle($article);
-					$article->addImage($image);
-				}
-			}
+                foreach (array_count_values($str) as $key => $value) {
+                    if ($value > 1) {
+                        $request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double. L'article n'a donc pas été publié. Veuillez recommencer.");
+                        return $this->redirectToRoute('admin_add');
+                    }
+                }
+            }
 
-			foreach($request->request->get('content') as $content)
-			{
-				$cont = new Content();
-				$cont->setContent($content);
-				$cont->setArticle($article);
-				$article->addContent($cont);
-			}
-			
-			// Faut-il envoyer la newsletter?
-			$checkbox = $request->request->get('checked'); 
-			if($checkbox == "on")
-			{
-				$article->setNewsletter('1');
-			}
-			else{
-				$article->setNewsletter('0');
-			}
+            if ($request->request->get('category')) {
+                foreach ($request->request->get('category') as $category) {
+                    if (strlen($category) > 0) // Si texte n'est pas "";
+                    {
+                        if ($keyword) {
+                            $i = 0;
+                            $j = 0;
+                            $endLoop = false;
+                            $loopIndex = 0;
+                            $loopLength = count($keyword);
 
-			
-			$em->persist($article);
-			$em->flush();
-			
-			// Une fois les infos enregistrées, on envoie la newsletter
-			// On récupère les infos de la bdd
-			/*
-			if($checkbox == "on"){
-				swiftmailer
-				
-				$this->render(........twig, array
-					'image' => $src[0];
-					'texte' => $cont[0];
-				)
-				array(
-				
-				)
-			}
-			*/
+                            foreach ($keyword as $key) {
+                                // Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
+                                if (strtolower($category) !== strtolower($key->getCategory())) {
+                                    $j++;
+                                }
+                                // Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
+                                if (strtolower($category) == strtolower($key->getCategory())) {
+                                    $key->addArticle($article);
+                                    $article->addCategory($key);
+                                    $i++;
+                                }
+                                // Si le mot-clef renseigné n'existe pas encore,
+                                // Alors on l'ajoute en bdd et on fait l'association
+                                // On ajoute un tour de boucle
+                                $loopIndex++;
+                                if ($loopLength == $loopIndex) {
+                                    $endLoop = true; // Si on a parcouru, alors fin des boucles
+                                }
+                            }
+                            // Puisque j est supérieur à 0, alors on doit créer une catégorie.
+                            if ($j > 0 AND $i == 0 AND $endLoop == true) {
+                                $categ = new Category();
+                                $categ->setCategory(ucfirst($category));
+                                $categ->addArticle($article);
+                                $article->addCategory($categ);
+                            }
+                        } else // Si la base est vide, je crée ma première catégorie
+                        {
+                            $categ = new Category();
+                            $categ->setCategory(ucfirst($category));
+                            $categ->addArticle($article);
+                            $article->addCategory($categ);
+                        }
+                    } else {
+                        if ($nbCategory == 1) {
+                            $i = 0;
+                            foreach ($keyword as $key) {
+                                if ($key->getCategory() == "Autres") {
+                                    $key->addArticle($article);
+                                    $article->addCategory($key);
+                                    $i++;
+                                }
+                            }
+                            if ($i == 0) // Autre n'existe pas encore en bdd, donc on le créé
+                            {
+                                $categ = new Category();
+                                $categ->setCategory("Autres");
+                                $categ->addArticle($article);
+                                $article->addCategory($categ);
+                            }
+                        }
+                    }
+                }
+            } else // Valable ici uniquement que pour le premier article. Ne peut être utilisé qu'une fois
+            {   // Si les auteurs ont créé leur premier article sans définir de catégorie
+                $categ = new Category();
+                $categ->setCategory("Autres");
+                $categ->addArticle($article);
+                $article->addCategory($categ);
+            }
+
+            // Images
+            foreach ($request->files->get('src') as $src) {
+                if (!empty($src)) {   // On vérifie qu'aucun des formulaires envoyés n'est vide
+                    $fileName = uniqid() . '.' . $src->guessExtension();
+                    $src->move($this->getParameter('image_directory'), $fileName);
+
+                    $image = new Image();
+                    $image->setSrc($fileName);
+                    $image->setAlt($article->getTitle());
+                    $image->setArticle($article);
+                    $article->addImage($image);
+                }
+            }
+
+            foreach ($request->request->get('content') as $content) {
+                $cont = new Content();
+                $cont->setContent($content);
+                $cont->setArticle($article);
+                $article->addContent($cont);
+            }
+
+            // Faut-il envoyer la newsletter?
+            $checkbox = $request->request->get('checked');
+            if ($checkbox == "on") {
+                $article->setNewsletter('1');
+            } else {
+                $article->setNewsletter('0');
+            }
 
 
+            $em->persist($article);
+            $em->flush();
+
+            // Une fois les infos enregistrées, on envoie la newsletter
+            // On récupère les infos de la bdd
+            /*
+            if($checkbox == "on"){
+                swiftmailer
+
+                $this->render(........twig, array
+                    'image' => $src[0];
+                    'texte' => $cont[0];
+                )
+                array(
+
+                )
+            }
+            */
+
+//
 //			  mise en place de l'envoi swiftmailer
 //            if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie
-
+            if ($checkbox == "on") {
 //            recupérer directement le dernier article
-         $article_mail = $article;
+                $article_mail = $article;
+                $image_mail = $article_mail->getImage();
+                $image_mails = $image_mail[0]->getSrc();
 
-         $object_cat = $article_mail->getCategory();
-         $subject = $object_cat[0]->getCategory();
-         $image_mail = $article_mail->getImage();
-         $image_mails = $image_mail[0]->getSrc();
 
-         //recuperer chaque addresse mail a qui envoyer l'article
+                //recuperer chaque addresse mail a qui envoyer l'article
 //            $em = $this->getDoctrine()->getManager();
 //           $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+                $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+                foreach ($email as $emails) {
 //
-//            foreach($email as $emails)
-//            {
-//                $lien[] = $emails->getLien();
-//            }
-
-
 //            Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject($subject)
-                ->setFrom('vincentchristophe177@gmail.com')
-                ->setTo('vincentchristophe177@gmail.com');
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('blog de Raquelita et Pierre')
+                        ->setFrom('vincentchristophe177@gmail.com')
+                        ->setTo('vincentchristophe177@gmail.com');
 //                ->setTo('$email')
 //ici j'ajoute des images a ma vue
-            $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
+                    $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
 
-            $message->setBody(
+                    $message->setBody(
 //
-                    $this->renderView(
-                        '@BLOG/Admin/emailType.html.twig',
-                        array('img' => $img,
-                            'article_mail' => $article_mail)
-                    ),
-                    'text/html'
-                );
-            ;
+                        $this->renderView(
+                            '@BLOG/Admin/emailType.html.twig',
+                            array('img' => $img,
+                                'article_mail' => $article_mail,
+                                'email' => $emails)
+                        ),
+                        'text/html'
+                    );
 
-           $this->get('mailer')->send($message);
-
-             // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-            $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
-			return $this->redirectToRoute('admin_index');
-
+                    $this->get('mailer')->send($message);
+                }
+                // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+                $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
+                return $this->redirectToRoute('admin_index');
+            }
         }
 
-        return $this->render('@BLOG/Admin/add.html.twig', array(
-            'admin' => $article,
-			'keyword' => $keyword,
-            'form' => $form->createView()
-        ));
+                return $this->render('@BLOG/Admin/add.html.twig', array(
+                    'admin' => $article,
+                    'keyword' => $keyword,
+                    'form' => $form->createView()
+                ));
+
+
     }
 
     /**

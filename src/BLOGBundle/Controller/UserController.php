@@ -189,43 +189,20 @@ class UserController extends Controller
             'form_news' => $form->createView()
         ));
     }
-    public function newsLetterDeleteAction(Request $request)
+    public function newsLetterDeleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $NewsLetterveri = $em->getRepository('BLOGBundle:NewsLetter')->findAll();
-        $NewsLetter = new NewsLetter();
+        $NewsLetter = $em->getRepository('BLOGBundle:NewsLetter')->findOneById($id);
 
-        $form = $this->createForm('BLOGBundle\Form\NewsLetterType', $NewsLetter);
-        $form->handleRequest($request);
+        $em->remove($NewsLetter);
+        $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        return $this->render('@BLOG/User/newsLetterDel.html.twig');
 
-            $data = $form->getData();
-            $data = $data->getLien();
 
-            //si l'email existe on le supprime donc de la base de donnée
-            foreach($NewsLetterveri as $donnee)
-            {
-                $donnees = $donnee->getLien();
-
-                if ($data == $donnees)
-                {
-
-                    $NewsLettersup = $em->getRepository('BLOGBundle:NewsLetter')->findOneByLien($data);
-                    $em->remove($NewsLettersup);
-                    $em->flush();
-
-                    $request->getSession()->getFlashBag()->add("notice", "Votre email a bien été supprimé de la newsletter automatique");
-                    return $this->redirectToRoute('blog_newsletter_delete');
-                }
-            }
-        }
-
-        return $this->render('BLOGBundle:User:newsLetterDel.html.twig', array(
-            'form_del' => $form->createView()
-        ));
     }
+
     public function contactAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();

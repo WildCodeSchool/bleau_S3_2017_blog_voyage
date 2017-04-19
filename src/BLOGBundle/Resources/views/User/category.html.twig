@@ -10,7 +10,7 @@
         <p>
             {{ form_errors(form_cat.categories) }}
             {{ form_widget(form_cat, { 'attr': {'name': 'cat'} }) }}
-            {#{{ form_row(form.categories) }}#}
+            {{ form_row(form_cat.categories) }}
         </p>
         {{ form_widget(form_cat.chercher, { 'label': 'Click me' }) }}
         {{ form_rest(form_cat) }}
