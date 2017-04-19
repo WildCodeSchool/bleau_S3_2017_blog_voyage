@@ -9,14 +9,16 @@ BLOGBundle\Entity\Article:
             generator:
                 strategy: AUTO
     fields:
-        title:
+        titleFr:
+            type: string
+            length: 255
+        titleEs:
             type: string
             length: 255
         date:
             type: datetime
         newsletter:
             type: boolean
-
     manyToMany:
         category:
             targetEntity: BLOGBundle\Entity\Category

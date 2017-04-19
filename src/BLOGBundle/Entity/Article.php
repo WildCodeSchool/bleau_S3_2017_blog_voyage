@@ -8,7 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Article
 {
-   /**
+
+    /**
      * @var integer
      */
     private $id;
@@ -16,7 +17,12 @@ class Article
     /**
      * @var string
      */
-    private $title;
+    private $titleFr;
+
+    /**
+     * @var string
+     */
+    private $titleEs;
 
     /**
      * @var \DateTime
@@ -24,9 +30,24 @@ class Article
     private $date;
 
     /**
+     * @var boolean
+     */
+    private $newsletter;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $image;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comment;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $content;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -39,8 +60,10 @@ class Article
     public function __construct()
     {
         $this->image = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->content = new \Doctrine\Common\Collections\ArrayCollection();
         $this->category = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->date = new \ Datetime();
+		$this->date = new \ DateTime();
     }
 
     /**
@@ -54,27 +77,51 @@ class Article
     }
 
     /**
-     * Set title
+     * Set titleFr
      *
-     * @param string $title
+     * @param string $titleFr
      *
      * @return Article
      */
-    public function setTitle($title)
+    public function setTitleFr($titleFr)
     {
-        $this->title = $title;
+        $this->titleFr = $titleFr;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get titleFr
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitleFr()
     {
-        return $this->title;
+        return $this->titleFr;
+    }
+
+    /**
+     * Set titleEs
+     *
+     * @param string $titleEs
+     *
+     * @return Article
+     */
+    public function setTitleEs($titleEs)
+    {
+        $this->titleEs = $titleEs;
+
+        return $this;
+    }
+
+    /**
+     * Get titleEs
+     *
+     * @return string
+     */
+    public function getTitleEs()
+    {
+        return $this->titleEs;
     }
 
     /**
@@ -85,6 +132,30 @@ class Article
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set newsletter
+     *
+     * @param boolean $newsletter
+     *
+     * @return Article
+     */
+    public function setNewsletter($newsletter)
+    {
+        $this->newsletter = $newsletter;
+
+        return $this;
+    }
+
+    /**
+     * Get newsletter
+     *
+     * @return boolean
+     */
+    public function getNewsletter()
+    {
+        return $this->newsletter;
     }
 
     /**
@@ -120,50 +191,6 @@ class Article
     {
         return $this->image;
     }
-
-    /**
-     * Add category
-     *
-     * @param \BLOGBundle\Entity\Category $category
-     *
-     * @return Article
-     */
-    public function addCategory(\BLOGBundle\Entity\Category $category)
-    {
-        $this->category[] = $category;
-
-        return $this;
-    }
-
-    /**
-     * Remove category
-     *
-     * @param \BLOGBundle\Entity\Category $category
-     */
-    public function removeCategory(\BLOGBundle\Entity\Category $category)
-    {
-        $this->category->removeElement($category);
-    }
-
-    /**
-     * Get category
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $comment;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $content;
-
 
     /**
      * Add comment
@@ -234,45 +261,36 @@ class Article
     }
 
     /**
-     * Set date
+     * Add category
      *
-     * @param \DateTime $date
-     *
-     * @return Article
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-    /**
-     * @var boolean
-     */
-    private $newsletter;
-
-
-    /**
-     * Set newsletter
-     *
-     * @param boolean $newsletter
+     * @param \BLOGBundle\Entity\Category $category
      *
      * @return Article
      */
-    public function setNewsletter($newsletter)
+    public function addCategory(\BLOGBundle\Entity\Category $category)
     {
-        $this->newsletter = $newsletter;
+        $this->category[] = $category;
 
         return $this;
     }
 
     /**
-     * Get newsletter
+     * Remove category
      *
-     * @return boolean
+     * @param \BLOGBundle\Entity\Category $category
      */
-    public function getNewsletter()
+    public function removeCategory(\BLOGBundle\Entity\Category $category)
     {
-        return $this->newsletter;
+        $this->category->removeElement($category);
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

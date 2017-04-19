@@ -71,41 +71,66 @@ buttonContentElt[0].addEventListener('click', function(e){
 
 ///////////////////////////////////////////PARTIE TEXTE////////////////////////
     var inputTextElt = document.createElement('textarea');
-    inputTextElt.setAttribute('name', 'content[]');
+    inputTextElt.setAttribute('name', 'contentFr[]');
     inputTextElt.setAttribute('class', 'first-text');
+
+    var inputTextEsElt = document.createElement('textarea');
+    inputTextEsElt.setAttribute('name', 'contentEs[]');
+    inputTextEsElt.setAttribute('class', 'first-text');
+	
+	// Création du bouton de suppression
+    var buttonResetElt = document.createElement('button');
+    buttonResetElt.setAttribute('class', 'btn btn-lg btn-danger');
+    buttonResetElt.textContent = 'Vider le texte';
+	
+	var buttonResetEsElt = document.createElement('button');
+    buttonResetEsElt.setAttribute('class', 'btn btn-lg btn-danger');
+    buttonResetEsElt.textContent = 'Vider le texte';
 
     var pTextElt = document.createElement('p');
     pTextElt.style.margin = "25px 0 25px 0";
 
     var pTextElt2 = document.createElement('p');
-    pTextElt2.style.display = 'flex';
-    pTextElt2.style.flexWrap = 'wrap';
-    pTextElt2.style.justifyContent = 'space-around';
     pTextElt2.style.margin = '0 auto';
+    pTextElt2.style.textAlign = 'center';
     pTextElt2.style.paddingBottom = '15px';
     pTextElt2.style.paddingTop = '15px';
+	pTextElt2.appendChild(buttonResetElt);
+	
+	var pTextElt3 = document.createElement('p');
+    pTextElt3.style.margin = '0 auto';
+    pTextElt3.style.textAlign = 'center';
+    pTextElt3.style.paddingBottom = '15px';
+    pTextElt3.style.paddingTop = '15px';
+	pTextElt3.appendChild(buttonResetEsElt);
 
     // Création du label pour l'input texte
     var labelElt = document.createElement('label');
     labelElt.setAttribute('class', 'label-text');
-    labelElt.textContent = 'Texte ';
+    labelElt.textContent = 'Texte en français';
 
-    // Création du bouton de suppression
-    var buttonResetElt = document.createElement('button');
-    buttonResetElt.setAttribute('class', 'btn btn-lg btn-danger');
-    buttonResetElt.textContent = 'Vider le texte';
+    var labelEsElt = document.createElement('label');
+    labelEsElt.setAttribute('class', 'label-text');
+    labelEsElt.textContent = 'Texto en español';
+
 	
 	if(window.innerWidth<480){
 		buttonResetElt.style.width = '100%';
 	}
 
 	// On imbrique les éléments pour le texte
+	// FR
     pTextElt.appendChild(labelElt);
-	pTextElt2.appendChild(buttonRemoveElt);
-    pTextElt2.appendChild(buttonResetElt);
     pTextElt.appendChild(inputTextElt);
     pTextElt.appendChild(pTextElt2);
-
+	
+	// ES
+	pTextElt.appendChild(labelEsElt);
+	pTextElt.appendChild(inputTextEsElt);
+    pTextElt.appendChild(pTextElt3);
+	
+	// Bouton de suppression du block
+    pTextElt.appendChild(buttonRemoveElt);
  //////////////////////////PARTIE IMAGE///////////////////////////////////////////////////////////
 
     // Création de la balise p qui contiendra l'input type file
@@ -162,19 +187,17 @@ buttonContentElt[0].addEventListener('click', function(e){
         e.preventDefault();
         inputTextElt.value = "";
     });
+	
+	buttonResetEsElt.addEventListener("click", function(e){
+        e.preventDefault();
+        inputTextEsElt.value = "";
+    });
 
     // On retire le bloc de contenu si clic sur bouton supprimer correspondant
     buttonRemoveElt.addEventListener('click', function(e){
         e.preventDefault();
-		/*
-        if((labelElt.textContent).includes(''+k-1+'')){
-            k--;
-        }
-		*/
         contentElt[0].removeChild(divElt);
     });
-	
-	// k++;
 });
 
 ///////////////////////////////PARTIE CATEGORIES///////////////////////////////////
@@ -184,16 +207,28 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 	e.preventDefault(); 
 
     // Création de l'input et définition des attributs
-    var inputElt = document.createElement('input');
+    var inputCatFrElt = document.createElement('input');
+    var inputCatEsElt = document.createElement('input');
+	
+	var divFrElt = document.createElement('div');
+	var divEsElt = document.createElement('div');
 
-    function setAttributes(tab){
+    function setAttributes(tab, tab2){
         // On récupère les attributs tab[i] et leur valeur tab[i+1] avec une boucle et on les intègre à l'input
         for(i=0; i<tab.length; i+=2){
-            inputElt.setAttribute(tab[i], tab[i+1]);
+            inputCatFrElt.setAttribute(tab[i], tab[i+1]);
+        }
+		
+		for(i=0; i<tab2.length; i+=2){
+            inputCatEsElt.setAttribute(tab2[i], tab2[i+1]);
         }
     }
-    // On appelle la fonction et on lui envoie un tableau en argument
-    setAttributes(tab = ['type' , 'text' , 'id' , 'category' , 'name' , 'category[]', 'required']);
+	
+	tab = ['type' , 'text' , 'id' , 'category' , 'name' , 'categoryFr[]', 'required'];
+	tab2 = ['type' , 'text' , 'id' , 'category' , 'name' , 'categoryEs[]', 'required'];
+    
+	// On appelle la fonction et on lui envoie les deux tableaux en argument
+    setAttributes(tab, tab2);
 
     // Création du bouton de suppression
     var buttonRemoveElt = document.createElement('button');
@@ -201,24 +236,44 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     buttonRemoveElt.textContent = 'Supprimer';
 
     // Création du label, attribution d'une classe et ajout de contenu
-    var labelElt = document.createElement('label');
-    labelElt.setAttribute('class', 'label-category');
-    labelElt.textContent = 'Nouveau mot-clef ' +j;
+    var labelFrElt = document.createElement('label');
+    labelFrElt.setAttribute('class', 'label-category');
+    labelFrElt.textContent = 'Nouveau mot-clef ' +j;
+	
+	// Création du label, attribution d'une classe et ajout de contenu
+    var labelEsElt = document.createElement('label');
+    labelEsElt.setAttribute('class', 'label-category');
+    labelEsElt.textContent = 'Nueva palabra clave ' +j;
 
-    // Création de la phrase de conseil
-    var pElt = document.createElement('p');
-    pElt.textContent = 'Merci de définir une catégorie plus "précise" pour vos visiteurs';
-    pElt.style.display = 'none';
-    pElt.setAttribute('class', 'keyWordHelp');
+    // Création de la phrase de conseil français
+    var pFrElt = document.createElement('p');
+    pFrElt.textContent = 'Merci de définir une catégorie plus "précise" pour vos visiteurs';
+    pFrElt.style.display = 'none';
+    pFrElt.setAttribute('class', 'keyWordHelp');
+	
+	// Création de la phrase de conseil espagnol
+    var pEsElt = document.createElement('p');
+    pEsElt.textContent = 'Merci de définir une catégorie plus "précise" pour vos visiteurs';
+    pEsElt.style.display = 'none';
+    pEsElt.setAttribute('class', 'keyWordHelp');
 
     // Création phrase de validation
-    var spanElt = document.createElement('span');
-    spanElt.style.display = 'none';
-    spanElt.style.color = 'black';
-    spanElt.style.fontWeight = 'bold';
-    spanElt.style.width = '95%';
-    spanElt.style.margin= '0 auto';
-    spanElt.setAttribute('class', 'inputValidation');
+    var spanFrElt = document.createElement('span');
+    spanFrElt.style.display = 'none';
+    spanFrElt.style.color = 'black';
+    spanFrElt.style.fontWeight = 'bold';
+    spanFrElt.style.width = '95%';
+    spanFrElt.style.margin= '0 auto';
+    spanFrElt.setAttribute('class', 'inputValidation');
+	
+	    // Création phrase de validation
+    var spanEsElt = document.createElement('span');
+    spanEsElt.style.display = 'none';
+    spanEsElt.style.color = 'black';
+    spanEsElt.style.fontWeight = 'bold';
+    spanEsElt.style.width = '95%';
+    spanEsElt.style.margin= '0 auto';
+    spanEsElt.setAttribute('class', 'inputValidation');
 	
 	var divElt = document.createElement('div');
 	divElt.setAttribute('class', 'keywordDiv');
@@ -228,14 +283,22 @@ buttonCategoryElt[0].addEventListener('click', function(e){
     pElt2.style.margin = '0 auto';
     pElt2.style.paddingTop = '5px';
     pElt2.style.textAlign = 'right';
+	pElt2.appendChild(buttonRemoveElt);
 
     // On ajoute le label, l'input text, le bouton de suppression du mot-clef, la phrase de conseil
-    divElt.appendChild(labelElt);
-    divElt.appendChild(inputElt);
-    divElt.appendChild(spanElt);
-    pElt2.appendChild(buttonRemoveElt);
-    divElt.appendChild(pElt);
-    divElt.appendChild(pElt2);
+    divFrElt.appendChild(labelFrElt);
+    divFrElt.appendChild(inputCatFrElt);
+    divFrElt.appendChild(spanFrElt);
+    divFrElt.appendChild(pFrElt);
+	
+	divEsElt.appendChild(labelEsElt);
+    divEsElt.appendChild(inputCatEsElt);
+    divEsElt.appendChild(spanEsElt);
+    divEsElt.appendChild(pEsElt);
+	
+	divElt.appendChild(divFrElt);
+	divElt.appendChild(divEsElt);
+	divElt.appendChild(buttonRemoveElt);
 	keywordRangeElt.appendChild(divElt);
    
     buttonRemoveElt.addEventListener('click', function(e){
@@ -244,59 +307,116 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 		j--;
     });
 
-    var validation;
-    inputElt.addEventListener('input', function(e){
-        this.parentNode.style.backgroundColor = '#77b5fe';
-        pElt.style.color = 'black';
+    var validationFr; 
+	var validationEs;
+	inputCatFrElt.addEventListener('input', function(e){
+		this.parentNode.style.backgroundColor = '#77b5fe';
+		pFrElt.style.color = 'black';
 
-        var regex = new RegExp('autres*|Autres*');
-        var keyword = e.target.value;
+		var regexFr = new RegExp('autres*|Autres*| ');
+		var keywordFr = e.target.value;
 
-        if(keyword.length !== 0){
-            if(regex.test(e.target.value)){
-                this.parentNode.style.backgroundColor = '#b22222';
-                pElt.style.display = 'block';
-                pElt.style.color = 'white';
-                spanElt.textContent = 'Mot clef invalide';
-                spanElt.style.display = 'block';
-                spanElt.style.color = 'white';
-                labelElt.style.color = 'white';
-                validation = false;
-            }
-            else{
-                pElt.style.display = 'none';
-                spanElt.textContent = 'Mot-clef valide';
-                spanElt.style.display = 'block';
-                spanElt.style.color = 'black';
-                validation = true;
-            }
-        }
-        if(keyword.length == 0){
-            pElt.style.display = 'none';
-            spanElt.style.display = 'none';
-            this.parentNode.style.backgroundColor = '#f8f8f8';
-        }
-    });
-
+		if(keywordFr.length !== 0){
+			if(regexFr.test(e.target.value)){
+				this.parentNode.style.backgroundColor = '#b22222';
+				pFrElt.style.display = 'block';
+				pFrElt.style.color = 'white';
+				spanFrElt.textContent = 'Mot clef invalide';
+				spanFrElt.style.display = 'block';
+				spanFrElt.style.color = 'white';
+				labelFrElt.style.color = 'white';
+				validationFr = false;
+			}
+			else{
+				pFrElt.style.display = 'none';
+				spanFrElt.textContent = 'Mot-clef valide';
+				spanFrElt.style.display = 'block';
+				spanFrElt.style.color = 'black';
+				validationFr = true;
+			}
+		}
+		if(keywordFr.length == 0){
+			pFrElt.style.display = 'none';
+			spanFrElt.style.display = 'none';
+			this.parentNode.style.backgroundColor = '#f8f8f8';
+		}
+	});
+	
     // On écoute la perte de focus
-    inputElt.addEventListener('blur', function(e){
+    inputCatFrElt.addEventListener('blur', function(e){
         if(this.parentNode.style.backgroundColor !== 'green'){
             this.parentNode.style.backgroundColor = '#f8f8f8';
 
         }
-        if(validation == true){
+        if(validationFr == true){
             if(e.target.value.length > 0){
                 this.parentNode.style.backgroundColor = 'green';
-                labelElt.style.color = 'white';
-                spanElt.style.color = 'white';
+                labelFrElt.style.color = 'white';
+                spanFrElt.style.color = 'white';
             }
         }
-        if(validation == false){
+        if(validationFr == false){
             if(e.target.value.length > 0){
                 this.parentNode.style.backgroundColor = '#b22222';
-                labelElt.style.color = 'white';
-                spanElt.style.color = 'white';
-                pElt.style.color = 'white';
+                labelFrElt.style.color = 'white';
+                spanFrElt.style.color = 'white';
+                pFrElt.style.color = 'white';
+            }
+        }
+    });
+		
+	inputCatEsElt.addEventListener('input', function(e){
+		this.parentNode.style.backgroundColor = '#77b5fe';
+		pEsElt.style.color = 'black';
+
+		var regexEs = new RegExp('otros*|Otros*| ');
+		var keywordEs = e.target.value;
+
+		if(keywordEs.length !== 0){
+			if(regexEs.test(e.target.value)){
+				this.parentNode.style.backgroundColor = '#b22222';
+				pEsElt.style.display = 'block';
+				pEsElt.style.color = 'white';
+				spanEsElt.textContent = 'Mot clef invalide';
+				spanEsElt.style.display = 'block';
+				spanEsElt.style.color = 'white';
+				labelEsElt.style.color = 'white';
+				validationEs = false;
+			}
+			else{
+				pEsElt.style.display = 'none';
+				spanEsElt.textContent = 'Mot-clef valide';
+				spanEsElt.style.display = 'block';
+				spanEsElt.style.color = 'black';
+				validationEs = true;
+			}
+		}
+		if(keywordEs.length == 0){
+			pEsElt.style.display = 'none';
+			spanEsElt.style.display = 'none';
+			this.parentNode.style.backgroundColor = '#f8f8f8';
+		}
+	});
+	
+    // On écoute la perte de focus
+    inputCatEsElt.addEventListener('blur', function(e){
+        if(this.parentNode.style.backgroundColor !== 'green'){
+            this.parentNode.style.backgroundColor = '#f8f8f8';
+
+        }
+        if(validationEs == true){
+            if(e.target.value.length > 0){
+                this.parentNode.style.backgroundColor = 'green';
+                labelEsElt.style.color = 'white';
+                spanEsElt.style.color = 'white';
+            }
+        }
+        if(validationEs == false){
+            if(e.target.value.length > 0){
+                this.parentNode.style.backgroundColor = '#b22222';
+                labelEsElt.style.color = 'white';
+                spanEsElt.style.color = 'white';
+                pEsElt.style.color = 'white';
             }
         }
     });

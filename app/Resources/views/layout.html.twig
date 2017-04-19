@@ -7,13 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="{% block style %}{% endblock %}"/>
     <meta charset="utf-8"/>
-	<style>
-		#map{
-			height: 500px;
-            width: 60%;
-            margin: 0 auto;
-		}
-	</style>
 </head>
 
 <body {% block onload %}{% endblock %}>
@@ -22,9 +15,6 @@
 {% endblock %}
 
 {% block section %}
-{% endblock %}
-
-{% block map %}
 {% endblock %}
 
 {% block h1 %}
@@ -58,8 +48,5 @@
 <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
 <script src="{% block javascript %}{% endblock %}"></script>
 <script src="{% block javascript_Admin_Index %}{% endblock %}"></script>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcxP_0NIV4eyozn7CpjsmOCypmRhog6qU&callback=initMap"
-    async defer></script>
-{% block googleMapJS %}{% endblock %}
 </body>
 </html>

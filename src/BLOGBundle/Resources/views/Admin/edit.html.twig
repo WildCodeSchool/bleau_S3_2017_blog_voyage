@@ -23,9 +23,14 @@
     <div class="form">
     {{ form_start(edit_form, {'attr': {'enctype': 'multipart/form-data'}}) }}
         <p>
-            {{ form_label(edit_form.title, "Titre de l'article", {'label_attr' : {class:"label-titre" }} ) }}
-            {{ form_errors(edit_form.title) }}
-            {{ form_widget(edit_form.title) }}
+            {{ form_label(edit_form.titleFr, "Titre de l'article en français", {'label_attr' : {class:"label-titre" }} ) }}
+            {{ form_errors(edit_form.titleFr) }}
+            {{ form_widget(edit_form.titleFr) }}
+        </p>
+		 <p>
+            {{ form_label(edit_form.titleEs, "Titre de l'article en espagnol", {'label_attr' : {class:"label-titre" }} ) }}
+            {{ form_errors(edit_form.titleEs) }}
+            {{ form_widget(edit_form.titleEs) }}
         </p>
 	
 		<div class="content-block">
@@ -38,7 +43,13 @@
 							<input type="hidden" name="src[]" value="{{ image.src }}"/>
 						</div>
 						<div class="text-update">
-							<textarea name="content[]" class="first-text">{{ content.content }}</textarea>
+							<label for="Fr" class="label-text"> Texte français </label>
+							<textarea name="contentFr[]" class="first-text" id="Fr">{{ content.content }}</textarea>
+							<button class="btn btn-lg btn-danger text-trash"> Vider le texte </button>
+						</div>
+						<div class="text-update">
+							<label for="Fr" class="label-text"> Texte espagnol </label>
+							<textarea name="contentEs[]" class="first-text" id="Es">{{ content.contentEs }}</textarea>
 							<button class="btn btn-lg btn-danger text-trash"> Vider le texte </button>
 						</div>
 					<button class="btn btn-lg btn-danger remove-content"> Supprimer Image + texte </button>
@@ -53,11 +64,17 @@
 				Mots clefs associés à l'article
 			</p>
 			{% for category in article.category|sort %}
-				<p style="margin-bottom: 15px; background: #f8f8f1; padding: 5px;">
-					<label for="keyword">Mot clef {{ loop.index }} </label>
-					<input type="text" name="category[]" value="{{ category.category }}"/>
+				<div>
+					<p style="margin-bottom: 15px; background: #f8f8f1; padding: 5px;">
+						<label for="keyword">Mot clef {{ loop.index }} </label>
+						<input type="text" name="categoryFr[]" value="{{ category.category }}"/>
+					</p>
+					<p style="margin-bottom: 15px; background: #f8f8f1; padding: 5px;">
+						<label for="keyword">Palabra clave {{ loop.index }} </label>
+						<input type="text" name="categoryEs[]" value="{{ category.categoryEs }}"/>
+					</p>
 					<button class="btn btn-danger delete-keyword"> Supprimer </button>
-				</p>
+				</div>	
 			{% endfor %}
 		</div>
 

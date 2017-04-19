@@ -15,8 +15,13 @@ body{
     padding: 0;
     margin: 0;
     position: relative;
-
 }
+
+a:link
+{
+    text-decoration:none;
+}
+
 /*
 2. NAVBAR
 */
@@ -190,11 +195,14 @@ Container des pages /Articles/id,  /dates  et /presentation */
     margin-bottom: 200px;
 }
 
+.container-dates{
+    width: 100%;
+}
+
 .container-presentation img{
 	width: 100%;
 	border: 10px solid white;
 	outline: 1px solid #c8c8c8;
-
 }
 
 .container-dates input[type="submit"]{
@@ -245,10 +253,12 @@ Newsletter
     display: inline-block;
     font-size: 1em;
 }
+
 #form-lien input
 {
     font-size: 1em;
 }
+
 #form-envoyer
 {
     display: inline-block;
@@ -302,7 +312,6 @@ Newsletter
 }
 
 .article h1{
-    background: white;
 	width: 90%;
 	margin: 0 auto;
     display: flex;
@@ -382,7 +391,6 @@ Newsletter
 @media all and (max-width: 480px){
 	.article h1{
 		font-size: 3em;
-		line-height: auto;
 	}
 }
 
@@ -558,13 +566,12 @@ figure img{
 
 }
 
-
 .article-caption{
     position: absolute;
-    top:0;
-    left:2.5%;
+    top: 0;
+    left: 2.5%;
     height: 100%;
-    width:95%;
+    width: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -617,52 +624,20 @@ figure img{
 
 /* classe ajoutée à article-caption lorsque la souris passe sur l'article (mouseover) */
 
-.article-caption-show{
-
+.article-custom-show{
     background: black;
     transition: 1s;
     color: white;
     overflow: visible;
 }
 
-.article-caption-show a{
+.article-custom-show a{
     text-decoration: none;
 }
 
-.article-caption-show button{
+.article-custom-show button{
     display: block;
     color: white;
-}
-
-
-@media only screen and (min-width: 700px) {
-    .masonry {
-        -moz-column-count: 2;
-        -webkit-column-count: 2;
-        column-count: 2;
-    }
-}
-
-@media only screen and (min-width: 900px) {
-    .masonry {
-        -moz-column-count: 3;
-        -webkit-column-count: 3;
-        column-count: 3;
-    }
-}
-
-@media only screen and (min-width: 1100px) {
-    .masonry {
-        -moz-column-count: 4;
-        -webkit-column-count: 4;
-        column-count: 4;
-    }
-}
-
-@media only screen and (min-width: 1280px) {
-    .wrapper {
-        width: 1260px;
-    }
 }
 
 /*

@@ -19,6 +19,11 @@ class Category
     private $category;
 
     /**
+     * @var string
+     */
+    private $CategoryEs;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $article;
@@ -63,6 +68,30 @@ class Category
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set categoryEs
+     *
+     * @param string $categoryEs
+     *
+     * @return Category
+     */
+    public function setCategoryEs($categoryEs)
+    {
+        $this->CategoryEs = $categoryEs;
+
+        return $this;
+    }
+
+    /**
+     * Get categoryEs
+     *
+     * @return string
+     */
+    public function getCategoryEs()
+    {
+        return $this->CategoryEs;
     }
 
     /**
