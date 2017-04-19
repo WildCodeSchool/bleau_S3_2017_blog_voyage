@@ -38,18 +38,12 @@
 	
 	{% if keyword !=null %} 
 	<div id='categoryList'>
-		<label for="content" class="label-category"> Catégories existantes Fr </label>
+		<label for="content" class="label-category"> Mots-clefs existants (le mot-clef espagnol correspondant sera
+		automatiquement attribué) </label>
 		<select name='categoryFr[]' id='content' multiple="true">
 				<option value="" selected> Choisir une catégorie </option>
 			{% for key in keyword %}
 				<option value='{{ key.category }}'/>{{ key.category }}</option>
-			{% endfor %}
-		</select>
-		<label for="content" class="label-category"> Categorías existentes </label>
-		<select name='categoryEs[]' id='content' multiple="true">
-				<option value="" selected> Escoger una categoria </option>
-			{% for key in keyword %}
-				<option value='{{ key.categoryEs }}'/>{{ key.categoryEs }}</option>
 			{% endfor %}
 		</select>
 	</div>
