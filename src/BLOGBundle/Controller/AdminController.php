@@ -64,34 +64,103 @@ class AdminController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid()) 
 		{
-			$check = $request->request->get('category');	
-			$nbCategory = count($check);
+			$checkFr = $request->request->get('categoryFr');	
+			$rowEs = $request->request->get('categoryEs'); // Création de nouveaux mots-clef en espagnol
+			$checkEs = []; // Est forcément nul si sélection de mot clef en français, ou pas d'ailleurs...
 			
-			if($check)
+			$nbCategory = count($checkFr);
+			$nbCategoryEs = count($checkEs);
+			$nbRowEs = count($rowEs);
+			
+			$deltaFrEs = $nbCategory - $nbRowEs;
+			
+			// On met tous les mots français de la base dans un tableau
+			$tabKeyWordBdd = [];
+			foreach($keyword as $k)
+			{
+				$tabKeyWordBdd[] = $k->getCategory();
+			}
+			
+			// Si réception mot(s)-clef(s) en français mais pas en espagnol (sélection uniquement, pas création)
+			$nbAssociations = 0;
+			$check = false;
+			
+			if($checkFr && $nbCategoryEs == 0) 
+			{
+				$l=0;
+				foreach($checkFr as $categ)
+				{
+					if($l < $deltaFrEs)
+					{
+						$key = array_search($categ, $tabKeyWordBdd);
+						$checkEs[] = $keyword[$key]->getCategoryEs();
+						$nbAssociations++;
+						$l++;
+						$check = true;
+					}	
+				}	
+			}
+			
+			if($nbAssociations > 0 && $rowEs)
+			{
+				foreach($rowEs as $cat)
+				{
+					$checkEs[] = $cat;
+				}
+			}
+			
+			if(isset($check) AND $check == false AND $rowEs)
+			{
+				foreach($rowEs as $cat)
+				{
+					$checkEs[] = $cat;
+				}
+			}
+		
+			if($checkFr && $checkEs)
 			{
 				// On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
-				$str = [];
-				foreach($check as $tab)
+				$strFrMin = [];
+				$strFr = [];
+				foreach($checkFr as $tab)
 				{
-					$str[] = strtolower($tab); 
+					$strFrMin[] = strtolower($tab);  
+					$strFr[] = $tab;  
 				}
 				
-				foreach(array_count_values($str) as $key => $value)
+				$strEsMin = [];
+				$strEs = [];
+				foreach($checkEs as $tab)
+				{
+					$strEsMin[] = strtolower($tab); 
+					$strEs[] = $tab; 
+				}
+				
+				foreach(array_count_values($strFrMin) as $key => $value)
 				{
 					if($value > 1)
 					{
-						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double. L'article n'a donc pas été publié. Veuillez recommencer.");
+						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs français en double. L'article n'a donc pas été publié. Veuillez recommencer.");
+						return $this->redirectToRoute('admin_add'); 
+					}
+				}
+				
+				foreach(array_count_values($strEsMin) as $key => $value)
+				{
+					if($value > 1)
+					{
+						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs espagnol en double. L'article n'a donc pas été publié. Veuillez recommencer.");
 						return $this->redirectToRoute('admin_add'); 
 					}
 				}
 			}
 				
-			if($request->request->get('category'))
+			if($checkFr && $checkEs)
 			{
-				foreach ($request->request->get('category') as $category)
-				{
-					if (strlen($category)>0) // Si texte n'est pas "";
-					{
+				foreach($checkFr as $key=>$category)
+				{					
+					if(strlen($category)>0) // Si texte n'est pas "";
+					{						
 						if($keyword)
 						{
 							$i = 0;
@@ -100,18 +169,21 @@ class AdminController extends Controller
 							$loopIndex = 0;
 							$loopLength = count($keyword);
 							
-							foreach ($keyword as $key) 
-							{
-								// Si le nouveau mot-clef n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
-								if(strtolower($category) !== strtolower($key->getCategory())) 
+							foreach ($keyword as $k=>$val) 
+							{								
+								// Si les nouveaux mots-clefs n'existe pas en bdd, alors on incrémente le compteur pour avoir une trace
+								if(strtolower($category) !== strtolower($val->getCategory()) && 
+								   strtolower($strEs[$key]) !== strtolower($val->getCategoryEs())) 
 								{
 									$j++;
 								}
-								// Si le mot-clef renseigné existe déjà, alors on l'associe simplement à l'article créé
-								if(strtolower($category) == strtolower($key->getCategory())) 
-								{
-									$key->addArticle($article);
-									$article->addCategory($key);
+								
+								// Si les mot-clefs renseignés existent déjà, alors on les associe simplement à l'article créé
+								if(strtolower($category) == strtolower($val->getCategory()) &&
+								   strtolower($strEs[$key]) == strtolower($val->getCategoryEs())) 
+								{			
+									$val->addArticle($article);
+									$article->addCategory($val);
 									$i++;
 								}
 								// Si le mot-clef renseigné n'existe pas encore, 
@@ -125,9 +197,10 @@ class AdminController extends Controller
 							}
 							// Puisque j est supérieur à 0, alors on doit créer une catégorie.
 							if ($j > 0 AND $i == 0 AND $endLoop == true) 
-							{
+							{								
 								$categ = new Category();
 								$categ->setCategory(ucfirst($category));
+								$categ->setCategoryEs(ucfirst($strEs[$key]));
 								$categ->addArticle($article);
 								$article->addCategory($categ);
 							}
@@ -136,6 +209,7 @@ class AdminController extends Controller
 						{
 							$categ = new Category();
 							$categ->setCategory(ucfirst($category));
+							$categ->setCategoryEs(ucfirst($strEs[$key]));
 							$categ->addArticle($article);
 							$article->addCategory($categ);
 						}
@@ -145,12 +219,12 @@ class AdminController extends Controller
 						if($nbCategory == 1)
 						{
 							$i=0;
-							foreach ($keyword as $key) 
+							foreach($keyword as $k) 
 							{
-								if ($key->getCategory() == "Autres") 
+								if($k->getCategory() == "Autres" && $k->getCategoryEs() == "Otros") 
 								{	
-									$key->addArticle($article);
-									$article->addCategory($key);	
+									$k->addArticle($article);
+									$article->addCategory($k);	
 									$i++;
 								}
 							}	
@@ -158,6 +232,7 @@ class AdminController extends Controller
 							{
 								$categ = new Category();
 								$categ->setCategory("Autres");
+								$categ->setCategoryEs("Otros");
 								$categ->addArticle($article);
 								$article->addCategory($categ);
 							}
@@ -169,6 +244,7 @@ class AdminController extends Controller
 			{   // Si les auteurs ont créé leur premier article sans définir de catégorie         
 				$categ = new Category();
 				$categ->setCategory("Autres");
+				$categ->setCategoryEs("Otros");
 				$categ->addArticle($article);
 				$article->addCategory($categ);
 			}
@@ -183,16 +259,27 @@ class AdminController extends Controller
 
 					$image = new Image();
 					$image->setSrc($fileName);
-					$image->setAlt($article->getTitle());
+					$image->setAlt($article->getTitleFr());
 					$image->setArticle($article);
 					$article->addImage($image);
 				}
 			}
-
-			foreach($request->request->get('content') as $content)
+			
+			foreach($request->request->get('contentFr') as $content)
+			{
+				$contentFr[] = $content;
+			}
+			
+			foreach($request->request->get('contentEs') as $content)
+			{
+				$contentEs[] = $content;
+			}
+			
+			foreach($contentFr as $key=>$content)
 			{
 				$cont = new Content();
 				$cont->setContent($content);
+				$cont->setContentEs($contentEs[$key]);
 				$cont->setArticle($article);
 				$article->addContent($cont);
 			}
@@ -203,44 +290,34 @@ class AdminController extends Controller
 			{
 				$article->setNewsletter('1');
 			}
-			else{
+			else
+			{
 				$article->setNewsletter('0');
 			}
-
 			
 			$em->persist($article);
 			$em->flush();
 			
-			// Une fois les infos enregistrées, on envoie la newsletter
-			// On récupère les infos de la bdd
 			/*
-			if($checkbox == "on"){
-				swiftmailer
-				
-				$this->render(........twig, array
-					'image' => $src[0];
-					'texte' => $cont[0];
-				)
-				array(
-				
-				)
-			}
+			* Une fois les infos enregistrées, on envoie la newsletter
+			* On récupère les infos de la bdd
+
+			* mise en place de l'envoi swiftmailer
+			* if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie
+
+			*  recupérer directement le dernier article
 			*/
+			
+			$article_mail = $article;
 
+			$object_cat = $article_mail->getCategory();
+			$subject = $object_cat[0]->getCategory();
+			$image_mail = $article_mail->getImage();
+			$image_mails = $image_mail[0]->getSrc();
 
-//			  mise en place de l'envoi swiftmailer
-//            if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie
-
-//            recupérer directement le dernier article
-         $article_mail = $article;
-
-         $object_cat = $article_mail->getCategory();
-         $subject = $object_cat[0]->getCategory();
-         $image_mail = $article_mail->getImage();
-         $image_mails = $image_mail[0]->getSrc();
-
-         //recuperer chaque addresse mail a qui envoyer l'article
-//            $em = $this->getDoctrine()->getManager();
+            //recuperer chaque addresse mail a qui envoyer l'article
+//          
+			$em = $this->getDoctrine()->getManager();
 //           $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
 //
 //            foreach($email as $emails)
@@ -297,7 +374,7 @@ class AdminController extends Controller
         $imageBdd = $em->getRepository('BLOGBundle:Image')->findBy(array('article' => $article));
         $contentBdd = $em->getRepository('BLOGBundle:Content')->findBy(array('article' => $article));
         $categoryBdd = $em->getRepository('BLOGBundle:Category')->myFindAll();
-        
+		        
 		// On compte le nombre de blocs Img + Text(texte vide ou pas) envoyés dans le form
 		$nbImage = count($article->getImage()); 
 		
@@ -307,9 +384,8 @@ class AdminController extends Controller
 		$editForm = $this->createForm('BLOGBundle\Form\ArticleType', $article);
         $editForm->handleRequest($request);
 		
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-
-            
+        if ($editForm->isSubmitted() && $editForm->isValid()) 
+		{
 			$this->getDoctrine()->getManager();
 			
 			/****************************************** 
@@ -351,75 +427,104 @@ class AdminController extends Controller
 			}
 			
 			// On récupère tous les textes envoyés
-			$tabText = [];
-			if($request->request->get('content'))
+			$tabTextFr = [];
+			if($request->request->get('contentFr'))
 			{
-				foreach($request->request->get('content') as $text)
+				foreach($request->request->get('contentFr') as $text)
 				{
-					$tabText[] = $text;
+					$tabTextFr[] = $text;
+				}
+			}
+			
+			// Si on reçoit de nouveau mot-clef 
+			
+			$tabTextEs = [];
+			if($request->request->get('contentEs'))
+			{
+				foreach($request->request->get('contentEs') as $text)
+				{
+					$tabTextEs[] = $text;
 				}
 			}
 			
 			// On récupère les catégories envoyées et la quantité de catégories
-			$check = $request->request->get('category');	
-			$nbCategories = count($check);
+			$checkFr = $request->request->get('categoryFr');	
+			$checkEs = $request->request->get('categoryEs');	
+			$nbCategories = count($checkFr);
+			$nbCategoriesEs = count($checkEs);	
 			
-			// On récupère toutes les catégories en bdd
-			$allKeyWordsInBdd = [];
+			// On récupère toutes les catégories en bdd			
+			$allKeyWordsInBddFr = [];
 			foreach($categoryBdd as $categ)
 			{
-				$allKeyWordsInBdd[] = $categ->getCategory();
+				$allKeyWordsInBddFr[] = $categ->getCategory();
 			}
-
-			$tabKeyWord = [];
+			
+			$allKeyWordsInBddEs = [];
+			foreach($categoryBdd as $categ)
+			{
+				$allKeyWordsInBddEs[] = $categ->getCategoryEs();
+			}
+			
+			$tabKeyWordFr = [];
 			// Si les auteurs retournent un formulaire d'édition avec au moins un mot-clef
 			// Si rien reçu, on crée une catégorie "Autres" dans la bdd (si pas existante) : Voir "GESTION DES 
 			// CATEGORIES"
-			if($check)
+			if($checkFr)
 			{
-				foreach($check as $tab)
+				foreach($checkFr as $tab)
 				{
-					$tabKeyWord[] = $tab;
+					$tabKeyWordFr[] = ucfirst($tab);
+				}
+			}
+			
+			if($checkEs)
+			{
+				foreach($checkEs as $tab)
+				{
+					$tabKeyWordEs[] = ucfirst($tab);
 				}
 			}
 			
 			// On vérifie qu'il n'y a pas de doublon dans les catégories envoyées.
 			// if $check car doit au moins avoir un élément pour comparer sinon ça pète
-			if($check)
+			if($checkFr && $checkEs)
 			{
 				// On transforme toutes les entrées en minuscules, qu'on stocke dans un nouveau tableau
-				$str = [];
-				foreach($check as $tab)
+				$strFr = [];
+				foreach($checkFr as $tab)
 				{
-					$str[] = strtolower($tab); 
+					$strFr[] = strtolower($tab); 
+				}
+				
+				$strEs = [];
+				foreach($checkEs as $tab)
+				{
+					$strEs[] = strtolower($tab); 
 				}
 				
 				// Si valeur > 1, alors on a un doublon et on renvoie vers la page d'édition
-				foreach(array_count_values($str) as $key => $value)
+				foreach(array_count_values($strFr) as $key => $value)
 				{
 					if($value > 1)
 					{
-						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs en double. L'article n'a donc pas été édité. Veuillez recommencer.");
+						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs français en double. L'article n'a donc pas été édité. Veuillez recommencer.");
 						return $this->redirectToRoute('admin_edit', array(
 							"id" => $id
 						)); 
 					}
 				}
 				
-				// On compare mot-clef envoyé passé en miniscule avec tous les mots clefs de la bdd passés
-				// en minuscules
-				// Si le mot clef avait été écrit avec une minuscule initialement, alors la catégorie créée aura
-				// la première lettre en minuscule (même si majuscule saisie)
-				for($i=0; $i<count($str); $i++)
+				foreach(array_count_values($strEs) as $key => $value)
 				{
-					$CatBddLowercase = array_map('strtolower', $allKeyWordsInBdd);
-					
-					if(in_array($str[$i], $CatBddLowercase))
+					if($value > 1)
 					{
-						$keySimilarKeywordInBdd = array_search($str[$i], $CatBddLowercase); 
-						$tabKeyWord[$i] = $allKeyWordsInBdd[$keySimilarKeywordInBdd]; 
+						$request->getSession()->getFlashBag()->add("notice", "Vous avez déclaré des mots clefs espagnol en double. L'article n'a donc pas été édité. Veuillez recommencer.");
+						return $this->redirectToRoute('admin_edit', array(
+							"id" => $id
+						)); 
 					}
-				}		
+				}				
 			}
 
 			// On récupère toutes les src de la bdd
@@ -429,11 +534,18 @@ class AdminController extends Controller
 				$tabBdd[] = $Image->getSrc();
 			}	
 
-			// On récupères toutes les catégories associées à l'article
-			$keyWordArticle = [];
+			// On récupères tous les mots-clefs en français associées à l'article
+			$keyWordArticleFr = [];
 			foreach($article->getCategory() as $categ)
 			{
-				$keyWordArticle[] = $categ->getCategory();
+				$keyWordArticleFr[] = $categ->getCategory();
+			}
+			
+			// On récupères tous les mots-clefs en espagnol associées à l'article
+			$keyWordArticleEs = [];
+			foreach($article->getCategory() as $categ)
+			{
+				$keyWordArticleEs[] = $categ->getCategoryEs();
 			}
 			
 			// Cas 1 : le nombre d'images est supérieur ou égal à "avant l'édition"
@@ -445,8 +557,9 @@ class AdminController extends Controller
 					// Si les images coïncident (pas de suppression lors de l'édition)
 					if($tabImgReceived[$i] == $tabBdd[$i])
 					{
-						// On met à jour le texte uniquement
-						$article->getContent()[$i]->setContent($tabText[$i]);						
+						// On met à jour le texte uniquement (Fr et Es...)
+						$article->getContent()[$i]->setContent($tabTextFr[$i]);						
+						$article->getContent()[$i]->setContentEs($tabTextEs[$i]);						
 					}
 					
 					// Attention, si les auteurs suppriment un bloc compris entre 1 et n-1, cela décale tout
@@ -461,7 +574,8 @@ class AdminController extends Controller
 							$newFileName = uniqid() . '.' .$tabImgReceived[$i]->guessExtension();
 							
 							$article->getImage()[$i]->setSrc($newFileName);
-							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							$article->getContent()[$i]->setContent('' . $tabTextFr[$i] . '');
+							$article->getContent()[$i]->setContentEs('' . $tabTextEs[$i] . '');
 							
 							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newFileName);	
 						}
@@ -471,7 +585,8 @@ class AdminController extends Controller
 							$path = $this->getParameter('image_directory')."/".$ancientFileName;
 							
 							$article->getImage()[$i]->setSrc(''.$tabImgReceived[$i].'');
-							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							$article->getContent()[$i]->setContent('' . $tabTextFr[$i] . '');
+							$article->getContent()[$i]->setContentEs('' . $tabTextEs[$i] . '');
 						}
 						
 						if(in_array('' . $tabBdd[$i] . '', $tabImgReceived)==0)
@@ -501,12 +616,13 @@ class AdminController extends Controller
 
 							$image = new Image();
 							$image->setSrc($fileName);
-							$image->setAlt($article->getTitle());
+							$image->setAlt($article->getTitleFr());
 							$image->setArticle($article);
 							$article->addImage($image);
 							
 							$cont = new Content();
-							$cont->setContent('' . $tabText[$i] . '');
+							$cont->setContent('' . $tabTextFr[$i] . '');
+							$cont->setContentEs('' . $tabTextEs[$i] . '');
 							$cont->setArticle($article);
 							$article->addContent($cont);
 						}
@@ -530,11 +646,13 @@ class AdminController extends Controller
 								$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newfileName);
 								
 								$article->getImage()[$i]->setSrc($newfileName);
-								$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+								$article->getContent()[$i]->setContent('' . $tabTextFr[$i] . '');
+								$article->getContent()[$i]->setContentEs('' . $tabTextEs[$i] . '');
 							}
 							else
 							{
-								$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+								$article->getContent()[$i]->setContent('' . $tabTextFr[$i] . '');
+								$article->getContent()[$i]->setContentEs('' . $tabTextEs[$i] . '');
 								$article->getImage()[$i]->setSrc($tabImgReceived[$i]);						
 							}
 						}
@@ -563,7 +681,8 @@ class AdminController extends Controller
 					{
 						if(array_key_exists($i, $tabImgReceived))
 						{
-							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							$article->getContent()[$i]->setContent('' . $tabTextFr[$i] . '');
+							$article->getContent()[$i]->setContentEs('' . $tabTextEs[$i] . '');
 							$article->getImage()[$i]->setSrc($tabImgReceived[$i]);
 						}
 						else
@@ -594,7 +713,8 @@ class AdminController extends Controller
 							$tabImgReceived[$i]->move($this->getParameter('image_directory'), $newfileName);
 								
 							$article->getImage()[$i]->setSrc($newfileName);
-							$article->getContent()[$i]->setContent('' . $tabText[$i] . '');
+							$article->getContent()[$i]->setContent('' . $tabTextFr[$i] . '');
+							$article->getContent()[$i]->setContentEs('' . $tabTextEs[$i] . '');
 						}
 						else
 						{
@@ -629,40 +749,43 @@ class AdminController extends Controller
 			// Si aucun mot-clef reçu, on associe l'article à "Autres"
 			if($nbCategories == 0)
 			{
-				$tabKeyWord[] = "Autres";
+				$tabKeyWordFr[] = "Autres";
+				$tabKeyWordEs[] = "Otros";
 			}
 			
 			if($nbCategories >= $nbCatArticleBdd)
 			{
 				for($i=0; $i<$nbCatArticleBdd; $i++)
 				{
-					if(array_key_exists($i, $tabKeyWord))	
+					if(array_key_exists($i, $tabKeyWordFr))	
 					{
 						// Le mot-clef existe-t-il déjà en bdd et est-il déjà associé à l'article?
-						
+						//dump($tabKeyWordFr[$i]);
+						//echo"x"; die();
 						// Cas 1 :  existe en bdd 
-						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
+						if(in_array($tabKeyWordFr[$i], $allKeyWordsInBddFr))
 						{	
 							// Si n'est pas déjà associé à article, on l'associe
-							if(in_array($tabKeyWord[$i], $keyWordArticle)==0)
+							if(in_array($tabKeyWordFr[$i], $keyWordArticleFr)==0)
 							{
-								$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
+								$key = array_search($tabKeyWordFr[$i], $allKeyWordsInBddFr);
 								$categoryBdd[$key]->addArticle($article);
 								$article->addCategory($categoryBdd[$key]);
 							}
 						}
 						
-						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)  
+						if(in_array($tabKeyWordFr[$i], $allKeyWordsInBddFr)==0)  
 						{
 							$categ = new Category();
-							$categ->setCategory('' . ucfirst($tabKeyWord[$i]) . '');
+							$categ->setCategory('' . ucfirst($tabKeyWordFr[$i]) . '');
+							$categ->setCategoryEs('' . ucfirst($tabKeyWordEs[$i]) . '');
 							$categ->addArticle($article);
 							$article->addCategory($categ);
 						}
 						
-						if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
+						if(in_array($keyWordArticleFr[$i], $tabKeyWordFr)==0)
 						{
-							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
+							$key = array_search($keyWordArticleFr[$i], $allKeyWordsInBddFr);
 							$article->removeCategory($categoryBdd[$key]);
 							$categoryBdd[$key]->removeArticle($article);
 						}
@@ -671,35 +794,36 @@ class AdminController extends Controller
 				
 				for($i=$nbCatArticleBdd; $i<$nbCategories; $i++)
 				{
-					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
+					if(in_array($tabKeyWordFr[$i], $allKeyWordsInBddFr))
 					{	
-						if(in_array($tabKeyWord[$i], $keyWordArticle)==0)
+						if(in_array($tabKeyWordFr[$i], $keyWordArticleFr)==0)
 						{
-							$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
+							$key = array_search($tabKeyWordFr[$i], $allKeyWordsInBddFr);
 							$categoryBdd[$key]->addArticle($article);
 							$article->addCategory($categoryBdd[$key]);
 						}
 					}
 					
-					if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)  
+					if(in_array($tabKeyWordFr[$i], $allKeyWordsInBddFr)==0)  
 					{
 						$categ = new Category();
-						$categ->setCategory('' . ucfirst($tabKeyWord[$i]) . '');
+						$categ->setCategory('' . ucfirst($tabKeyWordFr[$i]) . '');
+						$categ->setCategoryEs('' . ucfirst($tabKeyWordEs[$i]) . '');
 						$categ->addArticle($article);
 						$article->addCategory($categ);
 					}
 					
-					if(array_key_exists($i, $keyWordArticle))
+					if(array_key_exists($i, $keyWordArticleFr))
 					{	
-						if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
+						if(in_array($keyWordArticleFr[$i], $tabKeyWordFr)==0)
 						{	
-							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
+							$key = array_search($keyWordArticleFr[$i], $allKeyWordsInBddFr);
 							$article->removeCategory($categoryBdd[$key]);
 							$categoryBdd[$key]->removeArticle($article);
 						}
 						else
 						{
-							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
+							$key = array_search($keyWordArticleFr[$i], $allKeyWordsInBddFr);
 							$article->removeCategory($categoryBdd[$key]);
 							$categoryBdd[$key]->removeArticle($article);	
 						}
@@ -711,39 +835,40 @@ class AdminController extends Controller
 				for($i=0; $i<$nbCatArticleBdd; $i++)
 				{
 					// Si l'index existe dans le tableau de mots-clefs renvoyé (car on a un nombre inférieur)
-					if(array_key_exists($i, $tabKeyWord))
+					if(array_key_exists($i, $tabKeyWordFr))
 					{
-						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd))
+						if(in_array($tabKeyWordFr[$i], $allKeyWordsInBddFr))
 						{	
-							if(in_array($tabKeyWord[$i], $keyWordArticle)==0)
+							if(in_array($tabKeyWordFr[$i], $keyWordArticleFr)==0)
 							{
 								// On récupère la clef de l'objet en bdd et on l'associe à l'article
-								$key = array_search($tabKeyWord[$i], $allKeyWordsInBdd);
+								$key = array_search($tabKeyWordFr[$i], $allKeyWordsInBddFr);
 								$categoryBdd[$key]->addArticle($article);
 								$article->addCategory($categoryBdd[$key]);
 							}
 						}
 						
-						if(in_array($tabKeyWord[$i], $allKeyWordsInBdd)==0)  
+						if(in_array($tabKeyWordFr[$i], $allKeyWordsInBddFr)==0)  
 						{
 							$categ = new Category();
-							$categ->setCategory('' . ucfirst($tabKeyWord[$i]) . '');
+							$categ->setCategory('' . ucfirst($tabKeyWordFr[$i]) . '');
+							$categ->setCategoryEs('' . ucfirst($tabKeyWordEs[$i]) . '');
 							$categ->addArticle($article);
 							$article->addCategory($categ);
 						}
 						
-						if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
+						if(in_array($keyWordArticleFr[$i], $tabKeyWordFr)==0)
 						{
-							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
+							$key = array_search($keyWordArticleFr[$i], $allKeyWordsInBddFr);
 							$article->removeCategory($categoryBdd[$key]);
 							$categoryBdd[$key]->removeArticle($article);
 						}
 					}
 					else
 					{
-						if(in_array($keyWordArticle[$i], $tabKeyWord)==0)
+						if(in_array($keyWordArticleFr[$i], $tabKeyWordFr)==0)
 						{
-							$key = array_search($keyWordArticle[$i], $allKeyWordsInBdd);
+							$key = array_search($keyWordArticleFr[$i], $allKeyWordsInBddFr);
 							$article->removeCategory($categoryBdd[$key]);
 							$categoryBdd[$key]->removeArticle($article);
 						}
@@ -756,7 +881,8 @@ class AdminController extends Controller
             {
                 $article->setNewsletter('1');
             }
-            else{
+            else
+			{
                 $article->setNewsletter('0');
             }
             
@@ -765,13 +891,16 @@ class AdminController extends Controller
 			
 			$request->getSession()->getFlashBag()->add("notice", "L'article a bien été modifié.");
             return $this->redirectToRoute('admin_edit', array('id' => $article->getId()));
-        }
-
-        return $this->render('@BLOG/Admin/edit.html.twig', array(
-            'article' => $article,
-            'edit_form' => $editForm->createView(),
-        ));
-    }
+		}
+		
+		return $this->render('@BLOG/Admin/edit.html.twig', array(
+			'article' => $article,
+			'edit_form' => $editForm->createView(),
+		));
+	}
+	
+		
+	
 
     /**
      * Deletes a Admin entity.

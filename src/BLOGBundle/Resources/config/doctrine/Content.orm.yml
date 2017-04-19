@@ -11,6 +11,8 @@ BLOGBundle\Entity\Content:
     fields:
         content:
             type: text
+        contentES:
+            type: text
     manyToOne:
         article:
             targetEntity: BLOGBundle\Entity\Article

@@ -36,7 +36,9 @@
                             <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
                                 {% for image in article.image %}
                                     {% if loop.first %}
-                                        <img src="{{ asset('bundles/images/'~image.src)}}" class="img-thu"/>
+                                        <figure>
+                                             <img src="{{ asset('bundles/images/'~image.src)}}" class="img-thu"/>
+                                        </figure>
                                     {% endif %}
                                 {% endfor %}
                                 <div class="article-caption">
