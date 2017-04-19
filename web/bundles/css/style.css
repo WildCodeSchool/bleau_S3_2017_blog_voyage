@@ -226,6 +226,7 @@ Page Category
 */
 .container-categ{
     margin-bottom: 50px;
+    width: 100%;
 }
 .form-cat
 {
@@ -238,16 +239,14 @@ Page Category
 Newsletter
 
 */
+
 #form-lien
 {
-display: inline-block;
-
+    display: inline-block;
     font-size: 1em;
 }
 #form-lien input
 {
-
-
     font-size: 1em;
 }
 #form-envoyer

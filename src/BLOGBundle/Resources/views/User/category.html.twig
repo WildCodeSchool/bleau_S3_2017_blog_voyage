@@ -7,14 +7,17 @@
 
     <div class="well form-cat">
         {{ form_start(form_cat) }}
-        <p>
-            {{ form_errors(form_cat.categories) }}
-            {{ form_widget(form_cat, { 'attr': {'name': 'cat'} }) }}
-            {{ form_row(form_cat.categories) }}
-        </p>
+
+
+        {{ form_errors(form_cat.categories) }}
+        <h1>{{ form_widget(form_cat, { 'attr': {'name': 'cat'} }) }}</h1>
+        {{ form_row(form_cat.categories) }}
+
+
         {{ form_widget(form_cat.chercher, { 'label': 'Click me' }) }}
         {{ form_rest(form_cat) }}
         {{ form_end(form_cat) }}
+
     </div>
 {% endblock %}
 
@@ -32,7 +35,9 @@
                         <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
                             {% for image in articles.image %}
                                 {% if loop.first %}
-                                    <img src="{{ asset('bundles/images/'~image.src)}}" class="img-thu"/>
+                                    <figure>
+                                    <img src="{{ asset('bundles/images/'~image.src)}}" class="image"/>
+                                    </figure>
                                 {% endif %}
                             {% endfor %}
                             <div class="article-caption">

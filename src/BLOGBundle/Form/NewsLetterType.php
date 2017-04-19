@@ -16,13 +16,13 @@ class NewsLetterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('lien',EmailType::class
-                    ,array(  'label' => false))
+        $builder->add('lien',EmailType::class,
+                array('attr' => array('placeholder' => 'Votre Email pour Newsletter')))
                 ->add('envoyer', SubmitType::class, array(
                 'attr' => array('class' => 'envoyer')
             ));
     }
-    
+
     /**
      * {@inheritdoc}
      */
