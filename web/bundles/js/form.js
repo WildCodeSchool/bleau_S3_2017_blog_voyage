@@ -35,6 +35,12 @@ keywordRangeElt.setAttribute('id', 'keywordRange');
 // Sélection de la div comprenant les boutons d'ajout/soumission
 var buttonRangeElt = document.getElementById('buttonRange');
 
+// Sélection de l'input comprenant la longitude
+var inputLongElt = document.getElementById('long');
+
+// Sélection de l'input comprenant la latitude
+var inputLatElt = document.getElementById('lat');
+
 // On insére la div contenant les mots-clefs avant la div contenant les boutons d'ajout/soumission
 if(buttonRangeElt){
 	buttonRangeElt.parentNode.insertBefore(keywordRangeElt, buttonRangeElt);
@@ -462,5 +468,20 @@ if(buttonEditElt){
 		}	
 	});
 }
+
+// Fonctions googleMaps
+
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+
+function showPosition(position) {
+    inputLatElt.value =  position.coords.latitude; 
+    inputLongElt.value =  position.coords.longitude;
+}
+
 
 

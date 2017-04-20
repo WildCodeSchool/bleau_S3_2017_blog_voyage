@@ -285,6 +285,12 @@ class AdminController extends Controller
 				$article->addContent($cont);
 			}
 			
+			$longitude = $request->request->get('long');
+			$latitude = $request->request->get('lat');
+			
+			$article->setLongitude($longitude);
+			$article->setLatitude($latitude);
+			
 			// Faut-il envoyer la newsletter?
 			$checkbox = $request->request->get('checked'); 
 			if($checkbox == "on")

@@ -19,6 +19,10 @@ BLOGBundle\Entity\Article:
             type: datetime
         newsletter:
             type: boolean
+        longitude:
+            type: float
+        latitude:
+            type: float
     manyToMany:
         category:
             targetEntity: BLOGBundle\Entity\Category

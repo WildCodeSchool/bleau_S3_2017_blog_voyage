@@ -1,6 +1,8 @@
 
 {% extends 'layout.html.twig' %}
 
+{% block onload %} onload="getLocation()" {% endblock %}
+
 {% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
 {% block title %}Administration{% endblock%}
 
@@ -76,13 +78,14 @@
 		<button class='content btn btn-lg btn-primary'>Nouveau contenu</button>
 		<button class='category btn btn-lg btn-primary'>Nouvelle catégorie</button>
 	</div>
-
+	<input type='text' id='long' name="long" />
+	<input type='text' id='lat' name="lat" />
 
 	<label for="check" for="submit" id="label-submit"> Alerter mes abonnés </label>
 	<input type="checkbox" name="checked" id="check" checked/>
 	
     <label for="submit1" id="label-submit"> Publier l'article </label>
-    <input type="submit" id="submit1" class="btn btn-lg btn-danger" value="Valider la création"/>
+    <input type="submit" id="submit1" class="btn btn-lg btn-danger" value="Valider la création" />
 
 	{{ form_end(form) }}
 
