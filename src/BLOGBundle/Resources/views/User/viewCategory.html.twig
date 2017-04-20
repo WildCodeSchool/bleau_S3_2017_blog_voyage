@@ -3,26 +3,15 @@
 {% block title %} {{ parent() }} - Catégories {% endblock %}
 
 
-
-{% block h1 %}
-    <h1>Categorie : {{ chosencat}}</h1>
-{% endblock %}
-
 {% block Category %}
-
-    <div class="well form-cat">
+    <div class="form-cat">
         {{ form_start(form_cat) }}
-
-
-        {{ form_errors(form_cat.categories) }}
-        <h1>{{ form_widget(form_cat, { 'attr': {'name': 'cat'} }) }}</h1>
-        {{ form_row(form_cat.categories) }}
-
-
-        {{ form_widget(form_cat.chercher, { 'label': 'Click me' }) }}
-        {{ form_rest(form_cat) }}
+		
+			{{ form_label(form_cat.categories) }}
+			{{ form_widget(form_cat.categories) }}
+			{{ form_errors(form_cat.categories) }}
+				
         {{ form_end(form_cat) }}
-
     </div>
 {% endblock %}
 {% block container %}
