@@ -12,21 +12,21 @@
 
                 <a class="navbar-brand navbar-brand-custom" href="#"><img src="{{ asset('bundles/images/mandala.png') }}" alt='logo'/></a>
 
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav plop-nav">
 				{% if app.request.locale == 'fr' %}
                     <li><a href="{{ path('blog_homepage') }}">Accueil</a></li>
                     <li><a href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
                     <li><a href="{{ path('blog_category') }}">Catégories</a></li>
                     <li><a href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
                     <li><a href="{{ path('blog_contact') }}">Contact</a></li>
-                    <li>{{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
+                    <li class="news-li">{{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
 				{% else %}	
 					<li><a href="{{ path('blog_homepage') }}">Inicio</a></li>
                     <li><a href="{{ path('blog_presentation') }}">Presentación del proyecto</a></li>
                     <li><a href="{{ path('blog_category') }}">Categorías</a></li>
                     <li><a href="{{ path('blog_articles_by_date') }}">Artículos por fecha</a></li>
                     <li><a href="{{ path('blog_contact') }}">Contacto</a></li>
-                    <li>{{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
+                    <li class="news-li">{{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
 				{% endif %}	
                 </ul>
 				<ul id="li-last-child">
