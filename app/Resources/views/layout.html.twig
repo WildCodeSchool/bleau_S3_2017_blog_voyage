@@ -23,6 +23,8 @@
 {% endblock %}
 {% block Category %}
 {% endblock %}
+{% block map %}
+{% endblock %}
 {% block NewsLetterDel %}
 {% endblock %}
 {% block Formulaire %}
@@ -48,5 +50,6 @@
 <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
 <script src="{% block javascript %}{% endblock %}"></script>
 <script src="{% block javascript_Admin_Index %}{% endblock %}"></script>
+{% block javascript_map %}{% endblock %}
 </body>
 </html>

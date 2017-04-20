@@ -54,6 +54,19 @@ a:link
     }
 }
 
+
+/* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+#map {
+    height: 400px;
+    width: 700px;
+}
+/* Optional: Makes the sample page fill the window. */
+.container-map{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 /* Menu avec dropdown si width <= 1200px */
 
 @media screen and (max-width: 1200px){
@@ -254,10 +267,11 @@ Newsletter
     align-items: center;
     padding: 0;
     margin: 10px;
+
 }
 #form-envoyer
 {
-    border-radius: 5px;
+
 }
 
 
