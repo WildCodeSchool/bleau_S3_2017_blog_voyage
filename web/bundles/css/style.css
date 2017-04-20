@@ -39,16 +39,24 @@ a:link
     padding: 0;
 }
 
+.plop-nav{
+    position: relative;
+    width: 92.5%;
+    display: flex;
+    justify-content: space-between;
+}
+
 #li-last-child{
 	display: flex;
 	justify-content: center;
-	position: absolute;
-	right: 5px;
+    margin: 0;
+    padding: 0;
 }
 
 #li-last-child img{
-	margin: 0 5px 0 5px;
-	padding: 0;
+    width: 22px;
+    height: 15px;
+    margin: 5px 7px 0 7px;
 }
 
 .navbar-brand-custom img{
@@ -67,6 +75,19 @@ a:link
     }
 }
 
+
+/* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+#map {
+    height: 400px;
+    width: 1200px;
+}
+/* Optional: Makes the sample page fill the window. */
+.container-map{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 /* Menu avec dropdown si width <= 1200px */
 
 @media screen and (max-width: 1200px){
@@ -260,22 +281,36 @@ Page Category
 Newsletter
 
 */
-
-#form-lien
+#form-envoyer-total
 {
-    display: inline-block;
-    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 10px;
+
+}
+.news-li
+{
+    position: absolute;
+    right: 0px;
 }
 
-#form-lien input
+.group-addon
 {
-    font-size: 1em;
+    margin:0;
+    border: none;
+    background: transparent;
+    color: white;
+
 }
 
-#form-envoyer
-{
-    display: inline-block;
+@media all and (max-width: 1200px){
+    .group-addon{
+        color: black;
+    }
 }
+
 
 
 .presentation-section-title{
@@ -699,15 +734,4 @@ footer{
     margin: 0 auto;
     justify-content: center;
     background: #b22222;
-}
-
-/*!
- * Generated with CSS Flag Sprite generator (https://www.flag-sprites.com/)
- */
-
-.flag-fr {
-    display: inline-block;
-    width: 16px;
-    height: 11px;
-    background: url('../images/flagFr.png') no-repeat;
 }
