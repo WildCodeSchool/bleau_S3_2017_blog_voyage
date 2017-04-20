@@ -39,12 +39,25 @@ a:link
     padding: 0;
 }
 
+#li-last-child{
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	right: 5px;
+}
+
+#li-last-child img{
+	margin: 0 5px 0 5px;
+	padding: 0;
+}
+
 .navbar-brand-custom img{
     height: 100%;
 }
 
 .container-fluid-custom{
     padding-left: 25px;
+	position: relative;
 }
 
 @media screen and (min-width: 1201px){
@@ -132,7 +145,7 @@ h2{
 
 
 .btn-custom{
-    font-size: 1em;
+    font-size: 1.2em;
     display: block;
     margin: 0 auto;
 }
@@ -686,4 +699,15 @@ footer{
     margin: 0 auto;
     justify-content: center;
     background: #b22222;
+}
+
+/*!
+ * Generated with CSS Flag Sprite generator (https://www.flag-sprites.com/)
+ */
+
+.flag-fr {
+    display: inline-block;
+    width: 16px;
+    height: 11px;
+    background: url('../images/flagFr.png') no-repeat;
 }

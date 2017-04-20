@@ -109,6 +109,7 @@ class AdminController extends Controller
 				}
 			}
 			
+			// Si on n'a que des nouveaux mots-clef (aucune sélection de mot(s)-clef(s) français)
 			if(isset($check) AND $check == false AND $rowEs)
 			{
 				foreach($rowEs as $cat)
@@ -283,6 +284,12 @@ class AdminController extends Controller
 				$cont->setArticle($article);
 				$article->addContent($cont);
 			}
+			
+			$longitude = $request->request->get('long');
+			$latitude = $request->request->get('lat');
+			
+			$article->setLongitude($longitude);
+			$article->setLatitude($latitude);
 			
 			// Faut-il envoyer la newsletter?
 			$checkbox = $request->request->get('checked'); 

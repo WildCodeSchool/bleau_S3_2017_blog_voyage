@@ -293,4 +293,76 @@ class Article
     {
         return $this->category;
     }
+    /**
+     * @var integer
+     */
+    private $longitude;
+
+    /**
+     * @var integer
+     */
+    private $latitude;
+
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Article
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param integer $longitude
+     *
+     * @return Article
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return integer
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param integer $latitude
+     *
+     * @return Article
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return integer
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
 }

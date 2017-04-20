@@ -1,7 +1,9 @@
 user:
     resource: "@BLOGBundle/Resources/config/routing/user.yml"
-    prefix:   /
-
+    prefix:   /{_locale}
+    requirements: 
+        _locale: fr|es|
+                         
 admin:
     resource: "@BLOGBundle/Resources/config/routing/admin.yml"
     prefix:   /admin

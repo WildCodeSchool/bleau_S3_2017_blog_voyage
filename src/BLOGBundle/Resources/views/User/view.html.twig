@@ -8,7 +8,11 @@
             <div class="row">
                 {% for article in articles %}
                     <div class="col-xs-12 article">
-                        <h1>{{ article.title }}</h1>
+						{% if app.request.locale == 'fr' %}
+							<h1>{{ article.titleFr }}</h1>
+						{% else %}	
+							<h1>{{ article.titleEs }}</h1>
+						{% endif %}
                         {% for image in article.image %}
                             {% for content in article.content %}
                                 {% if content.id == image.id %}
@@ -19,24 +23,46 @@
                                         </figcaption>
                                     {% endif %}
                                     {% if content.content is not empty %}
-                                        <p class="article-content"> {{ content.content|nl2br  }} </p>
-                                    {% endif %}
+										{% if app.request.locale == 'fr' %}
+											<p class="article-content"> {{ content.content|nl2br  }} </p>
+										{% endif %}
+									{% endif %}	
+									{% if content.contentEs is not empty %}
+										{% if app.request.locale == 'es' %}
+											<p class="article-content"> {{ content.contentEs|nl2br  }} </p>
+										{% endif %}
+									{% endif %}	
                                 {% endif %}
                             {% endfor %}
                         {% endfor %}
                         <aside>
-							<p><b><u> Catégorie(s) associée(s)</u> : </b> 
-								{% for category in article.category %}
-									<span><a href="{{ path('blog_category_specifique', {category : category.category}) }}"/> {{ category.category }} </a> {% if not loop.last %},{% endif %} </span>
-								{% endfor %}
-							</p>
-							<p>
-								Publié le {{ article.date.date|date('d/m/Y') }}
-							</p>
+							{% if app.request.locale == 'fr' %}
+								<p><b><u> Catégorie(s) associée(s)</u> : </b> 
+									{% for category in article.category %}
+										<span><a href="{{ path('blog_category_specifique', {category : category.category}) }}"/> {{ category.category }} </a> {% if not loop.last %},{% endif %} </span>
+									{% endfor %}
+								</p>
+								<p>
+									Publié le {{ article.date.date|date('d/m/Y') }}
+								</p>
+							{% else %}
+								<p><b><u> Categoría(s) relacionada(s) </u> : </b> 
+									{% for category in article.category %}
+										<span><a href="{{ path('blog_category_specifique', {category : category.categoryEs}) }}"/> {{ category.categoryEs }} </a> {% if not loop.last %},{% endif %} </span>
+									{% endfor %}
+								</p>
+								<p>
+									Publicado el {{ article.date.date|date('d/m/Y') }}
+								</p>
+							{% endif %}
                         </aside>
                         <div class="comments">
                             <div class="button-range">
+							{% if app.request.locale == 'fr' %}
                                 <button class="btn btn-lg btn-danger" id="publish">Publier un commentaire</button>
+							{% else %}
+								<button class="btn btn-lg btn-danger" id="publish">Publicar un comentario</button>
+							{% endif %}
 								{% for comment in article.comment %}
 									{% if comment.publication !=0 %}
 										<button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
@@ -44,18 +70,30 @@
 								{% endfor %}
 							</div>
                             {{ form_start(form) }}
-                                {{ form_label(form.author, 'Auteur') }}
-                                {{ form_errors(form.author) }}
-                                {{ form_widget(form.author) }}
-
-                                {{ form_label(form.comment, 'Commentaire') }}
-                                {{ form_errors(form.comment) }}
-                                {{ form_widget(form.comment) }}
-                            <input class="btn btn-lg btn-danger" type="submit"/>
+								{% if app.request.locale == 'fr' %}
+									{{ form_label(form.author, 'Auteur') }}
+								{% else %}
+									{{ form_label(form.author, 'Autor') }}
+								{% endif %}
+									{{ form_errors(form.author) }}
+									{{ form_widget(form.author) }}
+								{% if app.request.locale == 'fr' %}
+									{{ form_label(form.comment, 'Commentaire') }}
+								{% else %}
+									{{ form_label(form.comment, 'Comentario') }}
+								{% endif %}
+									{{ form_errors(form.comment) }}
+									{{ form_widget(form.comment) }}
+								{% if app.request.locale == 'fr' %}	
+									<input class="btn btn-lg btn-danger" type="submit" value="Valider"/>
+								{% else %}
+									<input class="btn btn-lg btn-danger" type="submit" value="Validar"/>
+								{% endif %}
+									
                             {{ form_end(form) }}
                         </div>
                         <div class="comments-block">
-                            {% for comment in article.comment %}
+                            {% for comment in article.comment %}	
                                 {% if comment.publication == 1 %}
                                     <div class="comment">
                                         <p> {{ comment.comment }} <br /><br />

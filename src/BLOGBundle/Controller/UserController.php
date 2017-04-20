@@ -11,15 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UserController extends Controller
-{
-    public function indexAction()
-    {
-
+{	
+    public function indexAction(Request $request)
+    {		
 		$em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
-
-		$articles = $em->myFindAll();
+		
+		if($request->getLocale() == 'fr' || $request->getLocale() == 'es')
+		{	
+			$articles = $em->myFindAll();
+		}
 		
 		if(count($articles) == 0)
 		{
@@ -31,7 +34,7 @@ class UserController extends Controller
         ));
     }
 
-    public function viewAction($id, Request $request)
+    public function viewAction(Request $request, $id)
     {
         $comment = new Comments();
 
@@ -61,14 +64,21 @@ class UserController extends Controller
         ));
     }
 
-    public function presentationAction()
+    public function presentationAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$presentation = $em->getRepository('BLOGBundle:Presentation')->findAll();
 		
-		if(count($presentation) == 0)
+		if(count($presentation) == 0 && $request->getLocale() == 'fr')
 		{
 			return new Response("Page en cours de construction. Revenez plus tard :)");
+		}
+		if(count($presentation) == 0 && $request->getLocale() == 'es')
+		{
+			return new Response(
+			"<p style='font-size: 2em; font-weight: bold;'>Página web en elaboración </p>
+			Volver a la página principal : <a href='/'> Haga click aquí </a>"
+			);
 		}
 		
 		return $this->render('BLOGBundle:User:presentation.html.twig', array(
@@ -109,6 +119,7 @@ class UserController extends Controller
 
         ));
     }
+	
     public function viewCategoryAction(Request $request, $category)
     {
 
@@ -168,7 +179,7 @@ class UserController extends Controller
         ));
     }
 
-
+	
     public function newsLetterAction(Request $request)
     {
         $emnews = $this->getDoctrine()->getManager();
@@ -189,6 +200,8 @@ class UserController extends Controller
             'form_news' => $form->createView()
         ));
     }
+	
+	
     public function newsLetterDeleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
