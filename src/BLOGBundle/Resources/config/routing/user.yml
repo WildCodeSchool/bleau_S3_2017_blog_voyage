@@ -2,8 +2,7 @@ blog_homepage:
     path: /
     defaults:
         _controller: 'BLOGBundle:User:index'
-
-
+        
 blog_article:
     path: /article/{id}
     defaults:

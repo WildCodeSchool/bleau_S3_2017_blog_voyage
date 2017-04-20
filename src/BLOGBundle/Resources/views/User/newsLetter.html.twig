@@ -2,6 +2,7 @@
 
 
 {{ form_start(form_news,  {'action': path('blog_newsletter'), 'method': 'POST'}) }}
+
 <div id="form-envoyer-total">
     <div id="form-lien">
         <div class="input-group">
@@ -14,6 +15,7 @@
             {{ form_widget(form_news.Souscrire, { 'attr': {'class' : 'btn btn-primary'} } ) }}
         </div>
     </div>
+
 </div>
 {{ form_end(form_news) }}
 
