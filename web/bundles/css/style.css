@@ -41,7 +41,8 @@ a:link
 
 .plop-nav{
     position: relative;
-    width: 92.5%;
+    width: 60%;
+    padding: 0;
     display: flex;
     justify-content: space-between;
 }
@@ -49,8 +50,8 @@ a:link
 #li-last-child{
 	display: flex;
 	justify-content: center;
-    margin: 0;
-    padding: 0;
+    width: 10%;
+
 }
 
 #li-last-child img{
@@ -283,27 +284,32 @@ Newsletter
 */
 #form-envoyer-total
 {
-    display: flex;
+
     justify-content: center;
     align-items: center;
     padding: 0;
     margin: 10px;
+    width: 30%;
+}
+#form-envoyer {
+    display: inline-block;
 
 }
-.news-li
+#form-lien
 {
-    position: absolute;
-    right: 0px;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
 }
-
 .group-addon
 {
     margin:0;
     border: none;
     background: transparent;
     color: white;
-
 }
+
 
 @media all and (max-width: 1200px){
     .group-addon{
