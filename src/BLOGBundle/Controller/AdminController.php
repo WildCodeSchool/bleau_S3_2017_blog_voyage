@@ -328,9 +328,8 @@ class AdminController extends Controller
 //            Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
                     $message = \Swift_Message::newInstance()
                         ->setSubject('blog de Raquelita et Pierre')
-                        ->setFrom('vincentchristophe177@gmail.com')
-                        ->setTo('vincentchristophe177@gmail.com');
-//                ->setTo('$email')
+                        ->setFrom('decheznousacasina@protonmail.com')
+                        ->setTo('$email');
 //ici j'ajoute des images a ma vue
                     $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
 
