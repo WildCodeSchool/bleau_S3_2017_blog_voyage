@@ -39,17 +39,17 @@ a:link
 
 .plop-nav{
     position: relative;
-    width: 92.5%;
+    width: 60%;
+    padding: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 #li-last-child{
 	display: flex;
-	justify-content: center;
-    margin: 0;
-    padding: 0;
+	justify-content: flex-end;
 }
+
 
 #li-last-child img{
     width: 22px;
@@ -340,7 +340,6 @@ Page Category
 
 .form-cat{
     text-align: center;
-    margin-top: 125px;
 	margin: 0 auto;
 	margin-top: 125px;
 	padding: 20px;
@@ -368,29 +367,36 @@ Page Category
 Newsletter
 
 */
-#form-envoyer-total
-{
-    display: flex;
-    justify-content: center;
+.container-newsletter {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    font-size: 2em;
+}
+
+.container-newsletter h3{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#form-envoyer {
+    display: inline-block;
     align-items: center;
-    padding: 0;
-    margin: 10px;
-
+    justify-content: space-around;
 }
-.news-li
+#form-lien
 {
-    position: absolute;
-    right: 0px;
+    display: inline-block;
+    align-items: center;
+    justify-content: space-around;
 }
-
 .group-addon
 {
     margin:0;
     border: none;
     background: transparent;
     color: white;
-
 }
+
 
 @media all and (max-width: 1200px){
     .group-addon{

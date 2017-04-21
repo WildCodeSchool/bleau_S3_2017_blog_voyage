@@ -19,18 +19,15 @@
                     <li><a href="{{ path('blog_category_specifique') }}">Catégories</a></li>
                     <li><a href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
                     <li><a href="{{ path('blog_contact') }}">Contact</a></li>
-                 {% else %}	   
+				{% else %}
 					<li><a href="{{ path('blog_homepage') }}">Inicio</a></li>
                     <li><a href="{{ path('blog_presentation') }}">Presentación del proyecto</a></li>
                     <li><a href="{{ path('blog_category_specifique') }}">Categorías</a></li>
                     <li><a href="{{ path('blog_articles_by_date') }}">Artículos por fecha</a></li>
                     <li><a href="{{ path('blog_contact') }}">Contacto</a></li>
-                   
-					
-				{% endif %}
-				</ul>	
+                {% endif %}
+				</ul>
 				<ul id="li-last-child">
-					
 					{% if app.request.attributes.get("_route") == 'blog_article' %}
 						<a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'fr'} ) }}">
 							<img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
@@ -76,13 +73,88 @@
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_homepage') }}">Accueil</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_category_specifique') }}">Catégories</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_contact') }}">Contact</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1">{{ render(controller("BLOGBundle:User:newsLetter") )}}</a></li>
+                        {% if app.request.locale == 'fr' %}
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_homepage') }}">Accueil</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_category_specifique') }}">Catégories</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_contact') }}">Contact</a></li>
+                            <li>
+                                {% if app.request.attributes.get("_route") == 'blog_article' %}
+                                    <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'fr'} ) }}">
+                                        <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                    </a>
+                                    <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'es'} ) }}">
+                                        <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                    </a>
+                                {% elseif app.request.attributes.get("_route") == 'blog_category_specifique' %}
+                                    {% if category.category is defined %}
+                                        <a href="{{ path(app.request.attributes.get("_route"), {category: category.category, _locale:'fr'} ) }}">
+                                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                        </a>
+                                        <a href="{{ path(app.request.attributes.get("_route"), {category: category.CategoryEs, _locale:'es'} ) }}">
+                                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path(app.request.attributes.get("_route"), { _locale:'fr'} ) }}">
+                                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                        </a>
+                                        <a href="{{ path(app.request.attributes.get("_route"), { _locale:'es'} ) }}">
+                                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{{ path(app.request.attributes.get("_route"), {_locale:'fr'} ) }}">
+                                        <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                    </a>
+                                    <a href="{{ path(app.request.attributes.get("_route"), {_locale:'es'} ) }}">
+                                        <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                    </a>
+                                {% endif %}
+
+                            </li>
+                        {% else %}
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_homepage') }}">Inicio</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_presentation') }}">Presentación del proyecto</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_category_specifique') }}">Categorías</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_articles_by_date') }}">Artículos por fecha</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_contact') }}">Contacto</a></li>
+                            <li>
+                                {% if app.request.attributes.get("_route") == 'blog_article' %}
+                                    <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'fr'} ) }}">
+                                        <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                    </a>
+                                    <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'es'} ) }}">
+                                        <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                    </a>
+                                {% elseif app.request.attributes.get("_route") == 'blog_category_specifique' %}
+                                    {% if category.category is defined %}
+                                        <a href="{{ path(app.request.attributes.get("_route"), {category: category.category, _locale:'fr'} ) }}">
+                                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                        </a>
+                                        <a href="{{ path(app.request.attributes.get("_route"), {category: category.CategoryEs, _locale:'es'} ) }}">
+                                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path(app.request.attributes.get("_route"), { _locale:'fr'} ) }}">
+                                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                        </a>
+                                        <a href="{{ path(app.request.attributes.get("_route"), { _locale:'es'} ) }}">
+                                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{{ path(app.request.attributes.get("_route"), {_locale:'fr'} ) }}">
+                                        <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                    </a>
+                                    <a href="{{ path(app.request.attributes.get("_route"), {_locale:'es'} ) }}">
+                                        <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                    </a>
+                                {% endif %}
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -90,13 +162,26 @@
     </header>
 {% endblock %}
 
+{% block newsletterfooter %}
+    <div class="container-fluid container-newsletter">
+        <div class="row">
+            <div class="span12">
+                <div class="thumbnail center well well-small text-center">
+                    <h3>Newsletter</h3>
+                    <p>Souscrivez à notre newsletter</p>
+                    {{ render(controller("BLOGBundle:User:newsLetter") )}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 {% block footer %}
     <footer>
-		{% if app.request.locale =='fr' %}
-			Tous droit réservés
-		{% else %}
-			Todos los derechos reservados
-		{% endif %}
+        {% if app.request.locale =='fr' %}
+            Tous droit réservés
+        {% else %}
+            Todos los derechos reservados
+        {% endif %}
     </footer>
 
 {% endblock %}
