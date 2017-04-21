@@ -14,5 +14,9 @@ BLOGBundle\Entity\Presentation:
             length: 255
         presentation:
             type: text
+        presentationEs:
+            type: text    
         contributors:
+            type: text
+        contributorsEs:
             type: text

@@ -27,7 +27,7 @@ class CategoryType extends AbstractType
                 'multiple'=> false
             ))
             ->add('chercher', SubmitType::class, array(
-                'attr' => array('class' => 'chercher')
+                'attr' => array('class' => 'btn btn-danger submit')
             ));
     }
 

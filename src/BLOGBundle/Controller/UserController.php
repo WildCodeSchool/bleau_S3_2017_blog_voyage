@@ -116,33 +116,60 @@ class UserController extends Controller
         return $this->render('BLOGBundle:User:category.html.twig', array(
            'form_cat' => $form->createView(),
             'categ' => $categ
-
         ));
     }
 	
     public function viewCategoryAction(Request $request, $category)
     {
-
-        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Article');
-        $articles = $em->findAll();
-        $em = $this->getDoctrine()->getManager()->getRepository('BLOGBundle:Category');
-        $categ = $em->findAll();
-        foreach ($categ as $donnees)
+		
+		
+        $em = $this->getDoctrine()->getManager();
+        
+		$articles = $em->getRepository('BLOGBundle:Article')->findAll();
+        $categ = $em->getRepository('BLOGBundle:Category')->findAll();
+		
+		if($request->getLocale() == 'fr'){	
+			$lineCateg = $em->getRepository('BLOGBundle:Category')->findOneByCategory($category);
+		}
+		
+		if($request->getLocale() == 'es'){	
+			$lineCateg = $em->getRepository('BLOGBundle:Category')->findOneBy(array('CategoryEs' => $category));
+		}
+        		
+		foreach ($categ as $donnees)
         {
             $cat[] = $donnees->getCategory();
         }
+		
         // On récupère les articles pour les envoyer sur la vue et en haut avoir les choix de catégories possible
         $form = $this->createForm('BLOGBundle\Form\CategoryType', $cat);
         $form->handleRequest($request);
-
+		
+		 if ($form->isSubmitted() && $form->isValid()) {
+			
+			$em = $this->getDoctrine()->getManager();
+		 
+            $data = $form->getData();
+            $id = $request->request->get('blogbundle_category')['categories'];
+			
+			$data = $em->getRepository('BLOGBundle:Category')->findOneBy(array('id' => $id));
+			
+			
+            return $this->render('@BLOG/User/viewCategory.html.twig', array(
+                'category' => $data,
+                'articles'=> $articles,
+                'form_cat' => $form->createView(),
+				'chosencat' => $category,
+            ));
+        }
 
         return $this->render('@BLOG/User/viewCategory.html.twig', array(
-                'chosencat' => $category,
-                'articles'=> $articles,
-                'form_cat' => $form->createView()
-            ));
+			'chosencat' => $category,
+			'articles'=> $articles,
+			'form_cat' => $form->createView(),
+			'category' => $lineCateg
+		));
     }
-
 
     public function datesAction(Request $request)
 

@@ -24,6 +24,16 @@
             {{ form_errors(form.contributors) }}
             {{ form_widget(form.contributors) }}
         </p>
+		<p>
+            {{ form_label(form.presentationEs, 'Presentación del proyecto', {'label_attr' : {class : 'label-titre'}} ) }}
+            {{ form_errors(form.presentationEs) }}
+            {{ form_widget(form.presentationEs) }}
+        </p>
+        <p>
+            {{ form_label(form.contributorsEs, 'Agradecimientos', {'label_attr' : {class : 'label-titre'}} ) }}
+            {{ form_errors(form.contributorsEs) }}
+            {{ form_widget(form.contributorsEs) }}
+        </p>
         <p>
             <input type="submit" class="btn btn-lg btn-danger"/>
         </p>
