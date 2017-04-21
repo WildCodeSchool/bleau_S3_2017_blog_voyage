@@ -10,7 +10,13 @@
 			{{ form_label(form_cat.categories) }}
 			{{ form_widget(form_cat.categories) }}
 			{{ form_errors(form_cat.categories) }}
-				
+
+            {% if app.request.locale =='fr' %}
+                <input type="submit" value="Chercher" class="btn btn-danger"/>
+            {% else %}
+                <input type="submit" value="Buscar" class="btn btn-danger"/>
+            {% endif %}
+
         {{ form_end(form_cat) }}
     </div>
 {% endblock %}
@@ -18,32 +24,55 @@
     <div class="container container-categ">
         {% block row %}
             <div class="row">
-                {% for article in articles %}
-                    {% for articl_cat in article.category %}
-						
-                        {% if chosencat == articl_cat.category %}
-						
+                {% for categ in category %}
+                    <div class="row">
+                        {% if app.request.locale == 'fr' %}
+                            {% if categ.article is not empty %}
+                                <h1>{{ categ.category }}</h1>
+                            {% else %}
+                                <p class="alert">Pas d'article dans cette catégorie</p>
+                            {% endif %}
+                        {% else %}
+                            {% if categ.article is not empty %}
+                                <h1>{{ categ.CategoryEs }}</h1>
+                            {% else %}
+                                <p class="alert">No existen noticias en esta categoría</p>
+                            {% endif %}
+                        {% endif %}
+
+                        {% for article in categ.article %}
                             <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
                                 {% for image in article.image %}
                                     {% if loop.first %}
                                         <figure>
-                                        <img src="{{ asset('bundles/images/'~image.src)}}" class="image"/>
+                                            <img src="{{ asset('bundles/images/'~image.src)}}" class="image"/>
                                         </figure>
                                     {% endif %}
                                 {% endfor %}
                                 <div class="article-caption">
-                                    <h3>{{ article.titleFr }}</h3>
-                                    <p>
-                                        {% for content in article.content %}
-                                            {{ content.content }}
-                                        {% endfor %}
-                                    </p>
-                                    <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                                    <i>Publié le {{ article.date.date|date('d/m/Y h:m:s') }} </i>
+                                    {% if app.request.locale == 'fr' %}
+                                        <h3>{{ article.titleFr }}</h3>
+                                        <p>
+                                            {% for content in article.content %}
+                                                {{ content.content }}
+                                            {% endfor %}
+                                        </p>
+                                        <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+                                        <i>Publié le {{ article.date.date|date('d/m/Y') }} </i>
+                                    {% else %}
+                                        <h3>{{ article.titleEs }}</h3>
+                                        <p>
+                                            {% for content in article.content %}
+                                                {{ content.contentEs }}
+                                            {% endfor %}
+                                        </p>
+                                        <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">Saber más</button></a>
+                                        <i>Publicado el {{ article.date.date|date('d/m/Y') }} </i>
+                                    {% endif %}
                                 </div>
                             </div>
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 {% endfor %}
             </div>
         {% endblock %}

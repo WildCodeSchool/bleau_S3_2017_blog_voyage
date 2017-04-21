@@ -3,6 +3,7 @@
 namespace BLOGBundle\Form;
 
 use BLOGBundle\Entity\Category; // Ajouté
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Button;
@@ -19,16 +20,31 @@ class CategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('categories', EntityType::class,
-            array(
-                'class' => Category::class,
-                'choice_label' => 'category',
-                'expanded'=> false,
-                'multiple'=> false
-            ))
-            ->add('chercher', SubmitType::class, array(
-                'attr' => array('class' => 'btn btn-danger submit')
-            ));
+        $locale = $options['locale'];
+
+        if ($locale == 'fr'){
+            $builder->add('categories', EntityType::class,
+                array(
+                    'class' => Category::class,
+                    'choice_label' => function($category) {
+                        return $category->getCategory();
+                    },
+                    'expanded'=> false,
+                    'multiple'=> false
+                ));
+        }
+        else{
+            $builder->add('categories', EntityType::class,
+                array(
+                    'class' => Category::class,
+                    'choice_label' => function($category) {
+                        return $category->getCategoryEs();
+                    },
+                    'expanded'=> false,
+                    'multiple'=> false
+                ));
+        }
+
     }
 
 
@@ -38,7 +54,8 @@ class CategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null
+            'data_class' => null,
+            'locale' => null
         ));
     }
 

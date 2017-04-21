@@ -7,15 +7,27 @@
         {% block row %}
             <div class="row row-custom">
                 <div class="col-md-12">
-                    <h1> Recherche par date </h1>
-                    {{ form_start(form, {attr: {'class':'form-date'}} ) }}
-                        <label for="start">Articles publiés entre le : </label>
-                        <input type="date" id="start" name="start" value="{{ start }}">
+					{% if app.request.locale == 'fr' %}
+						<h1> Recherche par date </h1>
+						{{ form_start(form, {attr: {'class':'form-date'}} ) }}
+							<label for="start">Articles publiés entre le : </label>
+							<input type="date" id="start" name="start" value="{{ start }}">
 
-                        <label for="start"> et le : </label>
-                        <input type="date" id="end" name="end" value="{{ end }}">
-                        <input type="submit" class="btn btn-lg btn-danger"/>
-                    {{ form_end(form) }}
+							<label for="start"> et le : </label>
+							<input type="date" id="end" name="end" value="{{ end }}">
+							<input type="submit" class="btn btn-lg btn-danger"/>
+						{{ form_end(form) }}
+					{% else %}	
+						<h1> Buscar por fecha </h1>
+						{{ form_start(form, {attr: {'class':'form-date'}} ) }}
+							<label for="start">Artículos publicados entre el : </label>
+							<input type="date" id="start" name="start" value="{{ start }}">
+
+							<label for="start"> y el : </label>
+							<input type="date" id="end" name="end" value="{{ end }}">
+							<input type="submit" class="btn btn-lg btn-danger" value="Validar"/>
+						{{ form_end(form) }}
+					{% endif %}	
                 </div>
             </div>
             <div class="row">
@@ -29,14 +41,25 @@
                             {% endif %}
                         {% endfor %}
                         <div class="article-caption">
-                            <h3>{{ article.title }}</h3>
-                            <p>
-                                {% for content in article.content %}
-                                    {{ content.content }}
-                                {% endfor %}
-                            </p>
-                            <a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
-                            <i>Publié le {{ article.date.date|date('d/m/Y') }} </i>
+							{% if app.request.locale == 'fr' %}
+								<h3>{{ article.titleFr }}</h3>
+								<p>
+									{% for content in article.content %}
+										{{ content.content }}
+									{% endfor %}
+								</p>
+								<a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">En savoir plus</button></a>
+								<i>Publié le {{ article.date.date|date('d/m/Y') }} </i>
+							{% else %}	
+								<h3>{{ article.titleEs }}</h3>
+								<p>
+									{% for content in article.content %}
+										{{ content.contentEs }}
+									{% endfor %}
+								</p>
+								<a href="{{ path('blog_article', {id : article.id}) }}"><button class="btn btn-lg btn-danger">Saber más</button></a>
+								<i>Publicado el {{ article.date.date|date('d/m/Y') }} </i>
+							{% endif %}	
                         </div>
                     </div>
                 {% endfor %}

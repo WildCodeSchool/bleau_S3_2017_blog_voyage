@@ -181,13 +181,12 @@ h2{
     }
 }
 
-h1{
-    margin: 0;
+h1{    
+	margin: 0;
     height: 200px;
     display: flex;
 	justify-content: space-around;
 	align-items: center;
-    background: white;
     font-size: 5em;
     text-align: center;
 }
@@ -322,24 +321,29 @@ Page Category
 .container-categ{
     margin-bottom: 50px;
     width: 100%;
+    text-align: center;
+    min-height: 60vh;
 }
 
 .container-categ h1{
 	background: #fafafa;
-	
 	margin: auto;
 	margin-bottom: 10px;
 	margin-top: 10px;
 }
 
+.container-categ .alert{
+    background: #fcfcfc;
+    text-align: center;
+    font-size: 2em;
+}
+
 .form-cat{
     text-align: center;
     margin-top: 125px;
-	
 	margin: 0 auto;
 	margin-top: 125px;
 	padding: 20px;
-	
 }
 
 .form-cat label{
@@ -353,6 +357,10 @@ Page Category
 
 .form-cat .submit{
 	font-size: 2em;
+}
+
+.form-cat input[type="submit"]{
+    width: 100px;
 }
 
 
