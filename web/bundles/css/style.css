@@ -22,9 +22,7 @@ a:link
     text-decoration:none;
 }
 
-/*
-2. NAVBAR
-*/
+/* 2. NAVBAR */
 
 .navbar-custom{
     position: fixed;
@@ -75,18 +73,24 @@ a:link
     }
 }
 
-
 /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
-#map {
-    height: 400px;
-    width: 1200px;
+	 
+#map{
+    width: 100%;
+	height: 100%;
+	height: 400px;
+	width: 60%;
+	margin: auto;
 }
+
 /* Optional: Makes the sample page fill the window. */
 .container-map{
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    margin: auto;
+    padding: 50px;
+	width: 100%;
+    background: #fafafa;
+	margin-bottom: 50px;
 }
 /* Menu avec dropdown si width <= 1200px */
 
@@ -201,18 +205,14 @@ h1{
     }
 }
 
-
-/*
-3. CONTAINER
-*/
+/* 3. CONTAINER */
 
 .container-homepage{
     margin-bottom: 50px;
 	width: 100%;
 }
 
-/* 3.1 
-Container des pages /Articles/id,  /dates  et /presentation */
+/* 3.1 CONTAINER DES PAGES /ARTICLE/ID,  /DATES  ET /PRESENTATION */
 
 .container-dates,
 .container-article, 

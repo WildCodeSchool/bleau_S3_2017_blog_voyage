@@ -20,7 +20,9 @@
             <div class="row">
                 {% for article in articles %}
                     {% for articl_cat in article.category %}
+						
                         {% if chosencat == articl_cat.category %}
+						
                             <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
                                 {% for image in article.image %}
                                     {% if loop.first %}

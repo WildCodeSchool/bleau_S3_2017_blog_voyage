@@ -16,7 +16,7 @@
 					<h1>A proposito de nosotros</h1>
 					<img src="{{ asset('bundles/images/'~presentation|first.image) }}" />
 					<p>
-						{{ presentation|first.presentation|nl2br }}
+						{{ presentation|first.presentationEs|nl2br }}
 					</p>
 				{% endif %}	
 			</div>
@@ -31,7 +31,7 @@
 				{% else %}	
 					<h1> Agradecimentos </h1>
 					<p>
-						{{ presentation|first.contributors|nl2br }}
+						{{ presentation|first.contributorsEs|nl2br }}
 					</p>
 				{% endif %}	
 			</div>

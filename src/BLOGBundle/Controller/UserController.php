@@ -121,8 +121,8 @@ class UserController extends Controller
 	
     public function viewCategoryAction(Request $request, $category)
     {
-		dump($request->request->get('blogbundle_category')['categories']);die();
-	
+		
+		
         $em = $this->getDoctrine()->getManager();
         
 		$articles = $em->getRepository('BLOGBundle:Article')->findAll();
@@ -144,6 +144,24 @@ class UserController extends Controller
         // On récupère les articles pour les envoyer sur la vue et en haut avoir les choix de catégories possible
         $form = $this->createForm('BLOGBundle\Form\CategoryType', $cat);
         $form->handleRequest($request);
+		
+		 if ($form->isSubmitted() && $form->isValid()) {
+			
+			$em = $this->getDoctrine()->getManager();
+		 
+            $data = $form->getData();
+            $id = $request->request->get('blogbundle_category')['categories'];
+			
+			$data = $em->getRepository('BLOGBundle:Category')->findOneBy(array('id' => $id));
+			
+			
+            return $this->render('@BLOG/User/viewCategory.html.twig', array(
+                'category' => $data,
+                'articles'=> $articles,
+                'form_cat' => $form->createView(),
+				'chosencat' => $category,
+            ));
+        }
 
         return $this->render('@BLOG/User/viewCategory.html.twig', array(
 			'chosencat' => $category,
