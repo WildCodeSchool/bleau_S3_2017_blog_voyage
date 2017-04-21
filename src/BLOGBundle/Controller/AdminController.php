@@ -1036,7 +1036,9 @@ class AdminController extends Controller
 
         $form = $this->createForm(FormType::class, $presentation)
             ->add('presentation')
-            ->add('contributors');
+            ->add('presentationEs')
+            ->add('contributors')
+            ->add('contributorsEs');
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())

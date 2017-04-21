@@ -8,7 +8,7 @@
             <div class="row row-custom">
                 <div class="col-md-12">
                     <h1> Recherche par date </h1>
-                    {{ form_start(form) }}
+                    {{ form_start(form, {attr: {'class':'form-date'}} ) }}
                         <label for="start">Articles publiés entre le : </label>
                         <input type="date" id="start" name="start" value="{{ start }}">
 

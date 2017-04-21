@@ -9,19 +9,20 @@
     <header>
         <nav class="navbar navbar-inverse navbar-custom navbar-custom-1201">
             <div class="container-fluid container-fluid-custom">
-
                 <a class="navbar-brand navbar-brand-custom" href="#"><img src="{{ asset('bundles/images/mandala.png') }}" alt='logo'/></a>
 
                 <ul class="nav navbar-nav plop-nav">
 				{% if app.request.locale == 'fr' %}
+				
                     <li><a href="{{ path('blog_homepage') }}">Accueil</a></li>
                     <li><a href="{{ path('blog_presentation') }}">Présentation du projet</a></li>
                     <li><a href="{{ path('blog_category') }}">Catégories</a></li>
                     <li><a href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
                     <li><a href="{{ path('blog_contact') }}">Contact</a></li>
+
                 </ul>
-                <ul class="nav navbar-nav navbar-right" id="form-envoyer-total">
-                <li>{{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
+                <ul class="nav navbar-nav navbar-right">
+
                     <li id="li-last-child">
                         {% if app.request.attributes.get("_route") == 'blog_article' %}
                             <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'fr'} ) }}">
@@ -48,15 +49,17 @@
                     </li>
                 </ul>
 				{% else %}	
+
 					<li><a href="{{ path('blog_homepage') }}">Inicio</a></li>
                     <li><a href="{{ path('blog_presentation') }}">Presentación del proyecto</a></li>
                     <li><a href="{{ path('blog_category') }}">Categorías</a></li>
                     <li><a href="{{ path('blog_articles_by_date') }}">Artículos por fecha</a></li>
                     <li><a href="{{ path('blog_contact') }}">Contacto</a></li>
 
+
                     </ul>
-                    <ul class="nav navbar-nav navbar-right" id="form-envoyer-total">
-                        <li>{{ render(controller("BLOGBundle:User:newsLetter") )}}</li>
+                    <ul class="nav navbar-nav navbar-right">
+
                         <li id="li-last-child">
                             {% if app.request.attributes.get("_route") == 'blog_article' %}
                                 <a href="{{ path(app.request.attributes.get("_route"), {id: 1, _locale:'fr'} ) }}">
@@ -82,12 +85,7 @@
                             {% endif %}
                         </li>
                     </ul>
-
-				{% endif %}	
-
-
-
-
+				{% endif %}
             </div>
         </nav>
 
@@ -108,7 +106,6 @@
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_articles_by_date') }}">Articles par date</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('blog_contact') }}">Contact</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1">{{ render(controller("BLOGBundle:User:newsLetter") )}}</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -116,13 +113,30 @@
     </header>
 {% endblock %}
 
+{% block newsletterfooter %}
+
+    <div class="container-fluid container-newsletter">
+        <div class="row">
+            <div class="span18">
+                <div class="thumbnail center well well-small text-center">
+                    <h3>Newsletter</h3>
+
+                    <p>Subscribe to our weekly Newsletter and stay tuned.</p>
+
+                    {{ render(controller("BLOGBundle:User:newsLetter") )}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 {% block footer %}
     <footer>
-	{% if app.request.locale =='fr' %}
-        Tous droit réservés
-	{% else %}
-		Todos los derechos reservados
-	{% endif %}
+        {% if app.request.locale =='fr' %}
+            Tous droit réservés
+        {% else %}
+            Todos los derechos reservados
+        {% endif %}
     </footer>
+
 {% endblock %}
 

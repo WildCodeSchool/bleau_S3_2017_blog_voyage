@@ -22,9 +22,7 @@ a:link
     text-decoration:none;
 }
 
-/*
-2. NAVBAR
-*/
+/* 2. NAVBAR */
 
 .navbar-custom{
     position: fixed;
@@ -44,15 +42,15 @@ a:link
     width: 60%;
     padding: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 #li-last-child{
 	display: flex;
-	justify-content: center;
-    width: 10%;
+	justify-content: space-around;
 
 }
+
 
 #li-last-child img{
     width: 22px;
@@ -76,18 +74,24 @@ a:link
     }
 }
 
-
 /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
-#map {
-    height: 400px;
-    width: 1200px;
+	 
+#map{
+    width: 100%;
+	height: 100%;
+	height: 400px;
+	width: 60%;
+	margin: auto;
 }
+
 /* Optional: Makes the sample page fill the window. */
 .container-map{
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    margin: auto;
+    padding: 50px;
+	width: 100%;
+    background: #fafafa;
+	margin-bottom: 50px;
 }
 /* Menu avec dropdown si width <= 1200px */
 
@@ -202,57 +206,106 @@ h1{
     }
 }
 
-
-/*
-3. CONTAINER
-*/
+/* 3. CONTAINER */
 
 .container-homepage{
     margin-bottom: 50px;
+	width: 100%;
 }
 
-
-.container-homepage{
-    background-size: cover;
-    width: 100%;
-
-
-}
-
-/* 3.1 
-Container des pages /Articles/id,  /dates  et /presentation */
+/* 3.1 CONTAINER DES PAGES /ARTICLE/ID,  /DATES  ET /PRESENTATION */
 
 .container-dates,
 .container-article, 
 .container-presentation{
-    padding-top: 75px;
-    margin-top: 50px;
+    margin-top: 125px;
     margin-bottom: 200px;
 }
 
-.container-dates{
-    width: 100%;
+.container-dates h1,
+.container-presentation h1{
+	background: #fafafa;
+	color: #222; 
+	font-size: 4em;
+	height: 100px;
+	width: 75%;
+	margin: auto;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
+.container-dates input[type="submit"]{
+	width: 50%;
+	margin-top: 25px;
+}
+
+/* PAGE DATE - FORMULAIRE */
+
+.form-date{
+	font-size: 1.5em;
+	width: 50%;
+	margin: 0 auto;
+	border: 1px solid #d8d8d8;
+	text-align: center;
+	padding: 50px;
+}
+
+.form-date label{
+	font-size: 1.5em;
+}
+
+.form-date input[type="date"]{
+	font-size: 1.5em;
+}
+
+/* PAGE DATE - MEDIA QUERIES */
+
+@media all and (max-width: 767px){
+	.container-dates h1, 
+	.form-date,
+	.form-date input[type="submit"]{
+		width: 100%;
+	}
+	
+	.container-dates{
+		padding: 0;
+	}
+}
+
+@media all and (max-width: 600px){
+    .container-dates h1{
+        font-size: 3.25em;
+    }
+}
+
+/* PAGE PRESENTATION DU PROJET */
+
 .container-presentation img{
-	width: 100%;
+	display: block;
+	margin: auto;
+	width: 75%;
 	border: 10px solid white;
 	outline: 1px solid #c8c8c8;
 }
 
-.container-dates input[type="submit"]{
-	margin-top: 10px;
-}
-
-#presentation, 
-#contributors{
+.container-presentation p{
 	border: 1px solid #c8c8c8;
 	font-size: 2em;
 	padding: 20px;
+	margin: auto;
 	margin-top: 10px;
-	margin-bottom: 0;
 	text-align: justify;
+	width: 75%;
 }
+
+@media all and (max-width: 767px){
+	.container-presentation h1,
+	.container-presentation img, 
+	.container-presentation p{
+		width: 100%;
+	}
+}
+
 /*
 Page Contact
 
@@ -271,10 +324,34 @@ Page Category
     margin-bottom: 50px;
     width: 100%;
 }
-.form-cat
-{
+
+.container-categ h1{
+	background: #fafafa;
+	
+	margin: auto;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.form-cat{
     text-align: center;
-    margin-top: 50px;
+	margin: 0 auto;
+	margin-top: 125px;
+	padding: 20px;
+	
+}
+
+.form-cat label{
+	font-size: 2em;
+}
+
+.form-cat select{
+	width: 250px;
+	font-size: 2em;
+}
+
+.form-cat .submit{
+	font-size: 2em;
 }
 
 
@@ -282,25 +359,22 @@ Page Category
 Newsletter
 
 */
-#form-envoyer-total
+.container-newsletter
 {
-
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 10px;
-    width: 30%;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
+
 #form-envoyer {
     display: inline-block;
-
+    align-items: center;
+    justify-content: space-around;
 }
 #form-lien
 {
-    width: auto;
-    margin: 0;
-    padding: 0;
     display: inline-block;
+    align-items: center;
+    justify-content: space-around;
 }
 .group-addon
 {
@@ -318,44 +392,6 @@ Newsletter
 }
 
 
-
-.presentation-section-title{
-	background: #f9f9f9;
-	margin: 10px 0 10px 0;
-}
-
-@media all and (max-width: 767px){
-	.container-article{
-		padding: 0;
-	}
-}
-
-/* page dates */
-.row-custom{
-    font-size: 1.75em;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.row-custom h1{
-    font-size: 3em;
-    background: #eee;
-    margin-top: 25px;
-    margin-bottom: 50px;
-}
-
-@media all and (max-width: 600px){
-    .row-custom h1{
-        font-size: 2.5em;
-    }
-}
-
-@media all and (max-width: 1024px){
-    label,
-    input{
-        width: 100%;
-    }
-}
 
 /* page articles */
 

@@ -17,7 +17,9 @@ class PresentationType extends AbstractType
     {
         $builder->add('image', FileType::class)
                 ->add('presentation')
-                ->add('contributors');
+				->add('presentationEs')
+				->add('contributors')
+                ->add('contributorsEs');
     }
     
     /**
