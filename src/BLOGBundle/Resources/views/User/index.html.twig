@@ -82,19 +82,41 @@
 {% endblock %}
 {%block javascript_map %}
 <script>
+
     function initMap() {
         {% for article in articles %}
         var uluru = {lat: {{ article.latitude }}, lng: {{ article.longitude }}};
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
+            zoom: 6,
             center: uluru
         });
-        var marker = new google.maps.Marker({
+		{% if app.request.locale == 'fr' %}
+		 var contentString = " <div> <b> Titre de l'article </b> : {{ article.titleFr }} </div><br /> " +
+							 " <img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " + 
+							 " <br /> <div> <b> Publié le : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
+							 " <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>En savoir plus</button></a>";
+		{% else %}
+		  var contentString = " <div> <b> Título del artículo</b> : {{ article.titleFr }} </div><br /> " +
+							 " <img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " + 
+							 " <br /> <div> <b> Publicado el : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
+							 " <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>Saber más</button></a>";
+		{% endif %}
+		
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		}); 
+        
+		var marker = new google.maps.Marker({
             position: uluru,
             map: map
         });
+		
+		marker.addListener('click', function() {
+			infowindow.open(map, marker);
+		});
         {% endfor %}
     }
+
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXqAxsUdv5X-X8KMdFU52DExF2QfL8LW8&callback=initMap">

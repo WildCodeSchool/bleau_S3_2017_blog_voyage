@@ -74,15 +74,21 @@ a:link
      * element that contains the map. */
 	 
 #map{
-    width: 100%;
-	height: 100%;
+    width: 90%;
 	height: 400px;
+	padding: 0;
+	margin: 0 auto;
+}
+
+@media all and (max-width: 767px){
+	#map{
+		width: 100%;
+	}
 }
 
 /* Optional: Makes the sample page fill the window. */
 .container-map{
-    margin: auto;
-    padding: 50px;
+    margin: 0;
 	width: 100%;
     background: #fafafa;
 	margin-bottom: 50px;
