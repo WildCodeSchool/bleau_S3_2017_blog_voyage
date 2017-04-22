@@ -4,11 +4,8 @@
 3. CONTAINER
 4. FOOTER
 */
-/*
 
-1. BODY
-
-*/
+/* 1. BODY */
 
 body{
     font-family: 'Dancing Script', cursive;
@@ -80,8 +77,6 @@ a:link
     width: 100%;
 	height: 100%;
 	height: 400px;
-	width: 60%;
-	margin: auto;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -369,10 +364,7 @@ Page Contact
     height: 150px;
 }
 
-/*
-Page Category
-
-*/
+/* PAGE CATEGORIES */
 .container-categ{
     margin-bottom: 50px;
     width: 100%;
@@ -418,10 +410,7 @@ Page Category
 }
 
 
-/*
-Newsletter
-
-*/
+/* NEWSLETTER */
 .container-newsletter {
     font-size: 2em;
     background: yellow;
@@ -689,7 +678,7 @@ textarea{
 
 /********/
 
-/* Page d'accueil */
+/* PAGE D'ACCUEIL */
 
 .article-custom{
     position: relative;
@@ -810,9 +799,7 @@ figure img{
     color: white;
 }
 
-/*
-Newsletter
-*/
+/* NEWSLETTER */
 
 .newsletter{
     font-size: 2.5em;
@@ -830,9 +817,7 @@ Newsletter
     font-size: .8em;
 }
 
-/*
-4. FOOTER
- */
+/* 4. FOOTER */
 
 footer{
     background: black;
