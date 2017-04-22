@@ -106,7 +106,7 @@ function initMap() {
 			{% for article in articles %}
 				{% if app.request.locale == 'fr' %}
 					contentString.push(
-								 "<div><b> Titre de larticle </b> : {{ article.titleFr }} </div><br /> " +
+								 "<div><b> Titre de l'article </b> : {{ article.titleFr }} </div><br /> " +
 								 "<img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " + 
 								 " <br /> <div> <b> Publié le : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
 								 " <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>En savoir plus</button></a>");
