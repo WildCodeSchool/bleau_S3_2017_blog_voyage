@@ -74,7 +74,7 @@ a:link
      * element that contains the map. */
 	 
 #map{
-    width: 90%;
+    width: 80%;
 	height: 400px;
 	padding: 0;
 	margin: 0 auto;
@@ -93,6 +93,16 @@ a:link
     background: #fafafa;
 	margin-bottom: 50px;
 }
+
+#roadshow{
+	justify-content: center;
+	font-size: 2.5em;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	color: darkblue;
+}
+
 /* Menu avec dropdown si width <= 1200px */
 
 @media screen and (max-width: 1200px){
@@ -190,6 +200,7 @@ h1{
 	align-items: center;
     font-size: 5em;
     text-align: center;
+	background: #fbfbfb;
 }
 
 @media screen and (max-width: 1023px){
@@ -210,6 +221,10 @@ h1{
 .container-homepage{
     margin-bottom: 50px;
 	width: 100%;
+}
+
+.container-homepage h1{
+	margin-bottom: 50px;
 }
 
 /* 3.1 CONTAINER DES PAGES /ARTICLE/ID,  /DATES  ET /PRESENTATION */
