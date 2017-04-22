@@ -1,9 +1,15 @@
+admin:
+    resource: "@BLOGBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin
+    
+blog_homepage_admin:
+    path:    /
+    defaults: 
+        _controller: 'BLOGBundle:User:index'
+    
 user:
     resource: "@BLOGBundle/Resources/config/routing/user.yml"
     prefix:   /{_locale}
     requirements: 
         _locale: fr|es|
                          
-admin:
-    resource: "@BLOGBundle/Resources/config/routing/admin.yml"
-    prefix:   /admin
