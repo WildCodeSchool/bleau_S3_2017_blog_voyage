@@ -184,7 +184,8 @@ class UserController extends Controller
 
         $NewsLetter = new NewsLetter();
 
-        $form = $this->createForm('BLOGBundle\Form\NewsLetterType', $NewsLetter);
+        $form = $this->createForm('BLOGBundle\Form\NewsLetterType', $NewsLetter, array(
+            'locale' => $request->getLocale()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -230,12 +231,10 @@ class UserController extends Controller
             $sujet = $Contact->getsujet();
             $message = \Swift_Message::newInstance()
                 ->setSubject($sujet)
-                ->setFrom('decheznousacasina@protonmail.com')
-                ->setTo('decheznousacasina@protonmail.com');
-
+                ->setFrom('decheznousacasino@protonmail.com')
+                ->setTo('decheznousacasino@protonmail.com');
 
             $message->setBody(
-//
                 $this->renderView(
                     '@BLOG/User/formulaire_contact.html.twig',
                     array(
@@ -243,11 +242,10 @@ class UserController extends Controller
                 ),
                 'text/html'
             );
-            ;
 
             $this->get('mailer')->send($message);
 
-            return $this->redirectToRoute('blog_homepage');
+            return $this->redirectToRoute('blog_contact');
         }
 
         return $this->render('@BLOG/User/contact.html.twig', array(

@@ -324,12 +324,12 @@ class AdminController extends Controller
 //           $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
                 $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
                 foreach ($email as $emails) {
-//
+
 //            Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
                     $message = \Swift_Message::newInstance()
-                        ->setSubject('blog de Raquelita et Pierre')
+                        ->setSubject('Nouvel Article publié - Blog de Pierre & Raquel')
                         ->setFrom('decheznousacasina@protonmail.com')
-                        ->setTo('$email');
+                        ->setTo($emails->getLien());
 //ici j'ajoute des images a ma vue
                     $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
 

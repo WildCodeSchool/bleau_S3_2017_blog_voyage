@@ -164,11 +164,16 @@
 
 {% block newsletterfooter %}
     <div class="container-fluid container-newsletter">
-        <div class="row">
+        <div class="row row-custom">
             <div class="span12">
-                <div class="thumbnail center well well-small text-center">
-                    <h3>Newsletter</h3>
-                    <p>Souscrivez à notre newsletter</p>
+                <div class="thumbnail center well well-small text-center newsletter-custom">
+                    {% if app.request.locale == 'fr' %}
+                        <h3>Newsletter</h3>
+                        <p>Souscrivez à notre newsletter</p>
+                    {% else %}
+                        <h3>Newsletter</h3>
+                        <p>Suscriba a nuestra newsletter</p>
+                    {% endif %}
                     {{ render(controller("BLOGBundle:User:newsLetter") )}}
                 </div>
             </div>

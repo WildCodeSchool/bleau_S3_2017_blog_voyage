@@ -50,12 +50,11 @@ if(buttonRangeElt){
 for(i=0; i<resetElt.length; i++){
 	resetElt[i].addEventListener("click", function(e){
 		e.preventDefault();
-		this.parentNode.parentNode.childNodes[3].childNodes[1].value="";
+		this.parentNode.childNodes[3].value="";
 	});
 }
 
 if(resetFirstAddElt){
-	console.log(resetFirstAddElt);
 	for(i=0; i<resetFirstAddElt.length; i++){
 		resetFirstAddElt[i].addEventListener("click", function(e){
 			e.preventDefault();
@@ -63,7 +62,6 @@ if(resetFirstAddElt){
 		});
 	}
 }
-
 
 // Ecoute du clic sur le bouton d'ajout de contenu
 buttonContentElt[0].addEventListener('click', function(e){

@@ -309,9 +309,64 @@ Page Contact
 
 */
 
-.container-contact
-{
-    margin-top: 50px;
+.container-contact{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.container-contact h1{
+    height: 150px;
+    width: 70%;
+    margin: auto;
+    font-size: 3.5em;
+    margin-bottom: 25px;
+    background: #fcfcfc;
+    border: 1px solid #c8c8c8;
+}
+
+.container-contact label{
+    font-size: 2em;
+    margin: 10px 0 10px 0;
+    background: #d9534f;
+    width: 100%;
+    text-align: center;
+    color: white;
+    border-radius: 7px;
+}
+
+.form-contact{
+    margin: auto;
+    width: 70%;
+}
+
+@media all and (max-width: 767px){
+    .form-contact{
+        width: 100%;
+    }
+
+    .container-contact h1{
+        font-size: 3em;
+        width: 100%;
+    }
+}
+
+.container-contact input[type="text"],
+.container-contact input[type="email"],
+.container-contact textarea{
+    font-size:1.2em;
+    font-family: arial;
+}
+
+.container-contact input[type="submit"]{
+    display: block;
+    font-size:1.75em;
+    margin: auto;
+    margin-top: 20px;
+    width: 150px;
+}
+
+.container-contact textarea{
+    height: 150px;
 }
 
 /*
@@ -368,9 +423,10 @@ Newsletter
 
 */
 .container-newsletter {
-    margin-bottom: 0px;
-    padding-bottom: 0px;
     font-size: 2em;
+    background: yellow;
+    padding: 0;
+    margin: 0;
 }
 
 .container-newsletter h3{
@@ -378,35 +434,46 @@ Newsletter
     font-weight: bold;
 }
 
-#form-envoyer {
-    display: inline-block;
-    align-items: center;
-    justify-content: space-around;
-}
-#form-lien
-{
-    display: inline-block;
-    align-items: center;
-    justify-content: space-around;
-}
-.group-addon
-{
-    margin:0;
-    border: none;
-    background: transparent;
-    color: white;
+.container-newsletter .newsletter-custom{
+    margin: 0;
 }
 
+#form-lien{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+    width: 30%;
+    margin-bottom: 10px;
+}
+
+.glyphicon-custom{
+    margin-right: 5px;
+}
+
+.form-control-custom{
+    font-size: 1em;
+}
 
 @media all and (max-width: 1200px){
-    .group-addon{
-        color: black;
+    #form-lien{
+        width: 50%;
     }
 }
 
+@media all and (max-width: 767px){
+    #form-lien{
+        width: 75%;
+    }
+}
 
+@media all and (max-width: 480px){
+    #form-lien{
+        width: 95%;
+    }
+}
 
-/* page articles */
+/* PAGE ARTICLES */
 
 .article{
     margin: 0 auto;
@@ -745,7 +812,6 @@ figure img{
 
 /*
 Newsletter
-
 */
 
 .newsletter{
@@ -764,8 +830,6 @@ Newsletter
     font-size: .8em;
 }
 
-
-
 /*
 4. FOOTER
  */
@@ -777,6 +841,7 @@ footer{
     color: white;
     font-size: 1.5em;
     text-align: center;
+    margin: 0;
 }
 
 #alert-message p{
