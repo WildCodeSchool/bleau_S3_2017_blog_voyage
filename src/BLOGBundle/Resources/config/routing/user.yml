@@ -15,15 +15,11 @@ blog_presentation:
     defaults:
         _controller: 'BLOGBundle:User:presentation'
 
-blog_category:
-    path: /category
-    defaults:
-        _controller: 'BLOGBundle:User:category'
-
 blog_category_specifique:
     path: /category/{category}
     defaults:
         _controller: 'BLOGBundle:User:viewCategory'
+        category: null
 
 blog_articles_by_date:
     path: /article/dates

@@ -5,20 +5,16 @@
 
 {% block container %}
 <div class="container">
-    <div class="well">
         <div class="menu">
             <a href="{{ path('admin_index') }}"><button class="btn btn-lg btn-danger">Accueil administration</button></a>
             <a href="{{ path('blog_homepage') }}"><button class="btn btn-lg btn-danger">Blog</button></a>
-            <a href="{{ path('blog_homepage') }}logout"><button class="btn btn-lg btn-danger">Déconnexion</button></a>
+            <a href="{{ path('blog_homepage_admin') }}logout"><button class="btn btn-lg btn-danger">Déconnexion</button></a>
         </div>
-    </div>
-    <div class="well">
-        <h1>Abonnés à la newsletter</h1>
+        <h1>Liste des abonnés à la newsletter</h1>
         <div class="email">
             {%  for email in emails  %}
-                   <p>{{ email.lien }}</p>
+                   <p style="border: 1px solid #d8d8d8; padding: 5px;">{{ email.lien }}</p>
              {% endfor %}
         </div>
-    </div>
 </div>
 {% endblock %}

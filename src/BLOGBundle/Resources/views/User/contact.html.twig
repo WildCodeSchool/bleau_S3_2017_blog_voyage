@@ -1,17 +1,62 @@
 {% extends '@BLOG/layout.html.twig' %}
 
-
-
-
 {% block title %} {{ parent() }} - Contact {% endblock %}
 
 {% block  Formulaire %}
 
     <div class="container container-contact">
-        <div class="well">
-    {{   form_start(form) }}
+        {% if app.request.locale == 'fr' %}
+            <h1> Envoyer un message aux auteurs </h1>
+        {% else %}
+            <h1> Enviar une mensaje a los autores </h1>
+        {% endif %}
 
-    {{   form_end(form) }}
+        <div class="form-contact">
+            {{ form_start(form) }}
+
+        {% if app.request.locale == 'fr' %}
+            {{ form_label(form.sujet, "Sujet") }}
+            {{ form_errors(form.sujet) }}
+            {{ form_widget(form.sujet) }}
+
+            {{ form_label(form.nom, "Nom") }}
+            {{ form_errors(form.nom) }}
+            {{ form_widget(form.nom) }}
+
+            {{ form_label(form.prenom, "Prénom") }}
+            {{ form_errors(form.prenom) }}
+            {{ form_widget(form.prenom) }}
+
+            {{ form_label(form.contenu, "Contenu") }}
+            {{ form_errors(form.contenu) }}
+            {{ form_widget(form.contenu) }}
+
+            {{ form_rest(form) }}
+
+            <input type="submit" value="Envoyer" class="btn btn-primary"/>
+
+        {% else %}
+            {{ form_label(form.sujet, "Asunto") }}
+            {{ form_errors(form.sujet) }}
+            {{ form_widget(form.sujet) }}
+
+            {{ form_label(form.nom, "Apellido") }}
+            {{ form_errors(form.nom) }}
+            {{ form_widget(form.nom) }}
+
+            {{ form_label(form.prenom, "Nombre") }}
+            {{ form_errors(form.prenom) }}
+            {{ form_widget(form.prenom) }}
+
+            {{ form_label(form.contenu, "Mensaje") }}
+            {{ form_errors(form.contenu) }}
+            {{ form_widget(form.contenu) }}
+
+            {{ form_rest(form) }}
+
+            <input type="submit" value="Enviar" class="btn btn-primary"/>
+        {% endif %}
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

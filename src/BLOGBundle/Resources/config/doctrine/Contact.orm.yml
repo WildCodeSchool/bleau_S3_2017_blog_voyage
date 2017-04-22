@@ -23,5 +23,4 @@ BLOGBundle\Entity\Contact:
         email:
             type: string
             length: 255
-            unique: true
     lifecycleCallbacks: {  }

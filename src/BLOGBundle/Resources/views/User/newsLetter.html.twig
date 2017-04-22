@@ -4,16 +4,16 @@
 {{ form_start(form_news,  {'action': path('blog_newsletter'), 'method': 'POST'}) }}
 
     <div id="form-lien">
-        <div class="input-group">
-            <span class="input-group-addon glyphicon glyphicon-envelope group-addon"></span>
-            {{ form_widget(form_news.lien, { 'attr': {'class': 'form-control'}}) }}
-        </div>
+        <span class="glyphicon glyphicon-envelope glyphicon-custom"></span>
+        {{ form_widget(form_news.lien, { 'attr': {'class': 'form-control form-control-custom'}}) }}
     </div>
-    <div id="form-envoyer">
-        <div class="input-group">
-            {{ form_widget(form_news.Souscrire, { 'attr': {'class' : 'btn btn-primary'} } ) }}
-        </div>
-    </div>
+    {% if app.request.locale == 'fr' %}
+        {{ form_widget(form_news.Souscrire, { 'attr': {'class' : 'btn btn-lg btn-primary'} } ) }}
+    {% else %}
+        {{ form_widget(form_news.Souscribir, { 'attr': {'class' : 'btn btn-lg btn-primary'} } ) }}
+    {% endif %}
+
+
 
 
 {{ form_end(form_news) }}

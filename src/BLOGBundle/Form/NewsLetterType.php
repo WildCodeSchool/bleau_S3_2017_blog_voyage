@@ -16,10 +16,21 @@ class NewsLetterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('lien',EmailType::class,
-                array('attr' => array('placeholder' => 'Newsletter')))
+        $locale = $options['locale'];
+
+        if ($locale == 'fr') {
+            $builder->add('lien', EmailType::class,
+                array('attr' => array('placeholder' => 'votre@email.com')))
                 ->add('Souscrire', SubmitType::class
-            );
+                );
+        }
+        else
+        {
+            $builder->add('lien', EmailType::class,
+                array('attr' => array('placeholder' => 'vuesto@email.com')))
+                ->add('Souscribir', SubmitType::class
+                );
+        }
     }
 
     /**
@@ -28,7 +39,8 @@ class NewsLetterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BLOGBundle\Entity\NewsLetter'
+            'data_class' => 'BLOGBundle\Entity\NewsLetter',
+            'locale' => null
         ));
     }
 

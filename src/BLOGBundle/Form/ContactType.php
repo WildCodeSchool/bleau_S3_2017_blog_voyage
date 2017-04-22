@@ -15,18 +15,15 @@ class ContactType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('sujet')
+        $builder
+            ->add('sujet')
             ->add('nom')
             ->add('prenom')
             ->add('contenu')
-            ->add('email',EmailType::class
-                ,array(
-                    'required'    => false
-   ))
-            ->add('envoyer', SubmitType::class, array(
-                'attr' => array('class' => 'envoyer')
-            ))
-        ;
+            ->add('email', EmailType::class, array(
+                'required' => true
+        ));
+
     }
     
     /**
@@ -35,7 +32,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BLOGBundle\Entity\Contact'
+            'data_class' => 'BLOGBundle\Entity\Contact',
         ));
     }
 
