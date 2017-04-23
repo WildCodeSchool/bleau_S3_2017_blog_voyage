@@ -97,8 +97,8 @@
 {% block javascript_map %}
 <script>
 	function initMap() {
-	    var lastLat = {{ articles|last.latitude }};
-        var lastLng = {{ articles|last.longitude }};
+	    var lastLat = {{ articles|first.latitude }};
+        var lastLng = {{ articles|first.longitude }};
 
         var map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 10,
