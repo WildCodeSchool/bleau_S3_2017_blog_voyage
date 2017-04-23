@@ -27,16 +27,12 @@
                 {% for categ in category %}
                     <div class="row">
                         {% if app.request.locale == 'fr' %}
-                            {% if categ.article is not empty %}
+                            {% if categ.article|length !=0 %}
                                 <h1>{{ categ.category }}</h1>
-                            {% else %}
-                                <p class="alert">Pas d'article dans cette catégorie</p>
-                            {% endif %}
+							{% endif %}
                         {% else %}
                             {% if categ.article is not empty %}
                                 <h1>{{ categ.CategoryEs }}</h1>
-                            {% else %}
-                                <p class="alert">No existen noticias en esta categoría</p>
                             {% endif %}
                         {% endif %}
 
