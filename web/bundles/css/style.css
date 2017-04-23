@@ -4,11 +4,8 @@
 3. CONTAINER
 4. FOOTER
 */
-/*
 
-1. BODY
-
-*/
+/* 1. BODY */
 
 body{
     font-family: 'Dancing Script', cursive;
@@ -77,21 +74,35 @@ a:link
      * element that contains the map. */
 	 
 #map{
-    width: 100%;
-	height: 100%;
+    width: 80%;
 	height: 400px;
-	width: 60%;
-	margin: auto;
+	padding: 0;
+	margin: 0 auto;
+}
+
+@media all and (max-width: 767px){
+	#map{
+		width: 100%;
+	}
 }
 
 /* Optional: Makes the sample page fill the window. */
 .container-map{
-    margin: auto;
-    padding: 50px;
+    margin: 0;
 	width: 100%;
     background: #fafafa;
 	margin-bottom: 50px;
 }
+
+#roadshow{
+	justify-content: center;
+	font-size: 2.5em;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	color: darkblue;
+}
+
 /* Menu avec dropdown si width <= 1200px */
 
 @media screen and (max-width: 1200px){
@@ -189,6 +200,7 @@ h1{
 	align-items: center;
     font-size: 5em;
     text-align: center;
+	background: #fbfbfb;
 }
 
 @media screen and (max-width: 1023px){
@@ -209,6 +221,10 @@ h1{
 .container-homepage{
     margin-bottom: 50px;
 	width: 100%;
+}
+
+.container-homepage h1{
+	margin-bottom: 50px;
 }
 
 /* 3.1 CONTAINER DES PAGES /ARTICLE/ID,  /DATES  ET /PRESENTATION */
@@ -369,10 +385,7 @@ Page Contact
     height: 150px;
 }
 
-/*
-Page Category
-
-*/
+/* PAGE CATEGORIES */
 .container-categ{
     margin-bottom: 50px;
     width: 100%;
@@ -418,10 +431,7 @@ Page Category
 }
 
 
-/*
-Newsletter
-
-*/
+/* NEWSLETTER */
 .container-newsletter {
     font-size: 2em;
     background: yellow;
@@ -689,7 +699,7 @@ textarea{
 
 /********/
 
-/* Page d'accueil */
+/* PAGE D'ACCUEIL */
 
 .article-custom{
     position: relative;
@@ -810,9 +820,7 @@ figure img{
     color: white;
 }
 
-/*
-Newsletter
-*/
+/* NEWSLETTER */
 
 .newsletter{
     font-size: 2.5em;
@@ -830,9 +838,7 @@ Newsletter
     font-size: .8em;
 }
 
-/*
-4. FOOTER
- */
+/* 4. FOOTER */
 
 footer{
     background: black;

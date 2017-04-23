@@ -97,7 +97,11 @@
                                 {% if comment.publication == 1 %}
                                     <div class="comment">
                                         <p> {{ comment.comment }} <br /><br />
-                                        <b>{{ comment.author }}, le {{ comment.date.date|date('d/m/Y') }}</b></p>
+                                        {% if app.request.locale =='fr' %}
+                                            <b>{{ comment.author }}, le {{ comment.date.date|date('d/m/Y') }}</b></p>
+                                        {% else %}
+                                            <b>{{ comment.author }}, el {{ comment.date.date|date('d/m/Y') }}</b></p>
+                                        {% endif %}
                                     </div>
                                 {% endif %}
                             {% endfor %}

@@ -6,7 +6,6 @@ blog_homepage_admin:
     path:    /
     defaults: 
         _controller: 'BLOGBundle:User:index'
-    
 user:
     resource: "@BLOGBundle/Resources/config/routing/user.yml"
     prefix:   /{_locale}
