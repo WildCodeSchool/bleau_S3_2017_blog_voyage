@@ -10,7 +10,9 @@ var articleElt = document.getElementsByClassName('article-custom');
 var imgElt = document.getElementsByClassName('image');
 var containerDateElt = document.getElementsByClassName('container-dates');
 var buttonPublishElt = document.getElementById('publish');
+var buttonPublishEsElt = document.getElementById('publishEs');
 var buttonSeeElt = document.getElementById('see');
+var buttonSeeEsElt = document.getElementById('seeEs');
 var formElt = document.querySelectorAll('.comments > form');
 var commentsElt = document.getElementsByClassName('comments-block');
 var modalImageElt = document.querySelectorAll('.modal-image > img');
@@ -74,6 +76,19 @@ if(buttonPublishElt){
         }
     });
 }
+
+if(buttonPublishEsElt){
+    buttonPublishEsElt.addEventListener('click', function(){
+        if(formElt[0].classList.contains('show')){
+            formElt[0].classList.remove('show');
+            buttonPublishEsElt.textContent = "Publicar un comentario";
+        }
+        else{
+            formElt[0].classList.add('show');
+            buttonPublishEsElt.textContent = "Ocultar el formulario";
+        }
+    });
+}
 	
 if(buttonSeeElt){
     buttonSeeElt.addEventListener('click', function(){
@@ -84,6 +99,19 @@ if(buttonSeeElt){
         else{
             commentsElt[0].classList.add('show');
             buttonSeeElt.textContent = "Masquer les commentaires";
+        }
+    });
+}
+
+if(buttonSeeEsElt){
+    buttonSeeEsElt.addEventListener('click', function(){
+        if(commentsElt[0].classList.contains('show')){
+            commentsElt[0].classList.remove('show');
+            buttonSeeEsElt.textContent = "Ver los comentarios";
+        }
+        else{
+            commentsElt[0].classList.add('show');
+            buttonSeeEsElt.textContent = "Ocultar los comentarios";
         }
     });
 }

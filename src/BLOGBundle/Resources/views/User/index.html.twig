@@ -52,7 +52,11 @@
 
 {% block container %}
     <div class="container container-homepage">
+	{% if app.request.locale == 'fr' %}
 		<h1> Tous nos articles </h1>
+	{% else %}	
+		<h1> Todos nuestros artículos </h1>
+	{% endif %}	
         {% block row %}
             <div class="row">
                 {% for article in articles %}

@@ -61,11 +61,15 @@
 							{% if app.request.locale == 'fr' %}
                                 <button class="btn btn-lg btn-danger" id="publish">Publier un commentaire</button>
 							{% else %}
-								<button class="btn btn-lg btn-danger" id="publish">Publicar un comentario</button>
+								<button class="btn btn-lg btn-danger" id="publishEs">Publicar un comentario</button>
 							{% endif %}
 								{% for comment in article.comment %}
 									{% if comment.publication !=0 %}
-										<button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
+										{% if app.request.locale == 'fr' %}
+											<button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
+										{% else %}
+											<button class="btn btn-lg btn-danger" id="seeEs">Ver los comentarios</button>
+										{% endif %}
 									{% endif %}
 								{% endfor %}
 							</div>

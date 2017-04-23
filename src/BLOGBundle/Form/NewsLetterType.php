@@ -27,7 +27,7 @@ class NewsLetterType extends AbstractType
         else
         {
             $builder->add('lien', EmailType::class,
-                array('attr' => array('placeholder' => 'vuesto@email.com')))
+                array('attr' => array('placeholder' => 'vuestro@email.com')))
                 ->add('Souscribir', SubmitType::class
                 );
         }
