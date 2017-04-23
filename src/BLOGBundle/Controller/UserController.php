@@ -99,7 +99,7 @@ class UserController extends Controller
             }
             else
             {
-                $lineCateg = $em->getRepository('BLOGBundle:Category')->findAll();
+                $lineCateg = $em->getRepository('BLOGBundle:Category')->findBy([], ['category' => 'ASC']);
             }
         }
 
@@ -107,7 +107,7 @@ class UserController extends Controller
             if ($category != null)
                 $lineCateg = $em->getRepository('BLOGBundle:Category')->findBy(array('CategoryEs' => $category));
             else
-                $lineCateg = $em->getRepository('BLOGBundle:Category')->findAll();
+                $lineCateg = $em->getRepository('BLOGBundle:Category')->findBy([], ['CategoryEs' => 'ASC']);
 		}
 
         // On récupère les articles pour les envoyer sur la vue et en haut avoir les choix de catégories possible

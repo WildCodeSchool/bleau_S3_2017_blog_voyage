@@ -6,11 +6,11 @@
 {% block Category %}
     <div class="form-cat">
         {{ form_start(form_cat) }}
-		
+			
 			{{ form_label(form_cat.categories) }}
 			{{ form_widget(form_cat.categories) }}
 			{{ form_errors(form_cat.categories) }}
-
+			
             {% if app.request.locale =='fr' %}
                 <input type="submit" value="Chercher" class="btn btn-danger"/>
             {% else %}
@@ -27,7 +27,7 @@
                 {% for categ in category %}
                     <div class="row">
                         {% if app.request.locale == 'fr' %}
-                            {% if categ.article|length !=0 %}
+                            {% if categ.article is not empty %}
                                 <h1>{{ categ.category }}</h1>
 							{% endif %}
                         {% else %}
