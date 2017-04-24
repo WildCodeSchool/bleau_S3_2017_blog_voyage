@@ -95,12 +95,13 @@ a:link
 }
 
 #roadshow{
-	justify-content: center;
+    text-align: center;
+    justify-content: center;
 	font-size: 2.5em;
-	height: 100px;
 	display: flex;
 	align-items: center;
 	color: darkblue;
+    padding: 20px 5px 20px 5px;
 }
 
 /* Menu avec dropdown si width <= 1200px */
