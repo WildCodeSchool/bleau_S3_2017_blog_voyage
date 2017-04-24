@@ -1,0 +1,12 @@
+﻿{% extends "layout.html.twig" %}
+
+{% block error %}
+<h1>Oops! Une erreur a eu lieu</h1>
+        <h2>Le serveur a retourné erreur "{{ status_code }} {{ status_text }}".</h2>
+
+        <div>
+            Quelque chose est cassé. Veuillez nous dire ce que vous faisiez au moment où l'erreur est survenue.
+            Nous réglerons le problème dès possible. Veuillez nous excuser pour la gêne occasionnée.
+        </div>
+{% endblock %}
+
