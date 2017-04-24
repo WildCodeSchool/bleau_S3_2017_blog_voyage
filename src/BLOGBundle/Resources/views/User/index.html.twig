@@ -101,7 +101,7 @@
         var lastLng = {{ articles|first.longitude }};
 
         var map = new google.maps.Map(document.getElementById('map'), {
-			zoom: 10,
+			zoom: 6,
 			center: new google.maps.LatLng(lastLat, lastLng)
 		});
         {% for article in articles %}
@@ -142,6 +142,22 @@
 
     	{% endfor %}
 
+
+        var flighPathCoordinates = [];
+
+		{% for article in articles %}
+			flighPathCoordinates.push(new google.maps.LatLng({{ article.latitude }}, {{ article.longitude }}));
+		{% endfor %}
+
+        var flightPath = new google.maps.Polyline({
+            path: flighPathCoordinates,
+            geodesic: true,
+            strokeColor: 'blue',
+            strokeOpacity: 1.0,
+            strokeWeight: 3
+        });
+
+        flightPath.setMap(map);
  	}
 </script>
 <script async defer
