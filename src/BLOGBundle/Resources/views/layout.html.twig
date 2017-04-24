@@ -91,33 +91,33 @@
                             <li>
                                 {% if app.request.attributes.get("_route") == 'blog_article' %}
                                     <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'fr'} ) }}">
-                                        <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                        <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
                                     </a>
                                     <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'es'} ) }}">
-                                        <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                        <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                     </a>
                                 {% elseif app.request.attributes.get("_route") == 'blog_category_specifique' %}
                                     {% if category.category is defined %}
                                         <a href="{{ path(app.request.attributes.get("_route"), {category: category.category, _locale:'fr'} ) }}">
-                                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                            <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
                                         </a>
                                         <a href="{{ path(app.request.attributes.get("_route"), {category: category.CategoryEs, _locale:'es'} ) }}">
-                                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                            <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                         </a>
                                     {% else %}
                                         <a href="{{ path(app.request.attributes.get("_route"), { _locale:'fr'} ) }}">
-                                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                            <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
                                         </a>
                                         <a href="{{ path(app.request.attributes.get("_route"), { _locale:'es'} ) }}">
-                                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                            <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                         </a>
                                     {% endif %}
                                 {% else %}
                                     <a href="{{ path(app.request.attributes.get("_route"), {_locale:'fr'} ) }}">
-                                        <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                        <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
                                     </a>
                                     <a href="{{ path(app.request.attributes.get("_route"), {_locale:'es'} ) }}">
-                                        <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                        <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                     </a>
                                 {% endif %}
 
@@ -132,33 +132,33 @@
                             <li>
                                 {% if app.request.attributes.get("_route") == 'blog_article' %}
                                     <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'fr'} ) }}">
-                                        <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                        <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
                                     </a>
                                     <a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'es'} ) }}">
-                                        <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                        <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                     </a>
                                 {% elseif app.request.attributes.get("_route") == 'blog_category_specifique' %}
                                     {% if category.category is defined %}
                                         <a href="{{ path(app.request.attributes.get("_route"), {category: category.category, _locale:'fr'} ) }}">
-                                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                            <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
                                         </a>
                                         <a href="{{ path(app.request.attributes.get("_route"), {category: category.CategoryEs, _locale:'es'} ) }}">
-                                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                            <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                         </a>
                                     {% else %}
                                         <a href="{{ path(app.request.attributes.get("_route"), { _locale:'fr'} ) }}">
-                                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                            <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
                                         </a>
                                         <a href="{{ path(app.request.attributes.get("_route"), { _locale:'es'} ) }}">
-                                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                            <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                         </a>
                                     {% endif %}
                                 {% else %}
                                     <a href="{{ path(app.request.attributes.get("_route"), {_locale:'fr'} ) }}">
-                                        <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
+                                        <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
                                     </a>
                                     <a href="{{ path(app.request.attributes.get("_route"), {_locale:'es'} ) }}">
-                                        <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
+                                        <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                     </a>
                                 {% endif %}
                             </li>
