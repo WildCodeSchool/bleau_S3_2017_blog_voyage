@@ -438,18 +438,19 @@ Page Contact
 /* NEWSLETTER */
 .container-newsletter {
     font-size: 2em;
-    background: yellow;
-    padding: 0;
-    margin: 0;
 }
 
 .container-newsletter h3{
     font-size: 1.5em;
+	padding: 0;
+	margin: 0;
     font-weight: bold;
 }
 
-.container-newsletter .newsletter-custom{
-    margin: 0;
+.newsletter-custom{
+    padding-top: 20px;
+    padding-bottom: 20px;
+	margin: 0;
 }
 
 #form-lien{
