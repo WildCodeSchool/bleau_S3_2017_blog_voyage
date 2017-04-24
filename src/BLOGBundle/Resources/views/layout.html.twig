@@ -33,7 +33,7 @@
 							<img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
 						</a>
 						<a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'es'} ) }}">
-							<img src="{{ asset('bundles/images/flagEs.png.png') }}" alt="Espagne" />
+							<img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
 						</a>
 					{% elseif app.request.attributes.get("_route") == 'blog_category_specifique' %}
                         {% if category.category is defined %}
@@ -56,7 +56,7 @@
 							<img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
 						</a>
 						<a href="{{ path("blog_homepage", {_locale: 'es'} ) }}">
-							<img src="{{ asset('bundles/images/flagEs.png.png') }}" alt="Espagne" />
+							<img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
 						</a>
                     {% else %}
 
@@ -64,7 +64,7 @@
                             <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
                         </a>
                         <a href="{{ path(app.request.attributes.get("_route"), {_locale:'es'} ) }}">
-                            <img src="{{ asset('bundles/images/flagEs.png.png') }}" alt="Espagne" />
+                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
                         </a>
 					{% endif %}
 				</ul>
