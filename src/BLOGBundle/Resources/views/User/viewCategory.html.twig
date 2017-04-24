@@ -7,7 +7,11 @@
     <div class="form-cat">
         {{ form_start(form_cat) }}
 			
-			{{ form_label(form_cat.categories) }}
+			{% if app.request.locale == 'fr' %}
+				{{ form_label(form_cat.categories, "Catégories") }}
+			{% else %}	
+				{{ form_label(form_cat.categories, "Categorías") }}
+			{% endif %}	
 			{{ form_widget(form_cat.categories) }}
 			{{ form_errors(form_cat.categories) }}
 			

@@ -9,7 +9,7 @@
     <header>
         <nav class="navbar navbar-inverse navbar-custom navbar-custom-1201">
             <div class="container-fluid container-fluid-custom">
-                <a class="navbar-brand navbar-brand-custom" href="#"><img src="{{ asset('bundles/blog/picture/logo.png') }}" alt='logo'/></a>
+                <a class="navbar-brand navbar-brand-custom" href="#"><img src="{{ asset('bundles/images/mandala.png') }}" alt='logo'/></a>
 
                 <ul class="nav navbar-nav plop-nav">
 				{% if app.request.locale == 'fr' %}
@@ -30,41 +30,41 @@
 				<ul id="li-last-child">
 					{% if app.request.attributes.get("_route") == 'blog_article' %}
 						<a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'fr'} ) }}">
-							<img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
+							<img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
 						</a>
 						<a href="{{ path(app.request.attributes.get("_route"), {id: articles|first.id, _locale:'es'} ) }}">
-							<img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
+							<img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
 						</a>
 					{% elseif app.request.attributes.get("_route") == 'blog_category_specifique' %}
                         {% if category.category is defined %}
                             <a href="{{ path(app.request.attributes.get("_route"), {category: category.category, _locale:'fr'} ) }}">
-                                <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
+                                <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
                             </a>
                             <a href="{{ path(app.request.attributes.get("_route"), {category: category.CategoryEs, _locale:'es'} ) }}">
-                                <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
+                                <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
                             </a>
                         {% else %}
                             <a href="{{ path(app.request.attributes.get("_route"), { _locale:'fr'} ) }}">
-                                <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
+                                <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
                             </a>
                             <a href="{{ path(app.request.attributes.get("_route"), { _locale:'es'} ) }}">
-                                <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
+                                <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
                             </a>
                         {% endif %}
 					{% elseif app.request.attributes.get("_route") == "blog_homepage_admin" %}
 						<a href="{{ path("blog_homepage", {_locale: 'fr'} ) }}">
-							<img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
+							<img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
 						</a>
 						<a href="{{ path("blog_homepage", {_locale: 'es'} ) }}">
-							<img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
+							<img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
 						</a>
                     {% else %}
 
                         <a href="{{ path(app.request.attributes.get("_route"), {_locale:'fr'} ) }}">
-                            <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
+                            <img src="{{ asset('bundles/images/flagFr.png') }}" alt="France" />
                         </a>
                         <a href="{{ path(app.request.attributes.get("_route"), {_locale:'es'} ) }}">
-                            <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
+                            <img src="{{ asset('bundles/images/flagEs.png') }}" alt="Espagne" />
                         </a>
 					{% endif %}
 				</ul>
