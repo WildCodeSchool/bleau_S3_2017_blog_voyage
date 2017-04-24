@@ -236,6 +236,10 @@ h1{
     margin-bottom: 200px;
 }
 
+.container-dates{
+	width: 100%;
+}
+
 .container-dates h1,
 .container-presentation h1{
 	background: #fafafa;

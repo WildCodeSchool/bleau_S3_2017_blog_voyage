@@ -320,7 +320,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 		this.parentNode.style.backgroundColor = '#77b5fe';
 		pFrElt.style.color = 'black';
 
-		var regexFr = new RegExp('autres*|Autres*| ');
+		var regexFr = new RegExp('autres*|Autres*');
 		var keywordFr = e.target.value;
 
 		if(keywordFr.length !== 0){
@@ -376,7 +376,7 @@ buttonCategoryElt[0].addEventListener('click', function(e){
 		this.parentNode.style.backgroundColor = '#77b5fe';
 		pEsElt.style.color = 'black';
 
-		var regexEs = new RegExp('otros*|Otros*| ');
+		var regexEs = new RegExp('otros*|Otros');
 		var keywordEs = e.target.value;
 
 		if(keywordEs.length !== 0){

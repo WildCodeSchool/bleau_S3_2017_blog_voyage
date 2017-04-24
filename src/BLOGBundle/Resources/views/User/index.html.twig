@@ -52,7 +52,11 @@
 
 {% block container %}
     <div class="container container-homepage">
+	{% if app.request.locale == 'fr' %}
 		<h1> Tous nos articles </h1>
+	{% else %}	
+		<h1> Todos nuestros artículos </h1>
+	{% endif %}	
         {% block row %}
             <div class="row">
                 {% for article in articles %}
@@ -88,64 +92,59 @@
     </div>
 
 {% endblock %}
-{%block javascript_map %}
+{% block javascript %} {{ asset('bundles/js/style.js') }} {% endblock %}
+
+{% block javascript_map %}
 <script>
-function initMap() {
-		var uluru = [];
-			
-        {% for article in articles %}		  
-			uluru.push([{{ article.latitude }}, {{ article.longitude }}] );
-		{% endfor %}
-		  
-		var map = new google.maps.Map(document.getElementById('map'), {
-		    zoom: 6,
-			center: new google.maps.LatLng(uluru[0][0], uluru[0][1]),
-	    });
-		 
-		contentString = [];
-			{% for article in articles %}
-				{% if app.request.locale == 'fr' %}
-					contentString.push(
-								 "<div><b> Titre de l'article </b> : {{ article.titleFr }} </div><br /> " +
-								 "<img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " + 
-								 " <br /> <div> <b> Publié le : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
-								 " <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>En savoir plus</button></a>");
-				{% else %}
-					contentString.push(
-								 "<div> <b> Título del artículo</b> : {{ article.titleEs }} </div><br /> " +
-								 "<img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " + 
-								 " <br /> <div> <b> Publicado el : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
-								 " <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>Saber más</button></a>");	 
-				{% endif %}	
- 		{% endfor %}
-		
-		for (i=0; i < uluru.length; i++) { 
-		
+	function initMap() {
+	    var lastLat = {{ articles|first.latitude }};
+        var lastLng = {{ articles|first.longitude }};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 10,
+			center: new google.maps.LatLng(lastLat, lastLng)
+		});
+        {% for article in articles %}
+			var lat = {{ article.latitude }};
+			var lng = {{ article.longitude }};
+
+			{% if app.request.locale == 'fr' %}
+				var content =
+					"<div><b> Titre de l'article </b> : {{ article.titleFr }} </div><br /> " +
+					"<img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " +
+					" <br /> <div> <b> Publié le : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
+					" <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>En savoir plus</button></a>";
+			{% else %}
+				var content =
+					"<div> <b> Título del artículo</b> : {{ article.titleEs }} </div><br /> " +
+					"<img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " +
+					" <br /> <div> <b> Publicado el : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
+					" <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>Saber más</button></a>";
+			{% endif %}
+
 			marker = new google.maps.Marker({
-				position: new google.maps.LatLng(parseFloat(uluru[i][0]), parseFloat(uluru[i][1])),
+				position: new google.maps.LatLng(lat, lng),
 				map: map
 			});
-			  
-			infowindow = new google.maps.InfoWindow({
-				content: contentString[i]
-			});
-		  
-			google.maps.event.addListener(marker, 'click', (function(marker, i) {
-				return function() {
-				  infowindow.setContent(contentString[i]);
-				  infowindow.open(map, marker);
-				}
-			})
-			(marker, i));	
-		}
- }
+			infowindow = new google.maps.InfoWindow();
+
+			(function (marker, content) {
+				google.maps.event.addListener(marker, "click", function (e) {
+					//Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+				});
+
+				google.maps.event.addListener(map, 'click', function() {
+					infoWindow.close();
+				});
+			})(marker, content);
+
+    	{% endfor %}
+
+ 	}
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXqAxsUdv5X-X8KMdFU52DExF2QfL8LW8&callback=initMap">
 </script>
 {% endblock %}
-
-
-
-{%block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
-

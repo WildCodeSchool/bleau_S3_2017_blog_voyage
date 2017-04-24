@@ -6,11 +6,15 @@
 {% block Category %}
     <div class="form-cat">
         {{ form_start(form_cat) }}
-		
-			{{ form_label(form_cat.categories) }}
+			
+			{% if app.request.locale == 'fr' %}
+				{{ form_label(form_cat.categories, "Catégories") }}
+			{% else %}	
+				{{ form_label(form_cat.categories, "Categorías") }}
+			{% endif %}	
 			{{ form_widget(form_cat.categories) }}
 			{{ form_errors(form_cat.categories) }}
-
+			
             {% if app.request.locale =='fr' %}
                 <input type="submit" value="Chercher" class="btn btn-danger"/>
             {% else %}
@@ -29,14 +33,10 @@
                         {% if app.request.locale == 'fr' %}
                             {% if categ.article is not empty %}
                                 <h1>{{ categ.category }}</h1>
-                            {% else %}
-                                <p class="alert">Pas d'article dans cette catégorie</p>
-                            {% endif %}
+							{% endif %}
                         {% else %}
                             {% if categ.article is not empty %}
                                 <h1>{{ categ.CategoryEs }}</h1>
-                            {% else %}
-                                <p class="alert">No existen noticias en esta categoría</p>
                             {% endif %}
                         {% endif %}
 
