@@ -95,12 +95,13 @@ a:link
 }
 
 #roadshow{
-	justify-content: center;
+    text-align: center;
+    justify-content: center;
 	font-size: 2.5em;
-	height: 100px;
 	display: flex;
 	align-items: center;
 	color: darkblue;
+    padding: 20px 5px 20px 5px;
 }
 
 /* Menu avec dropdown si width <= 1200px */
@@ -438,18 +439,19 @@ Page Contact
 /* NEWSLETTER */
 .container-newsletter {
     font-size: 2em;
-    background: yellow;
-    padding: 0;
-    margin: 0;
 }
 
 .container-newsletter h3{
     font-size: 1.5em;
+	padding: 0;
+	margin: 0;
     font-weight: bold;
 }
 
-.container-newsletter .newsletter-custom{
-    margin: 0;
+.newsletter-custom{
+    padding-top: 20px;
+    padding-bottom: 20px;
+	margin: 0;
 }
 
 #form-lien{
