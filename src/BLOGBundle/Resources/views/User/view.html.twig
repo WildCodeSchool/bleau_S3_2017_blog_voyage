@@ -63,15 +63,12 @@
 							{% else %}
 								<button class="btn btn-lg btn-danger" id="publishEs">Publicar un comentario</button>
 							{% endif %}
-								{% for comment in article.comment %}
-									{% if comment.publication !=0 %}
-										{% if app.request.locale == 'fr' %}
-											<button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
-										{% else %}
-											<button class="btn btn-lg btn-danger" id="seeEs">Ver los comentarios</button>
-										{% endif %}
-									{% endif %}
-								{% endfor %}
+								{% if app.request.locale == 'fr' %}
+									<button class="btn btn-lg btn-danger" id="see">Voir les commentaires</button>
+								{% else %}
+									<button class="btn btn-lg btn-danger" id="seeEs">Ver los comentarios</button>
+								{% endif %}
+									
 							</div>
                             {{ form_start(form) }}
 								{% if app.request.locale == 'fr' %}
@@ -109,6 +106,9 @@
                                     </div>
                                 {% endif %}
                             {% endfor %}
+							{% if article.comment|length == 0 %}
+								<p> Pas d'article publié </p>
+							{% endif %}
                         </div>
                     </div>
                 {% endfor %}
