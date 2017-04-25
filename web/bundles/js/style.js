@@ -124,9 +124,9 @@ if(modalImageElt){
         modalImageElt[i].addEventListener("click", function(e){
            this.parentNode.classList.add('modal-image-big');
            bodyElt[0].style.overflow = "hidden";
-		   buttonCrossElt[0].style.display = "block";
+		   this.parentNode.lastElementChild.style.display = "block";
 		   
-		   buttonCrossElt[0].addEventListener("click", function(){
+		   this.parentNode.lastElementChild.addEventListener("click", function(){
 			   this.parentNode.classList.remove('modal-image-big');
 			   bodyElt[0].style.overflow = "visible";
 			   this.style.display = "none";
