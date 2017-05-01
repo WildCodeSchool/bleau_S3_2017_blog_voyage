@@ -6,8 +6,8 @@
 // Définition des variables
 
 var sectionElt = document.getElementsByTagName('section');
+var rowcustomElt = document.getElementsByClassName('row-custom-homepage')[0];
 var articleElt = document.getElementsByClassName('article-custom');
-var imgElt = document.getElementsByClassName('image');
 var containerDateElt = document.getElementsByClassName('container-dates');
 var buttonPublishElt = document.getElementById('publish');
 var buttonPublishEsElt = document.getElementById('publishEs');
@@ -21,22 +21,105 @@ var articleCaptionButtonElts = document.querySelectorAll('.article-caption butto
 var buttonCrossElt = document.getElementsByClassName('button-cross');
 
 function load(){
-    if (window.innerWidth >= 768) {
-        for (i=0; i < imgElt.length; i++) {
-            // On mesure hauteur et largueur
-            var imgHeight = parseFloat(getComputedStyle(imgElt[i]).height);
-            var imgWidth = parseFloat(getComputedStyle(imgElt[i]).width);
+    if (window.innerWidth <= 768 && window.innerWidth > 480) {
+        for (i = 0; i < articleElt.length; i++) {
+            if (i > 0) {
+                var n;
+                if (i == 1) {
+                    articleElt[i].style.left = "50.5%";
+                }
 
-            // Si format portrait, ajout classe correspondante
-            if (imgHeight > imgWidth) {
-                imgElt[i].classList.add('vertical-img-resize');
+                if (i % 2 == 0) {
+                    var top = articleElt[i-2].offsetTop + parseFloat(getComputedStyle(articleElt[i - 2]).height);
+                    top = top + 10;
+                    articleElt[i].style.top = "" + top + "px";
+                    articleElt[i].style.left = '1%';
+                    n = i;
+                }
+
+                if (i == n + 1) {
+                    var top = articleElt[i-2].offsetTop + parseFloat(getComputedStyle(articleElt[i - 2]).height);
+                    top = top + 10;
+                    articleElt[i].style.top = "" + top + "px";
+                    articleElt[i].style.left = "50.5%";
+                }
             }
             else {
-                imgElt[i].classList.add('horizontal-img-resize');
+                articleElt[i].style.left = '1%';
             }
         }
+        var lastRowChildren = [
+            articleElt[articleElt.length-2],
+            articleElt[articleElt.length-1]
+        ];
+
+        var arrayPositions = [];
+        for(i=0; i<lastRowChildren.length; i++){
+            arrayPositions.push(lastRowChildren[i].offsetTop + parseFloat(getComputedStyle(lastRowChildren[i]).height));
+        }
+
+        var max = Math.max.apply(null, arrayPositions);
+        rowcustomElt.style.height = max + "px";
     }
-	
+
+    if (window.innerWidth > 768) {
+        for (i=0; i<articleElt.length; i++) {
+            if(i>0) {
+                var n;
+                var o;
+                if(i == 1){
+                    articleElt[i].style.top = "0";
+                    articleElt[i].style.left = "33.5%";
+                }
+                if(i == 2){
+                    articleElt[i].style.top = "0";
+                    articleElt[i].style.left = "66.75%";
+                }
+
+                if (i % 3 == 0) {
+                    var top = articleElt[i-3].offsetTop + parseFloat(getComputedStyle(articleElt[i-3]).height);
+                    top = top + 20;
+                    articleElt[i].style.top = "" + top + "px";
+                    articleElt[i].style.left = '.25%';
+                    n=i;
+                    console.log(top);
+                }
+
+                if (i == n+1){
+                    var top = articleElt[i-3].offsetTop + parseFloat(getComputedStyle(articleElt[i-3]).height);
+                    top = top + 20;
+                    articleElt[i].style.top = "" + top + "px";
+                    articleElt[i].style.left = "33.5%";
+                    o=i;
+                }
+
+                if(i == o+1){
+                    var top = articleElt[i-3].offsetTop + parseFloat(getComputedStyle(articleElt[i-3]).height);
+                    top = top + 20;
+                    articleElt[i].style.top = "" + top + "px";
+                    articleElt[i].style.left = "66.75%";
+                }
+            }
+            else{
+                articleElt[i].style.left = '.25%';
+            }
+        }
+
+        var lastRowChildrenSup768 = [
+            articleElt[articleElt.length-3],
+            articleElt[articleElt.length-2],
+            articleElt[articleElt.length-1]
+        ];
+
+        var arrayPositions = [];
+        for(i=0; i<lastRowChildrenSup768.length; i++){
+            arrayPositions.push(lastRowChildrenSup768[i].offsetTop + parseFloat(getComputedStyle(lastRowChildrenSup768[i]).height));
+        }
+
+        var max = Math.max.apply(null, arrayPositions);
+        rowcustomElt.style.height = max + "px";
+    }
+
 	if(window.innerWidth <=380){
 		for(i=0; i<articleCaptionButtonElts.length; i++){
 			articleCaptionButtonElts[i].className = "btn btn-sm btn-danger";
