@@ -39,7 +39,7 @@ if(rowcustomElt.length === 2){
 
                 if (i % 2 === 0) {
                     var top = articleElt[i - 2].offsetTop + parseFloat(getComputedStyle(articleElt[i - 2]).height);
-                    top = top + 10;
+                    top = top + 20;
                     articleElt[i].style.top = "" + top + "px";
                     articleElt[i].style.left = '1%';
                     n = i;
@@ -47,7 +47,7 @@ if(rowcustomElt.length === 2){
 
                 if (i === n + 1) {
                     var top = articleElt[i - 2].offsetTop + parseFloat(getComputedStyle(articleElt[i - 2]).height);
-                    top = top + 10;
+                    top = top + 20;
                     articleElt[i].style.top = "" + top + "px";
                     articleElt[i].style.left = "50.5%";
                 }
