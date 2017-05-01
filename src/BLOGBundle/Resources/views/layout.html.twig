@@ -112,6 +112,13 @@
                                             <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
                                         </a>
                                     {% endif %}
+                                {% elseif app.request.attributes.get("_route") == "blog_homepage_admin" %}
+                                    <a href="{{ path("blog_homepage", {_locale: 'fr'} ) }}">
+                                        <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />
+                                    </a>
+                                    <a href="{{ path("blog_homepage", {_locale: 'es'} ) }}">
+                                        <img src="{{ asset('bundles/blog/picture/flagEs.png') }}" alt="Espagne" />
+                                    </a>
                                 {% else %}
                                     <a href="{{ path(app.request.attributes.get("_route"), {_locale:'fr'} ) }}">
                                         <img src="{{ asset('bundles/blog/picture/flagFr.png') }}" alt="France" />

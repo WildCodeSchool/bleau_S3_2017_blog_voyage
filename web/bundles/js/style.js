@@ -6,8 +6,9 @@
 // Définition des variables
 
 var sectionElt = document.getElementsByTagName('section');
-var rowcustomElt = document.getElementsByClassName('row-custom-homepage')[0];
+var rowcustomElt = document.getElementsByClassName('row-custom');
 var articleElt = document.getElementsByClassName('article-custom');
+var imgElt = document.getElementsByTagName('img');
 var containerDateElt = document.getElementsByClassName('container-dates');
 var buttonPublishElt = document.getElementById('publish');
 var buttonPublishEsElt = document.getElementById('publishEs');
@@ -20,25 +21,32 @@ var bodyElt = document.getElementsByTagName('body');
 var articleCaptionButtonElts = document.querySelectorAll('.article-caption button');
 var buttonCrossElt = document.getElementsByClassName('button-cross');
 
-function load(){
-    if (window.innerWidth <= 768 && window.innerWidth > 480) {
+
+
+function load() {
+if(rowcustomElt.length === 2){
+    if (window.innerWidth <= 1024 && window.innerWidth > 768) {
         for (i = 0; i < articleElt.length; i++) {
+            articleElt[i].style.width = "48.5%";
+            articleElt[i].style.position = "absolute";
+            articleElt[i].style.height = "auto";
+
             if (i > 0) {
                 var n;
-                if (i == 1) {
+                if (i === 1) {
                     articleElt[i].style.left = "50.5%";
                 }
 
-                if (i % 2 == 0) {
-                    var top = articleElt[i-2].offsetTop + parseFloat(getComputedStyle(articleElt[i - 2]).height);
+                if (i % 2 === 0) {
+                    var top = articleElt[i - 2].offsetTop + parseFloat(getComputedStyle(articleElt[i - 2]).height);
                     top = top + 10;
                     articleElt[i].style.top = "" + top + "px";
                     articleElt[i].style.left = '1%';
                     n = i;
                 }
 
-                if (i == n + 1) {
-                    var top = articleElt[i-2].offsetTop + parseFloat(getComputedStyle(articleElt[i - 2]).height);
+                if (i === n + 1) {
+                    var top = articleElt[i - 2].offsetTop + parseFloat(getComputedStyle(articleElt[i - 2]).height);
                     top = top + 10;
                     articleElt[i].style.top = "" + top + "px";
                     articleElt[i].style.left = "50.5%";
@@ -49,76 +57,97 @@ function load(){
             }
         }
         var lastRowChildren = [
-            articleElt[articleElt.length-2],
-            articleElt[articleElt.length-1]
+            articleElt[articleElt.length - 2],
+            articleElt[articleElt.length - 1]
         ];
 
         var arrayPositions = [];
-        for(i=0; i<lastRowChildren.length; i++){
+        for (i = 0; i < lastRowChildren.length; i++) {
             arrayPositions.push(lastRowChildren[i].offsetTop + parseFloat(getComputedStyle(lastRowChildren[i]).height));
         }
 
         var max = Math.max.apply(null, arrayPositions);
-        rowcustomElt.style.height = max + "px";
+        rowcustomElt[0].style.height = max + "px";
     }
 
-    if (window.innerWidth > 768) {
-        for (i=0; i<articleElt.length; i++) {
-            if(i>0) {
-                var n;
+    if (window.innerWidth > 1024) {
+        for (i = 0; i < articleElt.length; i++) {
+
+            articleElt[i].style.width = "33%";
+            articleElt[i].style.position = "absolute";
+            articleElt[i].style.height = "auto";
+
+            if (i > 0) {
+                var m;
                 var o;
-                if(i == 1){
+                if (i === 1) {
                     articleElt[i].style.top = "0";
                     articleElt[i].style.left = "33.5%";
                 }
-                if(i == 2){
+                if (i === 2) {
                     articleElt[i].style.top = "0";
                     articleElt[i].style.left = "66.75%";
                 }
 
-                if (i % 3 == 0) {
-                    var top = articleElt[i-3].offsetTop + parseFloat(getComputedStyle(articleElt[i-3]).height);
-                    top = top + 20;
-                    articleElt[i].style.top = "" + top + "px";
+                if (i % 3 === 0) {
+                    var topSup1024 = articleElt[i - 3].offsetTop + parseFloat(getComputedStyle(articleElt[i - 3]).height);
+                    topSup1024 = topSup1024 + 20;
+                    articleElt[i].style.top = "" + topSup1024 + "px";
                     articleElt[i].style.left = '.25%';
-                    n=i;
-                    console.log(top);
+                    m = i;
                 }
 
-                if (i == n+1){
-                    var top = articleElt[i-3].offsetTop + parseFloat(getComputedStyle(articleElt[i-3]).height);
-                    top = top + 20;
-                    articleElt[i].style.top = "" + top + "px";
+                if (i === m + 1) {
+                    var topSup1024 = articleElt[i - 3].offsetTop + parseFloat(getComputedStyle(articleElt[i - 3]).height);
+                    topSup1024 = topSup1024 + 20;
+                    articleElt[i].style.top = "" + topSup1024 + "px";
                     articleElt[i].style.left = "33.5%";
-                    o=i;
+                    o = i;
                 }
 
-                if(i == o+1){
-                    var top = articleElt[i-3].offsetTop + parseFloat(getComputedStyle(articleElt[i-3]).height);
-                    top = top + 20;
-                    articleElt[i].style.top = "" + top + "px";
+                if (i === o + 1) {
+                    var topSup1024 = articleElt[i - 3].offsetTop + parseFloat(getComputedStyle(articleElt[i - 3]).height);
+                    topSup1024 = topSup1024 + 20;
+                    articleElt[i].style.top = "" + topSup1024 + "px";
                     articleElt[i].style.left = "66.75%";
                 }
             }
-            else{
+            else {
                 articleElt[i].style.left = '.25%';
             }
         }
 
-        var lastRowChildrenSup768 = [
-            articleElt[articleElt.length-3],
-            articleElt[articleElt.length-2],
-            articleElt[articleElt.length-1]
+        var lastRowChildrenSup1024 = [
+            articleElt[articleElt.length - 3],
+            articleElt[articleElt.length - 2],
+            articleElt[articleElt.length - 1]
         ];
 
-        var arrayPositions = [];
-        for(i=0; i<lastRowChildrenSup768.length; i++){
-            arrayPositions.push(lastRowChildrenSup768[i].offsetTop + parseFloat(getComputedStyle(lastRowChildrenSup768[i]).height));
+        var arrayPositionsSup1024 = [];
+        for (i = 0; i < lastRowChildrenSup1024.length; i++) {
+            arrayPositionsSup1024.push(lastRowChildrenSup1024[i].offsetTop + parseFloat(getComputedStyle(lastRowChildrenSup1024[i]).height));
         }
 
-        var max = Math.max.apply(null, arrayPositions);
-        rowcustomElt.style.height = max + "px";
+        var maxSup1024 = Math.max.apply(null, arrayPositionsSup1024);
+        rowcustomElt[0].style.height = maxSup1024 + "px";
     }
+}
+
+else{
+    if (window.innerWidth >= 768) {
+        for (i = 0; i < imgElt.length; i++) {
+
+            // On mesure hauteur et largueur
+            var imgHeight = parseFloat(getComputedStyle(imgElt[i]).height);
+            var imgWidth = parseFloat(getComputedStyle(imgElt[i]).width);
+
+            // Si format portrait, ajout classe correspondante
+            if (imgHeight > imgWidth) {
+                imgElt[i].classList.add('vertical-img-resize');
+            }
+        }
+    }
+}
 
 	if(window.innerWidth <=380){
 		for(i=0; i<articleCaptionButtonElts.length; i++){

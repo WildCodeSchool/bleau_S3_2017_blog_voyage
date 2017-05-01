@@ -235,7 +235,7 @@ h1{
 .container-article, 
 .container-presentation{
     margin-top: 125px;
-    margin-bottom: 200px;
+    margin-bottom: 50px;
 }
 
 .container-dates{
@@ -708,33 +708,26 @@ textarea{
 
 /* PAGE D'ACCUEIL */
 
-.row-custom-homepage{
+.row-custom{
+    margin-top: 10px;
     position: relative;
-    min-height: 100%;
     padding: 0;
 }
 
 .article-custom{
-    position: absolute;
-    width: 33%;
+    position: relative;
     padding: 0;
     margin: 0;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    height: 300px;
     overflow: hidden;
-    margin-bottom: 30px;
-}
-
-.article-custom:last-child{
-    margin-bottom: 200px;
 }
 
 @media all and (max-width: 768px){
     .article-custom{
-        position: absolute;
-        padding: 0;
-        margin: 0;
-        margin-bottom: 5px;
-        margin-top: 5px;
-        width: 48.5%;
+        width: 100%;
+        height: auto;
         overflow: visible;
     }
 }
@@ -750,7 +743,6 @@ figure img{
     width: 100%;
 }
 
-/*
 .horizontal-img-resize{
     height: 100%;
     width: 100%;
@@ -761,8 +753,6 @@ figure img{
     height: 100%;
     margin: 0 auto;
 }
-
-*/
 
 .article-caption{
     position: absolute;

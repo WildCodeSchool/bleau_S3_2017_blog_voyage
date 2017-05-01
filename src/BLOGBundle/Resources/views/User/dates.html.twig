@@ -5,7 +5,7 @@
 {% block container %}
     <div class="container container-dates">
         {% block row %}
-            <div class="row row-custom">
+            <div class="row">
                 <div class="col-md-12">
 					{% if app.request.locale == 'fr' %}
 						<h1> Recherche par date </h1>
@@ -30,7 +30,7 @@
 					{% endif %}	
                 </div>
             </div>
-            <div class="row">
+            <div class="row row-custom">
                 {% for article in articles %}
                     <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
                         {% for image in article.image %}
