@@ -234,7 +234,7 @@ h1{
 .container-article, 
 .container-presentation{
     margin-top: 125px;
-    margin-bottom: 200px;
+    margin-bottom: 50px;
 }
 
 .container-dates{
@@ -707,6 +707,12 @@ textarea{
 
 /* PAGE D'ACCUEIL */
 
+.row-custom{
+    margin-top: 10px;
+    position: relative;
+    padding: 0;
+}
+
 .article-custom{
     position: relative;
     padding: 0;
@@ -717,13 +723,9 @@ textarea{
     overflow: hidden;
 }
 
-@media all and (max-width: 767px){
+@media all and (max-width: 768px){
     .article-custom{
-        position: relative;
-        padding: 0;
-        margin: 0;
-        margin-bottom: 5px;
-        margin-top: 5px;
+        width: 100%;
         height: auto;
         overflow: visible;
     }
@@ -749,7 +751,6 @@ figure img{
     width: auto;
     height: 100%;
     margin: 0 auto;
-
 }
 
 .article-caption{

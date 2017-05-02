@@ -58,7 +58,7 @@
 		<h1> Todos nuestros artículos </h1>
 	{% endif %}	
         {% block row %}
-            <div class="row">
+            <div class="row row-custom">
                 {% for article in articles %}
                     <div class="col-xs-12 col-sm-6 col-md-4 article-custom">
                         {% for image in article.image %}

@@ -107,7 +107,11 @@
                                 {% endif %}
                             {% endfor %}
 							{% if article.comment|length == 0 %}
-								<p> Pas de commentaire publié </p>
+                                {% if app.request.locale == "fr" %}
+								    <p> Pas de commentaire publié </p>
+                                {% else %}
+								    <p> Ninguno comentario </p>
+                                {% endif %}
 							{% endif %}
                         </div>
                     </div>
