@@ -1,6 +1,7 @@
 blog:
     resource: "@BLOGBundle/Resources/config/routing.yml"
     prefix:   /
+    schemes:  [https]
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
