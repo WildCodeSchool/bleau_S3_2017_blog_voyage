@@ -117,11 +117,26 @@ if(rowcustomElt.length === 2){
             }
         }
 
-        var lastRowChildrenSup1024 = [
-            articleElt[articleElt.length - 3],
-            articleElt[articleElt.length - 2],
-            articleElt[articleElt.length - 1]
-        ];
+        if(articleElt.length >= 3){
+            var lastRowChildrenSup1024 = [
+                    articleElt[articleElt.length - 3],
+                    articleElt[articleElt.length - 2],
+                    articleElt[articleElt.length - 1]
+                ];
+        }
+
+        if(articleElt.length >= 2){
+            var lastRowChildrenSup1024 = [
+                    articleElt[articleElt.length - 2],
+                    articleElt[articleElt.length - 1]
+                ];
+        }
+
+        if(articleElt.length >= 1){
+            var lastRowChildrenSup1024 = [
+                    articleElt[articleElt.length - 1]
+                ];
+        }
 
         var arrayPositionsSup1024 = [];
         for (i = 0; i < lastRowChildrenSup1024.length; i++) {
