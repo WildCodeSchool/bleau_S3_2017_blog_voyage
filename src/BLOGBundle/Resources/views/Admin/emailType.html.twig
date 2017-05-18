@@ -1,24 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>News</title>
+    <style>
 
+    </style>
+</head>
+<body>
+    <div>
+        <h1 style="text-align: center">{{ article_mail.titleFr }} - {{ article_mail.titleEs }}</h1>
 
-        <div style="" >
-            <h1>{{ article_mail.titleFr }}</h1>
-            <h1>{{ article_mail.titleEs }}</h1>
+        <img src="{{img}}" style="height: 400px; text-align: center" class="img-thu"/>
 
-            <img src="{{img}}" style="height: 400px" class="img-thu"/>
-
-            <div style="">
-                <p>{{ article_mail.content[0].content }}</p>
-                <p>{{ article_mail.content[0].contentEs }}</p>
-                <p>Catégories correspondant à l'article :
-                    {% for cat in article_mail.category %}
-                        {% if loop.last %}
-                            {{ cat.category}}
-                        {% else %}
+        <div>
+            <h3 style="text-align: center">Français</h3>
+            <p>{{ article_mail.content[0].content|nl2br }}</p>
+            <h3 style="text-align: center">Spanish</h3>
+            <p>{{ article_mail.content[0].contentEs|nl2br }}</p>
+            <p>Catégories correspondant à l'article :
+                {% for cat in article_mail.category %}
+                    {% if loop.last %}
+                        {{ cat.category}}
+                    {% else %}
                         {{ cat.category~', '  }}
-                        {% endif %}
-                    {% endfor %}
-                </p>
-                <i>Publié le {{ article_mail.date.date|date('d/m/Y h:m:s') }} </i>
-                <i>Si vous voulez vous désabonner à la NewsLetter, <a href="{{ path('blog_newsletter_delete', {id : email.id }) }}">clickez-ici</a> </i>
-            </div>
+                    {% endif %}
+                {% endfor %}
+            </p>
+            <i>Publié le {{ article_mail.date|date('d/m/Y h:m:s') }} </i>
+            <i>Si vous voulez vous désabonner à la NewsLetter, <a href="{{ path('blog_newsletter_delete', {id : email.id }) }}">clickez-ici</a> </i>
         </div>
+    </div>
+</body>
+</html>
+
+

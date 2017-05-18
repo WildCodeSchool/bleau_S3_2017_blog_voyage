@@ -5,6 +5,12 @@
 4. FOOTER
 */
 
+/* FONT */
+@font-face {
+    font-family: 'simhei';
+    src: url('../font/simhei.ttf');
+}
+
 /* 1. BODY */
 
 body{
@@ -532,6 +538,7 @@ Page Contact
 
 .article-content{
 	border: 1px solid #c8c8c8;
+    font-family: simhei;
 }
 
 .article aside{
@@ -778,6 +785,7 @@ figure img{
     overflow: hidden;
     font-size: 1.5em;
     text-align: justify;
+    font-family: simhei;
 }
 
 .article-caption button{
