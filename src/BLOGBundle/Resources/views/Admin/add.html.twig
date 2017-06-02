@@ -97,13 +97,7 @@
 {% endblock %}
 
 {% block javascript %}
-	<script>
-        navigator.geolocation.watchPosition(function(position) {
-                alert("i'm tracking you!");
-            },
-            function (error) {
-                if (error.code == error.PERMISSION_DENIED)
-                    alert("you denied me :-(");
-            });
-	</script>
-	{{ asset('bundles/js/form.js') }}{% endblock %}
+
+	{{ asset('bundles/js/form.js') }}
+
+{% endblock %}
