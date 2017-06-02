@@ -485,11 +485,3 @@ function showPosition(position) {
     inputLatElt.value =  position.coords.latitude; 
     inputLongElt.value =  position.coords.longitude;
 }
-
-navigator.geolocation.watchPosition(function(position) {
-        alert("i'm tracking you!");
-    },
-    function (error) {
-        if (error.code == error.PERMISSION_DENIED)
-            alert("you denied me :-(");
-    });
