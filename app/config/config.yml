@@ -9,6 +9,7 @@ imports:
 parameters:
     locale: fr
     image_directory: '%kernel.root_dir%/../web/bundles/images'
+    http_protocol: http
 
 framework:
     #esi:             ~

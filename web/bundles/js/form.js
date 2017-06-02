@@ -89,7 +89,7 @@ buttonContentElt[0].addEventListener('click', function(e){
     var buttonResetElt = document.createElement('button');
     buttonResetElt.setAttribute('class', 'btn btn-lg btn-danger');
     buttonResetElt.textContent = 'Vider le texte';
-	
+
 	var buttonResetEsElt = document.createElement('button');
     buttonResetEsElt.setAttribute('class', 'btn btn-lg btn-danger');
     buttonResetEsElt.textContent = 'Vider le texte';
@@ -102,14 +102,18 @@ buttonContentElt[0].addEventListener('click', function(e){
     pTextElt2.style.textAlign = 'center';
     pTextElt2.style.paddingBottom = '15px';
     pTextElt2.style.paddingTop = '15px';
-	pTextElt2.appendChild(buttonResetElt);
+
+    // TODO: Remettre le bouton vider text en fr
+	// pTextElt2.appendChild(buttonResetElt);
 	
 	var pTextElt3 = document.createElement('p');
     pTextElt3.style.margin = '0 auto';
     pTextElt3.style.textAlign = 'center';
     pTextElt3.style.paddingBottom = '15px';
     pTextElt3.style.paddingTop = '15px';
-	pTextElt3.appendChild(buttonResetEsElt);
+
+    // TODO: Remettre le bouton vider text en es
+    // pTextElt3.appendChild(buttonResetEsElt);
 
     // Création du label pour l'input texte
     var labelElt = document.createElement('label');
@@ -469,10 +473,11 @@ if(buttonEditElt){
 
 // Fonctions googleMaps
 
-
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Veuillez activer la géolocalisation");
     }
 }
 
@@ -481,5 +486,10 @@ function showPosition(position) {
     inputLongElt.value =  position.coords.longitude;
 }
 
-
-
+navigator.geolocation.watchPosition(function(position) {
+        alert("i'm tracking you!");
+    },
+    function (error) {
+        if (error.code == error.PERMISSION_DENIED)
+            alert("you denied me :-(");
+    });

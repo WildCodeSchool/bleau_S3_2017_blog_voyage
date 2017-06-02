@@ -204,11 +204,16 @@
 {% endblock %}
 {% block footer %}
     <footer>
-        {% if app.request.locale =='fr' %}
-            Tous droits réservés
-        {% else %}
-            Todos los derechos reservados
-        {% endif %}
+        <div class="row">
+            {% if app.request.locale =='fr' %}
+                Tous droits réservés
+            {% else %}
+                Todos los derechos reservados
+            {% endif %}
+        </div>
+        <div class="row">
+            <img width="100px" src="{{ asset('bundles/blog/picture/logo_orange_horizontal.jpg') }}" alt="logo_wcs">
+        </div>
     </footer>
 
 {% endblock %}
