@@ -10,4 +10,10 @@ namespace BLOGBundle\Repository;
  */
 class ContentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindLast($id){
+        $qb = $this->createQueryBuilder('i')
+            ->where('i.id > :id')
+            ->setParameter('id', $id);
+        return $qb->getQuery()->getResult();
+    }
 }

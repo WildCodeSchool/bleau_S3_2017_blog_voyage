@@ -64,6 +64,11 @@ class AdminController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid()) 
 		{
+
+		    // On récupère l'id de la dernière image entrée en bdd avec succès (id texte est nécessairement le même)
+		    $allImages = $em->getRepository('BLOGBundle:Image')->findAll();
+		    $idLastImg = $allImages[count($allImages)-1]->getId();
+
 			$checkFr = $request->request->get('categoryFr');	
 			$rowEs = $request->request->get('categoryEs'); // Création de nouveaux mots-clef en espagnol
 			$checkEs = []; // Est forcément nul si sélection de mot clef en français, ou pas d'ailleurs...
@@ -305,51 +310,112 @@ class AdminController extends Controller
 			$em->persist($article);
 			$em->flush();
 
-            /*
-            * Une fois les infos enregistrées, on envoie la newsletter
-            * On récupère les infos de la bdd
 
-            * mise en place de l'envoi swiftmailer
-            * if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie*/
-            if ($checkbox == "on") {
-//            recupérer directement le dernier article
-                $article_mail = $article;
-                $image_mail = $article_mail->getImage();
-                $image_mails = $image_mail[0]->getSrc();
+            // On récupère à nouveau toutes les images et on stocke le dernier id
+			$allImages = $em->getRepository('BLOGBundle:Image')->findAll();
+            $lastInsertedImg = $allImages[count($allImages)-1]->getId();
 
-                //recuperer chaque addresse mail a qui envoyer l'article
-//          
-                $em = $this->getDoctrine()->getManager();
+            // On recupère tous les textes et on stocke le dernier id
+            $allContents = $em->getRepository('BLOGBundle:Content')->findAll();
+            $lastInsertedContent = $allContents[count($allContents)-1]->getId();
 
-//           $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
-                $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
-                foreach ($email as $emails) {
 
-//            Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
-                    $message = \Swift_Message::newInstance()
-                        ->setSubject('Nouvel Article publié - Blog de Pierre & Raquel')
-                        ->setFrom('contact@decheznousacasina.fr')
-                        ->setTo($emails->getLien());
-//ici j'ajoute des images a ma vue
-                    $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
+            // Si l'id de la dernière image est différent de l'id du dernier texte, il y a décalage. On supprime tout ce qui a été créé
+            if($lastInsertedImg != $lastInsertedContent){
 
-                    $message->setBody(
-//
-                        $this->renderView(
-                            '@BLOG/Admin/emailType.html.twig',
-                            array('img' => $img,
-                                'article_mail' => $article_mail,
-                                'email' => $emails)
-                        ),
-                        'text/html'
-                    );
+                // Dans quel sens est le déficit ? On comble le côté déficitaire avant de supprimer. Autrement, le décalage restera avec les autoincrements suivants
+                if($lastInsertedImg < $lastInsertedContent){
+                    $delta = $lastInsertedContent - $lastInsertedImg;
 
-                    $this->get('mailer')->send($message);
+                    for($i=0; $i<$delta; ++$i){
+                        $image = new Image();
+                        $image->setSrc('plop.jpg');
+                        $image->setAlt('plop');
+                        $image->setArticle($article);
+                        $em->persist($image);
+                    }
+                    $em->flush();
+
                 }
-                // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+                else{
+                    $delta = $lastInsertedImg - $lastInsertedContent;
+
+                    for($i=0; $i<$delta; ++$i){
+                        $content = new Content();
+                        $content->setContent('plop.jpg');
+                        $content->setContentES('plop');
+                        $content->setArticle($article);
+                        $em->persist($content);
+                    }
+                    $em->flush();
+                }
+
+                $newImagesToDelete = $em->getRepository('BLOGBundle:Image')->myFindLast($idLastImg);
+                $newContentsToDelete = $em->getRepository('BLOGBundle:Content')->myFindLast($idLastImg);
+
+                foreach($newImagesToDelete as $newImageToDelete){
+                    $img = $this->getParameter('image_directory')."/".$newImageToDelete->getSrc();
+                    if(file_exists($img)){
+                        unlink($img);
+                    }
+                    $em->remove($newImageToDelete);
+                }
+
+                foreach($newContentsToDelete as $newContentToDelete){
+                    $em->remove($newContentToDelete);
+                }
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add("notice", "La création a échoué.");
+                return $this->redirectToRoute('admin_index');
             }
-            $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
-            return $this->redirectToRoute('admin_index');
+            else{
+                /*
+                * Une fois les infos enregistrées, on envoie la newsletter
+                * On récupère les infos de la bdd
+
+                * mise en place de l'envoi swiftmailer
+                * if()checkbox coché on récupère le premier content, la premiere image et la premiere catégorie*/
+                if ($checkbox == "on") {
+                    // recupérer directement le dernier article
+                    $article_mail = $article;
+                    $image_mail = $article_mail->getImage();
+                    $image_mails = $image_mail[0]->getSrc();
+
+                    // recuperer chaque addresse mail a qui envoyer l'article
+
+                    $em = $this->getDoctrine()->getManager();
+
+                    // $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+                    $email = $em->getRepository("BLOGBundle:NewsLetter")->findAll();
+                    foreach ($email as $emails) {
+
+                    // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+                        $message = \Swift_Message::newInstance()
+                            ->setSubject('Nouvel Article publié - Blog de Pierre & Raquel')
+                            ->setFrom('contact@decheznousacasina.fr')
+                            ->setTo($emails->getLien());
+                        //ici j'ajoute des images a ma vue
+                        $img = $message->embed(\Swift_Image::fromPath('../web/bundles/images/' . $image_mails));
+
+                        $message->setBody(
+
+                            $this->renderView(
+                                '@BLOG/Admin/emailType.html.twig',
+                                array('img' => $img,
+                                    'article_mail' => $article_mail,
+                                    'email' => $emails)
+                            ),
+                            'text/html'
+                        );
+
+                        $this->get('mailer')->send($message);
+                    }
+                    // Pas besoin de faire un persite sur $category car cascade définie dans ArticleORM
+                }
+                $request->getSession()->getFlashBag()->add("notice", "L'article a bien été créé.");
+                return $this->redirectToRoute('admin_index');
+            }
         }
 
         return $this->render('@BLOG/Admin/add.html.twig', array(
