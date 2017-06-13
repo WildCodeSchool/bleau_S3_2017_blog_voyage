@@ -63,152 +63,162 @@ if(resetFirstAddElt){
 	}
 }
 
+var nbContent = 1;
 // Ecoute du clic sur le bouton d'ajout de contenu
 buttonContentElt[0].addEventListener('click', function(e){
-	e.preventDefault();
+    e.preventDefault();
 
-    // Création du bouton de suppression de la div de contenu
-    var buttonRemoveElt = document.createElement('button');
-    buttonRemoveElt.setAttribute('class', 'btn btn-lg btn-danger')
-    buttonRemoveElt.textContent = 'Supprimer Image + Texte';
-	if(window.innerWidth<480){
-		buttonRemoveElt.style.marginBottom = '10px';
-		buttonRemoveElt.style.width = '100%';
-	}
+    if (nbContent < 6){
+
+        // Création du bouton de suppression de la div de contenu
+        var buttonRemoveElt = document.createElement('button');
+        buttonRemoveElt.setAttribute('class', 'btn btn-lg btn-danger')
+        buttonRemoveElt.textContent = 'Supprimer Image + Texte';
+        if(window.innerWidth<480){
+            buttonRemoveElt.style.marginBottom = '10px';
+            buttonRemoveElt.style.width = '100%';
+        }
 
 ///////////////////////////////////////////PARTIE TEXTE////////////////////////
-    var inputTextElt = document.createElement('textarea');
-    inputTextElt.setAttribute('name', 'contentFr[]');
-    inputTextElt.setAttribute('class', 'first-text');
+        var inputTextElt = document.createElement('textarea');
+        inputTextElt.setAttribute('name', 'contentFr[]');
+        inputTextElt.setAttribute('class', 'first-text');
 
-    var inputTextEsElt = document.createElement('textarea');
-    inputTextEsElt.setAttribute('name', 'contentEs[]');
-    inputTextEsElt.setAttribute('class', 'first-text');
-	
-	// Création du bouton de suppression
-    var buttonResetElt = document.createElement('button');
-    buttonResetElt.setAttribute('class', 'btn btn-lg btn-danger');
-    buttonResetElt.textContent = 'Vider le texte';
+        var inputTextEsElt = document.createElement('textarea');
+        inputTextEsElt.setAttribute('name', 'contentEs[]');
+        inputTextEsElt.setAttribute('class', 'first-text');
 
-	var buttonResetEsElt = document.createElement('button');
-    buttonResetEsElt.setAttribute('class', 'btn btn-lg btn-danger');
-    buttonResetEsElt.textContent = 'Vider le texte';
+        // Création du bouton de suppression
+        var buttonResetElt = document.createElement('button');
+        buttonResetElt.setAttribute('class', 'btn btn-lg btn-danger');
+        buttonResetElt.textContent = 'Vider le texte';
 
-    var pTextElt = document.createElement('p');
-    pTextElt.style.margin = "25px 0 25px 0";
+        var buttonResetEsElt = document.createElement('button');
+        buttonResetEsElt.setAttribute('class', 'btn btn-lg btn-danger');
+        buttonResetEsElt.textContent = 'Vider le texte';
 
-    var pTextElt2 = document.createElement('p');
-    pTextElt2.style.margin = '0 auto';
-    pTextElt2.style.textAlign = 'center';
-    pTextElt2.style.paddingBottom = '15px';
-    pTextElt2.style.paddingTop = '15px';
+        var pTextElt = document.createElement('p');
+        pTextElt.style.margin = "25px 0 25px 0";
 
-    // TODO: Remettre le bouton vider text en fr
-	// pTextElt2.appendChild(buttonResetElt);
-	
-	var pTextElt3 = document.createElement('p');
-    pTextElt3.style.margin = '0 auto';
-    pTextElt3.style.textAlign = 'center';
-    pTextElt3.style.paddingBottom = '15px';
-    pTextElt3.style.paddingTop = '15px';
+        var pTextElt2 = document.createElement('p');
+        pTextElt2.style.margin = '0 auto';
+        pTextElt2.style.textAlign = 'center';
+        pTextElt2.style.paddingBottom = '15px';
+        pTextElt2.style.paddingTop = '15px';
 
-    // TODO: Remettre le bouton vider text en es
-    // pTextElt3.appendChild(buttonResetEsElt);
+        // TODO: Remettre le bouton vider text en fr
+        // pTextElt2.appendChild(buttonResetElt);
 
-    // Création du label pour l'input texte
-    var labelElt = document.createElement('label');
-    labelElt.setAttribute('class', 'label-text');
-    labelElt.textContent = 'Texte en français';
+        var pTextElt3 = document.createElement('p');
+        pTextElt3.style.margin = '0 auto';
+        pTextElt3.style.textAlign = 'center';
+        pTextElt3.style.paddingBottom = '15px';
+        pTextElt3.style.paddingTop = '15px';
 
-    var labelEsElt = document.createElement('label');
-    labelEsElt.setAttribute('class', 'label-text');
-    labelEsElt.textContent = 'Texto en español';
+        // TODO: Remettre le bouton vider text en es
+        // pTextElt3.appendChild(buttonResetEsElt);
 
-	
-	if(window.innerWidth<480){
-		buttonResetElt.style.width = '100%';
-	}
+        // Création du label pour l'input texte
+        var labelElt = document.createElement('label');
+        labelElt.setAttribute('class', 'label-text');
+        labelElt.textContent = 'Texte en français';
 
-	// On imbrique les éléments pour le texte
-	// FR
-    pTextElt.appendChild(labelElt);
-    pTextElt.appendChild(inputTextElt);
-    pTextElt.appendChild(pTextElt2);
-	
-	// ES
-	pTextElt.appendChild(labelEsElt);
-	pTextElt.appendChild(inputTextEsElt);
-    pTextElt.appendChild(pTextElt3);
-	
-	// Bouton de suppression du block
-    pTextElt.appendChild(buttonRemoveElt);
- //////////////////////////PARTIE IMAGE///////////////////////////////////////////////////////////
+        var labelEsElt = document.createElement('label');
+        labelEsElt.setAttribute('class', 'label-text');
+        labelEsElt.textContent = 'Texto en español';
 
-    // Création de la balise p qui contiendra l'input type file
-    var pImgElt = document.createElement('p');
 
-    pImgElt.style.paddingTop = '5px';
-    pImgElt.style.paddingBottom = '5px';
-
-    // Création du label pour l'input image
-	var labelElt = document.createElement('label');
-    labelElt.setAttribute('class', 'label-image');
-    labelElt.textContent = 'Image ';
-
-    /***************************************************************************/
-    // Création de l'input
-    var inputImgElt = document.createElement('input');
-
-    function setAttributes(tab){
-        // On récupère les attributs tab[i] et leur valeur tab[i+1] avec une boucle et on les intègre à l'input
-        for(i=0; i<tab.length; i+=2){
-            inputImgElt.setAttribute(tab[i], tab[i+1]);
+        if(window.innerWidth<480){
+            buttonResetElt.style.width = '100%';
         }
+
+        // On imbrique les éléments pour le texte
+        // FR
+        pTextElt.appendChild(labelElt);
+        pTextElt.appendChild(inputTextElt);
+        pTextElt.appendChild(pTextElt2);
+
+        // ES
+        pTextElt.appendChild(labelEsElt);
+        pTextElt.appendChild(inputTextEsElt);
+        pTextElt.appendChild(pTextElt3);
+
+        // Bouton de suppression du block
+        pTextElt.appendChild(buttonRemoveElt);
+        //////////////////////////PARTIE IMAGE///////////////////////////////////////////////////////////
+
+        // Création de la balise p qui contiendra l'input type file
+        var pImgElt = document.createElement('p');
+
+        pImgElt.style.paddingTop = '5px';
+        pImgElt.style.paddingBottom = '5px';
+
+        // Création du label pour l'input image
+        var labelElt = document.createElement('label');
+        labelElt.setAttribute('class', 'label-image');
+        labelElt.textContent = 'Image ';
+
+        /***************************************************************************/
+        // Création de l'input
+        var inputImgElt = document.createElement('input');
+
+        function setAttributes(tab){
+            // On récupère les attributs tab[i] et leur valeur tab[i+1] avec une boucle et on les intègre à l'input
+            for(i=0; i<tab.length; i+=2){
+                inputImgElt.setAttribute(tab[i], tab[i+1]);
+            }
+        }
+
+        // On appelle la fonction et on lui envoie un tableau en argument
+        setAttributes(tab = ['type', 'file', 'name', 'src[]', 'class', 'inputFileNoUpload', 'required']);
+
+        /*********************************************************************************************/
+
+        pImgElt.appendChild(labelElt);
+        pImgElt.appendChild(inputImgElt);
+
+        // On écoute si fichier upload vide ou non et change la classe en vert ou rouge selon les cas
+        inputImgElt.addEventListener('change', function(e){
+            if(e.target.value !== ''){
+                this.className = 'inputFileUpload';
+            }
+            else{
+                this.className = 'inputFileNoUpload';
+            }
+        });
+
+        var divElt = document.createElement('div');
+        divElt.style.backgroundColor = "white";
+        divElt.style.margin = "25px 0 50px 0";
+        var pRemoveElt = document.createElement('p');
+
+
+        divElt.appendChild(pImgElt);
+        divElt.appendChild(pTextElt);
+        contentElt[0].appendChild(divElt);
+
+        buttonResetElt.addEventListener("click", function(e){
+            e.preventDefault();
+            inputTextElt.value = "";
+        });
+
+        buttonResetEsElt.addEventListener("click", function(e){
+            e.preventDefault();
+            inputTextEsElt.value = "";
+        });
+
+        // On retire le bloc de contenu si clic sur bouton supprimer correspondant
+        buttonRemoveElt.addEventListener('click', function(e){
+            e.preventDefault();
+            contentElt[0].removeChild(divElt);
+        });
+
+        nbContent++;
     }
-	
-    // On appelle la fonction et on lui envoie un tableau en argument
-    setAttributes(tab = ['type', 'file', 'name', 'src[]', 'class', 'inputFileNoUpload', 'required']);
+    else{
+        alert("Nombre de block maximum atteint, pour plus de lisibilité, veuillez créer un nouvel article. Merci et bon voyage :-p \n (nan en vrai c'est pour éviter d'avoir des problèmes lors de l'envoi des photos, lorsqu'il y en a trop d'un coup, ça bug ;-)");
+    }
 
-    /*********************************************************************************************/
-
-    pImgElt.appendChild(labelElt);
-    pImgElt.appendChild(inputImgElt);
-
-    // On écoute si fichier upload vide ou non et change la classe en vert ou rouge selon les cas
-    inputImgElt.addEventListener('change', function(e){
-        if(e.target.value !== ''){
-            this.className = 'inputFileUpload';
-        }
-        else{
-            this.className = 'inputFileNoUpload';
-        }
-    });
-
-    var divElt = document.createElement('div');
-    divElt.style.backgroundColor = "white";
-    divElt.style.margin = "25px 0 50px 0";
-    var pRemoveElt = document.createElement('p');
-
-
-    divElt.appendChild(pImgElt);
-    divElt.appendChild(pTextElt);
-    contentElt[0].appendChild(divElt);
-
-    buttonResetElt.addEventListener("click", function(e){
-        e.preventDefault();
-        inputTextElt.value = "";
-    });
-	
-	buttonResetEsElt.addEventListener("click", function(e){
-        e.preventDefault();
-        inputTextEsElt.value = "";
-    });
-
-    // On retire le bloc de contenu si clic sur bouton supprimer correspondant
-    buttonRemoveElt.addEventListener('click', function(e){
-        e.preventDefault();
-        contentElt[0].removeChild(divElt);
-    });
 });
 
 ///////////////////////////////PARTIE CATEGORIES///////////////////////////////////
