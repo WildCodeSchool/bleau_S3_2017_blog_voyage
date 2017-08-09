@@ -11,7 +11,7 @@
                         {% set size = imgsize(image.src) %}
                         {% if size.width >= size.height %}
                             {% set breack = true %}
-                            <img src="{{ asset('bundles/images/'~image.src)}}"/>
+                            <img src="{{ image.src | imagine_filter('xLarge') }}"/>
                         {% endif %}
                     {% endfor %}
                 {% endif %}
@@ -64,7 +64,7 @@
                         {% for image in article.image %}
                             {% if loop.first %}
                                 <figure>
-                                    <img src="{{ asset('bundles/images/'~image.src)}}" class="image"/>
+                                    <img src="{{ image.src | imagine_filter('xLarge') }}" class="image"/>
                                 </figure>
                             {% endif %}
                         {% endfor %}
@@ -111,13 +111,13 @@
 			{% if app.request.locale == 'fr' %}
 				var content =
 					"<div><b> Titre de l'article </b> : {{ article.titleFr }} </div><br /> " +
-					"<img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " +
+					"<img src='{{ article.image|first.src | imagine_filter('xLarge') }}' style='width: 150px;' /><br />  " +
 					" <br /> <div> <b> Publié le : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
 					" <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>En savoir plus</button></a>";
 			{% else %}
 				var content =
 					"<div> <b> Título del artículo</b> : {{ article.titleEs }} </div><br /> " +
-					"<img src='{{ asset('bundles/images/'~article.image|first.src) }}' style='width: 150px;' /><br />  " +
+					"<img src='{{ article.image|first.src | imagine_filter('xLarge') }}' style='width: 150px;' /><br />  " +
 					" <br /> <div> <b> Publicado el : </b> {{ article.date|date('d/m/Y') }} </div><br /> " +
 					" <a href='{{ path('blog_article', {id : article.id}) }}'><button class='btn btn-primary'>Saber más</button></a>";
 			{% endif %}

@@ -79,3 +79,23 @@ fos_user:
     from_email:
         address: you@example.com
         sender_name: You
+
+liip_imagine:
+    resolvers:
+        default:
+            web_path:
+                web_root: "%kernel.root_dir%/../web/"
+                cache_prefix: media/cache
+    loaders:
+        default:
+            filesystem:
+                data_root: "%image_directory%"
+    filter_sets:
+        cache: ~
+        # the name of the "filter set"
+        xLarge:
+            # adjust the image quality to 75%
+            quality: 70
+            # list of transformations to apply (the "filters")
+            filters:
+                 relative_resize: { widen: 1400 }
