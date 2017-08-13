@@ -1,13 +1,13 @@
 {% extends "layout.html.twig" %}
 
-{% block style %} {{ asset('bundles/css/style.css') }} {% endblock %}
+{% block style %} {{ asset('bundles/blog/css/style.css') }} {% endblock %}
 
 {% block error %}
 	{% block nav_error %}
 		<header>
         <nav class="navbar navbar-inverse navbar-custom navbar-custom-1201">
             <div class="container-fluid container-fluid-custom">
-                <a class="navbar-brand navbar-brand-custom" href="#"><img src="{{ asset('bundles/images/mandala.png') }}" alt='logo'/></a>
+                <a class="navbar-brand navbar-brand-custom" href="#"><img src="{{ asset('bundles/blog/images/mandala.png') }}" alt='logo'/></a>
 
                 <ul class="nav navbar-nav plop-nav">
 				{% if app.request.locale == 'fr' %}
@@ -30,7 +30,7 @@
         <nav class="navbar navbar-custom navbar-custom-1200">
             <div class="container-fluid container-fluid-custom">
 
-                <a class="navbar-brand navbar-brand-custom" href="{{ path('blog_homepage') }}"><img src="{{ asset('bundles/images/mandala.png') }}" alt='logo'/></a>
+                <a class="navbar-brand navbar-brand-custom" href="{{ path('blog_homepage') }}"><img src="{{ asset('bundles/blog/images/mandala.png') }}" alt='logo'/></a>
 
                 <div class="dropdown dropdown-custom">
                     <button class="btn btn-lg btn-hamburger-custom dropdown-toggle" type="button" data-toggle="dropdown">
