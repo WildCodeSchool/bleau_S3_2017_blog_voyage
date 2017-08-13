@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>{% block title %}{% endblock%}</title>
-    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/blog/vendor/bootstrap/dist/css/bootstrap.min.css') }}"/>
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="{% block style %}{% endblock %}"/>
@@ -58,10 +58,20 @@
 {% block footer %}
 {% endblock %}
 
-<script src="{{ asset('assets/vendor/jquery/dist/jquery.js') }}"></script>
-<script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
+<script src="{{ asset('bundles/blog/vendor/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('bundles/blog/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{% block javascript %}{% endblock %}"></script>
 <script src="{% block javascript_Admin_Index %}{% endblock %}"></script>
 {% block javascript_map %}{% endblock %}
+<script>
+    // Set default picture if load error
+    function defaultPicture(image)
+    {
+        image.onerror = "";
+        image.src = "https://c1.dmstatic.com/792/i/fronts/pie/no_image_w_large.gif";
+        image.width = "100%";
+        return true;
+    }
+</script>
 </body>
 </html>

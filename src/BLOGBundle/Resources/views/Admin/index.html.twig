@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Administration{% endblock%}
-{% block style %}{{ asset('bundles/css/admin.css') }}{% endblock %}
+{% block style %}{{ asset('bundles/blog/css/admin.css') }}{% endblock %}
 
 {% block add %}
     <div class="menu">
@@ -49,7 +49,7 @@
 							<div class="col-xs-offset-1 col-xs-3">
 								{%  for image in article.image %}
 									{% if loop.first %}
-										<img src="{{ asset('bundles/images/'~image.src) }}" class="image-admin"/>
+										<img src="{{ image.src | imagine_filter('xLarge') }}" class="image-admin" onerror="defaultPicture(this)"/>
 									{% endif %}
 								{% endfor %}
 							</div>
@@ -72,4 +72,4 @@
     </div>
 {% endblock %}
 
-{% block javascript_Admin_Index %} {{ asset('bundles/js/flash.js') }} {% endblock %}
+{% block javascript_Admin_Index %} {{ asset('bundles/blog/js/flash.js') }} {% endblock %}

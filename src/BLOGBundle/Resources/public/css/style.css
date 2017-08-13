@@ -1,0 +1,878 @@
+/*
+1. BODY
+2. NAVBAR
+3. CONTAINER
+4. FOOTER
+*/
+
+/* FONT */
+@font-face {
+    font-family: 'simhei';
+    src: url('../font/simhei.ttf');
+}
+
+/* 1. BODY */
+
+body{
+    font-family: 'Dancing Script', cursive;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+a:link
+{
+    text-decoration:none;
+}
+
+/* 2. NAVBAR */
+
+.navbar-custom{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    font-size: 2em;
+}
+
+.navbar-brand-custom{
+    margin: 0;
+    padding: 0;
+}
+
+.plop-nav{
+    position: relative;
+    width: 60%;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+#li-last-child{
+	display: flex;
+	justify-content: flex-end;
+}
+
+
+#li-last-child img{
+    width: 22px;
+    height: 15px;
+    margin: 5px 7px 0 7px;
+}
+
+.navbar-brand-custom img{
+    height: 100%;
+}
+
+.container-fluid-custom{
+    padding-left: 25px;
+	position: relative;
+}
+
+@media screen and (min-width: 1201px){
+
+    .navbar-custom-1200{
+        display: none;
+    }
+}
+
+/* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+	 
+#map{
+    width: 80%;
+	height: 400px;
+	padding: 0;
+	margin: 0 auto;
+}
+
+@media all and (max-width: 767px){
+	#map{
+		width: 100%;
+	}
+}
+
+/* Optional: Makes the sample page fill the window. */
+.container-map{
+    margin: 0;
+	width: 100%;
+    background: #fafafa;
+	margin-bottom: 50px;
+}
+
+#roadshow{
+    text-align: center;
+    justify-content: center;
+	font-size: 2.5em;
+	display: flex;
+	align-items: center;
+	color: darkblue;
+    padding: 20px 5px 20px 5px;
+}
+
+/* Menu avec dropdown si width <= 1200px */
+
+@media screen and (max-width: 1200px){
+
+    .navbar-custom-1201{
+        display: none;
+    }
+
+    .navbar-custom-1200{
+        text-align: right;
+        background: black;
+    }
+
+    .btn-hamburger-custom{
+        background: none;
+        border: none;
+    }
+
+    .dropdown-menu li{
+        font-size: 1.5em;
+    }
+
+    .glyphicon-menu-hamburger{
+        color: white;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .container-fluid-custom{
+        padding-left: 10px;
+    }
+}
+
+/*
+3. IMAGE PRINCIPALE
+*/
+
+section{
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+section img{
+    width: 100%;
+}
+
+section i{
+    color: white;
+    font-size: 2em;
+    margin: 0;
+    text-align: center;
+}
+
+.picture-caption{
+    position: absolute;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5);
+	padding: 10px;
+	width: 100%;
+	height: 30%;
+}
+
+h2{
+    color: white;
+    font-size: 3em;
+    margin: 0;
+    padding: 0;
+}
+
+
+.btn-custom{
+    font-size: 1.2em;
+    display: block;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1023px){
+    section{
+        display: none;
+    }
+}
+
+h1{    
+	margin: 0;
+    height: 200px;
+    display: flex;
+	justify-content: space-around;
+	align-items: center;
+    font-size: 5em;
+    text-align: center;
+	background: #fbfbfb;
+}
+
+@media screen and (max-width: 1023px){
+	h1{
+		margin-top: 50px;
+    }
+}	
+
+@media screen and (max-width: 480px){
+    h1{
+		margin-top: 50px;
+        font-size: 4em;
+    }
+}
+
+/* 3. CONTAINER */
+
+.container-homepage{
+    margin-bottom: 50px;
+	width: 100%;
+}
+
+.container-homepage h1{
+	margin-bottom: 50px;
+}
+
+/* 3.1 CONTAINER DES PAGES /ARTICLE/ID,  /DATES  ET /PRESENTATION */
+
+.container-dates,
+.container-article, 
+.container-presentation{
+    margin-top: 125px;
+    margin-bottom: 50px;
+}
+
+.container-dates{
+	width: 100%;
+}
+
+.container-dates h1,
+.container-presentation h1{
+	background: #fafafa;
+	color: #222; 
+	font-size: 4em;
+	height: 100px;
+	width: 75%;
+	margin: auto;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.container-dates input[type="submit"]{
+	width: 50%;
+	margin-top: 25px;
+}
+
+/* PAGE DATE - FORMULAIRE */
+
+.form-date{
+	font-size: 1.5em;
+	width: 50%;
+	margin: 0 auto;
+	border: 1px solid #d8d8d8;
+	text-align: center;
+	padding: 50px;
+}
+
+.form-date label{
+	font-size: 1.5em;
+}
+
+.form-date input[type="date"]{
+	font-size: 1.5em;
+}
+
+/* PAGE DATE - MEDIA QUERIES */
+
+@media all and (max-width: 767px){
+	.container-dates h1, 
+	.form-date,
+	.form-date input[type="submit"]{
+		width: 100%;
+	}
+	
+	.container-dates{
+		padding: 0;
+	}
+}
+
+@media all and (max-width: 600px){
+    .container-dates h1{
+        font-size: 3.25em;
+    }
+}
+
+/* PAGE PRESENTATION DU PROJET */
+
+.container-presentation img{
+	display: block;
+	margin: auto;
+	width: 75%;
+	border: 10px solid white;
+	outline: 1px solid #c8c8c8;
+}
+
+.container-presentation p{
+	border: 1px solid #c8c8c8;
+	font-size: 2em;
+	padding: 20px;
+	margin: auto;
+	margin-top: 10px;
+	text-align: justify;
+	width: 75%;
+}
+
+@media all and (max-width: 767px){
+	.container-presentation h1,
+	.container-presentation img, 
+	.container-presentation p{
+		width: 100%;
+	}
+}
+
+/*
+Page Contact
+
+*/
+
+.container-contact{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.container-contact h1{
+    height: 150px;
+    width: 70%;
+    margin: auto;
+    font-size: 3.5em;
+    margin-bottom: 25px;
+    background: #fcfcfc;
+    border: 1px solid #c8c8c8;
+}
+
+.container-contact label{
+    font-size: 2em;
+    margin: 10px 0 10px 0;
+    background: #d9534f;
+    width: 100%;
+    text-align: center;
+    color: white;
+    border-radius: 7px;
+}
+
+.form-contact{
+    margin: auto;
+    width: 70%;
+}
+
+@media all and (max-width: 767px){
+    .form-contact{
+        width: 100%;
+    }
+
+    .container-contact h1{
+        font-size: 3em;
+        width: 100%;
+    }
+}
+
+.container-contact input[type="text"],
+.container-contact input[type="email"],
+.container-contact textarea{
+    font-size:1.2em;
+    font-family: arial;
+}
+
+.container-contact input[type="submit"]{
+    display: block;
+    font-size:1.75em;
+    margin: auto;
+    margin-top: 20px;
+    width: 150px;
+}
+
+.container-contact textarea{
+    height: 150px;
+}
+
+/* PAGE CATEGORIES */
+.container-categ{
+    margin-bottom: 50px;
+    width: 100%;
+    text-align: center;
+    min-height: 60vh;
+}
+
+.container-categ h1{
+	background: #fafafa;
+	margin: auto;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.container-categ .alert{
+    background: #fcfcfc;
+    text-align: center;
+    font-size: 2em;
+}
+
+.form-cat{
+    text-align: center;
+	margin: 0 auto;
+	margin-top: 125px;
+	padding: 20px;
+}
+
+.form-cat label{
+	font-size: 2em;
+}
+
+.form-cat select{
+	width: 250px;
+	font-size: 2em;
+}
+
+.form-cat .submit{
+	font-size: 2em;
+}
+
+.form-cat input[type="submit"]{
+    width: 100px;
+}
+
+
+/* NEWSLETTER */
+.container-newsletter {
+    font-size: 2em;
+}
+
+.container-newsletter h3{
+    font-size: 1.5em;
+	padding: 0;
+	margin: 0;
+    font-weight: bold;
+}
+
+.newsletter-custom{
+    padding-top: 20px;
+    padding-bottom: 20px;
+	margin: 0;
+}
+
+#form-lien{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+    width: 30%;
+    margin-bottom: 10px;
+}
+
+.glyphicon-custom{
+    margin-right: 5px;
+}
+
+.form-control-custom{
+    font-size: 1em;
+}
+
+@media all and (max-width: 1200px){
+    #form-lien{
+        width: 50%;
+    }
+}
+
+@media all and (max-width: 767px){
+    #form-lien{
+        width: 75%;
+    }
+}
+
+@media all and (max-width: 480px){
+    #form-lien{
+        width: 95%;
+    }
+}
+
+/* PAGE ARTICLES */
+
+.article{
+    margin: 0 auto;
+    padding: 10px;
+    min-height: 100vh;
+}
+
+.article h1{
+	width: 90%;
+	margin: 0 auto;
+    display: flex;
+	align-items: center;
+	justify-content: center;
+    color: #333;
+	background: #f9f9f9;
+	font-size: 4em;
+	margin-bottom: 5px;
+}
+
+.article img{
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+	border: 15px solid white;
+	outline: 1px solid #d8d8d8;
+	box-shadow: 0 0 10px black;
+}
+
+.article p{
+    width: 90%;
+    margin: 0 auto;
+    text-align: justify;
+    font-size: 2em;
+    line-height: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    background: white;
+}
+
+.article-content{
+	border: 1px solid #c8c8c8;
+    font-family: simhei;
+}
+
+.article aside{
+	border: none;
+    color: #333;
+	width: 90%;
+	margin: 0 auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.article aside p{
+	font-size: 2em;
+	width: 100%;
+}
+
+.article aside p:nth-child(2){
+	text-align: center;
+	background: #f8f8f8;
+}
+
+@media all and (max-width: 767px){
+    .article img,
+	.article h1,
+    .article p, 
+	.article aside{
+        width: 100%;
+    }
+	
+	.article img{
+		border: 5px solid white;
+	}
+	
+	.article p{
+		padding: 10px;
+	}
+	
+	.article h1{
+		font-size: 3.5em;
+	}
+}
+
+@media all and (max-width: 480px){
+	.article h1{
+		font-size: 3em;
+	}
+}
+
+.modal-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	position: relative;
+}
+
+.modal-image img{
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+.modal-image-big{
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0,0,0,.7);
+}
+
+.button-cross{
+	background: black;
+	outline: none;
+	border: 2px solid white;
+	color: white;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+    display: none;
+	height: 40px;
+	width: 40px;
+	border-radius: 40px;
+}
+
+.comments{
+    color: black;
+    padding: 5px;
+    margin-top: 20px;
+	width: 90%;
+	margin: 0 auto;
+}
+
+.comments form{
+    margin-top: 20px;
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.comments button{
+    font-size: 1.5em;
+}
+
+.comments button:focus{
+	outline: none;
+}
+
+.comments
+label,
+input,
+textarea{
+    font-size: 2em;
+    width: 100%;
+}
+
+.comments-block{
+    display: none;
+}
+
+.comment{
+    background: white;
+    margin-bottom: 10px;
+}
+
+.comment p{
+    padding: 5px;
+    font-size: 2em;
+	border: 1px solid #c8c8c8;
+}
+
+.comment p:nth-child(2){
+    font-size: 1.75em;
+}
+
+.comments input[type=text], 
+textarea{
+    font-family: sans-serif;
+	font-size: 1em;
+}
+
+.comments textarea{
+	height: 200px;
+}
+
+.comments input[type="submit"]{
+    margin: 0 auto;
+    display: block;
+    width: 125px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+	font-size: 1.5em;
+}
+
+.button-range{
+    display: flex;
+	flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+@media all and (max-width: 767px){
+	.button-range button{
+		width: 100%;
+		margin: 5px;
+	}	
+}
+
+/********/
+
+/* PAGE D'ACCUEIL */
+
+.row-custom{
+    margin-top: 10px;
+    position: relative;
+    padding: 0;
+}
+
+.article-custom{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    height: 300px;
+    overflow: hidden;
+}
+
+@media all and (max-width: 768px){
+    .article-custom{
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+}
+
+figure{
+    width: 95%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+figure img{
+    display: block;
+    width: 100%;
+}
+
+.horizontal-img-resize{
+    height: 100%;
+    width: 100%;
+}
+
+.vertical-img-resize{
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.article-caption{
+    position: absolute;
+    top: 0;
+    left: 2.5%;
+    height: 100%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    overflow: hidden;
+}
+
+.article-caption h3{
+	text-align: center;
+    font-size: 2.5em;
+}
+
+.article-caption p{
+    width: 75%;
+    height: 30%;
+    overflow: hidden;
+    font-size: 1.5em;
+    text-align: justify;
+    font-family: simhei;
+}
+
+.article-caption button{
+    display: none;
+    font-size: 1.5em;
+}
+
+.article-caption i{
+    margin-top: 5px;
+    font-size: 1.5em;
+}	
+
+@media all and (max-width: 380px){
+	.article-caption h3{
+		font-size: 1.75em;
+	}
+	 
+	.article-caption p{
+		font-size: 1.5em;
+	}
+	
+	.article-caption i{
+		font-size: 1.25em;
+	}
+	
+	.article-caption button {
+		display: none;
+		font-size: 1.25em;
+	}
+}
+
+/* classe ajoutée à article-caption lorsque la souris passe sur l'article (mouseover) */
+
+.article-custom-show{
+    background: black;
+    transition: 1s;
+    color: white;
+    overflow: visible;
+}
+
+.article-custom-show a{
+    text-decoration: none;
+}
+
+.article-custom-show button{
+    display: block;
+    color: white;
+}
+
+/* NEWSLETTER */
+
+.newsletter{
+    font-size: 2.5em;
+    width: 100%;
+    margin: 0;
+}
+
+.newsletter input[type='text']{
+    font-size: .5em;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.newsletter input[type='submit']{
+    font-size: .8em;
+}
+
+/* 4. FOOTER */
+
+footer{
+    background: black;
+    height: 50px;
+    line-height: 50px;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0;
+}
+
+#alert-message p{
+    display: flex;
+    color: white;
+    align-items: center;
+    font-size: 1.5em;
+    height: 200px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    background: #b22222;
+}

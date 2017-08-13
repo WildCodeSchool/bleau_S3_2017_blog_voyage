@@ -36,7 +36,7 @@
                         {% for image in article.image %}
                             {% if loop.first %}
                                 <figure>
-                                    <img src="{{ image.src| imagine_filter('xLarge') }}" class="image"/>
+                                    <img src="{{ image.src| imagine_filter('xLarge') }}" class="image" onerror="defaultPicture(this)">/>
                                 </figure>
                             {% endif %}
                         {% endfor %}
@@ -69,4 +69,4 @@
     </div>
 {% endblock %}
 
-{%block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
+{%block javascript %}{{ asset('bundles/blog/js/style.js') }} {% endblock %}
