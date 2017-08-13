@@ -14,5 +14,5 @@
 !var/SymfonyRequirements.php
 /vendor/
 .bowerrc
-/web/bundles/images/
+/web/bundles/
 /web/media
