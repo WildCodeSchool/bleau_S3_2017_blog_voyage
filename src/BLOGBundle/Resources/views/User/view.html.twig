@@ -18,7 +18,7 @@
                                 {% if content.id == image.id %}
                                     {% if image.src is not empty %}
                                         <figcaption class="modal-image">
-                                            <img src="{{ asset('bundles/images/'~image.src ) }}" />
+                                            <img src="{{ image.src | imagine_filter('xLarge') }}" />
                                             <button class="button-cross glyphicon glyphicon-remove" ></button>
                                         </figcaption>
                                     {% endif %}
