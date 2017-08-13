@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block style %} {{ asset('bundles/css/admin.css') }} {% endblock %}
+{% block style %} {{ asset('bundles/blog/css/admin.css') }} {% endblock %}
 {% block title %}Administration{% endblock%}
 
 {% block form %}
@@ -39,8 +39,7 @@
 					{% if content.id == image.id %}
 					<div style="background: #f8f8f1; margin-bottom: 50px; padding: 5px; border: 1px solid #ccc;">
 						<div class="image-update">
-							<img src="{{ asset('bundles/images/'~image.src ) }}" class="edit-img"/>
-							<input type="hidden" name="src[]" value="{{ image.src }}"/>
+							<img src="{{ image.src | imagine_filter('xLarge') }}" class="edit-img" onerror="defaultPicture(this)"/>							<input type="hidden" name="src[]" value="{{ image.src }}"/>
 						</div>
 						<div class="text-update">
 							<label for="Fr" class="label-text"> Texte français </label>
@@ -106,5 +105,5 @@
 </div>
 {% endblock %}
 
-{% block javascript %}{{ asset('bundles/js/form.js') }}{% endblock %}
-{% block javascript_Admin_Index %} {{ asset('bundles/js/flash.js') }} {% endblock %}
+{% block javascript %}{{ asset('bundles/blog/js/form.js') }}{% endblock %}
+{% block javascript_Admin_Index %} {{ asset('bundles/blog/js/flash.js') }} {% endblock %}

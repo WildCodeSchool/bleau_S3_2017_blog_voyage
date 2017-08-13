@@ -1,6 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block style %}{{ asset('bundles/css/admin.css') }} {% endblock %}
+{% block style %}{{ asset('bundles/blog/css/admin.css') }} {% endblock %}
 
 {% block form %}
     <div class="menu menu-add">
@@ -24,8 +24,8 @@
 		<figure>
 			<figcaption> Ma photo de profil </figcaption>
 			{% if presentation.image is not empty %}
-				<img src="{{ asset('bundles/images/'~presentation.image) }}"/>
-			{% endif %}	
+                <img src="{{ presentation.image | imagine_filter('xLarge') }}" onerror="defaultPicture(this)"/>
+            {% endif %}
 		</figure>	
         <label for="image" class="label-titre"> Modifier l'image de profil </label>
         <input type="file" name="image" />
@@ -56,4 +56,4 @@
     {{ form_end(form) }}
 {% endblock %}
 
-{% block javascript_Admin_Index %} {{ asset('bundles/js/flash.js') }} {% endblock %}
+{% block javascript_Admin_Index %} {{ asset('bundles/blog/js/flash.js') }} {% endblock %}

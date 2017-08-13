@@ -3,7 +3,7 @@
 {% block title %} {{ parent() }} {% endblock %}
 
 {% block container %}
-    <div class="container container-article"
+    <div class="container container-article">
         {% block row %}
             <div class="row">
                 {% for article in articles %}
@@ -18,7 +18,7 @@
                                 {% if content.id == image.id %}
                                     {% if image.src is not empty %}
                                         <figcaption class="modal-image">
-                                            <img src="{{ image.src | imagine_filter('xLarge') }}" />
+                                            <img src="{{ image.src | imagine_filter('xLarge') }}" onerror="defaultPicture(this)"/>
                                             <button class="button-cross glyphicon glyphicon-remove" ></button>
                                         </figcaption>
                                     {% endif %}
@@ -123,4 +123,4 @@
 {% block footer %}
    {{ parent() }}
 {% endblock %}
-{% block javascript %}{{ asset('bundles/js/style.js') }} {% endblock %}
+{% block javascript %}{{ asset('bundles/blog/js/style.js') }} {% endblock %}
